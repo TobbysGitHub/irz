@@ -1,0 +1,188 @@
+<div class="panel panel-default">
+	<div class="panel-heading  footer-saveOrCancel">
+		<button type="button" class="btn btn-default btn-sm save-btn">保存</button><button type="button" class="btn btn-default btn-sm back-btn">取消</button>
+	</div>
+	<div class="panel-body form-parent" data-bind="with:editData">
+		<form class="rzAdjIntLeaseEditForm form-horizontal">
+		<div class="row panel slideParent">
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">期数</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="num" class="form-control content-w210-input"
+								data-bind="value:num,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">应还款日期</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="rptDate" class="form-control content-w210-input"
+								data-bind="value:rptDate,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">偿还期间</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="paydur" class="form-control content-w210-input"
+								data-bind="value:paydur,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">期间天数</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="durdays" class="form-control content-w210-input"
+								data-bind="value:durdays,enable:enableState">
+						</div>
+					</div>
+				</div>
+		
+
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">租赁利率(%)</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="leaseRate" class="form-control content-w210-input"
+								data-bind="value:leaseRate,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">应还款本金</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="rptAmt" class="form-control content-w210-input"
+								data-bind="value:rptAmt,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">应还款利息</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="rptInt" class="form-control content-w210-input"
+								data-bind="value:rptInt,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">应还款租金</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="rptRent" class="form-control content-w210-input"
+								data-bind="value:rptRent,enable:enableState">
+						</div>
+					</div>
+				</div>
+		
+
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">应还罚息</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="rptDefInt" class="form-control content-w210-input"
+								data-bind="value:rptDefInt,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">应支付手续费</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="payFee" class="form-control content-w210-input"
+								data-bind="value:payFee,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">应还款合计</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="rptTotal" class="form-control content-w210-input"
+								data-bind="value:rptTotal,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">剩余本金</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="residualAmt" class="form-control content-w210-input"
+								data-bind="value:residualAmt,enable:enableState">
+						</div>
+					</div>
+				</div>
+		
+
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">实际还款本金</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="actAmt" class="form-control content-w210-input"
+								data-bind="value:actAmt,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">实际还款利息</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="actInt" class="form-control content-w210-input"
+								data-bind="value:actInt,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">实际还款罚息</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="actDefInt" class="form-control content-w210-input"
+								data-bind="value:actDefInt,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">实际支付手续费</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="actPayFee" class="form-control content-w210-input"
+								data-bind="value:actPayFee,enable:enableState">
+						</div>
+					</div>
+				</div>
+			
+
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">实际还款合计</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="actTotal" class="form-control content-w210-input"
+								data-bind="value:actTotal,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">是否核销:Y是N否</label>
+						<div class="col-md-9 col-sm-8">
+							<select  name="isCheck" class="form-control content-w210-input"
+								data-bind="value:isCheck,enable:enableState">
+								<option value="Y">是</option>
+								<option value="N">否</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+

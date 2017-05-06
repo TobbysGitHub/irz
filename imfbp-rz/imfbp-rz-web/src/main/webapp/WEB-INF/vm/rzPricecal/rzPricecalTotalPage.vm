@@ -1,0 +1,146 @@
+	<style type="text/css">
+		html,body,#rzPricecalModule,.rzPricecalEdit{height:100%;}
+		.wrap{
+			
+			width: 98%;
+			height: 98%;
+		    padding:20px;
+			}
+			#content {
+				position: absolute;
+				top: 50px;
+				width: 100%;
+				bottom: 0;
+			padding-right:20px;
+			}
+
+			.wrap ul,li{
+				margin: 0;padding: 0 ;
+			}		
+			.head_name {
+				height: 77px;
+				padding-left:16px;
+			}			
+			.head_name h2 {
+				font-size: 14px;
+				font-family: "PingFang-SC-Medium";
+				color: #333333;
+				height: 20px;
+				font-weight: bold;
+			}
+			
+			.head_name p {
+				font-size: 14px;
+				color: #666666;
+				height: 20px;
+				font-weight: bold;
+			}
+			.tabb1{
+				border-bottom: 2px solid #EEEEEE;
+			}
+			.tabb1 li {
+				font-size: 14px;
+				text-align: center;
+				margin-right:10px;
+				list-style: none;
+				float: left;
+				width: 90px;
+				height: 27px;
+				cursor: pointer;
+			}
+			
+			 .tabb1 div {
+				width: 90px;
+				border-bottom: 2px solid #EEEEEE;
+				margin-top: 7px;
+				
+			}
+			.show-div{
+				display:none;
+			height:100%;
+			}
+			 .tabb1 span {
+				font-family: "PingFangSC-Regular";
+				font-size: 14px;
+				color: #999999;
+				font-weight: bold;
+			}
+			.tabb1 li:hover div {
+				border-color: #00A0E8;
+			}
+			
+			.tabb1 li:hover span {
+				color: #00A0E8;
+			}
+			
+			#content {
+				margin-top: 20px;
+			}
+			.tab-active span{
+				color: #00A0E8;
+			}
+			.tab-active div{
+				border-color: #00A0E8;
+			}
+			.div-active{
+				display:block;
+			}
+	
+		</style>
+
+<div class="wrap">
+			<nav class="tabb1">
+				<ul class="clearfix">
+					<li class="tab-active" data-router="">
+							<span>报价方案信息</span>
+							<div></div>
+					</li>
+					<li data-router="">
+							<span>测算结果信息</span>
+							<div></div>
+					</li>
+					
+				</ul>
+			</nav>
+			<div id="content">
+				<div class="show-div div-active">#parse("/WEB-INF/vm/rzPricecal/rzPricecalEdit.vm")</div>
+				<div class="show-div">#parse("/WEB-INF/vm/rzPricecalCf/rzPricecalCfTotalPage.vm")</div>
+			</div> 
+			<div style="float:right;margin-top:-35px" >
+				<button class="btn btn-action btn-py back-btn" click='function(){$("#rzPricecalModule").layoutMDI("back");}'>返回</button>
+			</div> 
+		</div>
+
+<script type="text/javascript">
+	var url = '';
+	jQuery(".tabb1 li").on("click", function() {
+	  debugger
+	   var state=$(document).data("state")
+	    if(state=="add"){
+	        if("测算结果信息".indexOf($(this).find("span").html())>-1){
+				layer.alert("请先保存报价方案的信息再查看测算结果的信息")
+				return
+			}
+		} 
+		jQuery(".tabb1 li").removeClass();
+		jQuery(this).addClass("tab-active");
+		if($(this).attr("data-router").length !=0){
+			$("#content>div").eq($(this).index()).html("")
+			var indexVal = $(this).index();
+			if(indexVal==2){
+				url = $(this).attr("data-router")+"?businessType=3&&businessId="+fkContactsClient;
+			}
+			$("#content>div").eq($(this).index()).load(url);
+		}
+		$("#content>div").removeClass("div-active");
+		$("#content>div").eq($(this).index()).addClass("div-active");
+		if($(this).index() == "1" || $(this).index() ==1) eqptmxClick($(".tabb li").eq(0));
+		
+	})
+	
+	/*function eqptClick(obj){
+		url='$homeModule.getTarget('/rzPricecalCf/toRzPricecalCfPage')';
+		$("#content>div").eq($(obj).index()).html("<iframe frameborder=0 width=100% height=100% marginheight=0 marginwidth=0  src="+url+"></iframe>")
+	}*/
+	
+	</script>

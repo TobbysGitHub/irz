@@ -1,0 +1,23 @@
+<div class="padding-5">
+	<div class="toolsbarPanel">
+		<h4 style="float:left">收付计划主表信息</h4>
+		<div class="btn-group" role="group">
+			<button type="button" class="btn  btn-action btn-small add-btn" >新增</button>
+			<button type="button" class="btn   btn-small remove-btn">删除</button>			
+			<button type="button" class="btn  btn-action btn-small edit-btn">修改</button>
+			<button type="button" class="btn  btn-action btn-small submit-btn" >提交</button>
+			<button type="button" class="btn  btn-small callback-btn">收回</button>
+			<button type="button" class="btn  btn-action btn-small approve-btn">审批</button>
+			<button type="button" class="btn   btn-small unapprove-btn">取消审批</button>
+			<button type="button" class="btn btn-action btn-small  comeout-btn" >生成罚息通知单</button>
+			<button type="button" class="btn btn-action btn-small linkapprove-btn">联查</button>
+			<button type="button" class="btn btn-action btn-small output-btn">导出</button>
+			<button type="button" class="btn btn-action btn-small refresh-btn">刷新</button>
+		</div>
+	</div>
+	<div class="grid rzDefInterestList"></div>
+	<ul id="pagination" class="pagination"></ul>
+	<h4>罚息计划子表信息</h4>
+	<div class="grid rzDefInterestPlanList"></div>
+	<ul id="pagination" class="pagination" style="display:none"></ul>
+</div>

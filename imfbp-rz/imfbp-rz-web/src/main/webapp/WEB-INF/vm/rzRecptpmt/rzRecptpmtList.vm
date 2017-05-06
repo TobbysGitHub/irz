@@ -1,0 +1,14 @@
+<div class="padding-5">
+	<div class="toolsbarPanel" style="text-align:right;padding-bottom:20px">
+		<div class="btn-group" role="group">
+			<button type="button" class="btn btn-action btn-small add-btn" >新增</button>
+			<button type="button" class="btn btn-out btn-small remove-btn">删除</button>
+			<button type="button" class="btn btn-action btn-small edit-btn">修改</button>
+			<button type="button" class="btn btn-out btn-small simple-btn stop-btn">停用</button>
+			<button type="button" class="btn btn-action btn-small simple-btn start-btn">启用</button>
+			<button type="button" class="btn btn-action btn-small refresh-btn">刷新</button>
+		</div>
+	</div>
+	<div class="grid rzRecptpmtList"></div>
+	<ul id="pagination" class="pagination"></ul>
+</div>

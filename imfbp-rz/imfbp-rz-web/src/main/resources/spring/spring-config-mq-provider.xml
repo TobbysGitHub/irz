@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:jdbc="http://www.springframework.org/schema/jdbc"  
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jee="http://www.springframework.org/schema/jee" 
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa" 
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/rabbit
+	    http://www.springframework.org/schema/rabbit/spring-rabbit-1.4.xsd
+	    http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd" 
+	    default-autowire="byName" default-lazy-init="false" >
+	    
+	    
+	<!-- fanout-exchange，作为发布-订阅模式使用。 由于RabbitMQ的发布订阅模型是根据多个queue，多个消费者订阅实现的。此处声明的exchange不必预先绑定queue， 
+		在消费者声明queue并绑定到该exchange即可。 -->
+	
+	
+	<rabbit:template id="fanoutTemplate" retry-template="retryConnTemplate" connection-factory="connectionFactory" />
+	<!-- 租户用户交换机、模板配置  end -->
+ 
+	<!-- 通用RabbitMQ producer声明 -->
+	<bean id="rabbitMQProducer" class="com.platform.common.utils.mq.rabbitmq.RabbitMQProducer">
+		<property name="rabbitTemplate" ref="fanoutTemplate"></property>
+	</bean>
+	
+	<rabbit:admin connection-factory="connectionFactory"/>
+	<!-- 增加失败重试机制，发送失败之后，会尝试重发三次，重发间隔(ms)为 第一次 initialInterval 此后：initialInterval*multiplier 
+		maxInterval ? maxInterval : initialInterval*multiplier。 配合集群使用的时候，当mq集群中一个down掉之后，重试机制尝试其他可用的mq。
+	 -->
+	<bean id="retryConnTemplate" class="org.springframework.retry.support.RetryTemplate">
+		<property name="backOffPolicy">
+			<bean class="org.springframework.retry.backoff.ExponentialBackOffPolicy">
+				<property name="initialInterval" value="${mq.initialInterval}" />
+				<property name="multiplier" value="${mq.multiplier}" />
+				<property name="maxInterval" value="${mq.maxInterval}" />
+			</bean>
+		</property>
+	</bean>
+		
+</beans>
+

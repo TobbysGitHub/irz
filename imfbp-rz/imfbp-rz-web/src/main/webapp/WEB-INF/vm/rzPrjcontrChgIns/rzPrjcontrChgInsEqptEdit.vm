@@ -1,0 +1,123 @@
+<div class="panel panel-default">
+    <div class="panel-heading ">
+        <button type="button" class="btn btn-default btn-sm save-btn" id="saveDetail">保存</button>
+        <button type="button" class="btn btn-default btn-sm back-btn">取消</button>
+    </div>
+    <div class="panel-body" data-bind="with:editDataEqpt">
+        <form class="rzPrjcontrChgInsEqptEditForm form-horizontal">
+            <div class="rateBaseInfo row panel slideParent">
+                <div class="col-xs-12 panel-heading" data-toggle="collapse" data-target="#rateBaseInfo">
+                    <h5>租赁物基本信息</h5><span class="glyphicon glyphicon-chevron-up"></span>
+                </div>
+                <div class="col-xs-12 panel-body collapse in" id="rateBaseInfo">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6" style="display:none">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">主键</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="pkPrjcontrChgInsEqpt" class="form-control" data-bind="value:pkPrjcontrChgInsEqpt,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6" style="display:none">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">项目合同保险信息主键</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="pkPrjcontrChgIns" class="form-control" data-bind="value:pkPrjcontrChgIns,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6" style="display:none">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">项目合同主键</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="pkPrjcontrChg" class="form-control" data-bind="value:pkPrjcontrChg,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">客户</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="pkCustomer" class="form-control" data-bind="value:pkCustomer,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">租赁设备</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <!--<input type="text" name="pkEqpt" class="form-control" data-bind="value:pkEqpt,enable:enableState">-->
+                                    <input type="text" name="pkEqpt" class="form-control"
+                                           data-bind = "enable:false"
+                                           data-imfbp-ref-bind="pkEqpt"
+                                           data-imfbp-ref-bind-field=""
+                                           data-imfbp-ref-value="">
+                                    <div class="icon-wrap ">
+                                        <i class="glyphicon glyphicon-th-list icon" id="icon"
+                                           name="pkEqpt"
+                                           data-imfbp-ref-name='eqptref'
+                                           data-imfbp-ref-fun="eqptRefCallFunction" data-imfbp-ref="ref"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">设备分类</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="eqptType" class="form-control" data-bind="value:eqptType,enable:false">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">设备价格（元）</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="eqptPrice" class="form-control" data-bind="value:eqptPrice,enable:false">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">设备数量</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="eqptNum" class="form-control" data-bind="value:eqptNum,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">设备总价（元）</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="eqptPriceTotal" class="form-control" data-bind="value:eqptPriceTotal,enable:false">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">交货日期</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <!--<input type="text" name="deliveryDate" class="form-control" data-bind="value:deliveryDate,enable:enableState">-->
+                                    <div class="input-group date form_hhg_date col-md-5"
+                                         data-date="" data-date-format="yyyy-MM-dd"
+                                         data-link-field="visitDate" data-link-format="yyyy-mm-dd">
+                                        <input class="form-control" size="16" name="deliveryDate"
+                                               type="text" data-bind="value:deliveryDate,enable:enableState"
+                                               value="" readonly style="width: 168px;">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar">
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

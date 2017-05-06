@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="rzBaseParam">
+
+	<!-- 結果集 -->
+	<resultMap id="rzBaseParamResult" type="com.imfbp.rz.domain.rzbaseparam.RzBaseParam">
+		<result property="pkBaseParam" column="pk_base_param" />
+		<result property="advNoticeDays" column="adv_notice_days" />
+		<result property="rpmtTerm" column="rpmt_term" />
+		<result property="isEnableAuth" column="is_enable_auth" />
+		<result property="finApprovalRole" column="fin_approval_role" />
+		<result property="overdueRate" column="overdue_rate" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="rzBaseParamField">
+		pk_base_param,adv_notice_days,rpmt_term,is_enable_auth,fin_approval_role,overdue_rate
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="condition">
+        <where>
+        	<if test="pkBaseParam != null and pkBaseParam != ''" >
+				and pk_base_param = #{pkBaseParam}
+			</if>
+        	<if test="advNoticeDays != null" >
+				and adv_notice_days = #{advNoticeDays}
+			</if>
+        	<if test="rpmtTerm != null" >
+				and rpmt_term = #{rpmtTerm}
+			</if>
+        	<if test="isEnableAuth != null and isEnableAuth != ''" >
+				and is_enable_auth = #{isEnableAuth}
+			</if>
+        	<if test="finApprovalRole != null and finApprovalRole != ''" >
+				and fin_approval_role = #{finApprovalRole}
+			</if>
+        	<if test="overdueRate != null" >
+				and overdue_rate = #{overdueRate}
+			</if>
+        </where>
+    </sql>
+    
+    <!-- 修改条件 -->
+	<sql id="updateByCondition">
+        <where>
+				<if test="parameter.pkBaseParam != null and parameter.pkBaseParam != ''" >
+					and pk_base_param = #{parameter.pkBaseParam}
+				</if>
+		    	<if test="parameter.advNoticeDays != null" >
+					and adv_notice_days = #{parameter.advNoticeDays}
+				</if>
+		    	<if test="parameter.rpmtTerm != null" >
+					and rpmt_term = #{parameter.rpmtTerm}
+				</if>
+				<if test="parameter.isEnableAuth != null and parameter.isEnableAuth != ''" >
+					and is_enable_auth = #{parameter.isEnableAuth}
+				</if>
+				<if test="parameter.finApprovalRole != null and parameter.finApprovalRole != ''" >
+					and fin_approval_role = #{parameter.finApprovalRole}
+				</if>
+		    	<if test="parameter.overdueRate != null" >
+					and overdue_rate = #{parameter.overdueRate}
+				</if>
+        </where>
+    </sql>
+    
+    <!-- 新增 -->	
+	<insert id="insertRzBaseParam" parameterType="rzBaseParam">
+		insert into rz_base_param
+			(pk_base_param,adv_notice_days,rpmt_term,is_enable_auth,fin_approval_role,overdue_rate ) 
+		values 
+			(#{pkBaseParam,jdbcType=CHAR},#{advNoticeDays,jdbcType=INTEGER},#{rpmtTerm,jdbcType=INTEGER},#{isEnableAuth,jdbcType=CHAR},#{finApprovalRole,jdbcType=CHAR},#{overdueRate,jdbcType=DECIMAL})
+    </insert>
+    
+    <!-- 批量新增 -->	
+	<insert id="insertBatchRzBaseParam" parameterType="java.util.List">
+       insert into rz_base_param
+			(pk_base_param,adv_notice_days,rpmt_term,is_enable_auth,fin_approval_role,overdue_rate ) 
+	   values
+	    <foreach collection="list" item="obj" index="index" separator="," >
+	    	(#{obj.pkBaseParam},#{obj.advNoticeDays},#{obj.rpmtTerm},#{obj.isEnableAuth},#{obj.finApprovalRole},#{obj.overdueRate})
+	    </foreach>
+   </insert>
+    
+    
+    <!-- 根据id删除 (删除数据库数据)-->
+    <delete id="deleteRzBaseParamById" parameterType="rzBaseParamQuery" >
+    	delete from rz_base_param  where pk_base_param = #{pkBaseParam} 
+    </delete>
+    
+    <!-- 根据条件删除 (删除数据库数据)-->
+    <delete id="deleteRzBaseParamByCondition" parameterType="rzBaseParamQuery" >
+    	delete from 
+    	rz_base_param<include refid="condition" /> 
+    </delete>
+    
+    <!-- 根据主键批量删除 (删除数据库数据)-->
+    <delete id="deleteRzBaseParamByBatchId" parameterType="rzBaseParamQuery" >
+    	delete from rz_base_param 
+    	where
+    	pk_base_param in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据id修改 -->
+    <update id="updateRzBaseParamById" parameterType="rzBaseParamQuery">
+		update  rz_base_param 
+		<set>
+			<if test="advNoticeDays != null " >
+				adv_notice_days = #{advNoticeDays},
+			</if>
+			<if test="rpmtTerm != null " >
+				rpmt_term = #{rpmtTerm},
+			</if>
+			<if test="isEnableAuth != null and isEnableAuth != '' " >
+				is_enable_auth = #{isEnableAuth},
+			</if>
+			<if test="finApprovalRole != null and finApprovalRole != '' " >
+				fin_approval_role = #{finApprovalRole},
+			</if>
+			<if test="overdueRate != null " >
+				overdue_rate = #{overdueRate},
+			</if>
+		</set>
+		where
+			pk_base_param = #{pkBaseParam} 
+    </update>
+    
+     <!-- 根据条件修改 -->
+    <update id="updateRzBaseParamByCondition" parameterType="map">
+		update  rz_base_param 
+		<set>
+		 		<if test="record.advNoticeDays != null">
+					adv_notice_days = #{record.advNoticeDays},
+				</if>
+		 		<if test="record.rpmtTerm != null">
+					rpmt_term = #{record.rpmtTerm},
+				</if>
+				<if test="record.isEnableAuth != null and record.isEnableAuth != ''">
+					is_enable_auth = #{record.isEnableAuth},
+				</if>
+				<if test="record.finApprovalRole != null and record.finApprovalRole != ''">
+					fin_approval_role = #{record.finApprovalRole},
+				</if>
+		 		<if test="record.overdueRate != null">
+					overdue_rate = #{record.overdueRate},
+				</if>
+		</set>
+		<include refid="updateByCondition" />
+    </update>
+    
+    <!-- 根据主键进行批量修改 -->
+    <update id="updateRzBaseParamByBatchId"  parameterType="java.util.List">
+    	<if test="list != null">
+	     <foreach collection="list" item='obj' separator=";" >
+	     update rz_base_param
+	     <set>
+		 		<if test="obj.advNoticeDays != null">
+					adv_notice_days = #{obj.advNoticeDays},
+				</if>
+		 		<if test="obj.rpmtTerm != null">
+					rpmt_term = #{obj.rpmtTerm},
+				</if>
+				<if test="obj.isEnableAuth != null and obj.isEnableAuth != ''">
+					is_enable_auth = #{obj.isEnableAuth},
+				</if>
+				<if test="obj.finApprovalRole != null and obj.finApprovalRole != ''">
+					fin_approval_role = #{obj.finApprovalRole},
+				</if>
+		 		<if test="obj.overdueRate != null">
+					overdue_rate = #{obj.overdueRate},
+				</if>
+			</set>
+			where
+				pk_base_param = #{obj.pkBaseParam} 
+	     </foreach>
+     	</if>
+    </update>
+    
+    <!-- 查询所有 -->
+    <select id="getRzBaseParamAll" parameterType="rzBaseParamQuery" resultMap="rzBaseParamResult">
+		SELECT 
+		<include refid="rzBaseParamField" />  
+		from  
+		rz_base_param<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询总数 -->
+	<select id="getRzBaseParamByPageCount" parameterType="rzBaseParamQuery" resultType="int">
+		SELECT count(*) from  rz_base_param
+		<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getRzBaseParamByPage" parameterType="rzBaseParamQuery" resultMap="rzBaseParamResult">
+		SELECT <include refid="rzBaseParamField" /> from rz_base_param
+		<include refid="condition" />
+		<if test="sort !=null">
+		    ORDER BY ${sort} ${order} 
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+	
+	<!-- 根据Id查询 -->
+	<select id="getRzBaseParamById" parameterType="rzBaseParamQuery" resultMap="rzBaseParamResult">
+		SELECT <include refid="rzBaseParamField" /> from  rz_base_param  where pk_base_param = #{pkBaseParam} 
+		 
+	</select>
+    
+</mapper>

@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="rzDocFile">
+
+	<!-- 結果集 -->
+	<resultMap id="rzDocFileResult" type="com.imfbp.rz.domain.rzdocfile.RzDocFile">
+		<result property="id" column="id" />
+		<result property="nodeCode" column="node_code" />
+		<result property="billId" column="bill_id" />
+		<result property="tenantId" column="tenant_id" />
+		<result property="creator" column="creator" />
+		<result property="createdtime" column="createdtime" />
+		<result property="operator" column="operator" />
+		<result property="operationtime" column="operationtime" />
+		<result property="modifier" column="modifier" />
+		<result property="modifiedtime" column="modifiedtime" />
+		<result property="ts" column="ts" />
+		<result property="dr" column="dr" />
+		<result property="filename" column="filename" />
+		<result property="description" column="description" />
+		<result property="uploader" column="uploader" />
+		<result property="uploadtime" column="uploadtime" />
+		<result property="filetype" column="filetype" />
+		<result property="filelength" column="filelength" />
+		<result property="fileFastdfsId" column="file_fastdfs_id" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="rzDocFileField">
+		id,node_code,bill_id,tenant_id,creator,createdtime,operator,operationtime,modifier,modifiedtime,ts,dr,filename,description,uploader,uploadtime,filetype,filelength,file_fastdfs_id
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="condition">
+        <where>
+       	 ifnull(dr,0) = 0
+        	<if test="id != null and id != ''" >
+				and id = #{id}
+			</if>
+        	<if test="nodeCode != null and nodeCode != ''" >
+				and node_code = #{nodeCode}
+			</if>
+        	<if test="billId != null and billId != ''" >
+				and bill_id = #{billId}
+			</if>
+        	<if test="tenantId != null and tenantId != ''" >
+				and tenant_id = #{tenantId}
+			</if>
+        	<if test="creator != null and creator != ''" >
+				and creator = #{creator}
+			</if>
+        	<if test="createdtime != null and createdtime != ''" >
+				and createdtime = #{createdtime}
+			</if>
+        	<if test="operator != null and operator != ''" >
+				and operator = #{operator}
+			</if>
+        	<if test="operationtime != null and operationtime != ''" >
+				and operationtime = #{operationtime}
+			</if>
+        	<if test="modifier != null and modifier != ''" >
+				and modifier = #{modifier}
+			</if>
+        	<if test="modifiedtime != null and modifiedtime != ''" >
+				and modifiedtime = #{modifiedtime}
+			</if>
+        	<if test="ts != null and ts != ''" >
+				and ts = #{ts}
+			</if>
+        	<if test="dr != null and dr != ''" >
+				and dr = #{dr}
+			</if>
+        	<if test="filename != null and filename != ''" >
+				and filename = #{filename}
+			</if>
+        	<if test="description != null and description != ''" >
+				and description = #{description}
+			</if>
+        	<if test="uploader != null and uploader != ''" >
+				and uploader = #{uploader}
+			</if>
+        	<if test="uploadtime != null and uploadtime != ''" >
+				and uploadtime = #{uploadtime}
+			</if>
+        	<if test="filetype != null and filetype != ''" >
+				and filetype = #{filetype}
+			</if>
+        	<if test="filelength != null" >
+				and filelength = #{filelength}
+			</if>
+        	<if test="fileFastdfsId != null and fileFastdfsId != ''" >
+				and file_fastdfs_id = #{fileFastdfsId}
+			</if>
+        </where>
+    </sql>
+    
+    <!-- 修改条件 -->
+	<sql id="updateByCondition">
+        <where>
+       	 ifnull(dr,0) = 0
+				<if test="parameter.id != null and parameter.id != ''" >
+					and id = #{parameter.id}
+				</if>
+				<if test="parameter.nodeCode != null and parameter.nodeCode != ''" >
+					and node_code = #{parameter.nodeCode}
+				</if>
+				<if test="parameter.billId != null and parameter.billId != ''" >
+					and bill_id = #{parameter.billId}
+				</if>
+				<if test="parameter.tenantId != null and parameter.tenantId != ''" >
+					and tenant_id = #{parameter.tenantId}
+				</if>
+				<if test="parameter.creator != null and parameter.creator != ''" >
+					and creator = #{parameter.creator}
+				</if>
+				<if test="parameter.createdtime != null and parameter.createdtime != ''" >
+					and createdtime = #{parameter.createdtime}
+				</if>
+				<if test="parameter.operator != null and parameter.operator != ''" >
+					and operator = #{parameter.operator}
+				</if>
+				<if test="parameter.operationtime != null and parameter.operationtime != ''" >
+					and operationtime = #{parameter.operationtime}
+				</if>
+				<if test="parameter.modifier != null and parameter.modifier != ''" >
+					and modifier = #{parameter.modifier}
+				</if>
+				<if test="parameter.modifiedtime != null and parameter.modifiedtime != ''" >
+					and modifiedtime = #{parameter.modifiedtime}
+				</if>
+				<if test="parameter.ts != null and parameter.ts != ''" >
+					and ts = #{parameter.ts}
+				</if>
+				<if test="parameter.dr != null and parameter.dr != ''" >
+					and dr = #{parameter.dr}
+				</if>
+				<if test="parameter.filename != null and parameter.filename != ''" >
+					and filename = #{parameter.filename}
+				</if>
+				<if test="parameter.description != null and parameter.description != ''" >
+					and description = #{parameter.description}
+				</if>
+				<if test="parameter.uploader != null and parameter.uploader != ''" >
+					and uploader = #{parameter.uploader}
+				</if>
+				<if test="parameter.uploadtime != null and parameter.uploadtime != ''" >
+					and uploadtime = #{parameter.uploadtime}
+				</if>
+				<if test="parameter.filetype != null and parameter.filetype != ''" >
+					and filetype = #{parameter.filetype}
+				</if>
+		    	<if test="parameter.filelength != null" >
+					and filelength = #{parameter.filelength}
+				</if>
+				<if test="parameter.fileFastdfsId != null and parameter.fileFastdfsId != ''" >
+					and file_fastdfs_id = #{parameter.fileFastdfsId}
+				</if>
+        </where>
+    </sql>
+    
+    <!-- 新增 -->	
+	<insert id="insertRzDocFile" parameterType="rzDocFile">
+		insert into rz_doc_file
+			(id,node_code,bill_id,tenant_id,creator,createdtime,operator,operationtime,modifier,modifiedtime,ts,dr,filename,description,uploader,uploadtime,filetype,filelength,file_fastdfs_id ) 
+		values 
+			(#{id,jdbcType=CHAR},#{nodeCode,jdbcType=VARCHAR},#{billId,jdbcType=CHAR},#{tenantId,jdbcType=CHAR},#{creator,jdbcType=CHAR},#{createdtime,jdbcType=CHAR},#{operator,jdbcType=CHAR},#{operationtime,jdbcType=CHAR},#{modifier,jdbcType=CHAR},#{modifiedtime,jdbcType=CHAR},#{ts,jdbcType=CHAR},#{dr,jdbcType=BIT},#{filename,jdbcType=VARCHAR},#{description,jdbcType=VARCHAR},#{uploader,jdbcType=CHAR},#{uploadtime,jdbcType=CHAR},#{filetype,jdbcType=VARCHAR},#{filelength,jdbcType=DECIMAL},#{fileFastdfsId,jdbcType=CHAR})
+    </insert>
+    
+	<!-- 根据id进行逻辑删除 (修改数据库数据为删除状态) -->
+    <update id="logicDeleteRzDocFileById" parameterType="rzDocFileQuery" >
+    	update rz_doc_file  set dr=1 where id = #{id} 
+    </update>
+    
+    <!-- 根据条件进行逻辑删除  (修改数据库数据为删除状态)-->
+    <update id="logicDeleteRzDocFileByCondition" parameterType="rzDocFileQuery" >
+    	update rz_doc_file set dr=1<include refid="condition" /> 
+    </update>
+    
+    <!-- 根据条件进行逻辑删除  (修改数据库数据为删除状态)-->
+    <update id="logicDeleteRzDocFileByBatchId" parameterType="map" >
+    	update boss_system set dr=1 
+    	where 
+    	id in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </update>
+    
+    <!-- 根据id删除 (删除数据库数据)-->
+    <delete id="deleteRzDocFileById" parameterType="rzDocFileQuery" >
+    	delete from rz_doc_file  where id = #{id} 
+    </delete>
+    
+    <!-- 根据条件删除 (删除数据库数据)-->
+    <delete id="deleteRzDocFileByCondition" parameterType="rzDocFileQuery" >
+    	delete 
+    	from 
+    	rz_doc_file<include refid="condition" /> 
+    </delete>
+    
+    <!-- 根据主键批量删除 (删除数据库数据)-->
+    <delete id="deleteRzDocFileByBatchId" parameterType="rzDocFileQuery" >
+    	delete from rz_doc_file 
+    	where
+    	id in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据id修改 -->
+    <update id="updateRzDocFileById" parameterType="rzDocFileQuery">
+		update  rz_doc_file 
+		<set>
+			<if test="nodeCode != null and nodeCode != '' " >
+				node_code = #{nodeCode},
+			</if>
+			<if test="billId != null and billId != '' " >
+				bill_id = #{billId},
+			</if>
+			<if test="tenantId != null and tenantId != '' " >
+				tenant_id = #{tenantId},
+			</if>
+			<if test="creator != null and creator != '' " >
+				creator = #{creator},
+			</if>
+			<if test="createdtime != null and createdtime != '' " >
+				createdtime = #{createdtime},
+			</if>
+			<if test="operator != null and operator != '' " >
+				operator = #{operator},
+			</if>
+			<if test="operationtime != null and operationtime != '' " >
+				operationtime = #{operationtime},
+			</if>
+			<if test="modifier != null and modifier != '' " >
+				modifier = #{modifier},
+			</if>
+			<if test="modifiedtime != null and modifiedtime != '' " >
+				modifiedtime = #{modifiedtime},
+			</if>
+			<if test="ts != null and ts != '' " >
+				ts = #{ts},
+			</if>
+			<if test="dr != null and dr != '' " >
+				dr = #{dr},
+			</if>
+			<if test="filename != null and filename != '' " >
+				filename = #{filename},
+			</if>
+			<if test="description != null and description != '' " >
+				description = #{description},
+			</if>
+			<if test="uploader != null and uploader != '' " >
+				uploader = #{uploader},
+			</if>
+			<if test="uploadtime != null and uploadtime != '' " >
+				uploadtime = #{uploadtime},
+			</if>
+			<if test="filetype != null and filetype != '' " >
+				filetype = #{filetype},
+			</if>
+			<if test="filelength != null " >
+				filelength = #{filelength},
+			</if>
+			<if test="fileFastdfsId != null and fileFastdfsId != '' " >
+				file_fastdfs_id = #{fileFastdfsId},
+			</if>
+		</set>
+		where
+			id = #{id} 
+    </update>
+    
+     <!-- 根据条件修改 -->
+    <update id="updateRzDocFileByCondition" parameterType="map">
+		update  rz_doc_file 
+		<set>
+				<if test="record.nodeCode != null and record.nodeCode != ''">
+					node_code = #{record.nodeCode},
+				</if>
+				<if test="record.billId != null and record.billId != ''">
+					bill_id = #{record.billId},
+				</if>
+				<if test="record.tenantId != null and record.tenantId != ''">
+					tenant_id = #{record.tenantId},
+				</if>
+				<if test="record.creator != null and record.creator != ''">
+					creator = #{record.creator},
+				</if>
+				<if test="record.createdtime != null and record.createdtime != ''">
+					createdtime = #{record.createdtime},
+				</if>
+				<if test="record.operator != null and record.operator != ''">
+					operator = #{record.operator},
+				</if>
+				<if test="record.operationtime != null and record.operationtime != ''">
+					operationtime = #{record.operationtime},
+				</if>
+				<if test="record.modifier != null and record.modifier != ''">
+					modifier = #{record.modifier},
+				</if>
+				<if test="record.modifiedtime != null and record.modifiedtime != ''">
+					modifiedtime = #{record.modifiedtime},
+				</if>
+				<if test="record.ts != null and record.ts != ''">
+					ts = #{record.ts},
+				</if>
+				<if test="record.dr != null and record.dr != ''">
+					dr = #{record.dr},
+				</if>
+				<if test="record.filename != null and record.filename != ''">
+					filename = #{record.filename},
+				</if>
+				<if test="record.description != null and record.description != ''">
+					description = #{record.description},
+				</if>
+				<if test="record.uploader != null and record.uploader != ''">
+					uploader = #{record.uploader},
+				</if>
+				<if test="record.uploadtime != null and record.uploadtime != ''">
+					uploadtime = #{record.uploadtime},
+				</if>
+				<if test="record.filetype != null and record.filetype != ''">
+					filetype = #{record.filetype},
+				</if>
+		 		<if test="record.filelength != null">
+					filelength = #{record.filelength},
+				</if>
+				<if test="record.fileFastdfsId != null and record.fileFastdfsId != ''">
+					file_fastdfs_id = #{record.fileFastdfsId},
+				</if>
+		</set>
+		<include refid="updateByCondition" />
+    </update>
+    
+    <!-- 查询所有 -->
+    <select id="getRzDocFileAll" parameterType="rzDocFileQuery" resultMap="rzDocFileResult">
+		SELECT 
+		<include refid="rzDocFileField" />  
+		from  
+		rz_doc_file<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询总数 -->
+	<select id="getRzDocFileByPageCount" parameterType="rzDocFileQuery" resultType="int">
+		SELECT count(*) from  rz_doc_file
+		<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getRzDocFileByPage" parameterType="rzDocFileQuery" resultMap="rzDocFileResult">
+		SELECT <include refid="rzDocFileField" /> from rz_doc_file
+		<include refid="condition" />
+		<if test="sort !=null">
+		    ORDER BY ${sort} ${order} 
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+	
+	<!-- 根据Id查询 -->
+	<select id="getRzDocFileById" parameterType="rzDocFileQuery" resultMap="rzDocFileResult">
+		SELECT <include refid="rzDocFileField" /> from  rz_doc_file  where id = #{id} 
+		and ifnull(dr,0) = 0
+		 
+	</select>
+    
+</mapper>

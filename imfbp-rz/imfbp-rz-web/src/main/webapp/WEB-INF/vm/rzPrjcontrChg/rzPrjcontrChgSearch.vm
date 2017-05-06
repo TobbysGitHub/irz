@@ -1,0 +1,832 @@
+<!-- search start  -->
+<div class="searchPanel padding-10" id="searchPanel">
+	<form class="form-horizontal">
+		<div class="searchContent  col-xs-8" data-bind="with:queryData">
+			<div class="row">
+                <div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+                    <div class="form-group">
+                        <label class="col-md-4 col-sm-4 control-label no-padding-right">客户名称</label>
+                        <div class="col-md-8 col-sm-8" style="width:160px;">
+                            <!--<input type="text" name="pkCustomer" class="form-control header-w150-input" data-bind="value:pkCustomer">-->
+                            <input type="text" name="pkCustomer" class="form-control header-w150-input"
+                                   data-bind="enable:false"
+                                   data-imfbp-ref-bind="pkCustomer"
+                                   data-imfbp-ref-bind-field="" data-imfbp-ref-value="">
+                            <div class="icon-wrap ">
+                                <i class="glyphicon glyphicon-th-list icon" id="icon"
+                                   name="pkCustomer"
+                                   data-imfbp-ref-name='customerref'
+                                   data-imfbp-ref-use = 'true'
+                                   data-imfbp-ref-fun="queryRefCallFunction" data-imfbp-ref="ref"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+                    <div class="form-group">
+                        <label class="col-md-4 col-sm-4 control-label no-padding-right">项目名称</label>
+                        <div class="col-md-8 col-sm-8" style="width:160px;">
+                            <input type="text" name="prjName" class="form-control header-w150-input" data-bind="value:prjName">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+                    <div class="form-group">
+                        <label class="col-md-4 col-sm-4 control-label no-padding-right" style="line-height:17px">合同起租日期</label>
+                        <div class="col-md-8 col-sm-8" style="width:160px;">
+                            <!--<input type="text" name="startLeaseDate" class="form-control header-w150-input" data-bind="value:startLeaseDate">-->
+                            <div class="" >
+                                <div class="input-group date form_hhg_date col-md-5"
+                                     data-date="" data-date-format="yyyy-MM-dd"
+                                     data-link-field="visitDate" data-link-format="yyyy-mm-dd">
+                                    <input class="form-control header-w150-input" size="16" name="startLeaseDate"
+                                           type="text" data-bind="value:startLeaseDate"
+                                           value="" readonly style="border-right:none !important;border-radius:4px 0 0 4px !important;width:111px !important;">
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar">
+									</span>
+								</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+                    <div class="form-group">
+                        <label class="col-md-4 col-sm-4 control-label no-padding-right">审批状态</label>
+                        <div class="col-md-8 col-sm-8" style="width:160px;">
+                            <!--<input type="text" name="approvestatus" class="form-control header-w150-input" data-bind="value:approvestatus">-->
+                            <select type="text" name="approvestatus" class="form-control header-w150-input"
+                                    data-bind="value:approvestatus">
+                                <option value="">请选择</option>
+                                <option value="0">自由</option>
+                                <option value="1">提交</option>
+                                <option value="2">审批中</option>
+                                <option value="3">审批通过</option>
+                                <option value="4">审批不通过</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+				<div class="col-md-3 col-sm-6" style="display:none;">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">主键</label>
+						<div class="col-md-8 col-sm-8" style="width:160px;">
+							<input type="text" name="pkPrjcontrChg" class="form-control header-w150-input" data-bind="value:pkPrjcontrChg">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6" style="display:none;">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">项目合同主键</label>
+						<div class="col-md-8 col-sm-8" style="width:160px;">
+							<input type="text" name="pkPrjcontr" class="form-control header-w150-input" data-bind="value:pkPrjcontr">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6" style="display:none;">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">项目评审主键</label>
+						<div class="col-md-8 col-sm-8" style="width:160px;">
+							<input type="text" name="pkPrjreview" class="form-control header-w150-input" data-bind="value:pkPrjreview">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6" style="display:none;">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">项目申请主键</label>
+						<div class="col-md-8 col-sm-8" style="width:160px;">
+							<input type="text" name="pkPrjapply" class="form-control header-w150-input" data-bind="value:pkPrjapply">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--******更多条件放这里********-->
+			<div class="hideRule">
+				<div class="row">
+                    <div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+                        <div class="form-group">
+                            <label class="col-md-4 col-sm-4 control-label no-padding-right">业务类型</label>
+                            <div class="col-md-8 col-sm-8" style="width:160px;">
+                                <!--<input type="text" name="busitype" class="form-control header-w150-input" data-bind="value:busitype">-->
+								<!--
+                                <input type="text" name="busitype" class="form-control header-w130-input"
+                                       data-bind = "enable:false"
+                                       data-imfbp-ref-bind="busitype"
+                                       data-imfbp-ref-bind-field="">
+                                <div class="icon-wrap ">
+                                    <i class="glyphicon glyphicon-th-list icon" id="icon"
+                                       name="busitype"
+                                       data-imfbp-ref-name='busytyperef'
+                                       data-imfbp-ref-fun="queryRefCallFunction" data-imfbp-ref="ref"></i>
+                                </div>
+                                -->
+                                <select name="busitype" class="form-control header-w150-input"
+                                        data-bind="options:busyTypeList,optionsText:function(item){return item.text;},optionsValue:function(item){return item.value},value:busitype,enable:enableState">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+					<!--
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">项目编号</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="prjCode" class="form-control header-w150-input" data-bind="value:prjCode">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">报价方案(报价测算主键)</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="pkPricecal" class="form-control header-w150-input" data-bind="value:pkPricecal">
+							</div>
+						</div>
+					</div>
+					-->
+				</div>
+				<!--
+				<div class="row">
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">租赁方式 0 直租、1 售后回租、2 其他</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="leaseway" class="form-control header-w150-input" data-bind="value:leaseway">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">租赁物类型 ： 0 有形动产、1 不动产</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="leasetype" class="form-control header-w150-input" data-bind="value:leasetype">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">项目来源，数据字典</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="prjSrc" class="form-control header-w150-input" data-bind="value:prjSrc">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">项目经理</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="pkUserManager" class="form-control header-w150-input" data-bind="value:pkUserManager">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">申请部门</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="pkDeptApply" class="form-control header-w150-input" data-bind="value:pkDeptApply">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">项目金额(元)</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="itemamt" class="form-control header-w150-input" data-bind="value:itemamt">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">项目余额(元)</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="itembal" class="form-control header-w150-input" data-bind="value:itembal">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">是否投保 ：Y 是 N否</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="isInsure" class="form-control header-w150-input" data-bind="value:isInsure">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">是否有担保：Y 是 N否</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="isGuar" class="form-control header-w150-input" data-bind="value:isGuar">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">合同编号</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="contrCode" class="form-control header-w150-input" data-bind="value:contrCode">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">合同名称</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="contrName" class="form-control header-w150-input" data-bind="value:contrName">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">合同年份</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="contrYear" class="form-control header-w150-input" data-bind="value:contrYear">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">合同金额(元)</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="contrAmt" class="form-control header-w150-input" data-bind="value:contrAmt">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">合同结束日期</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="endLeaseDate" class="form-control header-w150-input" data-bind="value:endLeaseDate">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">合同预计签订日期</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="planSignedDate" class="form-control header-w150-input" data-bind="value:planSignedDate">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">起租方式：0 投放即起租、1 先起租后投放</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="startLeaseway" class="form-control header-w150-input" data-bind="value:startLeaseway">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">币种主键</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="pkCurrency" class="form-control header-w150-input" data-bind="value:pkCurrency">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">合同类型：0 融资租赁合同、1 担保合同、2 买卖合同、3 抵质押合同、4 转让合同、5 租赁合同</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="contrType" class="form-control header-w150-input" data-bind="value:contrType">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">租金付款方式：0 现金、1 网银支付、2汇款、3承兑汇票、4支付宝</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="paymentmethod" class="form-control header-w150-input" data-bind="value:paymentmethod">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">调息类型：0 不调息、1 随基准调息、2 下一收租日调息</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="intType" class="form-control header-w150-input" data-bind="value:intType">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">合同签订日期</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="signedDate" class="form-control header-w150-input" data-bind="value:signedDate">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">合同签订人</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="pkUserSigned" class="form-control header-w150-input" data-bind="value:pkUserSigned">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">合同签订地址</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="signedAddress" class="form-control header-w150-input" data-bind="value:signedAddress">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">合同签订描述</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="signedRemark" class="form-control header-w150-input" data-bind="value:signedRemark">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">合同状态 :0 已生成、1 已生效、2 起租、3 已结清、4 已作废</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="contrStatus" class="form-control header-w150-input" data-bind="value:contrStatus">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">是否开票 ：Y 是 N否</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="isInvoice" class="form-control header-w150-input" data-bind="value:isInvoice">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">开票类型</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="invoiceType" class="form-control header-w150-input" data-bind="value:invoiceType">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">名义货价</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="nomPrice" class="form-control header-w150-input" data-bind="value:nomPrice">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">报价单号</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="priceno" class="form-control header-w150-input" data-bind="value:priceno">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">资产余值</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="residValue" class="form-control header-w150-input" data-bind="value:residValue">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">首付款金额</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="firstpmtamt" class="form-control header-w150-input" data-bind="value:firstpmtamt">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">融资金额</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="financeamt" class="form-control header-w150-input" data-bind="value:financeamt">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">0浮动 1 固定</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="ratetype" class="form-control header-w150-input" data-bind="value:ratetype">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">基准利率(%)</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="baserate" class="form-control header-w150-input" data-bind="value:baserate">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">上下浮比例(%)</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="floatpct" class="form-control header-w150-input" data-bind="value:floatpct">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">报价利率(%)</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="pricerate" class="form-control header-w150-input" data-bind="value:pricerate">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">租赁期限(月)</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="leaseprd" class="form-control header-w150-input" data-bind="value:leaseprd">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">计划收租日</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="planrentdate" class="form-control header-w150-input" data-bind="value:planrentdate">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">还款周期(月)</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="reptcycle" class="form-control header-w150-input" data-bind="value:reptcycle">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">还款方式：0 等额租金法、1等额本息法、2平息法、3自由还款法</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="reptway" class="form-control header-w150-input" data-bind="value:reptway">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">租金支付方式：0 期末支付、1 期初支付</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="paymentway" class="form-control header-w150-input" data-bind="value:paymentway">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">年化天数 360/365</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="yeardays" class="form-control header-w150-input" data-bind="value:yeardays">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">经营性每期租金</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="optamt" class="form-control header-w150-input" data-bind="value:optamt">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">客户保证金金额</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="depositamt" class="form-control header-w150-input" data-bind="value:depositamt">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">手续费收入总额（元）</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="feeIntotalAmt" class="form-control header-w150-input" data-bind="value:feeIntotalAmt">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">服务费支出总额（元）</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="scOuttotalAmt" class="form-control header-w150-input" data-bind="value:scOuttotalAmt">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">总利息（元）</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="intTotalAmt" class="form-control header-w150-input" data-bind="value:intTotalAmt">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">总本金（元）</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="prinTotalAmt" class="form-control header-w150-input" data-bind="value:prinTotalAmt">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">总租金（元）</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="rentTotalAmt" class="form-control header-w150-input" data-bind="value:rentTotalAmt">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">合同收益收益IRR(%)</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="irr" class="form-control header-w150-input" data-bind="value:irr">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">本金增值税率(%)：6%、11%、17%、零税率</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="prinVatrate" class="form-control header-w150-input" data-bind="value:prinVatrate">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">利息增值税率(%)：6%、11%、17%、零税率</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="intVatrate" class="form-control header-w150-input" data-bind="value:intVatrate">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">手续费税率(%)：6%、11%、17%、零税率</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="feetaxrate" class="form-control header-w150-input" data-bind="value:feetaxrate">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">服务费税率(%)：6%、11%、17%、零税率</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="sctaxrate" class="form-control header-w150-input" data-bind="value:sctaxrate">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">出租人主键</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="pkOrgLessor" class="form-control header-w150-input" data-bind="value:pkOrgLessor">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">备注</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="remark" class="form-control header-w150-input" data-bind="value:remark">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">推荐人(客户主键)</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="pkCustomerRcmd" class="form-control header-w150-input" data-bind="value:pkCustomerRcmd">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">备注(推荐)</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="remarkRcmd" class="form-control header-w150-input" data-bind="value:remarkRcmd">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">合同版本</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="contrVer" class="form-control header-w150-input" data-bind="value:contrVer">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">机构外键</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="pkOrg" class="form-control header-w150-input" data-bind="value:pkOrg">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">部门外键</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="pkDept" class="form-control header-w150-input" data-bind="value:pkDept">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">制单人</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="billmaker" class="form-control header-w150-input" data-bind="value:billmaker">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">制单日期</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="billdate" class="form-control header-w150-input" data-bind="value:billdate">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">审批人</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="approveid" class="form-control header-w150-input" data-bind="value:approveid">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">审批时间</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="approvedate" class="form-control header-w150-input" data-bind="value:approvedate">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">审批语</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="approvenote" class="form-control header-w150-input" data-bind="value:approvenote">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">录入人</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="operator" class="form-control header-w150-input" data-bind="value:operator">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">录入时间</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="operatordatetime" class="form-control header-w150-input" data-bind="value:operatordatetime">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">修改人</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="modifor" class="form-control header-w150-input" data-bind="value:modifor">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">修改时间</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="modifydatetime" class="form-control header-w150-input" data-bind="value:modifydatetime">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">流程实例ID</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="flowinstanceid" class="form-control header-w150-input" data-bind="value:flowinstanceid">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">ts</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="ts" class="form-control header-w150-input" data-bind="value:ts">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">0 未删除 1已删除</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="dr" class="form-control header-w150-input" data-bind="value:dr">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">def1</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="def1" class="form-control header-w150-input" data-bind="value:def1">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">def2</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="def2" class="form-control header-w150-input" data-bind="value:def2">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">def3</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="def3" class="form-control header-w150-input" data-bind="value:def3">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">def4</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="def4" class="form-control header-w150-input" data-bind="value:def4">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">def5</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="def5" class="form-control header-w150-input" data-bind="value:def5">
+							</div>
+						</div>
+					</div>
+				</div>
+				-->
+			</div>
+		</div>
+		<!-- 展开更多的一行-->
+		<div class="searchToolsbar">
+			<div data-target=".hideRule" data-toggle="collapse" class="moreRule">
+				<span>展开更多查询条件</span>
+				<i class="glyphicon glyphicon-triangle-bottom"></i>
+			</div>
+			<div class="search-box">
+				<button type="button" class="btn btn-default btn-sm reset-btn">重置</button>
+				<button type="button" class="btn btn-default btn-sm search-btn">查询</button>
+			</div>
+		</div>
+	</form>
+</div>
+<!-- search end -->

@@ -1,0 +1,111 @@
+.u-msg-dialog {
+	position: fixed;
+	left: 0;
+	right: 0;
+	background-color: #fff;
+	padding: 0;
+	max-height: 70%;
+	width: 500px;
+	margin: auto;
+	border-radius: 2px;
+	will-change: top, opacity;
+	display: block;
+	filter: alpha(opacity = 1);
+	opacity: 1;
+	filter: alpha(opacity = 100) \9;
+	-webkit-transform: scaleX(1);
+	transform: scaleX(1);
+	top: 10%;
+	box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0
+		rgba(0, 0, 0, 0.21);
+}
+
+@media only screen and (max-width: 992px) {
+	.u-msg-dialog {
+		width: 30%;
+	}
+}
+
+.u-msg-dialog .u-msg-title {
+	padding-left: 24px;
+	padding-top: 14px;
+	border: 1px solid #EEEEEE;
+	border-radius: 3px;
+	background-color: #F7F7F7;
+	height: 50px;
+}
+
+.u-msg-dialog h4 {
+	margin: 0px;
+}
+
+.u-msg-dialog .u-msg-content {
+	padding: 24px;
+	/**去掉浮动**/
+	 overflow: scroll;
+	width: 100%;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	padding-right: 80px;
+}
+
+.u-msg-dialog .u-msg-content h4 {
+	margin-top: 0px;
+}
+
+.u-msg-dialog .u-msg-footer {
+	border-radius: 0 0 2px 2px;
+	background-color: #F7F7F7;
+	padding: 4px 6px;
+	height: 56px;
+	width: 100%;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	border-radius: 3px;
+	text-align: right;
+	padding-top: 10px;
+}
+
+.u-msg-dialog .u-msg-button, .u-msg-dialog .u-msg-ok, .u-msg-dialog .u-msg-cancel,
+	.u-msg-dialog .u-msg-close {
+	float: right;
+}
+
+.u-msg-dialog .u-msg-close {
+	cursor: pointer;
+	font-size: 21px;
+	padding: 15px;
+	padding-top: 14px;
+	padding-bottom: 0px;
+	color: #333;
+	filter: alpha(opacity = 50);
+	-moz-opacity: 0.5;
+	-khtml-opacity: 0.5;
+	opacity: .5;
+}
+
+.u-overlay, .u-msg-dialog {
+	z-index: 999 !important;
+}
+
+.u-msg-footer .save-btn {
+	background-color: #00A0E8
+}
+
+ .queryFormStyle {
+            display: block;
+            z-index: 999;
+            position: absolute;
+            width: 400px;
+            top:0px;
+            background-color: white;
+            border: 1px solid;
+            border-top: none;
+            border-color: #D3D3D3;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-left: 25px;
+            padding-right: 15px;
+        }

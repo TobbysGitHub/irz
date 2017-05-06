@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+	    http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd"
+	default-autowire="byName">
+
+	<description>Spring 持久层公共配置 </description>
+	
+	<bean id="rzBaseParamDao" class="com.imfbp.rz.dao.rzbaseparam.impl.RzBaseParamDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzRiskTypeDao" class="com.imfbp.rz.dao.rzrisktype.impl.RzRiskTypeDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+
+	<bean id="rzEqptDao" class="com.imfbp.rz.dao.rzeqpt.impl.RzEqptDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzPricecalDao" class="com.imfbp.rz.dao.rzpricecal.impl.RzPricecalDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzPricecalCfDao" class="com.imfbp.rz.dao.rzpricecalcf.impl.RzPricecalCfDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzPricecalEqptDao"
+		class="com.imfbp.rz.dao.rzpricecaleqpt.impl.RzPricecalEqptDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+
+	<bean id="rzPricecalLeaseDao"
+		class="com.imfbp.rz.dao.rzpricecallease.impl.RzPricecalLeaseDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzRateDao" class="com.imfbp.rz.dao.rzrate.impl.RzRateDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzRateBDao" class="com.imfbp.rz.dao.rzrateb.impl.RzRateBDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzRateprdDao" class="com.imfbp.rz.dao.rzrateprd.impl.RzRateprdDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzRecptpmtDao" class="com.imfbp.rz.dao.rzrecptpmt.impl.RzRecptpmtDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+
+	<bean id="pubFileinfoDao" class="com.imfbp.rz.dao.pubfileinfo.impl.PubFileinfoDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="pubFilestoreDao" class="com.imfbp.rz.dao.pubfilestore.impl.PubFilestoreDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+
+	<bean id="rzPrjapplyDao" class="com.imfbp.rz.dao.rzprjapply.impl.RzPrjapplyDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+
+	<bean id="rzPrjapplyEqptDao"
+		class="com.imfbp.rz.dao.rzprjapplyeqpt.impl.RzPrjapplyEqptDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+
+	<bean id="rzPrjreviewDao" class="com.imfbp.rz.dao.rzprjreview.impl.RzPrjreviewDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzPrjreviewEqptDao" class="com.imfbp.rz.dao.rzprjrevieweqpt.impl.RzPrjreviewEqptDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzPrjreviewGuarDao" class="com.imfbp.rz.dao.rzprjreviewguar.impl.RzPrjreviewGuarDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzPrjreviewGuarBDao" class="com.imfbp.rz.dao.rzprjreviewguarb.impl.RzPrjreviewGuarBDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+
+	<bean id="rzPrjreviewLesseeDao" class="com.imfbp.rz.dao.rzprjreviewlessee.impl.RzPrjreviewLesseeDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzPrjreviewSupplierDao" class="com.imfbp.rz.dao.rzprjreviewsupplier.impl.RzPrjreviewSupplierDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzPrjcontrDao" class="com.imfbp.rz.dao.rzprjcontr.impl.RzPrjcontrDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzPrjcontrEqptDao" class="com.imfbp.rz.dao.rzprjcontreqpt.impl.RzPrjcontrEqptDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+
+	<bean id="rzPrjcontrLesseeDao" class="com.imfbp.rz.dao.rzprjcontrlessee.impl.RzPrjcontrLesseeDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzPrjcontrPurDao" class="com.imfbp.rz.dao.rzprjcontrpur.impl.RzPrjcontrPurDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+
+	<bean id="rzPrjcontrSupplierDao" class="com.imfbp.rz.dao.rzprjcontrsupplier.impl.RzPrjcontrSupplierDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzPrjcontrGuarDao" class="com.imfbp.rz.dao.rzprjcontrguar.impl.RzPrjcontrGuarDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzPrjcontrGuarBDao" class="com.imfbp.rz.dao.rzprjcontrguarb.impl.RzPrjcontrGuarBDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+
+	<bean id="rzPrjcontrInsDao" class="com.imfbp.rz.dao.rzprjcontrins.impl.RzPrjcontrInsDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzPrjcontrInsEqptDao" class="com.imfbp.rz.dao.rzprjcontrinseqpt.impl.RzPrjcontrInsEqptDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzPrjcontrCfDao" class="com.imfbp.rz.dao.rzprjcontrcf.impl.RzPrjcontrCfDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<!-- 合同变更 -->
+	<bean id="rzPrjcontrChgDao" class="com.imfbp.rz.dao.rzprjcontrchg.impl.RzPrjcontrChgDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzPrjcontrChgEqptDao" class="com.imfbp.rz.dao.rzprjcontrchgeqpt.impl.RzPrjcontrChgEqptDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzPrjcontrChgGuarDao" class="com.imfbp.rz.dao.rzprjcontrchgguar.impl.RzPrjcontrChgGuarDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzPrjcontrChgGuarBDao" class="com.imfbp.rz.dao.rzprjcontrchgguarb.impl.RzPrjcontrChgGuarBDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzPrjcontrChgInsDao" class="com.imfbp.rz.dao.rzprjcontrchgins.impl.RzPrjcontrChgInsDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzPrjcontrChgInsEqptDao" class="com.imfbp.rz.dao.rzprjcontrchginseqpt.impl.RzPrjcontrChgInsEqptDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzPrjcontrChgLesseeDao" class="com.imfbp.rz.dao.rzprjcontrchglessee.impl.RzPrjcontrChgLesseeDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzPrjcontrChgPurDao" class="com.imfbp.rz.dao.rzprjcontrchgpur.impl.RzPrjcontrChgPurDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+
+	<bean id="rzPrjcontrChgSupplierDao" class="com.imfbp.rz.dao.rzprjcontrchgsupplier.impl.RzPrjcontrChgSupplierDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzPmtPlanDao" class="com.imfbp.rz.dao.rzpmtplan.impl.RzPmtPlanDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzPmtPlanCfDao" class="com.imfbp.rz.dao.rzpmtplancf.impl.RzPmtPlanCfDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+
+	<bean id="rzPmtPlanLeaseDao" class="com.imfbp.rz.dao.rzpmtplanlease.impl.RzPmtPlanLeaseDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzAdjIntDao" class="com.imfbp.rz.dao.rzadjint.impl.RzAdjIntDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzAdjIntLeaseDao" class="com.imfbp.rz.dao.rzadjintlease.impl.RzAdjIntLeaseDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzAdjIntLeaseNewDao" class="com.imfbp.rz.dao.rzadjintleasenew.impl.RzAdjIntLeaseNewDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzPlanChangeDao" class="com.imfbp.rz.dao.rzplanchange.impl.RzPlanChangeDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzPlanChangeLeaseDao" class="com.imfbp.rz.dao.rzplanchangelease.impl.RzPlanChangeLeaseDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>	
+	
+	<bean id="rzPlanChangeLeaseNewDao" class="com.imfbp.rz.dao.rzplanchangeleasenew.impl.RzPlanChangeLeaseNewDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<!-- 合同台账表 -->
+	<bean id="rzContrTallyDao" class="com.imfbp.rz.dao.rzcontrtally.impl.RzContrTallyDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzPrjStateDao" class="com.imfbp.rz.dao.rzprjstate.impl.RzPrjStateDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+
+	<bean id="rzDefInterestDao" class="com.imfbp.rz.dao.rzdefinterest.impl.RzDefInterestDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="rzDefInterestPlanDao" class="com.imfbp.rz.dao.rzdefinterestplan.impl.RzDefInterestPlanDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+
+	<bean id="rzOverdueDerateDao" class="com.imfbp.rz.dao.rzoverduederate.impl.RzOverdueDerateDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+
+	<bean id="rzOverdueDeratePlanDao" class="com.imfbp.rz.dao.rzoverduederateplan.impl.RzOverdueDeratePlanDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<!-- 合同模板 -->
+	<bean id="rzDocFileDao" class="com.imfbp.rz.dao.rzdocfile.impl.RzDocFileDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+
+	<bean id="templateInputDefDao"
+		class="com.imfbp.rz.dao.templateinputdef.impl.TemplateInputDefDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+
+	<bean id="templateRulesDefDao"
+		class="com.imfbp.rz.dao.templaterulesdef.impl.TemplateRulesDefDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+
+	<bean id="templateDefDao" class="com.imfbp.rz.dao.templatedef.impl.TemplateDefDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+
+	<bean id="templateNodeDefDao"
+		class="com.imfbp.rz.dao.templatenodedef.impl.TemplateNodeDefDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	
+	<!-- 审批dao tuxl start -->
+	<bean id="superBeanDao" class="com.imfbp.rz.dao.superbean.impl.SuperBeanDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<!-- <bean id="bdWithdrawUnionPolicyVoDao" class="com.imfbp.rz.dao.bdwithdrawunionpolicyvo.impl.BdWithdrawUnionPolicyVoDaoImpl"> 
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property> 
+		</bean> -->
+	<!-- 审批dao tuxl end -->
+	<bean id="pubNodevoinfoDao"
+		class="com.imfbp.rz.dao.pubnodevoinfo.impl.PubNodevoinfoDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<!-- 参照begin -->
+	<bean id="refDao" class="com.imfbp.rz.dao.ref.impl.RefDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<!-- 参照end -->
+	<!-- 参照begin -->
+	<bean id="pubQueryBySqlDao" class="com.imfbp.rz.dao.pubquery.impl.PubQueryBySqlDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<!-- 参照end -->
+</beans>

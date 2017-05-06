@@ -1,0 +1,479 @@
+<title>rzContrTally</title>
+<body>
+<div id="rzContrTallyModule" >
+	
+	<!-- list page start -->
+	<div class="listPage startPage">
+		#parse("/WEB-INF/vm/rzContrTallyBalance/rzContrTallyBalanceSearch.vm")
+		#parse("/WEB-INF/vm/rzContrTallyBalance/rzContrTallyListBalance.vm")
+	</div>
+	<!-- list page end -->
+	
+	<!-- edit page end -->
+	<div class="rzContrTallyEdit" style="display:none;">
+		#parse("/WEB-INF/vm/rzContrTallyBalance/rzContrTallyBalanceEdit.vm")
+	</div>
+	<!-- edit page end -->
+	
+</div>
+
+
+<script>
+/* 
+function tableHeight() {
+            return $(window).height() - 150;
+} */
+jQuery(function(){
+	
+	//获取全部列表地址
+	var url_getBalance = '$homeModule.getTarget('/rzContrTally/getRzContrTallyBalance')';
+	//列表后台访问地址
+	var url_page = '$homeModule.getTarget('/rzContrTally/getRzContrTallyBalanceByPage')';
+	//添加修改后台访问地址
+	var url_add = '$homeModule.getTarget('/rzContrTally/insertOrUpdate')';
+	//删除后台访问地址
+	var url_del = '$homeModule.getTarget('/rzContrTally/deleteRzContrTallyByBatchId')';
+	
+	//查询对象
+	var queryData = new RzContrTallyView();
+	//编辑对象
+	var editData = new RzContrTallyView();
+	//空对象用来清空编辑和查询对象
+	var emptyData = new RzContrTallyView();
+	var data = new Array();
+	
+	window.viewModel={
+		queryData:ko.mapping.fromJS(queryData),
+		editData:ko.mapping.fromJS(editData),
+		pageState:ko.observable("")
+	}
+	
+	setTraslateFunction();
+	
+
+	/**
+     * 初始化layoutMDI
+     */
+	$("#rzContrTallyModule").layoutMDI({
+		//当页面后退时候触发的事件
+		onBackPage: function(target, options) {
+			ko.mapping.fromJS(emptyData,viewModel.editData);
+		} 
+	});
+    /**
+     *使用bootstrap创建一个表格
+     */
+     
+    
+    	$('#rzContrTallyModule #rzContrTallyList').bootstrapTable({
+     	     height: 450,
+     	    //每页的记录行数（*）   
+             data:data,
+             url:url_getBalance,
+             queryParams:queryParams,
+     	     columns: [{
+     			field:"contrCode",
+     			title:"合同编号"
+     		},{
+     			field:"contrName",
+     			title:"合同名称"
+     		},{
+     			field:"prjName",
+     			title:"项目名称"
+     		},{
+     			field:"pkCustomer",
+     			title:"客户名称"
+     		},{
+     			field:"busitype",        
+     			title:"业务类型"
+     		},{
+     			field:"leaseway",
+     			title:"租赁方式"
+     		},{
+     			field:"leaseprd",
+     			title:"租赁期限(月)"
+     		},{
+     			field:"contrAmt",
+     			title:"合同金额(元)"
+     		},{
+     			field:"putAmt",
+     			title:"已投放金额"
+     		},{
+     			field:"curPrinBal",
+     			title:"当前本金余额"
+     		},{
+     			field:"curRentBal",
+     			title:"当前租金余额"
+     		},{
+     			field:"pricerate",
+     			title:"租赁利率(%)"
+     		},{
+     			field:"signedDate",
+     			title:"合同签订日期"
+     		},{
+     			field:"startLeaseDate",
+     			title:"合同起租日期"
+     		},{
+     			field:"endLeaseDate",
+     			title:"合同结束日期"
+     		},{
+     			field:"isExpire",
+     			title:"是否到期"
+     		},{
+     			field:"realPrin",
+     			title:"实收本金"
+     		},{
+     			field:"realInt",
+     			title:"实收利息"
+     		},{
+     			field:"realSc",
+     			title:"实收服务费"
+     		},{
+     			field:"isOverdue",
+     			title:"是否逾期"
+     		},{
+     			field:"overdueRate",
+     			title:"逾期利率(%)"
+     		},{
+     			field:"receivablDefInt",
+     			title:"应罚息金额"
+     		},{
+     			field:"realDefInt",
+     			title:"实收罚息金额"
+     		},{
+     			field:"derateDefInt",
+     			title:"实际减免罚息"
+     		},{
+     			field:"irr",           
+     			title:"合同计划IRR(%)"
+     		},{
+     			field:"curIrr",              
+     			title:"合同实际IRR(%)"
+     		},{
+     			field:"riskType",
+     			title:"资产风险分类"
+     		},{
+     			field:"prjState",          
+     			title:"项目状态"
+     		},{
+     			field:"contrStatus",
+     			title:"合同状态"
+     		},{
+     			field:"realEndDate",              
+     			title:"展期到期日"
+     		},{
+     			field:"extendTimes",
+     			title:"展期次数"
+     		},{
+     			field:"pkUserManager",
+     			title:"项目经理"
+     		},]
+     	}); 
+     
+      $(function () {
+    	  
+         $('#rzContrTallyList').bootstrapTable(); // init via javascript
+         $(window).resize(function () {
+             $('#rzContrTallyList').bootstrapTable('resetView');
+         });
+     });	  		 
+	/**
+	 * 新增功能
+	 */			
+    jQuery("#rzContrTallyModule .toolsbarPanel .add-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为添加状态
+		viewModel.pageState(pageState.add);
+        $("#rzContrTallyModule").layoutMDI("go", ".rzContrTallyEdit");
+    });
+
+	/**
+	 * 修改功能
+	 */		    
+    jQuery("#rzContrTallyModule .toolsbarPanel .update-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为修改状态
+		viewModel.pageState(pageState.edit);
+    	//当前选中行
+    	var selectRow = gridObj.getSelectRows();
+    	//将数据绑定到表单上面
+    	ko.mapping.fromJS(selectRow[0], viewModel.editData);
+    	//跳转到编辑页面
+        $("#rzContrTallyModule").layoutMDI("go", ".rzContrTallyEdit");
+    });
+
+	/**
+	 * 删除功能
+	 */	    
+    jQuery("#rzContrTallyModule .toolsbarPanel .remove-btn").click(function(){
+    	//要删除的id用","隔开
+		var batchId = "";
+		//当前选中行
+		var selectRow = gridObj.getSelectRows();
+		//判断是否选中要删除的数据
+		if(selectRow.length == 0) {
+			alert("请选择您要修改的数据");
+			return;
+		}
+	
+		for(var i = 0; i < selectRow.length; i++) {
+			var row = selectRow[i];
+			if(i == 0) {
+				batchId = row["pkContrTally"] + batchId;
+			} else {
+				batchId = row["pkContrTally"] + "," + batchId;
+			}
+		}
+		//删除数据
+		jQuery("#rzContrTallyModule .rzContrTallyEditForm").formPlugin("remove",{batchId:batchId,url:url_del});
+    });
+    
+    /**
+	 * 刷新功能(只是刷新当前页，如果要刷新所有页面使用 load 方法)
+	 */	 
+    jQuery("#rzContrTallyModule .toolsbarPanel .refresh-btn").click(function(){
+		jQuery("#rzContrTallyModule .rzContrTallyList").gridPlugin("reLoad",viewModel.queryData);
+    });
+    
+    //保存功能
+	jQuery("#rzContrTallyModule .rzContrTallyEdit .save-btn").click(function(){
+		if(viewModel.pageState()=="add"){
+			ko.mapping.fromJS(emptyData,viewModel.queryData);
+		}
+		var param = {
+			formData:ko.mapping.toJS(viewModel.editData),//要提交的数据
+			queryData:ko.mapping.toJS(viewModel.queryData),//修改完毕刷新表格的参数
+			editType:viewModel.pageState()//页面的状态(add：添加，edit:编辑)
+		}
+		jQuery("#rzContrTallyModule .rzContrTallyEditForm").formPlugin("save",param);
+	});
+    function queryParams(param){
+    	param= ko.mapping.toJS(viewModel.queryData);
+    	return param;
+    }
+	
+	//查找功能
+	jQuery("#rzContrTallyModule .searchToolsbar .search-btn").click(function(){
+		$('#rzContrTallyModule #rzContrTallyList').bootstrapTable('refresh');
+		
+	});
+	
+	//重置查询条件功能
+	jQuery("#rzContrTallyModule .searchToolsbar .reset-btn").click(function(){
+		ko.mapping.fromJS(emptyData,viewModel.queryData);
+	});
+	
+	//编辑页返回
+	jQuery("#rzContrTallyModule .rzContrTallyEdit .back-btn").click(function(){
+		$("#rzContrTallyModule").layoutMDI("back");
+	});
+
+	ko.applyBindings(viewModel);
+
+});
+
+
+
+
+
+
+function RzContrTallyView(){
+	//主键
+	this.pkContrTally="";
+	//操作序号
+	this.operSeq="";
+	//合同主键
+	this.pkPrjcontr="";
+	//项目经理
+	this.pkUserManager="";
+	//原合同主键
+	this.pkPrjcontrOri="";
+	//合同编号
+	this.contrCode="";
+	//项目申请主键
+	this.pkPrjapply="";
+	//合同名称
+	this.contrName="";
+	//项目编号
+	this.prjCode="";
+	//项目名称
+	this.prjName="";
+	//调息类型：0 不调息、1 随基准调息、2 下一收租日调息
+	this.intType="";
+	//还款方式：0 等额租金法、1等额本息法、2平息法、3自由还款法
+	this.reptway="";
+	//计划收租日
+	this.planrentdate="";
+	//还款周期(月)
+	this.reptcycle="";
+	//客户名称主键
+	this.pkCustomer="";
+	//租赁方式 0 直租、1 售后回租、2 其他
+	this.leaseway="";
+	//币种主键
+	this.pkCurrency="";
+	//合同启租日期
+	this.startLeaseDate="";
+	//合同结束日期
+	this.endLeaseDate="";
+	//实际合同到期日
+	this.realEndDate="";
+	//合同收益收益IRR(%)
+	this.irr="";
+	//租赁期限(月)
+	this.leaseprd="";
+	//项目金额(元)
+	this.itemamt="";
+	//项目余额(元)
+	this.itembal="";
+	//合同金额(元)
+	this.contrAmt="";
+	//合同余额(元)
+	this.contrBal="";
+	//参照数据字典
+	this.busitype="";
+	//合同租赁利率(%)
+	this.pricerate="";
+	//当前租赁利率(%)
+	this.curPricerate="";
+	//是否到期：Y/N
+	this.isExpire="";
+	//应收本金
+	this.receivableAmt="";
+	//应收利息
+	this.receivableInt="";
+	//应收租金
+	this.receivableRent="";
+	//应收罚息
+	this.receivablDefInt="";
+	//应收手续费
+	this.receivableFee="";
+	//累计应罚息金额
+	this.receivablDefIntTotal="";
+	//应收服务费
+	this.receivableSc="";
+	//实收本金
+	this.realPrin="";
+	//实收利息
+	this.realInt="";
+	//实收租金
+	this.realRent="";
+	//实收手续费
+	this.realFee="";
+	//实收罚息
+	this.realDefInt="";
+	//应收未收罚息
+	this.accruedDefInt="";
+	//实收服务费
+	this.realSc="";
+	//是否逾期(Y,N)
+	this.isOverdue="";
+	//逾期次数
+	this.overdueTimes="";
+	//逾期利率(%)
+	this.overdueRate="";
+	//逾期本金
+	this.overduePrin="";
+	//实际减免罚息
+	this.derateDefInt="";
+	//当前本金余额
+	this.curPrinBal="";
+	//当前租金余额
+	this.curRentBal="";
+	//已投放金额
+	this.putAmt="";
+	//资产风险分类
+	this.riskType="";
+	//合同状态 :0 已生成、1 已生效、2 起租、3 已结清、4 已作废
+	this.contrStatus="";
+	//数据日期
+	this.datadate="";
+	//是否展期(Y/N)
+	this.isExtend="";
+	//展期次数
+	this.extendTimes="";
+	//是否缩期(Y/N)
+	this.isReduce="";
+	//缩期次数
+	this.reduceTimes="";
+	//合同签订日期
+	this.signedDate="";
+	//业务日期
+	this.tradedate="";
+	//操作人员
+	this.pkUserOper="";
+	//组织
+	this.pkOrg="";
+	//部门主键
+	this.pkDeptdoc="";
+	//时间戳
+	this.ts="";
+	//编辑页面状态
+	this.enableState=true;
+	this.prjState="";
+}
+
+function getParams(selector){
+	return {};
+}
+//回调函数
+function outRpcCallFunction(eleObj, data, name, id) {
+	  debugger;
+	  var fun = viewModel.editData[name];
+	    if(typeof fun == 'function'){
+			fun(data[id]);
+	    }
+	    if(name=="pkCustomer"){
+	    	viewModel.queryData.pkCustomer(data[id]);
+	    }else if(name=="pkPrjcontr"){
+	    	viewModel.queryData.pkPrjcontr(data[id]);
+	    }else if(name=="prjName"){
+	    	viewModel.queryData.pk_prjapply(data[id]);
+	    }else if(name=="pkUserManager"){
+	    	viewModel.queryData.pkUserManager(data[id]);
+	    }
+	    
+}
+function setTraslateFunction(){
+    refManager.setRefArea(".searchContent");
+    refManager.initAreaLoadData(".searchContent", function(name){
+        var fun = viewModel.queryData[name];
+        if(typeof fun == 'function'){
+            return fun();
+        }
+    });
+};
+</script>
+<script>
+
+$('.form_hhg_date').datetimepicker({
+    language: 'cn',
+    weekStart: 1,
+    todayBtn:  1,
+	autoclose: 1,
+	todayHighlight: 1,
+	startView: 2,
+	minView: 2,
+	forceParse: 0,
+	autoclose: true,
+	todayHighlight: true,
+});
+    Date.prototype.Format = function (fmt) { //author: meizz
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+</script>	
+</body>

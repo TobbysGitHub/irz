@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+	    http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd"
+	default-autowire="byName">
+
+	<description>Spring公共配置 </description>
+	<bean id="basePublicService"
+		class="com.imfbp.rz.service.template.nodetable.BasePublicService">
+		<property name="funNodeTableCodeMap">
+			<map>
+				<!-- 个人客户 -->
+				<entry key="consumerClient">
+					<list>
+						<value>t1</value>
+					</list>
+				</entry>
+				<!-- 企业客户 -->
+				<entry key="crm_enterpriseClient">
+					<list>
+						<value>t1</value>
+					</list>
+				</entry>
+				<!-- 项目进度查询 -->
+				<entry key="2">
+					<list>
+						<value>t1</value>
+					</list>
+				</entry>
+				<!-- 基础参数设置 -->
+				<entry key="base_param">
+					<list>
+						<value>rz_base_param</value>
+					</list>
+				</entry>
+				<!-- 报价测算 -->
+				<entry key="rzPricecal">
+					<list>
+						<value>rz_pricecal</value>
+						<value>rz_pricecal_cf</value>
+						<value>rz_pricecal_eqpt</value>
+						<value>rz_pricecal_lease</value>
+					</list>
+				</entry>
+				<!-- 收付计划表 -->
+				<entry key="pmt_plan">
+					<list>
+						<value>rz_pmt_plan</value>
+						<value>rz_pmt_plan_cf</value>
+						<value>rz_pmt_plan_lease</value>
+						<value>rz_recptpmt</value>
+					</list>
+				</entry>
+				<!-- 合同台账余额 -->
+				<entry key="3">
+					<list>
+						<value>rz_contr_tally</value>
+						<value>rz_contr_tally2</value>
+					</list>
+				</entry>
+				<!-- 合同台账明细 -->
+				<entry key="4">
+					<list>
+						<value>rz_contr_tally</value>
+						<value>rz_contr_tally2</value>
+					</list>
+				</entry>
+				<!-- 收付类别管理 -->
+				<entry key="rzRecptpmt">
+					<list>
+						<value>rz_recptpmt</value>
+					</list>
+				</entry>
+				<!-- 立项申请 -->
+				<entry key="rzPrjapply">
+					<list>
+						<value>rz_prjapply</value>
+						<value>rz_prjapply_eqpt</value>
+					</list>
+				</entry>
+				<!-- 调息管理 -->
+				<entry key="adj_int">
+					<list>
+						<value>rz_adj_int</value>
+						<value>rz_adj_int_lease</value>
+						<value>rz_adj_int_lease_new</value>
+					</list>
+				</entry>
+				<!-- 利率管理 -->
+				<entry key="rzRate">
+					<list>
+						<value>rz_rate</value>
+						<value>rz_rate_b</value>
+						<value>rz_rateprd</value>
+					</list>
+				</entry>
+				<!-- 项目评审 -->
+				<entry key="rzPrjreview">
+					<list>
+						<value>rz_prjreview</value>
+						<value>rz_prjreview_supplier</value>
+						<value>rz_prjreview_lessee</value>
+						<value>rz_prjreview_guar</value>
+						<value>rz_prjreview_guar_b</value>
+						<value>rz_prjreview_eqpt</value>
+					</list>
+				</entry>
+				<!-- 合同变更 -->
+				<entry key="contr_adj">
+					<list>
+						<value>rz_prjcontr_chg</value>
+						<value>rz_prjcontr_chg_supplier</value>
+						<value>rz_prjcontr_chg_ins</value>
+						<value>rz_prjcontr_chg_ins_eqpt</value>
+						<value>rz_prjcontr_chg_lessee</value>
+						<value>rz_prjcontr_chg_guar</value>
+						<value>rz_prjcontr_chg_guar_b</value>
+						<value>rz_prjcontr_chg_eqpt</value>
+						<value>rz_prjcontr_chg_pur</value>
+					</list>
+				</entry>
+				<!-- 租赁设备管理 -->
+				<entry key="rzEqpt">
+					<list>
+						<value>rz_eqpt</value>
+					</list>
+				</entry>
+				<!-- 项目合同 -->
+				<entry key="rzPrjcontr">
+					<list>
+						<value>rz_prjcontr</value>
+						<value>rz_prjcontr_supplier</value>
+						<value>rz_prjcontr_ins</value>
+						<value>rz_prjcontr_ins_eqpt</value>
+						<value>rz_prjcontr_lessee</value>
+						<value>rz_prjcontr_guar</value>
+						<value>rz_prjcontr_guar_b</value>
+						<value>rz_prjcontr_cf</value>
+						<value>rz_prjcontr_eqpt</value>
+						<value>rz_prjcontr_pur</value>
+					</list>
+				</entry>
+				<!-- 租金计划变更 -->
+				<entry key="plan_change">
+					<list>
+						<value>rz_plan_change</value>
+						<value>rz_plan_change_lease</value>
+						<value>rz_plan_change_lease_new</value>
+					</list>
+				</entry>
+				<!-- 逾期罚息 -->
+				<entry key="def_interest">
+					<list>
+						<value>rz_def_interest</value>
+						<value>rz_def_interest_plan</value>
+					</list>
+				</entry>
+				<!-- 逾期减免 -->
+				<entry key="overdue_derate">
+					<list>
+						<value>rz_overdue_derate</value>
+						<value>rz_overdue_derate_plan</value>
+					</list>
+				</entry>
+				<!-- 项目租赁物管理 -->
+				<entry key="prjcontr_eqptmngr">
+					<list>
+						<value>rz_prjreview_eqpt</value>
+					</list>
+				</entry>
+			</map>
+		</property>
+		<property name="publicMetadataList">
+			<list>
+				<value>rz_prjcontr</value>
+				<value>rz_prjcontr_supplier</value>
+				<value>rz_prjcontr_ins</value>
+				<value>rz_prjcontr_ins_eqpt</value>
+				<value>rz_prjcontr_lessee</value>
+				<value>rz_prjcontr_guar</value>
+				<value>rz_prjcontr_guar_b</value>
+				<value>rz_prjcontr_cf</value>
+				<value>rz_prjcontr_eqpt</value>
+				<value>rz_prjcontr_pur</value>
+			</list>
+		</property>
+		<property name="formulaEntryList">
+			<list>
+				<ref bean="getColValue" />
+				<ref bean="getPubValue" />
+				<ref bean="iif" />
+				<ref bean="toString" />
+			</list>
+		</property>
+	</bean>
+	<bean id="getColValue" class="com.imfbp.rz.domain.template.FormulaEntry">
+		<property name="formulaCode" value="getColValue"></property>
+		<property name="formulaText"
+			value="getColValue(tablename,fieldname,pkfield,pkvalue)"></property>
+		<property name="formulaName" value="获取业务数据指定目标字段值"></property>
+		<property name="formulaNote"
+			value="根据主键从数据库查询特定字段的值,其功能类似SQL语句:select fieldname from tablename where pkfield = pkvalue"></property>
+		<property name="parameterNumber" value="4"></property>
+	</bean>
+	<bean id="getPubValue" class="com.imfbp.rz.domain.template.FormulaEntry">
+		<property name="formulaCode" value="getPubValue"></property>
+		<property name="formulaText"
+			value="getPubValue(servicename,fieldname,pkfield,pkvalue)"></property>
+		<property name="formulaName" value="获取公共服务指定目标字段值"></property>
+		<property name="formulaNote" value="根据公共服务的主键从公共服务对应接口中获取对应的公共服务的目标字段值"></property>
+		<property name="parameterNumber" value="4"></property>
+	</bean>
+	<bean id="iif" class="com.imfbp.rz.domain.template.FormulaEntry">
+		<property name="formulaCode" value="iif"></property>
+		<property name="formulaText" value="iif(condition,thenvalue,elsevalue)"></property>
+		<property name="formulaName" value="根据表达式获取取值区间的指定值"></property>
+		<property name="formulaNote"
+			value="判断条件condition是否满足,如果满足返回第一个值thenvalue,如果不满足返回第二个值elsevalue,比如iif(var1=='Y','Open','Close').iif函数支持嵌套比如:iif(var1=='Y',iif(var2!='C','Stop','Run'),'Close')"></property>
+		<property name="parameterNumber" value="3"></property>
+	</bean>
+	<bean id="toString" class="com.imfbp.rz.domain.template.FormulaEntry">
+		<property name="formulaCode" value="toString"></property>
+		<property name="formulaText" value="toString(obj)"></property>
+		<property name="formulaName" value="讲指定对象转换为字符串形式"></property>
+		<property name="formulaNote" value="将对象obj转换为本解析器可识别的字符串形式"></property>
+		<property name="parameterNumber" value="1"></property>
+	</bean>
+</beans>

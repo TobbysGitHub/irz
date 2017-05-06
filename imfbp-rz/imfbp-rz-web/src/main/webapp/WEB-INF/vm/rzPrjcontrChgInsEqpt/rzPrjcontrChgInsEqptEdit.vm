@@ -1,0 +1,58 @@
+<div class="panel panel-default">
+	<div class="panel-heading footer-saveOrCancel">
+		<button type="button" class="btn btn-default btn-sm save-btn">保存</button>
+		<button type="button" class="btn btn-default btn-sm back-btn">取消</button>
+	</div>
+	<div class="panel-body form-parent" data-bind="with:editData">
+		<form class="rzPrjcontrChgInsEqptEditForm form-horizontal">
+		<div class="row panel slideParent">
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkPrjcontrChgInsEqpt" class="form-control" data-bind="value:pkPrjcontrChgInsEqpt,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">项目合同保险信息主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkPrjcontrChgIns" class="form-control" data-bind="value:pkPrjcontrChgIns,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">项目合同主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkPrjcontrChg" class="form-control" data-bind="value:pkPrjcontrChg,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">客户主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkCustomer" class="form-control" data-bind="value:pkCustomer,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">租赁设备外键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkEqpt" class="form-control" data-bind="value:pkEqpt,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+

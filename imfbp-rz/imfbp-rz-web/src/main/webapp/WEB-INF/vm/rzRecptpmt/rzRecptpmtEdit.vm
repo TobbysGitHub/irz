@@ -1,0 +1,182 @@
+
+<div class="panel panel-default" style="border: none;">
+	<div class="panel-heading footer-saveOrCancel" >
+		<button type="button" class="btn btn-action btn-py save-btn">保存</button>
+		<button type="button" class="btn btn-action btn-py edit-btn">修改</button>
+		<button type="button" class="btn btn-out btn-py back-btn">取消</button>
+	</div>
+	
+	<div class="panel-body form-parent" data-bind="with:editData" >
+	
+		<form class="rzRecptpmtEditForm form-horizontal">
+            <div class="rateBaseInfo row panel slideParent">
+                <div class="col-xs-12 panel-heading" data-toggle="collapse" data-target="#rateBaseInfo">
+                    <h5>新增收付类别</h5><span class="glyphicon glyphicon-chevron-up"></span>
+                </div>
+                <div class="col-xs-12 panel-body collapse in" id="rateBaseInfo">		
+                
+                <div class="row">
+                
+                
+				<div class="col-md-3 col-sm-6" style="display:none">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkRecptpmt" class="form-control" data-bind="value:pkRecptpmt,enable:enableState">
+						</div>
+					</div>
+				</div>
+				
+				
+				
+				<div class="col-md-4 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">类别编码</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="code" class="form-control content-w210-input" data-bind="value:code,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">类别名称</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="name" class="form-control content-w210-input" data-bind="value:name,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">业务类型</label>
+						<div class="col-md-9 col-sm-8">
+							<select  name="busitype" class="form-control content-w210-input" data-bind="options:busitypeList,optionsText:function(item){return item.text},optionsValue:function(item){return item.value},value:busitype,enable:enableState">
+							</select>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-md-4 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">收付类型</label>
+						<div class="col-md-9 col-sm-8">
+							<select  name="pmttype" class="form-control content-w210-input" data-bind="value:pmttype,enable:enableState">
+							<option value='2'>其他</option>
+							<option value='0'>收款</option>
+							<option value='1'>付款</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">现金流方向</label>
+						<div class="col-md-9 col-sm-8">
+							<select name="cashflowdir" class="form-control content-w210-input" data-bind="value:cashflowdir,enable:enableState">
+							<option value='3'>无</option>
+							<option value='1'>流入</option>
+							<option value='2'>流出</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">收付对手</label>
+						<div class="col-md-9 col-sm-8">
+							<select  name="pmtrival" class="form-control content-w210-input" data-bind="options:pmtrivalList,optionsText:function(item){return item.text},optionsValue:function(item){return item.value},value:pmtrival,enable:enableState">
+							</select>
+						</div>
+					</div>
+				</div>
+		
+			
+				<div class="col-md-4 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">启用状态</label>
+						<div class="col-md-9 col-sm-8">
+							<select name="enablestate" class="form-control content-w210-input" data-bind="value:enablestate,enable:enableState" >
+							<option value='1'>启用</option>
+							<option value='0'>未启用</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+				
+			
+			<div class="row">
+				<div class="col-md-4 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">备注</label>
+						<div class="col-md-9 col-sm-8">
+							<textarea name="remark" class="form-control" data-bind="value:remark,enable:enableState"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">ts</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="ts" class="form-control" data-bind="value:ts,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">0 未删除 1已删除</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="dr" class="form-control" data-bind="value:dr,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">def1</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="def1" class="form-control" data-bind="value:def1,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">def2</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="def2" class="form-control" data-bind="value:def2,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">def3</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="def3" class="form-control" data-bind="value:def3,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">def4</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="def4" class="form-control" data-bind="value:def4,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">def5</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="def5" class="form-control" data-bind="value:def5,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>-->
+		</form>
+	</div>	
+</div>
+
+

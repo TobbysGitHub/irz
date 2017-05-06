@@ -1,0 +1,102 @@
+<!-- search start  -->
+<div class="searchPanel padding-10">
+	<form class="form-horizontal">
+		<div class="searchContent col-xs-8" data-bind="with:queryData">
+						
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">主键</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="pkPrjreviewGuar" class="form-control" data-bind="value:pkPrjreviewGuar">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">项目评审主键  </label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="pkPrjreview" class="form-control" data-bind="value:pkPrjreview">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">担保人（客户主键）</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="pkCustomer" class="form-control" data-bind="value:pkCustomer">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">担保方式：0 信用、1 质押、2 抵押、3 保证、4 综合担保、5 其他</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="guarType" class="form-control" data-bind="value:guarType">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--******更多条件放这里********-->
+			<div class="hideRule">
+				
+				<div class="row">
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">担保金额</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="guarAmt" class="form-control" data-bind="value:guarAmt">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">抵押金额</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="mortgageAmt" class="form-control" data-bind="value:mortgageAmt">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">质押金额</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="pledgeAmt" class="form-control" data-bind="value:pledgeAmt">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">提供担保原因</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="guarReson" class="form-control" data-bind="value:guarReson">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">备注</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="remark" class="form-control" data-bind="value:remark">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 展开更多的一行-->
+		<div class="searchToolsbar">
+			<div data-target=".hideRule" data-toggle="collapse" class="moreRule">
+				<span>展开更多查询条件</span>
+				<i class="glyphicon glyphicon-triangle-bottom"></i>
+			</div>
+			<div class="search-box">
+				<button type="button" class="btn btn-default btn-sm reset-btn">重置</button>
+				<button type="button" class="btn btn-default btn-sm search-btn">查询</button>
+			</div>
+		</div>
+	</form>
+</div>
+<!-- search end -->

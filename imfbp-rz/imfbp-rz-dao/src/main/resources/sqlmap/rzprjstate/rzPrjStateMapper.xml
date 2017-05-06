@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="rzPrjState">
+
+	<!-- 結果集 -->
+	<resultMap id="rzPrjStateResult" type="com.imfbp.rz.domain.rzprjstate.RzPrjState">
+		<result property="pkPrjState" column="pk_prj_state" />
+		<result property="prjState" column="prj_state" />
+		<result property="pkPricecal" column="pk_pricecal" />
+		<result property="pkPrjreview" column="pk_prjreview" />
+		<result property="pkPrjapply" column="pk_prjapply" />
+		<result property="pkPrjcontr" column="pk_prjcontr" />
+		<result property="pkPrjcontrori" column="pk_prjcontrori" />
+		<result property="contrCode" column="contr_code" />
+		<result property="pkUserOper" column="pk_user_oper" />
+		<result property="pkOrg" column="pk_org" />
+		<result property="pkDeptdoc" column="pk_deptdoc" />
+		<result property="ts" column="ts" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="rzPrjStateField">
+		pk_prj_state,prj_state,pk_pricecal,pk_prjreview,pk_prjapply,pk_prjcontr,pk_prjcontrori,contr_code,pk_user_oper,pk_org,pk_deptdoc,ts
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="condition">
+        <where>
+        	<if test="pkPrjState != null and pkPrjState != ''" >
+				and pk_prj_state = #{pkPrjState}
+			</if>
+        	<if test="prjState != null" >
+				and prj_state = #{prjState}
+			</if>
+        	<if test="pkPricecal != null and pkPricecal != ''" >
+				and pk_pricecal = #{pkPricecal}
+			</if>
+        	<if test="pkPrjreview != null and pkPrjreview != ''" >
+				and pk_prjreview = #{pkPrjreview}
+			</if>
+        	<if test="pkPrjapply != null and pkPrjapply != ''" >
+				and pk_prjapply = #{pkPrjapply}
+			</if>
+        	<if test="pkPrjcontr != null and pkPrjcontr != ''" >
+				and pk_prjcontr = #{pkPrjcontr}
+			</if>
+        	<if test="pkPrjcontrori != null and pkPrjcontrori != ''" >
+				and pk_prjcontrori = #{pkPrjcontrori}
+			</if>
+        	<if test="contrCode != null and contrCode != ''" >
+				and contr_code = #{contrCode}
+			</if>
+        	<if test="pkUserOper != null and pkUserOper != ''" >
+				and pk_user_oper = #{pkUserOper}
+			</if>
+        	<if test="pkOrg != null and pkOrg != ''" >
+				and pk_org = #{pkOrg}
+			</if>
+        	<if test="pkDeptdoc != null and pkDeptdoc != ''" >
+				and pk_deptdoc = #{pkDeptdoc}
+			</if>
+        	<if test="ts != null and ts != ''" >
+				and ts = #{ts}
+			</if>
+        </where>
+    </sql>
+    
+    <!-- 修改条件 -->
+	<sql id="updateByCondition">
+        <where>
+				<if test="parameter.pkPrjState != null and parameter.pkPrjState != ''" >
+					and pk_prj_state = #{parameter.pkPrjState}
+				</if>
+		    	<if test="parameter.prjState != null" >
+					and prj_state = #{parameter.prjState}
+				</if>
+				<if test="parameter.pkPricecal != null and parameter.pkPricecal != ''" >
+					and pk_pricecal = #{parameter.pkPricecal}
+				</if>
+				<if test="parameter.pkPrjreview != null and parameter.pkPrjreview != ''" >
+					and pk_prjreview = #{parameter.pkPrjreview}
+				</if>
+				<if test="parameter.pkPrjapply != null and parameter.pkPrjapply != ''" >
+					and pk_prjapply = #{parameter.pkPrjapply}
+				</if>
+				<if test="parameter.pkPrjcontr != null and parameter.pkPrjcontr != ''" >
+					and pk_prjcontr = #{parameter.pkPrjcontr}
+				</if>
+				<if test="parameter.pkPrjcontrori != null and parameter.pkPrjcontrori != ''" >
+					and pk_prjcontrori = #{parameter.pkPrjcontrori}
+				</if>
+				<if test="parameter.contrCode != null and parameter.contrCode != ''" >
+					and contr_code = #{parameter.contrCode}
+				</if>
+				<if test="parameter.pkUserOper != null and parameter.pkUserOper != ''" >
+					and pk_user_oper = #{parameter.pkUserOper}
+				</if>
+				<if test="parameter.pkOrg != null and parameter.pkOrg != ''" >
+					and pk_org = #{parameter.pkOrg}
+				</if>
+				<if test="parameter.pkDeptdoc != null and parameter.pkDeptdoc != ''" >
+					and pk_deptdoc = #{parameter.pkDeptdoc}
+				</if>
+				<if test="parameter.ts != null and parameter.ts != ''" >
+					and ts = #{parameter.ts}
+				</if>
+        </where>
+    </sql>
+    
+    <!-- 新增 -->	
+	<insert id="insertRzPrjState" parameterType="rzPrjState">
+		insert into rz_prj_state
+			(pk_prj_state,prj_state,pk_pricecal,pk_prjreview,pk_prjapply,pk_prjcontr,pk_prjcontrori,contr_code,pk_user_oper,pk_org,pk_deptdoc,ts ) 
+		values 
+			(#{pkPrjState,jdbcType=CHAR},#{prjState,jdbcType=SMALLINT},#{pkPricecal,jdbcType=CHAR},#{pkPrjreview,jdbcType=CHAR},#{pkPrjapply,jdbcType=CHAR},#{pkPrjcontr,jdbcType=CHAR},#{pkPrjcontrori,jdbcType=CHAR},#{contrCode,jdbcType=VARCHAR},#{pkUserOper,jdbcType=CHAR},#{pkOrg,jdbcType=CHAR},#{pkDeptdoc,jdbcType=CHAR},#{ts,jdbcType=CHAR})
+    </insert>
+    
+    <!-- 批量新增 -->	
+	<insert id="insertBatchRzPrjState" parameterType="java.util.List">
+       insert into rz_prj_state
+			(pk_prj_state,prj_state,pk_pricecal,pk_prjreview,pk_prjapply,pk_prjcontr,pk_prjcontrori,contr_code,pk_user_oper,pk_org,pk_deptdoc,ts ) 
+	   values
+	    <foreach collection="list" item="obj" index="index" separator="," >
+	    	(#{obj.pkPrjState},#{obj.prjState},#{obj.pkPricecal},#{obj.pkPrjreview},#{obj.pkPrjapply},#{obj.pkPrjcontr},#{obj.pkPrjcontrori},#{obj.contrCode},#{obj.pkUserOper},#{obj.pkOrg},#{obj.pkDeptdoc},#{obj.ts})
+	    </foreach>
+   </insert>
+    
+    
+    <!-- 根据id删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjStateById" parameterType="rzPrjStateQuery" >
+    	delete from rz_prj_state  where pk_prj_state = #{pkPrjState} 
+    </delete>
+    
+    <!-- 根据条件删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjStateByCondition" parameterType="rzPrjStateQuery" >
+    	delete from 
+    	rz_prj_state<include refid="condition" /> 
+    </delete>
+    
+    <!-- 根据主键批量删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjStateByBatchId" parameterType="map" >
+    	delete from rz_prj_state 
+    	where
+    	pk_prj_state in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据id修改 -->
+    <update id="updateRzPrjStateById" parameterType="rzPrjStateQuery">
+		update  rz_prj_state 
+		<set>
+			<if test="prjState != null " >
+				prj_state = #{prjState},
+			</if>
+			<if test="pkPricecal != null and pkPricecal != '' " >
+				pk_pricecal = #{pkPricecal},
+			</if>
+			<if test="pkPrjreview != null and pkPrjreview != '' " >
+				pk_prjreview = #{pkPrjreview},
+			</if>
+			<if test="pkPrjapply != null and pkPrjapply != '' " >
+				pk_prjapply = #{pkPrjapply},
+			</if>
+			<if test="pkPrjcontr != null and pkPrjcontr != '' " >
+				pk_prjcontr = #{pkPrjcontr},
+			</if>
+			<if test="pkPrjcontrori != null and pkPrjcontrori != '' " >
+				pk_prjcontrori = #{pkPrjcontrori},
+			</if>
+			<if test="contrCode != null and contrCode != '' " >
+				contr_code = #{contrCode},
+			</if>
+			<if test="pkUserOper != null and pkUserOper != '' " >
+				pk_user_oper = #{pkUserOper},
+			</if>
+			<if test="pkOrg != null and pkOrg != '' " >
+				pk_org = #{pkOrg},
+			</if>
+			<if test="pkDeptdoc != null and pkDeptdoc != '' " >
+				pk_deptdoc = #{pkDeptdoc},
+			</if>
+			<if test="ts != null and ts != '' " >
+				ts = #{ts},
+			</if>
+		</set>
+		where
+			pk_prj_state = #{pkPrjState} 
+    </update>
+    
+     <!-- 根据条件修改 -->
+    <update id="updateRzPrjStateByCondition" parameterType="map">
+		update  rz_prj_state 
+		<set>
+		 		<if test="record.prjState != null">
+					prj_state = #{record.prjState},
+				</if>
+				<if test="record.pkPricecal != null and record.pkPricecal != ''">
+					pk_pricecal = #{record.pkPricecal},
+				</if>
+				<if test="record.pkPrjreview != null and record.pkPrjreview != ''">
+					pk_prjreview = #{record.pkPrjreview},
+				</if>
+				<if test="record.pkPrjapply != null and record.pkPrjapply != ''">
+					pk_prjapply = #{record.pkPrjapply},
+				</if>
+				<if test="record.pkPrjcontr != null and record.pkPrjcontr != ''">
+					pk_prjcontr = #{record.pkPrjcontr},
+				</if>
+				<if test="record.pkPrjcontrori != null and record.pkPrjcontrori != ''">
+					pk_prjcontrori = #{record.pkPrjcontrori},
+				</if>
+				<if test="record.contrCode != null and record.contrCode != ''">
+					contr_code = #{record.contrCode},
+				</if>
+				<if test="record.pkUserOper != null and record.pkUserOper != ''">
+					pk_user_oper = #{record.pkUserOper},
+				</if>
+				<if test="record.pkOrg != null and record.pkOrg != ''">
+					pk_org = #{record.pkOrg},
+				</if>
+				<if test="record.pkDeptdoc != null and record.pkDeptdoc != ''">
+					pk_deptdoc = #{record.pkDeptdoc},
+				</if>
+				<if test="record.ts != null and record.ts != ''">
+					ts = #{record.ts},
+				</if>
+		</set>
+		<include refid="updateByCondition" />
+    </update>
+    
+    <!-- 根据主键进行批量修改 -->
+    <update id="updateRzPrjStateByBatchId"  parameterType="java.util.List">
+    	<if test="list != null">
+	     <foreach collection="list" item='obj' separator=";" >
+	     update rz_prj_state
+	     <set>
+		 		<if test="obj.prjState != null">
+					prj_state = #{obj.prjState},
+				</if>
+				<if test="obj.pkPricecal != null and obj.pkPricecal != ''">
+					pk_pricecal = #{obj.pkPricecal},
+				</if>
+				<if test="obj.pkPrjreview != null and obj.pkPrjreview != ''">
+					pk_prjreview = #{obj.pkPrjreview},
+				</if>
+				<if test="obj.pkPrjapply != null and obj.pkPrjapply != ''">
+					pk_prjapply = #{obj.pkPrjapply},
+				</if>
+				<if test="obj.pkPrjcontr != null and obj.pkPrjcontr != ''">
+					pk_prjcontr = #{obj.pkPrjcontr},
+				</if>
+				<if test="obj.pkPrjcontrori != null and obj.pkPrjcontrori != ''">
+					pk_prjcontrori = #{obj.pkPrjcontrori},
+				</if>
+				<if test="obj.contrCode != null and obj.contrCode != ''">
+					contr_code = #{obj.contrCode},
+				</if>
+				<if test="obj.pkUserOper != null and obj.pkUserOper != ''">
+					pk_user_oper = #{obj.pkUserOper},
+				</if>
+				<if test="obj.pkOrg != null and obj.pkOrg != ''">
+					pk_org = #{obj.pkOrg},
+				</if>
+				<if test="obj.pkDeptdoc != null and obj.pkDeptdoc != ''">
+					pk_deptdoc = #{obj.pkDeptdoc},
+				</if>
+				<if test="obj.ts != null and obj.ts != ''">
+					ts = #{obj.ts},
+				</if>
+			</set>
+			where
+				pk_prj_state = #{obj.pkPrjState} 
+	     </foreach>
+     	</if>
+    </update>
+    
+    <!-- 查询所有 -->
+    <select id="getRzPrjStateAll" parameterType="rzPrjStateQuery" resultMap="rzPrjStateResult">
+		SELECT 
+		<include refid="rzPrjStateField" />  
+		from  
+		rz_prj_state<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询总数 -->
+	<select id="getRzPrjStateByPageCount" parameterType="rzPrjStateQuery" resultType="int">
+		SELECT count(*) from  rz_prj_state
+		<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getRzPrjStateByPage" parameterType="rzPrjStateQuery" resultMap="rzPrjStateResult">
+		SELECT <include refid="rzPrjStateField" /> from rz_prj_state
+		<include refid="condition" />
+		<if test="sort !=null">
+		    ORDER BY ${sort} ${order} 
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+	
+	<!-- 根据Id查询 -->
+	<select id="getRzPrjStateById" parameterType="rzPrjStateQuery" resultMap="rzPrjStateResult">
+		SELECT <include refid="rzPrjStateField" /> from  rz_prj_state  where pk_prj_state = #{pkPrjState} 
+		 
+	</select>
+    
+</mapper>

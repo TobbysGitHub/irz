@@ -1,0 +1,152 @@
+<title>demo</title>
+<body>
+<!-- demo datagrid start -->
+<table id="demoDataGrid" >
+	<thead>
+		<tr>
+			<th data-options="field:'ck',checkbox:true"></th>
+			<th data-options="field:'id',width:80,sortable:true" >序号</th>
+			<th data-options="field:'name',width:100">名称</th>
+			<th data-options="field:'sex',width:80,align:'right'">性别</th>
+			<th data-options="field:'remark',width:250">描述</th>
+			<th data-options="field:'created',width:250">创建日期</th>
+			<th data-options="field:'modified',width:250,align:'center'">更改日期</th>
+		</tr>
+	</thead>
+</table>
+<!-- demo list end -->
+
+<!-- demo datagrid toolbar start -->
+<div id="demoDataGridTb" style="height:auto" >
+	<div>
+    	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="openViewDemoWin()">查看</a>
+    	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="openWindow('demoEditWin')">添加</a>
+    	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="openViewDemoWin()">修改</a>
+    	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="deleteData('demoDataGrid',deleteDemo)">删除</a>
+	</div>
+	<div style="padding:5px;border-top:1px solid #dddddd;width:100%;background-color:#f4f4f4">
+		<table width="100%">
+			<tr>
+    			<td width="20" nowrap>名称:</td>
+    			<td >
+					<input class="easyui-textbox" type="text" name="name"   />
+				</td>
+				<td  width="20" nowrap>性别:</td>
+				<td>
+					<input class="easyui-textbox" type="text" name="sex"   />
+				</td>
+				<td  width="20" nowrap>创建日期:</td>
+				<td>
+					<input class="easyui-textbox" type="text" name="created"  data-options="readonly:true" />
+				</td>
+				<td  width="20" nowrap>更改日期:</td>
+				<td>
+					<input class="easyui-textbox" type="text" name="modified"  data-options="readonly:true" />
+				</td>
+				<td>
+					<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="width:80px">搜索</a>
+ 				</td>
+			</tr>
+        </table>
+    </div>
+</div>
+<!-- demo datagrid toolbar end -->
+
+#parse("/WEB-INF/vm/demo/demoEdit.vm")
+
+<script>
+
+	/**
+     * demo的列表
+     */
+    jQuery(function(){
+        jQuery('#demoDataGrid').datagrid({
+            url:'$homeModule.getTarget("/demo/getDemoByPage")',
+            method:'get',
+            singleSelect:false,
+            border:false,
+            fit:true,//表格宽自适应
+            //fitColumns: true,//表格单元个宽自适应
+            nowrap : true,
+            striped : true,
+            remoteSort:false,
+            multiSort:true,
+            toolbar:'#demoDataGridTb',
+            pagination:true,//分页
+            pageSize : 20,//每页显示的条数
+            pageList : [5,10,15,20,22,50],//切换每页显示的条数
+            onDblClickRow:function(rowIndex,rowData){
+            	openViewDemoWin(rowData.id);
+            }
+        });
+    });
+    
+    /**
+     * 打开查看窗口
+     */
+    function openViewDemoWin(id){
+		var selectId;
+		if(id){
+			selectId = id
+		}else{
+		    var selectData = jQuery('#demoDataGrid').datagrid("getSelected");
+			if(selectData){
+				selectId = selectData.id;
+			}
+		}
+		
+		if(selectId){
+    		jQuery('#demoEditWin').window('open');
+            jQuery('#demoEditForm').form('load', '$homeModule.getTarget("/demo/getDemoById")?demoQuery.id='+selectId);
+		}else{
+			jQuery.messager.alert('错误提示','请选择您要操作的记录！','info');
+		}
+    }
+    
+    /**
+     * 打开添加窗口
+	 * 要打开窗口的Id
+     */
+    function openInsertDemoWin(){
+        jQuery('#demoEditWin').window('open');
+    }
+    
+    /**
+     * 打开修改窗口
+     */
+    function openUpdataDemoWin(){
+        var selectData = jQuery('#demoDataGrid').datagrid("getSelected");
+		if(selectData){
+    		jQuery('#demoEditWin').window('open');
+            jQuery('#demoEditForm').form('load', '$homeModule.getTarget("/demo/getDemoById")?demoQuery.id='+selectData.id);
+		}else{
+			jQuery.messager.alert('提示信息','请选择您要操作的记录！','info');
+		}
+    }
+	
+	/**
+	 * 删除数据（该方法为回调方法）
+	 * deleteIds 要删除记录的id,以逗号隔开（1,2,3,4,5） 
+	 * dataGridId 要删除的grid的
+	 */
+	function deleteDemo(deleteIds,dataGridId){
+		jQuery.ajax({  
+      		type:"post",
+    		url:"$!homeModule.getTarget("/demo/deleteDemoByIdBatch")",
+			dataType:"json",
+			data:"batchId="+deleteIds,
+    		success:function(data){
+				//刷新表格数据
+				reLoadDataGrid(dataGridId);
+				jQuery.messager.alert('提示信息','删除记录成功！','info');
+			}, 
+       		error:function(data){
+				jQuery.messager.alert('提示信息','删除记录失败！','info');
+    		}
+		});
+	}
+   
+
+</script>
+	
+</body>

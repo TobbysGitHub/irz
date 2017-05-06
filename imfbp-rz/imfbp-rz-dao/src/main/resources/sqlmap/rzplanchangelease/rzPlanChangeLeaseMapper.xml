@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="rzPlanChangeLease">
+
+	<!-- 結果集 -->
+	<resultMap id="rzPlanChangeLeaseResult" type="com.imfbp.rz.domain.rzplanchangelease.RzPlanChangeLease">
+		<result property="pkPlanChangeLease" column="pk_plan_change_lease" />
+		<result property="pkPlanChange" column="pk_plan_change" />
+		<result property="num" column="num" />
+		<result property="rptDate" column="rpt_date" />
+		<result property="paydur" column="paydur" />
+		<result property="durdays" column="durdays" />
+		<result property="leaseRate" column="lease_rate" />
+		<result property="rptAmt" column="rpt_amt" />
+		<result property="rptInt" column="rpt_int" />
+		<result property="rptRent" column="rpt_rent" />
+		<result property="rptDefInt" column="rpt_def_int" />
+		<result property="payFee" column="pay_fee" />
+		<result property="rptTotal" column="rpt_total" />
+		<result property="residualAmt" column="residual_amt" />
+		<result property="actAmt" column="act_amt" />
+		<result property="actInt" column="act_int" />
+		<result property="actDefInt" column="act_def_int" />
+		<result property="actPayFee" column="act_pay_fee" />
+		<result property="actTotal" column="act_total" />
+		<result property="isCheck" column="is_check" />
+		<result property="cfOut" column="cf_out" />
+		<result property="netCfIn" column="net_cf_in" />
+		<result property="ver" column="ver" />
+		<result property="cfIn" column="cf_in" />
+		<result property="seqNo" column="seq_no" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="rzPlanChangeLeaseField">
+		pk_plan_change_lease,pk_plan_change,num,rpt_date,paydur,durdays,lease_rate,rpt_amt,rpt_int,rpt_rent,rpt_def_int,pay_fee,rpt_total,residual_amt,act_amt,act_int,act_def_int,act_pay_fee,act_total,is_check,cf_out,net_cf_in,ver,cf_in,seq_no
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="condition">
+        <where>
+        	<if test="pkPlanChangeLease != null and pkPlanChangeLease != ''" >
+				and pk_plan_change_lease = #{pkPlanChangeLease}
+			</if>
+        	<if test="pkPlanChange != null and pkPlanChange != ''" >
+				and pk_plan_change = #{pkPlanChange}
+			</if>
+        	<if test="num != null and num != ''" >
+				and num = #{num}
+			</if>
+        	<if test="rptDate != null and rptDate != ''" >
+				and rpt_date = #{rptDate}
+			</if>
+        	<if test="paydur != null and paydur != ''" >
+				and paydur = #{paydur}
+			</if>
+        	<if test="durdays != null" >
+				and durdays = #{durdays}
+			</if>
+        	<if test="leaseRate != null" >
+				and lease_rate = #{leaseRate}
+			</if>
+        	<if test="rptAmt != null" >
+				and rpt_amt = #{rptAmt}
+			</if>
+        	<if test="rptInt != null" >
+				and rpt_int = #{rptInt}
+			</if>
+        	<if test="rptRent != null" >
+				and rpt_rent = #{rptRent}
+			</if>
+        	<if test="rptDefInt != null" >
+				and rpt_def_int = #{rptDefInt}
+			</if>
+        	<if test="payFee != null" >
+				and pay_fee = #{payFee}
+			</if>
+        	<if test="rptTotal != null" >
+				and rpt_total = #{rptTotal}
+			</if>
+        	<if test="residualAmt != null" >
+				and residual_amt = #{residualAmt}
+			</if>
+        	<if test="actAmt != null" >
+				and act_amt = #{actAmt}
+			</if>
+        	<if test="actInt != null" >
+				and act_int = #{actInt}
+			</if>
+        	<if test="actDefInt != null" >
+				and act_def_int = #{actDefInt}
+			</if>
+        	<if test="actPayFee != null" >
+				and act_pay_fee = #{actPayFee}
+			</if>
+        	<if test="actTotal != null" >
+				and act_total = #{actTotal}
+			</if>
+        	<if test="isCheck != null and isCheck != ''" >
+				and is_check = #{isCheck}
+			</if>
+        	<if test="cfOut != null" >
+				and cf_out = #{cfOut}
+			</if>
+        	<if test="netCfIn != null" >
+				and net_cf_in = #{netCfIn}
+			</if>
+        	<if test="ver != null" >
+				and ver = #{ver}
+			</if>
+        	<if test="cfIn != null" >
+				and cf_in = #{cfIn}
+			</if>
+        	<if test="seqNo != null" >
+				and seq_no = #{seqNo}
+			</if>
+        </where>
+    </sql>
+    
+    <!-- 修改条件 -->
+	<sql id="updateByCondition">
+        <where>
+				<if test="parameter.pkPlanChangeLease != null and parameter.pkPlanChangeLease != ''" >
+					and pk_plan_change_lease = #{parameter.pkPlanChangeLease}
+				</if>
+				<if test="parameter.pkPlanChange != null and parameter.pkPlanChange != ''" >
+					and pk_plan_change = #{parameter.pkPlanChange}
+				</if>
+				<if test="parameter.num != null and parameter.num != ''" >
+					and num = #{parameter.num}
+				</if>
+				<if test="parameter.rptDate != null and parameter.rptDate != ''" >
+					and rpt_date = #{parameter.rptDate}
+				</if>
+				<if test="parameter.paydur != null and parameter.paydur != ''" >
+					and paydur = #{parameter.paydur}
+				</if>
+		    	<if test="parameter.durdays != null" >
+					and durdays = #{parameter.durdays}
+				</if>
+		    	<if test="parameter.leaseRate != null" >
+					and lease_rate = #{parameter.leaseRate}
+				</if>
+		    	<if test="parameter.rptAmt != null" >
+					and rpt_amt = #{parameter.rptAmt}
+				</if>
+		    	<if test="parameter.rptInt != null" >
+					and rpt_int = #{parameter.rptInt}
+				</if>
+		    	<if test="parameter.rptRent != null" >
+					and rpt_rent = #{parameter.rptRent}
+				</if>
+		    	<if test="parameter.rptDefInt != null" >
+					and rpt_def_int = #{parameter.rptDefInt}
+				</if>
+		    	<if test="parameter.payFee != null" >
+					and pay_fee = #{parameter.payFee}
+				</if>
+		    	<if test="parameter.rptTotal != null" >
+					and rpt_total = #{parameter.rptTotal}
+				</if>
+		    	<if test="parameter.residualAmt != null" >
+					and residual_amt = #{parameter.residualAmt}
+				</if>
+		    	<if test="parameter.actAmt != null" >
+					and act_amt = #{parameter.actAmt}
+				</if>
+		    	<if test="parameter.actInt != null" >
+					and act_int = #{parameter.actInt}
+				</if>
+		    	<if test="parameter.actDefInt != null" >
+					and act_def_int = #{parameter.actDefInt}
+				</if>
+		    	<if test="parameter.actPayFee != null" >
+					and act_pay_fee = #{parameter.actPayFee}
+				</if>
+		    	<if test="parameter.actTotal != null" >
+					and act_total = #{parameter.actTotal}
+				</if>
+				<if test="parameter.isCheck != null and parameter.isCheck != ''" >
+					and is_check = #{parameter.isCheck}
+				</if>
+		    	<if test="parameter.cfOut != null" >
+					and cf_out = #{parameter.cfOut}
+				</if>
+		    	<if test="parameter.netCfIn != null" >
+					and net_cf_in = #{parameter.netCfIn}
+				</if>
+		    	<if test="parameter.ver != null" >
+					and ver = #{parameter.ver}
+				</if>
+		    	<if test="parameter.cfIn != null" >
+					and cf_in = #{parameter.cfIn}
+				</if>
+		    	<if test="parameter.seqNo != null" >
+					and seq_no = #{parameter.seqNo}
+				</if>
+        </where>
+    </sql>
+    
+    <!-- 新增 -->	
+	<insert id="insertRzPlanChangeLease" parameterType="rzPlanChangeLease">
+		insert into rz_plan_change_lease
+			(pk_plan_change_lease,pk_plan_change,num,rpt_date,paydur,durdays,lease_rate,rpt_amt,rpt_int,rpt_rent,rpt_def_int,pay_fee,rpt_total,residual_amt,act_amt,act_int,act_def_int,act_pay_fee,act_total,is_check,cf_out,net_cf_in,ver,cf_in,seq_no ) 
+		values 
+			(#{pkPlanChangeLease,jdbcType=CHAR},#{pkPlanChange,jdbcType=CHAR},#{num,jdbcType=VARCHAR},#{rptDate,jdbcType=CHAR},#{paydur,jdbcType=VARCHAR},#{durdays,jdbcType=INTEGER},#{leaseRate,jdbcType=DECIMAL},#{rptAmt,jdbcType=DECIMAL},#{rptInt,jdbcType=DECIMAL},#{rptRent,jdbcType=DECIMAL},#{rptDefInt,jdbcType=DECIMAL},#{payFee,jdbcType=DECIMAL},#{rptTotal,jdbcType=DECIMAL},#{residualAmt,jdbcType=DECIMAL},#{actAmt,jdbcType=DECIMAL},#{actInt,jdbcType=DECIMAL},#{actDefInt,jdbcType=DECIMAL},#{actPayFee,jdbcType=DECIMAL},#{actTotal,jdbcType=DECIMAL},#{isCheck,jdbcType=CHAR},#{cfOut,jdbcType=DECIMAL},#{netCfIn,jdbcType=DECIMAL},#{ver,jdbcType=DECIMAL},#{cfIn,jdbcType=DECIMAL},#{seqNo,jdbcType=INTEGER})
+    </insert>
+    
+    <!-- 批量新增 -->	
+	<insert id="insertBatchRzPlanChangeLease" parameterType="java.util.List">
+       insert into rz_plan_change_lease
+			(pk_plan_change_lease,pk_plan_change,num,rpt_date,paydur,durdays,lease_rate,rpt_amt,rpt_int,rpt_rent,rpt_def_int,pay_fee,rpt_total,residual_amt,act_amt,act_int,act_def_int,act_pay_fee,act_total,is_check,cf_out,net_cf_in,ver,cf_in,seq_no ) 
+	   values
+	    <foreach collection="list" item="obj" index="index" separator="," >
+	    	(#{obj.pkPlanChangeLease},#{obj.pkPlanChange},#{obj.num},#{obj.rptDate},#{obj.paydur},#{obj.durdays},#{obj.leaseRate},#{obj.rptAmt},#{obj.rptInt},#{obj.rptRent},#{obj.rptDefInt},#{obj.payFee},#{obj.rptTotal},#{obj.residualAmt},#{obj.actAmt},#{obj.actInt},#{obj.actDefInt},#{obj.actPayFee},#{obj.actTotal},#{obj.isCheck},#{obj.cfOut},#{obj.netCfIn},#{obj.ver},#{obj.cfIn},#{obj.seqNo})
+	    </foreach>
+   </insert>
+    
+    
+    <!-- 根据id删除 (删除数据库数据)-->
+    <delete id="deleteRzPlanChangeLeaseById" parameterType="rzPlanChangeLeaseQuery" >
+    	delete from rz_plan_change_lease  where pk_plan_change_lease = #{pkPlanChangeLease} 
+    </delete>
+    
+    <!-- 根据条件删除 (删除数据库数据)-->
+    <delete id="deleteRzPlanChangeLeaseByCondition" parameterType="rzPlanChangeLeaseQuery" >
+    	delete from 
+    	rz_plan_change_lease<include refid="condition" /> 
+    </delete>
+    
+    <!-- 根据主键批量删除 (删除数据库数据)-->
+    <delete id="deleteRzPlanChangeLeaseByBatchId" parameterType="map" >
+    	delete from rz_plan_change_lease 
+    	where
+    	pk_plan_change_lease in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据id修改 -->
+    <update id="updateRzPlanChangeLeaseById" parameterType="rzPlanChangeLeaseQuery">
+		update  rz_plan_change_lease 
+		<set>
+			<if test="pkPlanChange != null and pkPlanChange != '' " >
+				pk_plan_change = #{pkPlanChange},
+			</if>
+			<if test="num != null and num != '' " >
+				num = #{num},
+			</if>
+			<if test="rptDate != null and rptDate != '' " >
+				rpt_date = #{rptDate},
+			</if>
+			<if test="paydur != null and paydur != '' " >
+				paydur = #{paydur},
+			</if>
+			<if test="durdays != null " >
+				durdays = #{durdays},
+			</if>
+			<if test="leaseRate != null " >
+				lease_rate = #{leaseRate},
+			</if>
+			<if test="rptAmt != null " >
+				rpt_amt = #{rptAmt},
+			</if>
+			<if test="rptInt != null " >
+				rpt_int = #{rptInt},
+			</if>
+			<if test="rptRent != null " >
+				rpt_rent = #{rptRent},
+			</if>
+			<if test="rptDefInt != null " >
+				rpt_def_int = #{rptDefInt},
+			</if>
+			<if test="payFee != null " >
+				pay_fee = #{payFee},
+			</if>
+			<if test="rptTotal != null " >
+				rpt_total = #{rptTotal},
+			</if>
+			<if test="residualAmt != null " >
+				residual_amt = #{residualAmt},
+			</if>
+			<if test="actAmt != null " >
+				act_amt = #{actAmt},
+			</if>
+			<if test="actInt != null " >
+				act_int = #{actInt},
+			</if>
+			<if test="actDefInt != null " >
+				act_def_int = #{actDefInt},
+			</if>
+			<if test="actPayFee != null " >
+				act_pay_fee = #{actPayFee},
+			</if>
+			<if test="actTotal != null " >
+				act_total = #{actTotal},
+			</if>
+			<if test="isCheck != null and isCheck != '' " >
+				is_check = #{isCheck},
+			</if>
+			<if test="cfOut != null " >
+				cf_out = #{cfOut},
+			</if>
+			<if test="netCfIn != null " >
+				net_cf_in = #{netCfIn},
+			</if>
+			<if test="ver != null " >
+				ver = #{ver},
+			</if>
+			<if test="cfIn != null " >
+				cf_in = #{cfIn},
+			</if>
+			<if test="seqNo != null " >
+				seq_no = #{seqNo},
+			</if>
+		</set>
+		where
+			pk_plan_change_lease = #{pkPlanChangeLease} 
+    </update>
+    
+     <!-- 根据条件修改 -->
+    <update id="updateRzPlanChangeLeaseByCondition" parameterType="map">
+		update  rz_plan_change_lease 
+		<set>
+				<if test="record.pkPlanChange != null and record.pkPlanChange != ''">
+					pk_plan_change = #{record.pkPlanChange},
+				</if>
+				<if test="record.num != null and record.num != ''">
+					num = #{record.num},
+				</if>
+				<if test="record.rptDate != null and record.rptDate != ''">
+					rpt_date = #{record.rptDate},
+				</if>
+				<if test="record.paydur != null and record.paydur != ''">
+					paydur = #{record.paydur},
+				</if>
+		 		<if test="record.durdays != null">
+					durdays = #{record.durdays},
+				</if>
+		 		<if test="record.leaseRate != null">
+					lease_rate = #{record.leaseRate},
+				</if>
+		 		<if test="record.rptAmt != null">
+					rpt_amt = #{record.rptAmt},
+				</if>
+		 		<if test="record.rptInt != null">
+					rpt_int = #{record.rptInt},
+				</if>
+		 		<if test="record.rptRent != null">
+					rpt_rent = #{record.rptRent},
+				</if>
+		 		<if test="record.rptDefInt != null">
+					rpt_def_int = #{record.rptDefInt},
+				</if>
+		 		<if test="record.payFee != null">
+					pay_fee = #{record.payFee},
+				</if>
+		 		<if test="record.rptTotal != null">
+					rpt_total = #{record.rptTotal},
+				</if>
+		 		<if test="record.residualAmt != null">
+					residual_amt = #{record.residualAmt},
+				</if>
+		 		<if test="record.actAmt != null">
+					act_amt = #{record.actAmt},
+				</if>
+		 		<if test="record.actInt != null">
+					act_int = #{record.actInt},
+				</if>
+		 		<if test="record.actDefInt != null">
+					act_def_int = #{record.actDefInt},
+				</if>
+		 		<if test="record.actPayFee != null">
+					act_pay_fee = #{record.actPayFee},
+				</if>
+		 		<if test="record.actTotal != null">
+					act_total = #{record.actTotal},
+				</if>
+				<if test="record.isCheck != null and record.isCheck != ''">
+					is_check = #{record.isCheck},
+				</if>
+		 		<if test="record.cfOut != null">
+					cf_out = #{record.cfOut},
+				</if>
+		 		<if test="record.netCfIn != null">
+					net_cf_in = #{record.netCfIn},
+				</if>
+		 		<if test="record.ver != null">
+					ver = #{record.ver},
+				</if>
+		 		<if test="record.cfIn != null">
+					cf_in = #{record.cfIn},
+				</if>
+		 		<if test="record.seqNo != null">
+					seq_no = #{record.seqNo},
+				</if>
+		</set>
+		<include refid="updateByCondition" />
+    </update>
+    
+    <!-- 根据主键进行批量修改 -->
+    <update id="updateRzPlanChangeLeaseByBatchId"  parameterType="java.util.List">
+    	<if test="list != null">
+	     <foreach collection="list" item='obj' separator=";" >
+	     update rz_plan_change_lease
+	     <set>
+				<if test="obj.pkPlanChange != null and obj.pkPlanChange != ''">
+					pk_plan_change = #{obj.pkPlanChange},
+				</if>
+				<if test="obj.num != null and obj.num != ''">
+					num = #{obj.num},
+				</if>
+				<if test="obj.rptDate != null and obj.rptDate != ''">
+					rpt_date = #{obj.rptDate},
+				</if>
+				<if test="obj.paydur != null and obj.paydur != ''">
+					paydur = #{obj.paydur},
+				</if>
+		 		<if test="obj.durdays != null">
+					durdays = #{obj.durdays},
+				</if>
+		 		<if test="obj.leaseRate != null">
+					lease_rate = #{obj.leaseRate},
+				</if>
+		 		<if test="obj.rptAmt != null">
+					rpt_amt = #{obj.rptAmt},
+				</if>
+		 		<if test="obj.rptInt != null">
+					rpt_int = #{obj.rptInt},
+				</if>
+		 		<if test="obj.rptRent != null">
+					rpt_rent = #{obj.rptRent},
+				</if>
+		 		<if test="obj.rptDefInt != null">
+					rpt_def_int = #{obj.rptDefInt},
+				</if>
+		 		<if test="obj.payFee != null">
+					pay_fee = #{obj.payFee},
+				</if>
+		 		<if test="obj.rptTotal != null">
+					rpt_total = #{obj.rptTotal},
+				</if>
+		 		<if test="obj.residualAmt != null">
+					residual_amt = #{obj.residualAmt},
+				</if>
+		 		<if test="obj.actAmt != null">
+					act_amt = #{obj.actAmt},
+				</if>
+		 		<if test="obj.actInt != null">
+					act_int = #{obj.actInt},
+				</if>
+		 		<if test="obj.actDefInt != null">
+					act_def_int = #{obj.actDefInt},
+				</if>
+		 		<if test="obj.actPayFee != null">
+					act_pay_fee = #{obj.actPayFee},
+				</if>
+		 		<if test="obj.actTotal != null">
+					act_total = #{obj.actTotal},
+				</if>
+				<if test="obj.isCheck != null and obj.isCheck != ''">
+					is_check = #{obj.isCheck},
+				</if>
+		 		<if test="obj.cfOut != null">
+					cf_out = #{obj.cfOut},
+				</if>
+		 		<if test="obj.netCfIn != null">
+					net_cf_in = #{obj.netCfIn},
+				</if>
+		 		<if test="obj.ver != null">
+					ver = #{obj.ver},
+				</if>
+		 		<if test="obj.cfIn != null">
+					cf_in = #{obj.cfIn},
+				</if>
+		 		<if test="obj.seqNo != null">
+					seq_no = #{obj.seqNo},
+				</if>
+			</set>
+			where
+				pk_plan_change_lease = #{obj.pkPlanChangeLease} 
+	     </foreach>
+     	</if>
+    </update>
+    
+    <!-- 查询所有 -->
+    <select id="getRzPlanChangeLeaseAll" parameterType="rzPlanChangeLeaseQuery" resultMap="rzPlanChangeLeaseResult">
+		SELECT 
+		<include refid="rzPlanChangeLeaseField" />  
+		from  
+		rz_plan_change_lease<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询总数 -->
+	<select id="getRzPlanChangeLeaseByPageCount" parameterType="rzPlanChangeLeaseQuery" resultType="int">
+		SELECT count(*) from  rz_plan_change_lease
+		<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getRzPlanChangeLeaseByPage" parameterType="rzPlanChangeLeaseQuery" resultMap="rzPlanChangeLeaseResult">
+		SELECT <include refid="rzPlanChangeLeaseField" /> from rz_plan_change_lease
+		<include refid="condition" />
+		<if test="sort !=null">
+		    ORDER BY ${sort} ${order} 
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+	
+	<!-- 根据Id查询 -->
+	<select id="getRzPlanChangeLeaseById" parameterType="rzPlanChangeLeaseQuery" resultMap="rzPlanChangeLeaseResult">
+		SELECT <include refid="rzPlanChangeLeaseField" /> from  rz_plan_change_lease  where pk_plan_change_lease = #{pkPlanChangeLease} 
+		 
+	</select>
+    
+</mapper>

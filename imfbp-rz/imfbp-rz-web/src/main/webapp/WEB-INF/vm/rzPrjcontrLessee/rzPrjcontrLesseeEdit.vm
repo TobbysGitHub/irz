@@ -1,0 +1,160 @@
+<div class="panel panel-default">
+	<div class="panel-heading  footer-saveOrCancel">
+		<button type="button" class="btn btn-default btn-sm save-btn">保存</button><button type="button" class="btn btn-default btn-sm back-btn">取消</button>
+	</div>
+	<div class="panel-body form-parent" data-bind="with:editData">
+		<form class="rzPrjcontrLesseeEditForm form-horizontal">
+            <div class="lesseeBaseInfo row panel slideParent">
+                <div class="col-xs-12 panel-heading" data-toggle="collapse" data-target="#lesseeBaseInfo">
+                    <h5>承租人基本信息</h5><span class="glyphicon glyphicon-chevron-up"></span>
+                </div>
+                <div class="col-xs-12 panel-body collapse in" id="lesseeBaseInfo">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6" style="display: none">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">主键</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="pkPrjcontrLessee" class="form-control content-w210-input" data-bind="value:pkPrjcontrLessee,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6" style="display: none">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">项目评审主键  </label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="pkPrjcontr" class="form-control content-w210-input" data-bind="value:pkPrjcontr,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">承租人</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <!--<input type="text" name="pkCustomer" class="form-control content-w210-input" data-bind="value:pkCustomer,enable:enableState">-->
+                                    <input type="text" name="pkCustomer" class="form-control content-w210-input"
+                                           data-bind="enable:false"
+                                           data-imfbp-ref-bind="pkCustomer"
+                                           data-imfbp-ref-bind-field="" data-imfbp-ref-value>
+                                    <div class="icon-wrap ">
+                                        <i class="glyphicon glyphicon-th-list icon" id="icon"
+                                           data-imfbp-ref-name='customerref' name="pkCustomer"
+                                           data-imfbp-ref-use = 'true'
+                                           data-imfbp-ref-fun="lesseeRefCallFunction" data-imfbp-ref="ref"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6" style="display:none;">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">承租人名称</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="enterpriseName" class="form-control content-w210-input" data-bind="value:enterpriseName,enable:false">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">是否主承租人</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <!--<input type="text" name="isMainLessee" class="form-control content-w210-input" data-bind="value:isMainLessee,enable:enableState">-->
+                                    <select type="text" name="isMainLessee" class="form-control content-w210-input"
+                                            data-bind="value:isMainLessee,enable:enableState">
+                                        <option value="N">否</option>
+                                        <option value="Y">是</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">法人代表</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="enterpriseLegalPerson" class="form-control content-w210-input" data-bind="value:enterpriseLegalPerson,enable:false">
+                                </div>
+                            </div>
+                        </div>
+                   
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">组织机构代码证</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="enterprisePersonIdentificationNo" class="form-control content-w210-input" data-bind="value:enterprisePersonIdentificationNo,enable:false">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">通信地址</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="enterpriseAddr" class="form-control content-w210-input" data-bind="value:enterpriseAddr,enable:false">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">邮编</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="enterprisePostcode" class="form-control content-w210-input" data-bind="value:enterprisePostcode,enable:false">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">联系人</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="enterpriseContacts" class="form-control content-w210-input" data-bind="value:enterpriseContacts,enable:false">
+                                </div>
+                            </div>
+                        </div>
+                 
+
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">联系人电话</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="enterpriseTelphone" class="form-control content-w210-input" data-bind="value:enterpriseTelphone,enable:false">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">传真</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="enterpriseFax" class="form-control content-w210-input" data-bind="value:enterpriseFax,enable:false">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">联系人手机</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="enterpriseMobilephone" class="form-control content-w210-input" data-bind="value:enterpriseMobilephone,enable:false">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">联系人邮箱</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="enterpriseMail" class="form-control content-w210-input" data-bind="value:enterpriseMail,enable:false">
+                                </div>
+                            </div>
+                        </div>
+                   
+
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">备注</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="remark" class="form-control content-w210-input" data-bind="value:remark,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+

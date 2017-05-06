@@ -1,0 +1,139 @@
+<div class="padding-5">
+	<div class="toolsbarPanel">
+		<div class="btn-group" role="group">
+			<button type="button" class="btn btn-action btn-sm check-btn" >
+				核销
+			</button>
+			<button type="button" class="btn btn-action btn-sm fullpage-btn" >
+				全屏
+			</button>
+			
+		</div>
+	</div>
+	<div class="grid rzPmtPlanLeaseList"></div>
+	<ul id="pagination" class="pagination" style="display:none"></ul>
+</div>
+
+ <!--弹框-->
+  <div class="u-container-fluid u-widget-bg" style="display:none">
+    <div class="u-row">
+      <div class="u-col-md-4">
+        <div class="u-widget" id="test">
+          <div class="u-widget-body">
+            <div id="edit_pmtlease" style="display:none">
+              <div class="u-msg-title">
+                <span style="font-size:14px;">
+                	  核销租金计划表
+                  </span>
+              </div>
+              <div class="u-msg-content">
+                <div style="float:left;padding-right:10px;">
+                  <i class="iconfont icon-tishi" style="font-size:30px;padding-top:5px;color:red">
+                  </i>
+                </div>
+                <div class="row">
+					<div class="form-group">
+					<div class="col-md-4 col-sm-4">
+						<label class="col-md-5 col-sm-5  no-padding-right">应还款本金</label>
+						<div class="col-md-7 col-sm-7">
+							<input type="text" name="rptAmt" class="form-control" readonly>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-4">
+						<label class="col-md-5 col-sm-5  no-padding-right">应还款利息</label>
+						<div class="col-md-7 col-sm-7">
+							<input type="text" name="rptInt" class="form-control" readonly>
+						</div>
+					</div>
+				    <div class="col-md-4 col-sm-4">
+						<label class="col-md-5 col-sm-5  no-padding-right">应还款租金</label>
+						<div class="col-md-7 col-sm-7">
+							<input type="text" name="rptRent" class="form-control" readonly>
+						</div>
+					</div>
+					</div>
+					</div>
+					<div class="row" style="margin-top:10px">
+					<div class="form-group">
+					   <div class="col-md-4 col-sm-4">
+						<label class="col-md-5 col-sm-5  no-padding-right">应还罚息</label>
+						<div class="col-md-7 col-sm-7">
+							<input type="text" name="rptDefInt" class="form-control" readonly>
+						</div>
+					</div>
+					   <div class="col-md-4 col-sm-4">
+						<label class="col-md-5 col-sm-5  no-padding-right">应支付手续费</label>
+						<div class="col-md-7 col-sm-7">
+							<input type="text" name="payFee" class="form-control" readonly>
+						</div>
+					</div>
+					   <div class="col-md-4 col-sm-4">
+						<label class="col-md-5 col-sm-5 no-padding-right">应还款合计</label>
+						<div class="col-md-7 col-sm-7">
+							<input type="text" name="rptTotal" class="form-control" readonly>
+						</div>
+					</div>
+					</div>
+				</div>
+				<hr/>
+               <div class="row">
+					<div class="form-group">
+					<div class="col-md-4 col-sm-4">
+						<label class="col-md-5 col-sm-5  no-padding-right">实际还款本金</label>
+						<div class="col-md-7 col-sm-7">
+							<input type="text" name="actAmt" class="form-control">
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-4">
+						<label class="col-md-5 col-sm-5 no-padding-right">实际还款利息</label>
+						<div class="col-md-7 col-sm-7">
+							<input type="text" name="actInt" class="form-control">
+						</div>
+					</div>
+				    <div class="col-md-4 col-sm-4">
+						<label class="col-md-5 col-sm-5  no-padding-right">实际还款租金</label>
+						<div class="col-md-7 col-sm-7">
+							<input type="text" name="actRent" class="form-control" readonly >
+						</div>
+					</div>
+					</div>
+					</div>
+					<div class="row" style="margin-top:10px">
+					<div class="form-group">
+					   <div class="col-md-4 col-sm-4">
+						<label class="col-md-5 col-sm-5  no-padding-right">实际还款罚息</label>
+						<div class="col-md-7 col-sm-7">
+							<input type="text" name="actDefInt" class="form-control">
+						</div>
+					</div>
+					   <div class="col-md-4 col-sm-4">
+						<label class="col-md-5 col-sm-5  no-padding-right">实际支付手续费</label>
+						<div class="col-md-7 col-sm-7">
+							<input type="text" name="actPayFee" class="form-control" >
+						</div>
+					</div>
+					   <div class="col-md-4 col-sm-4">
+						<label class="col-md-5 col-sm-5  no-padding-right">实际还款合计</label>
+						<div class="col-md-7 col-sm-7">
+							<input type="text" name="actTotal" class="form-control" readonly>
+						</div>
+					</div>
+				</div>
+               </div> 
+               </div>
+                <div class="u-msg-footer">
+                  <div style="text-align: right;padding-right:20px;">
+                    <button class="btn btn-out btn-py cancel-btn">
+                      	取消
+                      </button>
+                        <button class=" btn btn-action btn-py ok-btn" style="background-color:#00A0E8">
+                          	确定
+                        </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

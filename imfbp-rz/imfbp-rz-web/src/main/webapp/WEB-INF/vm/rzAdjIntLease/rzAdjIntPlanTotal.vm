@@ -1,0 +1,141 @@
+		<style type="text/css">
+		html,body,#rzAdjIntModule,.rzAdjIntPlanTotal{height:100%;}
+.wrap{
+			position: absolute;
+			width: 98%;
+			height: 98%;
+		padding:20px;
+			}
+			content_plan {
+				position: absolute;
+				top: 50px;
+				width: 100%;
+				bottom: 0;
+			padding-right:20px;
+			}
+
+			.wrap ul,li{
+				margin: 0;padding: 0 ;
+			}		
+			.head_name {
+				height: 77px;
+				padding-left:16px;
+			}			
+			.head_name h2 {
+				font-size: 14px;
+				font-family: "PingFang-SC-Medium";
+				color: #333333;
+				height: 20px;
+				font-weight: bold;
+			}
+			
+			.head_name p {
+				font-size: 14px;
+				color: #666666;
+				height: 20px;
+				font-weight: bold;
+			}
+			.tab{
+				border-bottom: 2px solid #EEEEEE;
+			}
+			.tab li {
+				font-size: 14px;
+				text-align: center;
+				margin-right:10px;
+				list-style: none;
+				float: left;
+				width: 142px;
+				height: 27px;
+				cursor: pointer;
+				border:1px solid #ccc;
+				border-bottom: none;
+			}
+			
+			 .tab div {
+				width: 90px;
+				border-bottom: 2px solid #EEEEEE;
+				margin-top: 7px;
+				
+			}
+			.show-div{
+				display:none;
+			height:100%;
+			}
+			 .tab span {
+				font-family: "PingFangSC-Regular";
+				font-size: 14px;
+				color: #999999;
+				font-weight: bold;
+			}
+			.tab li:hover div {
+				border-color: #00A0E8;
+			}
+			
+			.tab li:hover span {
+				color: #00A0E8;
+			}
+			
+			content_plan {
+				margin-top: 20px;
+			}
+			.tab-active span{
+				color: #00A0E8;
+			}
+			.tab-active div{
+				border-color: #00A0E8;
+			}
+			.div-active{
+				display:block;
+			}
+		</style>
+
+		<div class="wrap">
+			<nav class="tab">
+				<ul class="clearfix" style="margin-bottom:2px;">
+					<li class="tab-active" data-router="" onclick="rzAdjIntLeaseClick(this)" style="width:160px">
+							<span>租金计划表（调息前）</span>
+							<div style="width:160px"></div>
+					</li>
+					<li data-router="" onclick="rzAdjIntLeaseNewClick(this);" style="width:160px">
+							<span style="width:160px">租金计划表（调息后）</span>
+							<div style="width:160px"></div>
+					</li>
+				</ul>
+			</nav>
+			<div id="content_plan">
+				<div class="show-div div-active"  style="height: 700px;"></div>
+				<div class="show-div"  style="height: 700px;"></div>
+			</div> 
+		</div>
+
+<script type="text/javascript">
+	var url = '';
+	jQuery(".tab li").on("click", function() {
+		debugger;
+		jQuery(".tab li").removeClass();
+		jQuery(this).addClass("tab-active");
+		if($(this).attr("data-router").length !=0){
+			$("#content_plan>div").eq($(this).index()).html("")
+			var indexVal = $(this).index();
+			if(indexVal==2){
+				url = $(this).attr("data-router")+"?businessType=3&&businessId="+fkContactsClient;
+			}
+			$("#content_plan>div").eq($(this).index()).load(url);
+		}
+		$("#content_plan>div").removeClass("div-active");
+		$("#content_plan>div").eq($(this).index()).addClass("div-active")
+	})
+	
+	function rzAdjIntLeaseClick(obj){
+		url='$homeModule.getTarget('/rzAdjIntLease/toRzAdjIntLeasePage')'+'?pkAdjInt='+$("#rzAdjIntModule .rzAdjIntEditForm input[name=pkAdjInt]").val();
+		$("#content_plan>div").eq($(obj).index()).html("<iframe frameborder=0 width=100% height=100% marginheight=0 marginwidth=0  src="+url+"></iframe>")
+	}
+	function rzAdjIntLeaseNewClick(obj){
+		if($(obj).hasClass("tab-active"))
+			return;
+		url='$homeModule.getTarget('/rzAdjIntLeaseNew/toRzAdjIntLeaseNewPage')'+'?pkAdjInt='+$("#rzAdjIntModule .rzAdjIntEditForm input[name=pkAdjInt]").val();
+		$("#content_plan>div").removeClass("div-active");
+		$("#content_plan>div").eq($(obj).index()).html("<iframe frameborder=0 width=100% height=100% marginheight=0 marginwidth=0  src="+url+"></iframe>")
+	}
+
+</script>

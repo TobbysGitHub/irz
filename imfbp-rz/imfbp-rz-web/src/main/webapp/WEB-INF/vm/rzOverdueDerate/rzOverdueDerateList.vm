@@ -1,0 +1,26 @@
+<div class="padding-5">
+	<div class="toolsbarPanel">
+		<h5 style="float:left">罚息减免主情况表</h5>		
+		<div class="btn-group" role="group">
+			<button type="button" class="btn btn-default btn-sm add-btn" >新增</button>
+			<button type="button" class="btn btn-default btn-sm delete-btn">删除</button>			
+			<button type="button" class="btn btn-default btn-sm update-btn">修改</button>
+			<button type="button" class="btn btn-default btn-sm refresh-btn">刷新</button>
+		</div>
+	</div>
+	<!-- <div class="col-xs-12 panel-heading" data-toggle="collapse"
+		data-target="#baseInfo"> -->
+
+	<!-- 	<span class="glyphicon glyphicon-chevron-up"></span>
+	</div> -->
+	<div class="col-xs-12 panel-body collapse in main" style="padding-top: 0px;">
+		<div class="grid rzOverdueDerateList" style="margin-top: 0px;"></div>
+		<ul id="pagination" class="pagination"></ul>
+	</div>
+		<h4>罚息计划子表信息</h4>
+	
+	<div class="col-xs-12 panel-body collapse in plan" style="padding-top: 0px;">
+		<div class="grid rzOverdueDeratePlanList" style="margin-top: 0px;"></div>
+		<ul id="pagination" class="pagination" style="display: none"></ul>
+	</div>
+</div>

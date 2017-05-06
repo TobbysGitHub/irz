@@ -1,0 +1,957 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="rzAssetRiskclass">
+
+	<!-- 結果集 -->
+	<resultMap id="rzAssetRiskclassResult" type="com.imfbp.rz.domain.rzassetriskclass.RzAssetRiskclass">
+		<result property="pkAssetRiskclass" column="pk_asset_riskclass" />
+		<result property="billNo" column="bill_no" />
+		<result property="pkPrjcontr" column="pk_prjcontr" />
+		<result property="contrCode" column="contr_code" />
+		<result property="contrName" column="contr_name" />
+		<result property="pkCustomer" column="pk_customer" />
+		<result property="curRiskclass" column="cur_riskclass" />
+		<result property="changeRiskclass" column="change_riskclass" />
+		<result property="changeTimes" column="change_times" />
+		<result property="pkUserManager" column="pk_user_manager" />
+		<result property="isRiskwarin" column="is_riskwarin" />
+		<result property="changePerson" column="change_person" />
+		<result property="changeDate" column="change_date" />
+		<result property="changeRemark" column="change_remark" />
+		<result property="pkPrjapply" column="pk_prjapply" />
+		<result property="prjCode" column="prj_code" />
+		<result property="prjName" column="prj_name" />
+		<result property="prjapplyDate" column="prjapply_date" />
+		<result property="startLeaseDate" column="start_lease_date" />
+		<result property="endLeaseDate" column="end_lease_date" />
+		<result property="receivableAmt" column="receivable_amt" />
+		<result property="curPrinBal" column="cur_prin_bal" />
+		<result property="receivableRent" column="receivable_rent" />
+		<result property="curRentBal" column="cur_rent_bal" />
+		<result property="itembal" column="itembal" />
+		<result property="overdueTimes" column="overdue_times" />
+		<result property="derateDefInt" column="derate_def_int" />
+		<result property="planReturndate" column="plan_returndate" />
+		<result property="accruedDefInt" column="accrued_def_int" />
+		<result property="receivablDefIntTotal" column="receivabl_def_int_total" />
+		<result property="remark" column="remark" />
+		<result property="pkOrg" column="pk_org" />
+		<result property="pkDept" column="pk_dept" />
+		<result property="billmaker" column="billmaker" />
+		<result property="billdate" column="billdate" />
+		<result property="approveid" column="approveid" />
+		<result property="approvedate" column="approvedate" />
+		<result property="approvestatus" column="approvestatus" />
+		<result property="approvenote" column="approvenote" />
+		<result property="operator" column="operator" />
+		<result property="operatordatetime" column="operatordatetime" />
+		<result property="modifor" column="modifor" />
+		<result property="modifydatetime" column="modifydatetime" />
+		<result property="flowinstanceid" column="flowinstanceid" />
+		<result property="ts" column="ts" />
+		<result property="dr" column="dr" />
+		<result property="def1" column="def1" />
+		<result property="def2" column="def2" />
+		<result property="def3" column="def3" />
+		<result property="def4" column="def4" />
+		<result property="def5" column="def5" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="rzAssetRiskclassField">
+		pk_asset_riskclass,bill_no,pk_prjcontr,contr_code,contr_name,pk_customer,cur_riskclass,change_riskclass,change_times,pk_user_manager,is_riskwarin,change_person,change_date,change_remark,pk_prjapply,prj_code,prj_name,prjapply_date,start_lease_date,end_lease_date,receivable_amt,cur_prin_bal,receivable_rent,cur_rent_bal,itembal,overdue_times,derate_def_int,plan_returndate,accrued_def_int,receivabl_def_int_total,remark,pk_org,pk_dept,billmaker,billdate,approveid,approvedate,approvestatus,approvenote,operator,operatordatetime,modifor,modifydatetime,flowinstanceid,ts,dr,def1,def2,def3,def4,def5
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="condition">
+        <where>
+       	 ifnull(dr,0) = 0
+        	<if test="pkAssetRiskclass != null and pkAssetRiskclass != ''" >
+				and pk_asset_riskclass = #{pkAssetRiskclass}
+			</if>
+        	<if test="billNo != null and billNo != ''" >
+				and bill_no = #{billNo}
+			</if>
+        	<if test="pkPrjcontr != null and pkPrjcontr != ''" >
+				and pk_prjcontr = #{pkPrjcontr}
+			</if>
+        	<if test="contrCode != null and contrCode != ''" >
+				and contr_code = #{contrCode}
+			</if>
+        	<if test="contrName != null and contrName != ''" >
+				and contr_name = #{contrName}
+			</if>
+        	<if test="pkCustomer != null and pkCustomer != ''" >
+				and pk_customer = #{pkCustomer}
+			</if>
+        	<if test="curRiskclass != null and curRiskclass != ''" >
+				and cur_riskclass = #{curRiskclass}
+			</if>
+        	<if test="changeRiskclass != null and changeRiskclass != ''" >
+				and change_riskclass = #{changeRiskclass}
+			</if>
+        	<if test="changeTimes != null" >
+				and change_times = #{changeTimes}
+			</if>
+        	<if test="pkUserManager != null and pkUserManager != ''" >
+				and pk_user_manager = #{pkUserManager}
+			</if>
+        	<if test="isRiskwarin != null and isRiskwarin != ''" >
+				and is_riskwarin = #{isRiskwarin}
+			</if>
+        	<if test="changePerson != null and changePerson != ''" >
+				and change_person = #{changePerson}
+			</if>
+        	<if test="changeDate != null and changeDate != ''" >
+				and change_date = #{changeDate}
+			</if>
+        	<if test="changeRemark != null and changeRemark != ''" >
+				and change_remark = #{changeRemark}
+			</if>
+        	<if test="pkPrjapply != null and pkPrjapply != ''" >
+				and pk_prjapply = #{pkPrjapply}
+			</if>
+        	<if test="prjCode != null and prjCode != ''" >
+				and prj_code = #{prjCode}
+			</if>
+        	<if test="prjName != null and prjName != ''" >
+				and prj_name = #{prjName}
+			</if>
+        	<if test="prjapplyDate != null and prjapplyDate != ''" >
+				and prjapply_date = #{prjapplyDate}
+			</if>
+        	<if test="startLeaseDate != null and startLeaseDate != ''" >
+				and start_lease_date = #{startLeaseDate}
+			</if>
+        	<if test="endLeaseDate != null and endLeaseDate != ''" >
+				and end_lease_date = #{endLeaseDate}
+			</if>
+        	<if test="receivableAmt != null" >
+				and receivable_amt = #{receivableAmt}
+			</if>
+        	<if test="curPrinBal != null" >
+				and cur_prin_bal = #{curPrinBal}
+			</if>
+        	<if test="receivableRent != null" >
+				and receivable_rent = #{receivableRent}
+			</if>
+        	<if test="curRentBal != null" >
+				and cur_rent_bal = #{curRentBal}
+			</if>
+        	<if test="itembal != null" >
+				and itembal = #{itembal}
+			</if>
+        	<if test="overdueTimes != null" >
+				and overdue_times = #{overdueTimes}
+			</if>
+        	<if test="derateDefInt != null" >
+				and derate_def_int = #{derateDefInt}
+			</if>
+        	<if test="planReturndate != null and planReturndate != ''" >
+				and plan_returndate = #{planReturndate}
+			</if>
+        	<if test="accruedDefInt != null" >
+				and accrued_def_int = #{accruedDefInt}
+			</if>
+        	<if test="receivablDefIntTotal != null" >
+				and receivabl_def_int_total = #{receivablDefIntTotal}
+			</if>
+        	<if test="remark != null and remark != ''" >
+				and remark = #{remark}
+			</if>
+        	<if test="pkOrg != null and pkOrg != ''" >
+				and pk_org = #{pkOrg}
+			</if>
+        	<if test="pkDept != null and pkDept != ''" >
+				and pk_dept = #{pkDept}
+			</if>
+        	<if test="billmaker != null and billmaker != ''" >
+				and billmaker = #{billmaker}
+			</if>
+        	<if test="billdate != null and billdate != ''" >
+				and billdate = #{billdate}
+			</if>
+        	<if test="approveid != null and approveid != ''" >
+				and approveid = #{approveid}
+			</if>
+        	<if test="approvedate != null and approvedate != ''" >
+				and approvedate = #{approvedate}
+			</if>
+        	<if test="approvestatus != null" >
+				and approvestatus = #{approvestatus}
+			</if>
+        	<if test="approvenote != null and approvenote != ''" >
+				and approvenote = #{approvenote}
+			</if>
+        	<if test="operator != null and operator != ''" >
+				and operator = #{operator}
+			</if>
+        	<if test="operatordatetime != null and operatordatetime != ''" >
+				and operatordatetime = #{operatordatetime}
+			</if>
+        	<if test="modifor != null and modifor != ''" >
+				and modifor = #{modifor}
+			</if>
+        	<if test="modifydatetime != null and modifydatetime != ''" >
+				and modifydatetime = #{modifydatetime}
+			</if>
+        	<if test="flowinstanceid != null and flowinstanceid != ''" >
+				and flowinstanceid = #{flowinstanceid}
+			</if>
+        	<if test="ts != null and ts != ''" >
+				and ts = #{ts}
+			</if>
+        	<if test="dr != null" >
+				and dr = #{dr}
+			</if>
+        	<if test="def1 != null and def1 != ''" >
+				and def1 = #{def1}
+			</if>
+        	<if test="def2 != null and def2 != ''" >
+				and def2 = #{def2}
+			</if>
+        	<if test="def3 != null and def3 != ''" >
+				and def3 = #{def3}
+			</if>
+        	<if test="def4 != null and def4 != ''" >
+				and def4 = #{def4}
+			</if>
+        	<if test="def5 != null and def5 != ''" >
+				and def5 = #{def5}
+			</if>
+        </where>
+    </sql>
+    
+    <!-- 修改条件 -->
+	<sql id="updateByCondition">
+        <where>
+       	 ifnull(dr,0) = 0
+				<if test="parameter.pkAssetRiskclass != null and parameter.pkAssetRiskclass != ''" >
+					and pk_asset_riskclass = #{parameter.pkAssetRiskclass}
+				</if>
+				<if test="parameter.billNo != null and parameter.billNo != ''" >
+					and bill_no = #{parameter.billNo}
+				</if>
+				<if test="parameter.pkPrjcontr != null and parameter.pkPrjcontr != ''" >
+					and pk_prjcontr = #{parameter.pkPrjcontr}
+				</if>
+				<if test="parameter.contrCode != null and parameter.contrCode != ''" >
+					and contr_code = #{parameter.contrCode}
+				</if>
+				<if test="parameter.contrName != null and parameter.contrName != ''" >
+					and contr_name = #{parameter.contrName}
+				</if>
+				<if test="parameter.pkCustomer != null and parameter.pkCustomer != ''" >
+					and pk_customer = #{parameter.pkCustomer}
+				</if>
+				<if test="parameter.curRiskclass != null and parameter.curRiskclass != ''" >
+					and cur_riskclass = #{parameter.curRiskclass}
+				</if>
+				<if test="parameter.changeRiskclass != null and parameter.changeRiskclass != ''" >
+					and change_riskclass = #{parameter.changeRiskclass}
+				</if>
+		    	<if test="parameter.changeTimes != null" >
+					and change_times = #{parameter.changeTimes}
+				</if>
+				<if test="parameter.pkUserManager != null and parameter.pkUserManager != ''" >
+					and pk_user_manager = #{parameter.pkUserManager}
+				</if>
+				<if test="parameter.isRiskwarin != null and parameter.isRiskwarin != ''" >
+					and is_riskwarin = #{parameter.isRiskwarin}
+				</if>
+				<if test="parameter.changePerson != null and parameter.changePerson != ''" >
+					and change_person = #{parameter.changePerson}
+				</if>
+				<if test="parameter.changeDate != null and parameter.changeDate != ''" >
+					and change_date = #{parameter.changeDate}
+				</if>
+				<if test="parameter.changeRemark != null and parameter.changeRemark != ''" >
+					and change_remark = #{parameter.changeRemark}
+				</if>
+				<if test="parameter.pkPrjapply != null and parameter.pkPrjapply != ''" >
+					and pk_prjapply = #{parameter.pkPrjapply}
+				</if>
+				<if test="parameter.prjCode != null and parameter.prjCode != ''" >
+					and prj_code = #{parameter.prjCode}
+				</if>
+				<if test="parameter.prjName != null and parameter.prjName != ''" >
+					and prj_name = #{parameter.prjName}
+				</if>
+				<if test="parameter.prjapplyDate != null and parameter.prjapplyDate != ''" >
+					and prjapply_date = #{parameter.prjapplyDate}
+				</if>
+				<if test="parameter.startLeaseDate != null and parameter.startLeaseDate != ''" >
+					and start_lease_date = #{parameter.startLeaseDate}
+				</if>
+				<if test="parameter.endLeaseDate != null and parameter.endLeaseDate != ''" >
+					and end_lease_date = #{parameter.endLeaseDate}
+				</if>
+		    	<if test="parameter.receivableAmt != null" >
+					and receivable_amt = #{parameter.receivableAmt}
+				</if>
+		    	<if test="parameter.curPrinBal != null" >
+					and cur_prin_bal = #{parameter.curPrinBal}
+				</if>
+		    	<if test="parameter.receivableRent != null" >
+					and receivable_rent = #{parameter.receivableRent}
+				</if>
+		    	<if test="parameter.curRentBal != null" >
+					and cur_rent_bal = #{parameter.curRentBal}
+				</if>
+		    	<if test="parameter.itembal != null" >
+					and itembal = #{parameter.itembal}
+				</if>
+		    	<if test="parameter.overdueTimes != null" >
+					and overdue_times = #{parameter.overdueTimes}
+				</if>
+		    	<if test="parameter.derateDefInt != null" >
+					and derate_def_int = #{parameter.derateDefInt}
+				</if>
+				<if test="parameter.planReturndate != null and parameter.planReturndate != ''" >
+					and plan_returndate = #{parameter.planReturndate}
+				</if>
+		    	<if test="parameter.accruedDefInt != null" >
+					and accrued_def_int = #{parameter.accruedDefInt}
+				</if>
+		    	<if test="parameter.receivablDefIntTotal != null" >
+					and receivabl_def_int_total = #{parameter.receivablDefIntTotal}
+				</if>
+				<if test="parameter.remark != null and parameter.remark != ''" >
+					and remark = #{parameter.remark}
+				</if>
+				<if test="parameter.pkOrg != null and parameter.pkOrg != ''" >
+					and pk_org = #{parameter.pkOrg}
+				</if>
+				<if test="parameter.pkDept != null and parameter.pkDept != ''" >
+					and pk_dept = #{parameter.pkDept}
+				</if>
+				<if test="parameter.billmaker != null and parameter.billmaker != ''" >
+					and billmaker = #{parameter.billmaker}
+				</if>
+				<if test="parameter.billdate != null and parameter.billdate != ''" >
+					and billdate = #{parameter.billdate}
+				</if>
+				<if test="parameter.approveid != null and parameter.approveid != ''" >
+					and approveid = #{parameter.approveid}
+				</if>
+				<if test="parameter.approvedate != null and parameter.approvedate != ''" >
+					and approvedate = #{parameter.approvedate}
+				</if>
+		    	<if test="parameter.approvestatus != null" >
+					and approvestatus = #{parameter.approvestatus}
+				</if>
+				<if test="parameter.approvenote != null and parameter.approvenote != ''" >
+					and approvenote = #{parameter.approvenote}
+				</if>
+				<if test="parameter.operator != null and parameter.operator != ''" >
+					and operator = #{parameter.operator}
+				</if>
+				<if test="parameter.operatordatetime != null and parameter.operatordatetime != ''" >
+					and operatordatetime = #{parameter.operatordatetime}
+				</if>
+				<if test="parameter.modifor != null and parameter.modifor != ''" >
+					and modifor = #{parameter.modifor}
+				</if>
+				<if test="parameter.modifydatetime != null and parameter.modifydatetime != ''" >
+					and modifydatetime = #{parameter.modifydatetime}
+				</if>
+				<if test="parameter.flowinstanceid != null and parameter.flowinstanceid != ''" >
+					and flowinstanceid = #{parameter.flowinstanceid}
+				</if>
+				<if test="parameter.ts != null and parameter.ts != ''" >
+					and ts = #{parameter.ts}
+				</if>
+		    	<if test="parameter.dr != null" >
+					and dr = #{parameter.dr}
+				</if>
+				<if test="parameter.def1 != null and parameter.def1 != ''" >
+					and def1 = #{parameter.def1}
+				</if>
+				<if test="parameter.def2 != null and parameter.def2 != ''" >
+					and def2 = #{parameter.def2}
+				</if>
+				<if test="parameter.def3 != null and parameter.def3 != ''" >
+					and def3 = #{parameter.def3}
+				</if>
+				<if test="parameter.def4 != null and parameter.def4 != ''" >
+					and def4 = #{parameter.def4}
+				</if>
+				<if test="parameter.def5 != null and parameter.def5 != ''" >
+					and def5 = #{parameter.def5}
+				</if>
+        </where>
+    </sql>
+    
+    <!-- 新增 -->	
+	<insert id="insertRzAssetRiskclass" parameterType="rzAssetRiskclass">
+		insert into rz_asset_riskclass
+			(pk_asset_riskclass,bill_no,pk_prjcontr,contr_code,contr_name,pk_customer,cur_riskclass,change_riskclass,change_times,pk_user_manager,is_riskwarin,change_person,change_date,change_remark,pk_prjapply,prj_code,prj_name,prjapply_date,start_lease_date,end_lease_date,receivable_amt,cur_prin_bal,receivable_rent,cur_rent_bal,itembal,overdue_times,derate_def_int,plan_returndate,accrued_def_int,receivabl_def_int_total,remark,pk_org,pk_dept,billmaker,billdate,approveid,approvedate,approvestatus,approvenote,operator,operatordatetime,modifor,modifydatetime,flowinstanceid,ts,dr,def1,def2,def3,def4,def5 ) 
+		values 
+			(#{pkAssetRiskclass,jdbcType=CHAR},#{billNo,jdbcType=VARCHAR},#{pkPrjcontr,jdbcType=CHAR},#{contrCode,jdbcType=VARCHAR},#{contrName,jdbcType=VARCHAR},#{pkCustomer,jdbcType=CHAR},#{curRiskclass,jdbcType=VARCHAR},#{changeRiskclass,jdbcType=VARCHAR},#{changeTimes,jdbcType=INTEGER},#{pkUserManager,jdbcType=CHAR},#{isRiskwarin,jdbcType=CHAR},#{changePerson,jdbcType=VARCHAR},#{changeDate,jdbcType=CHAR},#{changeRemark,jdbcType=VARCHAR},#{pkPrjapply,jdbcType=CHAR},#{prjCode,jdbcType=VARCHAR},#{prjName,jdbcType=VARCHAR},#{prjapplyDate,jdbcType=CHAR},#{startLeaseDate,jdbcType=CHAR},#{endLeaseDate,jdbcType=CHAR},#{receivableAmt,jdbcType=DECIMAL},#{curPrinBal,jdbcType=DECIMAL},#{receivableRent,jdbcType=DECIMAL},#{curRentBal,jdbcType=DECIMAL},#{itembal,jdbcType=DECIMAL},#{overdueTimes,jdbcType=INTEGER},#{derateDefInt,jdbcType=DECIMAL},#{planReturndate,jdbcType=CHAR},#{accruedDefInt,jdbcType=DECIMAL},#{receivablDefIntTotal,jdbcType=DECIMAL},#{remark,jdbcType=VARCHAR},#{pkOrg,jdbcType=CHAR},#{pkDept,jdbcType=CHAR},#{billmaker,jdbcType=CHAR},#{billdate,jdbcType=CHAR},#{approveid,jdbcType=CHAR},#{approvedate,jdbcType=CHAR},#{approvestatus,jdbcType=INTEGER},#{approvenote,jdbcType=VARCHAR},#{operator,jdbcType=CHAR},#{operatordatetime,jdbcType=CHAR},#{modifor,jdbcType=CHAR},#{modifydatetime,jdbcType=CHAR},#{flowinstanceid,jdbcType=VARCHAR},#{ts,jdbcType=CHAR},#{dr,jdbcType=INTEGER},#{def1,jdbcType=VARCHAR},#{def2,jdbcType=VARCHAR},#{def3,jdbcType=VARCHAR},#{def4,jdbcType=VARCHAR},#{def5,jdbcType=VARCHAR})
+    </insert>
+    
+    <!-- 批量新增 -->	
+	<insert id="insertBatchRzAssetRiskclass" parameterType="java.util.List">
+       insert into rz_asset_riskclass
+			(pk_asset_riskclass,bill_no,pk_prjcontr,contr_code,contr_name,pk_customer,cur_riskclass,change_riskclass,change_times,pk_user_manager,is_riskwarin,change_person,change_date,change_remark,pk_prjapply,prj_code,prj_name,prjapply_date,start_lease_date,end_lease_date,receivable_amt,cur_prin_bal,receivable_rent,cur_rent_bal,itembal,overdue_times,derate_def_int,plan_returndate,accrued_def_int,receivabl_def_int_total,remark,pk_org,pk_dept,billmaker,billdate,approveid,approvedate,approvestatus,approvenote,operator,operatordatetime,modifor,modifydatetime,flowinstanceid,ts,dr,def1,def2,def3,def4,def5 ) 
+	   values
+	    <foreach collection="list" item="obj" index="index" separator="," >
+	    	(#{obj.pkAssetRiskclass},#{obj.billNo},#{obj.pkPrjcontr},#{obj.contrCode},#{obj.contrName},#{obj.pkCustomer},#{obj.curRiskclass},#{obj.changeRiskclass},#{obj.changeTimes},#{obj.pkUserManager},#{obj.isRiskwarin},#{obj.changePerson},#{obj.changeDate},#{obj.changeRemark},#{obj.pkPrjapply},#{obj.prjCode},#{obj.prjName},#{obj.prjapplyDate},#{obj.startLeaseDate},#{obj.endLeaseDate},#{obj.receivableAmt},#{obj.curPrinBal},#{obj.receivableRent},#{obj.curRentBal},#{obj.itembal},#{obj.overdueTimes},#{obj.derateDefInt},#{obj.planReturndate},#{obj.accruedDefInt},#{obj.receivablDefIntTotal},#{obj.remark},#{obj.pkOrg},#{obj.pkDept},#{obj.billmaker},#{obj.billdate},#{obj.approveid},#{obj.approvedate},#{obj.approvestatus},#{obj.approvenote},#{obj.operator},#{obj.operatordatetime},#{obj.modifor},#{obj.modifydatetime},#{obj.flowinstanceid},#{obj.ts},#{obj.dr},#{obj.def1},#{obj.def2},#{obj.def3},#{obj.def4},#{obj.def5})
+	    </foreach>
+   </insert>
+    
+	<!-- 根据id进行逻辑删除 (修改数据库数据为删除状态) -->
+    <update id="logicDeleteRzAssetRiskclassById" parameterType="rzAssetRiskclassQuery" >
+    	update rz_asset_riskclass  set dr=1 where pk_asset_riskclass = #{pkAssetRiskclass} 
+    </update>
+    
+    <!-- 根据条件进行逻辑删除  (修改数据库数据为删除状态)-->
+    <update id="logicDeleteRzAssetRiskclassByCondition" parameterType="rzAssetRiskclassQuery" >
+    	update rz_asset_riskclass set dr=1<include refid="condition" /> 
+    </update>
+    
+    <!-- 根据条件进行逻辑删除  (修改数据库数据为删除状态)-->
+    <update id="logicDeleteRzAssetRiskclassByBatchId" parameterType="map" >
+    	update rz_asset_riskclass set dr=1 
+    	where 
+    	pk_asset_riskclass in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </update>
+    
+    <!-- 根据id删除 (删除数据库数据)-->
+    <delete id="deleteRzAssetRiskclassById" parameterType="rzAssetRiskclassQuery" >
+    	delete from rz_asset_riskclass  where pk_asset_riskclass = #{pkAssetRiskclass} 
+    </delete>
+    
+    <!-- 根据条件删除 (删除数据库数据)-->
+    <delete id="deleteRzAssetRiskclassByCondition" parameterType="rzAssetRiskclassQuery" >
+    	delete from 
+    	rz_asset_riskclass<include refid="condition" /> 
+    </delete>
+    
+    <!-- 根据主键批量删除 (删除数据库数据)-->
+    <delete id="deleteRzAssetRiskclassByBatchId" parameterType="map" >
+    	delete from rz_asset_riskclass 
+    	where
+    	pk_asset_riskclass in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据id修改 -->
+    <update id="updateRzAssetRiskclassById" parameterType="rzAssetRiskclassQuery">
+		update  rz_asset_riskclass 
+		<set>
+			<if test="billNo != null and billNo != '' " >
+				bill_no = #{billNo},
+			</if>
+			<if test="pkPrjcontr != null and pkPrjcontr != '' " >
+				pk_prjcontr = #{pkPrjcontr},
+			</if>
+			<if test="contrCode != null and contrCode != '' " >
+				contr_code = #{contrCode},
+			</if>
+			<if test="contrName != null and contrName != '' " >
+				contr_name = #{contrName},
+			</if>
+			<if test="pkCustomer != null and pkCustomer != '' " >
+				pk_customer = #{pkCustomer},
+			</if>
+			<if test="curRiskclass != null and curRiskclass != '' " >
+				cur_riskclass = #{curRiskclass},
+			</if>
+			<if test="changeRiskclass != null and changeRiskclass != '' " >
+				change_riskclass = #{changeRiskclass},
+			</if>
+			<if test="changeTimes != null " >
+				change_times = #{changeTimes},
+			</if>
+			<if test="pkUserManager != null and pkUserManager != '' " >
+				pk_user_manager = #{pkUserManager},
+			</if>
+			<if test="isRiskwarin != null and isRiskwarin != '' " >
+				is_riskwarin = #{isRiskwarin},
+			</if>
+			<if test="changePerson != null and changePerson != '' " >
+				change_person = #{changePerson},
+			</if>
+			<if test="changeDate != null and changeDate != '' " >
+				change_date = #{changeDate},
+			</if>
+			<if test="changeRemark != null and changeRemark != '' " >
+				change_remark = #{changeRemark},
+			</if>
+			<if test="pkPrjapply != null and pkPrjapply != '' " >
+				pk_prjapply = #{pkPrjapply},
+			</if>
+			<if test="prjCode != null and prjCode != '' " >
+				prj_code = #{prjCode},
+			</if>
+			<if test="prjName != null and prjName != '' " >
+				prj_name = #{prjName},
+			</if>
+			<if test="prjapplyDate != null and prjapplyDate != '' " >
+				prjapply_date = #{prjapplyDate},
+			</if>
+			<if test="startLeaseDate != null and startLeaseDate != '' " >
+				start_lease_date = #{startLeaseDate},
+			</if>
+			<if test="endLeaseDate != null and endLeaseDate != '' " >
+				end_lease_date = #{endLeaseDate},
+			</if>
+			<if test="receivableAmt != null " >
+				receivable_amt = #{receivableAmt},
+			</if>
+			<if test="curPrinBal != null " >
+				cur_prin_bal = #{curPrinBal},
+			</if>
+			<if test="receivableRent != null " >
+				receivable_rent = #{receivableRent},
+			</if>
+			<if test="curRentBal != null " >
+				cur_rent_bal = #{curRentBal},
+			</if>
+			<if test="itembal != null " >
+				itembal = #{itembal},
+			</if>
+			<if test="overdueTimes != null " >
+				overdue_times = #{overdueTimes},
+			</if>
+			<if test="derateDefInt != null " >
+				derate_def_int = #{derateDefInt},
+			</if>
+			<if test="planReturndate != null and planReturndate != '' " >
+				plan_returndate = #{planReturndate},
+			</if>
+			<if test="accruedDefInt != null " >
+				accrued_def_int = #{accruedDefInt},
+			</if>
+			<if test="receivablDefIntTotal != null " >
+				receivabl_def_int_total = #{receivablDefIntTotal},
+			</if>
+			<if test="remark != null and remark != '' " >
+				remark = #{remark},
+			</if>
+			<if test="pkOrg != null and pkOrg != '' " >
+				pk_org = #{pkOrg},
+			</if>
+			<if test="pkDept != null and pkDept != '' " >
+				pk_dept = #{pkDept},
+			</if>
+			<if test="billmaker != null and billmaker != '' " >
+				billmaker = #{billmaker},
+			</if>
+			<if test="billdate != null and billdate != '' " >
+				billdate = #{billdate},
+			</if>
+			<if test="approveid != null and approveid != '' " >
+				approveid = #{approveid},
+			</if>
+			<if test="approvedate != null and approvedate != '' " >
+				approvedate = #{approvedate},
+			</if>
+			<if test="approvestatus != null " >
+				approvestatus = #{approvestatus},
+			</if>
+			<if test="approvenote != null and approvenote != '' " >
+				approvenote = #{approvenote},
+			</if>
+			<if test="operator != null and operator != '' " >
+				operator = #{operator},
+			</if>
+			<if test="operatordatetime != null and operatordatetime != '' " >
+				operatordatetime = #{operatordatetime},
+			</if>
+			<if test="modifor != null and modifor != '' " >
+				modifor = #{modifor},
+			</if>
+			<if test="modifydatetime != null and modifydatetime != '' " >
+				modifydatetime = #{modifydatetime},
+			</if>
+			<if test="flowinstanceid != null and flowinstanceid != '' " >
+				flowinstanceid = #{flowinstanceid},
+			</if>
+			<if test="ts != null and ts != '' " >
+				ts = #{ts},
+			</if>
+			<if test="dr != null " >
+				dr = #{dr},
+			</if>
+			<if test="def1 != null and def1 != '' " >
+				def1 = #{def1},
+			</if>
+			<if test="def2 != null and def2 != '' " >
+				def2 = #{def2},
+			</if>
+			<if test="def3 != null and def3 != '' " >
+				def3 = #{def3},
+			</if>
+			<if test="def4 != null and def4 != '' " >
+				def4 = #{def4},
+			</if>
+			<if test="def5 != null and def5 != '' " >
+				def5 = #{def5},
+			</if>
+		</set>
+		where
+			pk_asset_riskclass = #{pkAssetRiskclass} 
+    </update>
+    
+     <!-- 根据条件修改 -->
+    <update id="updateRzAssetRiskclassByCondition" parameterType="map">
+		update  rz_asset_riskclass 
+		<set>
+				<if test="record.billNo != null and record.billNo != ''">
+					bill_no = #{record.billNo},
+				</if>
+				<if test="record.pkPrjcontr != null and record.pkPrjcontr != ''">
+					pk_prjcontr = #{record.pkPrjcontr},
+				</if>
+				<if test="record.contrCode != null and record.contrCode != ''">
+					contr_code = #{record.contrCode},
+				</if>
+				<if test="record.contrName != null and record.contrName != ''">
+					contr_name = #{record.contrName},
+				</if>
+				<if test="record.pkCustomer != null and record.pkCustomer != ''">
+					pk_customer = #{record.pkCustomer},
+				</if>
+				<if test="record.curRiskclass != null and record.curRiskclass != ''">
+					cur_riskclass = #{record.curRiskclass},
+				</if>
+				<if test="record.changeRiskclass != null and record.changeRiskclass != ''">
+					change_riskclass = #{record.changeRiskclass},
+				</if>
+		 		<if test="record.changeTimes != null">
+					change_times = #{record.changeTimes},
+				</if>
+				<if test="record.pkUserManager != null and record.pkUserManager != ''">
+					pk_user_manager = #{record.pkUserManager},
+				</if>
+				<if test="record.isRiskwarin != null and record.isRiskwarin != ''">
+					is_riskwarin = #{record.isRiskwarin},
+				</if>
+				<if test="record.changePerson != null and record.changePerson != ''">
+					change_person = #{record.changePerson},
+				</if>
+				<if test="record.changeDate != null and record.changeDate != ''">
+					change_date = #{record.changeDate},
+				</if>
+				<if test="record.changeRemark != null and record.changeRemark != ''">
+					change_remark = #{record.changeRemark},
+				</if>
+				<if test="record.pkPrjapply != null and record.pkPrjapply != ''">
+					pk_prjapply = #{record.pkPrjapply},
+				</if>
+				<if test="record.prjCode != null and record.prjCode != ''">
+					prj_code = #{record.prjCode},
+				</if>
+				<if test="record.prjName != null and record.prjName != ''">
+					prj_name = #{record.prjName},
+				</if>
+				<if test="record.prjapplyDate != null and record.prjapplyDate != ''">
+					prjapply_date = #{record.prjapplyDate},
+				</if>
+				<if test="record.startLeaseDate != null and record.startLeaseDate != ''">
+					start_lease_date = #{record.startLeaseDate},
+				</if>
+				<if test="record.endLeaseDate != null and record.endLeaseDate != ''">
+					end_lease_date = #{record.endLeaseDate},
+				</if>
+		 		<if test="record.receivableAmt != null">
+					receivable_amt = #{record.receivableAmt},
+				</if>
+		 		<if test="record.curPrinBal != null">
+					cur_prin_bal = #{record.curPrinBal},
+				</if>
+		 		<if test="record.receivableRent != null">
+					receivable_rent = #{record.receivableRent},
+				</if>
+		 		<if test="record.curRentBal != null">
+					cur_rent_bal = #{record.curRentBal},
+				</if>
+		 		<if test="record.itembal != null">
+					itembal = #{record.itembal},
+				</if>
+		 		<if test="record.overdueTimes != null">
+					overdue_times = #{record.overdueTimes},
+				</if>
+		 		<if test="record.derateDefInt != null">
+					derate_def_int = #{record.derateDefInt},
+				</if>
+				<if test="record.planReturndate != null and record.planReturndate != ''">
+					plan_returndate = #{record.planReturndate},
+				</if>
+		 		<if test="record.accruedDefInt != null">
+					accrued_def_int = #{record.accruedDefInt},
+				</if>
+		 		<if test="record.receivablDefIntTotal != null">
+					receivabl_def_int_total = #{record.receivablDefIntTotal},
+				</if>
+				<if test="record.remark != null and record.remark != ''">
+					remark = #{record.remark},
+				</if>
+				<if test="record.pkOrg != null and record.pkOrg != ''">
+					pk_org = #{record.pkOrg},
+				</if>
+				<if test="record.pkDept != null and record.pkDept != ''">
+					pk_dept = #{record.pkDept},
+				</if>
+				<if test="record.billmaker != null and record.billmaker != ''">
+					billmaker = #{record.billmaker},
+				</if>
+				<if test="record.billdate != null and record.billdate != ''">
+					billdate = #{record.billdate},
+				</if>
+				<if test="record.approveid != null and record.approveid != ''">
+					approveid = #{record.approveid},
+				</if>
+				<if test="record.approvedate != null and record.approvedate != ''">
+					approvedate = #{record.approvedate},
+				</if>
+		 		<if test="record.approvestatus != null">
+					approvestatus = #{record.approvestatus},
+				</if>
+				<if test="record.approvenote != null and record.approvenote != ''">
+					approvenote = #{record.approvenote},
+				</if>
+				<if test="record.operator != null and record.operator != ''">
+					operator = #{record.operator},
+				</if>
+				<if test="record.operatordatetime != null and record.operatordatetime != ''">
+					operatordatetime = #{record.operatordatetime},
+				</if>
+				<if test="record.modifor != null and record.modifor != ''">
+					modifor = #{record.modifor},
+				</if>
+				<if test="record.modifydatetime != null and record.modifydatetime != ''">
+					modifydatetime = #{record.modifydatetime},
+				</if>
+				<if test="record.flowinstanceid != null and record.flowinstanceid != ''">
+					flowinstanceid = #{record.flowinstanceid},
+				</if>
+				<if test="record.ts != null and record.ts != ''">
+					ts = #{record.ts},
+				</if>
+		 		<if test="record.dr != null">
+					dr = #{record.dr},
+				</if>
+				<if test="record.def1 != null and record.def1 != ''">
+					def1 = #{record.def1},
+				</if>
+				<if test="record.def2 != null and record.def2 != ''">
+					def2 = #{record.def2},
+				</if>
+				<if test="record.def3 != null and record.def3 != ''">
+					def3 = #{record.def3},
+				</if>
+				<if test="record.def4 != null and record.def4 != ''">
+					def4 = #{record.def4},
+				</if>
+				<if test="record.def5 != null and record.def5 != ''">
+					def5 = #{record.def5},
+				</if>
+		</set>
+		<include refid="updateByCondition" />
+    </update>
+    
+    <!-- 根据主键进行批量修改 -->
+    <update id="updateRzAssetRiskclassByBatchId"  parameterType="java.util.List">
+    	<if test="list != null">
+	     <foreach collection="list" item='obj' separator=";" >
+	     update rz_asset_riskclass
+	     <set>
+				<if test="obj.billNo != null and obj.billNo != ''">
+					bill_no = #{obj.billNo},
+				</if>
+				<if test="obj.pkPrjcontr != null and obj.pkPrjcontr != ''">
+					pk_prjcontr = #{obj.pkPrjcontr},
+				</if>
+				<if test="obj.contrCode != null and obj.contrCode != ''">
+					contr_code = #{obj.contrCode},
+				</if>
+				<if test="obj.contrName != null and obj.contrName != ''">
+					contr_name = #{obj.contrName},
+				</if>
+				<if test="obj.pkCustomer != null and obj.pkCustomer != ''">
+					pk_customer = #{obj.pkCustomer},
+				</if>
+				<if test="obj.curRiskclass != null and obj.curRiskclass != ''">
+					cur_riskclass = #{obj.curRiskclass},
+				</if>
+				<if test="obj.changeRiskclass != null and obj.changeRiskclass != ''">
+					change_riskclass = #{obj.changeRiskclass},
+				</if>
+		 		<if test="obj.changeTimes != null">
+					change_times = #{obj.changeTimes},
+				</if>
+				<if test="obj.pkUserManager != null and obj.pkUserManager != ''">
+					pk_user_manager = #{obj.pkUserManager},
+				</if>
+				<if test="obj.isRiskwarin != null and obj.isRiskwarin != ''">
+					is_riskwarin = #{obj.isRiskwarin},
+				</if>
+				<if test="obj.changePerson != null and obj.changePerson != ''">
+					change_person = #{obj.changePerson},
+				</if>
+				<if test="obj.changeDate != null and obj.changeDate != ''">
+					change_date = #{obj.changeDate},
+				</if>
+				<if test="obj.changeRemark != null and obj.changeRemark != ''">
+					change_remark = #{obj.changeRemark},
+				</if>
+				<if test="obj.pkPrjapply != null and obj.pkPrjapply != ''">
+					pk_prjapply = #{obj.pkPrjapply},
+				</if>
+				<if test="obj.prjCode != null and obj.prjCode != ''">
+					prj_code = #{obj.prjCode},
+				</if>
+				<if test="obj.prjName != null and obj.prjName != ''">
+					prj_name = #{obj.prjName},
+				</if>
+				<if test="obj.prjapplyDate != null and obj.prjapplyDate != ''">
+					prjapply_date = #{obj.prjapplyDate},
+				</if>
+				<if test="obj.startLeaseDate != null and obj.startLeaseDate != ''">
+					start_lease_date = #{obj.startLeaseDate},
+				</if>
+				<if test="obj.endLeaseDate != null and obj.endLeaseDate != ''">
+					end_lease_date = #{obj.endLeaseDate},
+				</if>
+		 		<if test="obj.receivableAmt != null">
+					receivable_amt = #{obj.receivableAmt},
+				</if>
+		 		<if test="obj.curPrinBal != null">
+					cur_prin_bal = #{obj.curPrinBal},
+				</if>
+		 		<if test="obj.receivableRent != null">
+					receivable_rent = #{obj.receivableRent},
+				</if>
+		 		<if test="obj.curRentBal != null">
+					cur_rent_bal = #{obj.curRentBal},
+				</if>
+		 		<if test="obj.itembal != null">
+					itembal = #{obj.itembal},
+				</if>
+		 		<if test="obj.overdueTimes != null">
+					overdue_times = #{obj.overdueTimes},
+				</if>
+		 		<if test="obj.derateDefInt != null">
+					derate_def_int = #{obj.derateDefInt},
+				</if>
+				<if test="obj.planReturndate != null and obj.planReturndate != ''">
+					plan_returndate = #{obj.planReturndate},
+				</if>
+		 		<if test="obj.accruedDefInt != null">
+					accrued_def_int = #{obj.accruedDefInt},
+				</if>
+		 		<if test="obj.receivablDefIntTotal != null">
+					receivabl_def_int_total = #{obj.receivablDefIntTotal},
+				</if>
+				<if test="obj.remark != null and obj.remark != ''">
+					remark = #{obj.remark},
+				</if>
+				<if test="obj.pkOrg != null and obj.pkOrg != ''">
+					pk_org = #{obj.pkOrg},
+				</if>
+				<if test="obj.pkDept != null and obj.pkDept != ''">
+					pk_dept = #{obj.pkDept},
+				</if>
+				<if test="obj.billmaker != null and obj.billmaker != ''">
+					billmaker = #{obj.billmaker},
+				</if>
+				<if test="obj.billdate != null and obj.billdate != ''">
+					billdate = #{obj.billdate},
+				</if>
+				<if test="obj.approveid != null and obj.approveid != ''">
+					approveid = #{obj.approveid},
+				</if>
+				<if test="obj.approvedate != null and obj.approvedate != ''">
+					approvedate = #{obj.approvedate},
+				</if>
+		 		<if test="obj.approvestatus != null">
+					approvestatus = #{obj.approvestatus},
+				</if>
+				<if test="obj.approvenote != null and obj.approvenote != ''">
+					approvenote = #{obj.approvenote},
+				</if>
+				<if test="obj.operator != null and obj.operator != ''">
+					operator = #{obj.operator},
+				</if>
+				<if test="obj.operatordatetime != null and obj.operatordatetime != ''">
+					operatordatetime = #{obj.operatordatetime},
+				</if>
+				<if test="obj.modifor != null and obj.modifor != ''">
+					modifor = #{obj.modifor},
+				</if>
+				<if test="obj.modifydatetime != null and obj.modifydatetime != ''">
+					modifydatetime = #{obj.modifydatetime},
+				</if>
+				<if test="obj.flowinstanceid != null and obj.flowinstanceid != ''">
+					flowinstanceid = #{obj.flowinstanceid},
+				</if>
+				<if test="obj.ts != null and obj.ts != ''">
+					ts = #{obj.ts},
+				</if>
+		 		<if test="obj.dr != null">
+					dr = #{obj.dr},
+				</if>
+				<if test="obj.def1 != null and obj.def1 != ''">
+					def1 = #{obj.def1},
+				</if>
+				<if test="obj.def2 != null and obj.def2 != ''">
+					def2 = #{obj.def2},
+				</if>
+				<if test="obj.def3 != null and obj.def3 != ''">
+					def3 = #{obj.def3},
+				</if>
+				<if test="obj.def4 != null and obj.def4 != ''">
+					def4 = #{obj.def4},
+				</if>
+				<if test="obj.def5 != null and obj.def5 != ''">
+					def5 = #{obj.def5},
+				</if>
+			</set>
+			where
+				pk_asset_riskclass = #{obj.pkAssetRiskclass} 
+	     </foreach>
+     	</if>
+    </update>
+    
+    <!-- 查询所有 -->
+    <select id="getRzAssetRiskclassAll" parameterType="rzAssetRiskclassQuery" resultMap="rzAssetRiskclassResult">
+		SELECT 
+		<include refid="rzAssetRiskclassField" />  
+		from  
+		rz_asset_riskclass<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询总数 -->
+	<select id="getRzAssetRiskclassByPageCount" parameterType="rzAssetRiskclassQuery" resultType="int">
+		SELECT count(*) from  rz_asset_riskclass
+		<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getRzAssetRiskclassByPage" parameterType="rzAssetRiskclassQuery" resultMap="rzAssetRiskclassResult">
+		SELECT <include refid="rzAssetRiskclassField" /> from rz_asset_riskclass
+		<include refid="condition" />
+		<if test="sort !=null">
+		    ORDER BY ${sort} ${order} 
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+	
+	<!-- 根据Id查询 -->
+	<select id="getRzAssetRiskclassById" parameterType="rzAssetRiskclassQuery" resultMap="rzAssetRiskclassResult">
+		SELECT <include refid="rzAssetRiskclassField" /> from  rz_asset_riskclass  where pk_asset_riskclass = #{pkAssetRiskclass} 
+		and ifnull(dr,0) = 0
+		 
+	</select>
+    
+</mapper>

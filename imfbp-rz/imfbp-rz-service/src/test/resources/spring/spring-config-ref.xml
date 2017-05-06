@@ -1,0 +1,986 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+	    http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd"
+	default-autowire="byName">
+
+	<description>Spring 参照公共配置 </description>
+
+	
+	<!-- 配置参照管理Service配置 begin -->
+	<bean id="defaultPubRefDataServiceImpl"
+		class="com.imfbp.rz.service.ref.impl.DefaultPubRefDataServiceImpl">
+		<property name="refDataServiceMaps">
+			<map>
+				<!-- 组织机构参照 -->
+				<entry key="orgref" value-ref="orgRefService"></entry>
+				<!-- 部门参照 -->
+				<entry key="deptref" value-ref="deptRefService"></entry>
+				<!-- 用户参照 -->
+				<entry key="userref" value-ref="userRefService"></entry>
+				<!-- 人员参照 -->
+				<entry key="personrref" value-ref="personRefService"></entry>
+				<!-- 币种参照 -->
+				<entry key="currencyref" value-ref="currencyRefService"></entry>
+				
+				<entry key="eqptref" value-ref="eqptRefService"></entry>
+				
+				<entry key="pricecalref" value-ref="pricecalRefService"></entry>
+				
+				<entry key="busytyperef" value-ref="busyTypeRefService"></entry>
+				
+				<entry key="busytypeRecref" value-ref="busyTypeRecRefService"></entry>
+				
+				<entry key="pmtrivalref" value-ref="pmtrivalRefService"></entry>
+
+				<!--项目评审单参照-->
+				<entry key="rzprjreviewref" value-ref="rzprjreviewRefService"></entry>
+				
+				<!--立项单参照-->
+				<entry key="rzprjapplyref" value-ref="rzprjapplyRefService"></entry>
+				
+				<!-- 项目合同参照 -->
+				<entry key="prjcontrref" value-ref="prjcontrRefService"></entry>
+
+				<!-- 项目合同参照(合同变更使用) -->
+				<entry key="rzprjcontrref" value-ref="rzprjcontrRefService"></entry>
+				
+				<!-- 融资设备参照 -->
+				
+				<entry key="rzeqptref" value-ref="rzeqptRefService"></entry>
+				
+				<entry key="customerref" value-ref="consumerClientRefService"></entry>
+				
+				<entry key="roleref" value-ref="roleClientRefService"></entry>
+				
+			</map>
+		</property>
+		<property name="dicItemMaps">
+			<map>
+				<!-- 银行类型参照 档案类型编码 -->
+				<entry key="banktyperef" value="DIC_BANK_TYPE"></entry>
+				<!-- 客户级别 -->
+				<entry key="custlevelref" value="DIC_CUST_LEVEL"></entry>
+				<!-- 客户来源 -->
+				<entry key="custsrcref" value="DIC_CUST_SOURCE"></entry>
+				<!-- 客户类型-->
+				<entry key="custtyperef" value="DIC_CUST_TYPE"></entry>
+				<!-- 客户分类-->
+				<entry key="custclassref" value="DIC_CUST_CLASS"></entry>
+				<!-- 客户分类-->
+				<entry key="linktyperef" value="DIC_LINK_TYPE"></entry>
+				
+				<!-- 项目测算表收付类型数据字典 -->
+				<entry key="busytyperef" value="DIC_RZ_BUSI_TYPE"></entry>
+				<!-- 收付对手数据字典 -->
+				<entry key="pmtrivalref" value="DIC_RZ_PMTRIVAL"></entry>
+				<!-- 收付管理表收付类型数据字典 -->
+				<entry key="busytypeRecref" value="DIC_RZ_BUSI_TYPE_REC"></entry>
+			</map>
+		</property>
+	</bean>
+	
+	
+	<bean id="consumerClientRefMetaDataImpl" class="com.imfbp.rz.service.ref.impl.DefaultRefMetaDataImpl">
+		<property name="idItem" value="_id"></property>
+		<property name="showItemsMap">
+			<map>
+				<entry key="userName" value="客户名称"></entry>
+				<entry key="userIdentificationNo" value="客户证件号"></entry>
+			</map>
+		</property>
+	
+		<property name="title" value="个人客户信息参照"></property>
+		<property name="tableName" value="CRM_CONSUMERCLIENT"></property>
+		<!-- 参照类型 list tree -->
+		<property name="refType" value="list"></property>
+		<property name="mainShowItem" value="userName"></property>
+		<property name="pagination" value="true"></property>
+	</bean>
+	
+	<bean id="consumerClientRefService" class="com.imfbp.rz.service.ref.impl.DefaultRpcServiceImpl">
+		<property name="refMetaDataService" ref="consumerClientRefMetaDataImpl"></property>
+	</bean>
+	<bean id="roleClientRefService" class="com.imfbp.rz.service.ref.impl.DefaultRpcServiceImpl">
+		<property name="refMetaDataService" ref="roleClientRefMetaDataImpl"></property>
+	</bean>
+	
+	
+	<!-- 配置级别参照元数据与Service begin -->
+	<bean id="personLevelRefMetaDataImpl" class="com.imfbp.rz.service.ref.impl.DefaultRefMetaDataImpl">
+		<property name="idItem" value="value"></property>
+		<property name="showItemsMap">
+			<map>
+				<entry key="text" value="级别名称"></entry>
+				<entry key="value" value="级别编码"></entry>
+			</map>
+		</property>
+		<property name="title" value="人员级别"></property>
+		<!-- 参照类型 list tree -->
+		<property name="refType" value="list"></property>
+		<property name="mainShowItem" value="text"></property>
+		<property name="pagination" value="false"></property>
+	</bean>
+	
+	<!-- 配置级别参照元数据与Service begin -->
+	<bean id="roleClientRefMetaDataImpl" class="com.imfbp.rz.service.ref.impl.DefaultRefMetaDataImpl">
+		<property name="idItem" value="id"></property>
+		<property name="showItemsMap">
+			<map>
+				<entry key="role_code" value="角色编码"></entry>
+				<entry key="role_name" value="角色名称"></entry>
+			</map>
+		</property>
+		<property name="title" value="角色级别"></property>
+		<!-- 参照类型 list tree -->
+		<property name="refType" value="list"></property>
+		<property name="mainShowItem" value="role_code"></property>
+		<property name="tableName" value="BOSS_ROLE"></property>
+		<property name="pagination" value="true"></property>
+	</bean>
+	
+	<bean id="personLevelRefService"
+		class="com.imfbp.rz.service.dicitemref.impl.DicItemRefRpcServiceImpl">
+		<property name="refMetaDataService" ref="personLevelRefMetaDataImpl"></property>
+	</bean>
+	<!-- 配置级别参照元数据与Service end -->
+	<!-- 配置岗位参照元数据与Service begin -->
+	<bean id="personJobRefMetaDataImpl" class="com.imfbp.rz.service.ref.impl.DefaultRefMetaDataImpl">
+		<property name="idItem" value="value"></property>
+		<property name="showItemsMap">
+			<map>
+				<entry key="text" value="岗位名称"></entry>
+				<entry key="value" value="岗位编码"></entry>
+			</map>
+		</property>
+		<property name="title" value="人员岗位"></property>
+		<!-- 参照类型 list tree -->
+		<property name="refType" value="list"></property>
+		<property name="mainShowItem" value="text"></property>
+		<property name="pagination" value="false"></property>
+	</bean>
+	<bean id="personJobRefService"
+		class="com.imfbp.rz.service.dicitemref.impl.DicItemRefRpcServiceImpl">
+		<property name="refMetaDataService" ref="personJobRefMetaDataImpl"></property>
+	</bean>
+	<!-- 配置岗位参照元数据与Service end -->
+	<!-- 配置客户来源参照元数据与Service begin -->
+	<bean id="custSrcRefMetaDataImpl" class="com.imfbp.rz.service.ref.impl.DefaultRefMetaDataImpl">
+		<property name="idItem" value="value"></property>
+		<property name="showItemsMap">
+			<map>
+				<entry key="text" value="客户来源名称"></entry>
+				<entry key="value" value="客户来源编码"></entry>
+			</map>
+		</property>
+		<property name="title" value="客户来源参照"></property>
+		<!-- 参照类型 list tree -->
+		<property name="refType" value="list"></property>
+		<property name="mainShowItem" value="text"></property>
+		<property name="pagination" value="false"></property>
+	</bean>
+	<bean id="custSrcRefService"
+		class="com.imfbp.rz.service.dicitemref.impl.DicItemRefRpcServiceImpl">
+		<property name="refMetaDataService" ref="custSrcRefMetaDataImpl"></property>
+	</bean>
+	<!-- 配置客户来源参照元数据与Service end -->
+	
+	
+	
+	<!-- 配置客户级别参照元数据与Service begin -->
+	<bean id="custLevelRefMetaDataImpl" class="com.imfbp.rz.service.ref.impl.DefaultRefMetaDataImpl">
+		<property name="idItem" value="value"></property>
+		<property name="showItemsMap">
+			<map>
+				<entry key="text" value="客户级别名称"></entry>
+				<entry key="value" value="客户级别编码"></entry>
+			</map>
+		</property>
+		<property name="title" value="客户级别参照"></property>
+		<!-- 参照类型 list tree -->
+		<property name="refType" value="list"></property>
+		<property name="mainShowItem" value="text"></property>
+		<property name="pagination" value="false"></property>
+	</bean>
+	<bean id="custLevelRefService"
+		class="com.imfbp.rz.service.dicitemref.impl.DicItemRefRpcServiceImpl">
+		<property name="refMetaDataService" ref="custLevelRefMetaDataImpl"></property>
+	</bean>
+	<!-- 配置客户级别参照元数据与Service end -->
+	
+	<!-- 配置客户级别参照元数据与Service begin -->
+	<bean id="custTypeRefMetaDataImpl" class="com.imfbp.rz.service.ref.impl.DefaultRefMetaDataImpl">
+		<property name="idItem" value="value"></property>
+		<property name="showItemsMap">
+			<map>
+				<entry key="text" value="客户类型名称"></entry>
+				<entry key="value" value="客户类型编码"></entry>
+			</map>
+		</property>
+		<property name="title" value="客户类型"></property>
+		<!-- 参照类型 list tree -->
+		<property name="refType" value="list"></property>
+		<property name="mainShowItem" value="text"></property>
+		<property name="pagination" value="false"></property>
+	</bean>
+	<bean id="custTypeRefService"
+		class="com.imfbp.rz.service.dicitemref.impl.DicItemRefRpcServiceImpl">
+		<property name="refMetaDataService" ref="custTypeRefMetaDataImpl"></property>
+	</bean>
+	<!-- 配置客户级别参照元数据与Service end -->
+	
+	<!-- 配置客户类型参照元数据与Service begin -->
+	<bean id="custClassRefMetaDataImpl" class="com.imfbp.rz.service.ref.impl.DefaultRefMetaDataImpl">
+		<property name="idItem" value="value"></property>
+		<property name="showItemsMap">
+			<map>
+				<entry key="text" value="客户分类名称"></entry>
+				<entry key="value" value="客户分类编码"></entry>
+			</map>
+		</property>
+		<property name="title" value="客户分类"></property>
+		<!-- 参照类型 list tree -->
+		<property name="refType" value="list"></property>
+		<property name="mainShowItem" value="text"></property>
+		<property name="pagination" value="false"></property>
+	</bean>
+	<bean id="custClassRefService"
+		class="com.imfbp.rz.service.dicitemref.impl.DicItemRefRpcServiceImpl">
+		<property name="refMetaDataService" ref="custClassRefMetaDataImpl"></property>
+	</bean>
+	<!-- 配置客户级别参照元数据与Service end -->
+	
+	<!-- 配置客户级别参照元数据与Service begin -->
+	<bean id="linkTypeRefMetaDataImpl" class="com.imfbp.rz.service.ref.impl.DefaultRefMetaDataImpl">
+		<property name="idItem" value="value"></property>
+		<property name="showItemsMap">
+			<map>
+				<entry key="text" value="联系人类型名称"></entry>
+				<entry key="value" value="联系人类型编码"></entry>
+			</map>
+		</property>
+		<property name="title" value="联系人类型"></property>
+		<!-- 参照类型 list tree -->
+		<property name="refType" value="list"></property>
+		<property name="mainShowItem" value="text"></property>
+		<property name="pagination" value="false"></property>
+	</bean>
+	<bean id="linkTypeRefService"
+		class="com.imfbp.rz.service.dicitemref.impl.DicItemRefRpcServiceImpl">
+		<property name="refMetaDataService" ref="linkTypeRefMetaDataImpl"></property>
+	</bean>
+	<!-- 配置客户级别参照元数据与Service end -->
+
+	<!-- 配置银行类别参照元数据与Service begin -->
+	<bean id="bankTypeRefMetaDataImpl" class="com.imfbp.rz.service.ref.impl.DefaultRefMetaDataImpl">
+		<property name="idItem" value="value"></property>
+		<property name="showItemsMap">
+			<map>
+				<entry key="text" value="银行类别名称"></entry>
+				<entry key="value" value="银行类别编码"></entry>
+			</map>
+		</property>
+		<property name="title" value="银行类别"></property>
+		<!-- 参照类型 list tree -->
+		<property name="refType" value="list"></property>
+		<property name="mainShowItem" value="text"></property>
+		<property name="pagination" value="false"></property>
+	</bean>
+	<bean id="bankTypeRefService"
+		class="com.imfbp.rz.service.dicitemref.impl.DicItemRefRpcServiceImpl">
+		<property name="refMetaDataService" ref="bankTypeRefMetaDataImpl"></property>
+	</bean>
+	<!-- 配置银行类别参照元数据与Service end -->
+	
+		<!-- 配置币种参照元数据与Service begin -->
+	<bean id="currencyRefMetaDataImpl" class="com.imfbp.rz.service.ref.impl.DefaultRefMetaDataImpl">
+		<property name="idItem" value="id"></property>
+		<property name="showItemsMap">
+			<map>
+				<entry key="currencyCode" value="币种编码"></entry>
+				<entry key="currencyName" value="币种名称"></entry>
+			</map>
+		</property>
+		<property name="title" value="币种参照"></property>
+		<!-- 参照类型 list tree -->
+		<property name="refType" value="list"></property>
+		<property name="mainShowItem" value="currencyName"></property>
+		<property name="pagination" value="false"></property>
+	</bean>
+	<bean id="currencyRefService"
+		class="com.imfbp.rz.service.currency.impl.BdCurrencyRefRpcServiceImpl">
+		<property name="refMetaDataService" ref="currencyRefMetaDataImpl"></property>
+	</bean>
+	<!-- 配置币种参照元数据与Service end -->
+
+	<!-- 配置人员档案（用户）参照元数据与Service begin -->
+	<bean id="userRefMetaDataImpl" class="com.imfbp.rz.service.ref.impl.DefaultRefMetaDataImpl">
+		<property name="idItem" value="id"></property>
+		<property name="showItemsMap">
+			<map>
+				<entry key="userCode" value="用户编号"></entry>
+				<entry key="userRealName" value="用户真实姓名"></entry>
+			</map>
+		</property>
+		<property name="title" value="用户信息参照"></property>
+		<!-- 参照类型 list tree -->
+		<property name="refType" value="list"></property>
+		<property name="mainShowItem" value="userRealName"></property>
+		<property name="pagination" value="true"></property>
+	</bean>
+	<bean id="userRefService"
+		class="com.imfbp.rz.service.userref.impl.BdUserRefRpcServiceImpl">
+		<property name="refMetaDataService" ref="userRefMetaDataImpl"></property>
+	</bean>
+	<!-- 配置人员档案（用户）参照元数据与Service end -->
+	
+    <!-- 配置租赁业务类型参照元数据与Service begin -->
+	<bean id="busyTypeRefMetaDataImpl" class="com.imfbp.rz.service.ref.impl.DefaultRefMetaDataImpl">
+		<property name="idItem" value="value"></property>
+		<property name="showItemsMap">
+			<map>
+				<entry key="text" value="租赁业务类型名称"></entry>
+				<entry key="value" value="租赁业务类型编码"></entry>
+			</map>
+		</property>
+		<property name="title" value="租赁业务类型"></property>
+		<!-- 参照类型 list tree -->
+		<property name="refType" value="list"></property>
+		<property name="mainShowItem" value="text"></property>
+		<property name="pagination" value="false"></property>
+	</bean>
+	<bean id="busyTypeRefService"
+		class="com.imfbp.rz.service.dicitemref.impl.DicItemRefRpcServiceImpl">
+		<property name="refMetaDataService" ref="busyTypeRefMetaDataImpl"></property>
+	</bean>
+	<!-- 配置租赁业务类型参照元数据与Service end -->
+	
+	<!-- 配置收付管理业务类型参照元数据与Service begin -->
+	<bean id="busyTypeRecRefMetaDataImpl" class="com.imfbp.rz.service.ref.impl.DefaultRefMetaDataImpl">
+		<property name="idItem" value="value"></property>
+		<property name="showItemsMap">
+			<map>
+				<entry key="text" value="收付管理业务类型名称"></entry>
+				<entry key="value" value="收付管理业务类型编码"></entry>
+			</map>
+		</property>
+		<property name="title" value="收付管理业务类型"></property>
+		<!-- 参照类型 list tree -->
+		<property name="refType" value="list"></property>
+		<property name="mainShowItem" value="text"></property>
+		<property name="pagination" value="false"></property>
+	</bean>
+	<bean id="busyTypeRecRefService"
+		class="com.imfbp.rz.service.dicitemref.impl.DicItemRefRpcServiceImpl">
+		<property name="refMetaDataService" ref="busyTypeRecRefMetaDataImpl"></property>
+	</bean>
+	<!-- 配置收付管理业务类型参照元数据与Service end -->
+	
+	<!-- 配置收付对手参照元数据与Service begin -->
+	<bean id="pmtrivalRefMetaDataImpl" class="com.imfbp.rz.service.ref.impl.DefaultRefMetaDataImpl">
+		<property name="idItem" value="value"></property>
+		<property name="showItemsMap">
+			<map>
+				<entry key="text" value="收付对手名称"></entry>
+				<entry key="value" value="收付对手编码"></entry>
+			</map>
+		</property>
+		<property name="title" value="收付对手"></property>
+		<!-- 参照类型 list tree -->
+		<property name="refType" value="list"></property>
+		<property name="mainShowItem" value="text"></property>
+		<property name="pagination" value="false"></property>
+	</bean>
+	<bean id="pmtrivalRefService"
+		class="com.imfbp.rz.service.dicitemref.impl.DicItemRefRpcServiceImpl">
+		<property name="refMetaDataService" ref="pmtrivalRefMetaDataImpl"></property>
+	</bean>
+	<!-- 配置收付对手参照元数据与Service end -->
+	
+	<!-- 配置机构银行账户参照元数据与Service begin -->
+	<bean id="orgBankAccRefMetaDataImpl" class="com.imfbp.rz.service.ref.impl.DefaultRefMetaDataImpl">
+		<property name="idItem" value="id"></property>
+		<property name="showItemsMap">
+			<map>
+				<entry key="bankAccCode" value="账户编码"></entry>
+				<entry key="bankAccOwner" value="账户户主"></entry>
+				<entry key="openBankName" value="开户行名称"></entry>
+				<entry key="listBankTypeName" value="银行类型"></entry>
+			</map>
+		</property>
+		<property name="title" value="机构银行账户参照"></property>
+		<!-- 参照类型 list tree -->
+		<property name="refType" value="list"></property>
+		<property name="mainShowItem" value="bankAccCode"></property>
+		<property name="pagination" value="true"></property>
+	</bean>
+	<bean id="orgBankAccRefService"
+		class="com.imfbp.rz.service.orgbankaccref.impl.OrgBankAccRpcRefServiceImpl">
+		<property name="refMetaDataService" ref="orgBankAccRefMetaDataImpl"></property>
+	</bean>
+	<!-- 配置机构银行账户参照元数据与Service end -->
+
+
+	<!-- 配置组织机构参照元数据与Service begin -->
+	<bean id="orgRefMetaDataImpl" class="com.imfbp.rz.service.ref.impl.DefaultRefMetaDataImpl">
+		<!-- 主键字段 -->
+		<property name="idItem" value="id"></property>
+		<!-- 参照类型 list tree -->
+		<property name="refType" value="tree"></property>
+		<!-- 父主键字段 -->
+		<property name="parentItem" value="orgPid"></property>
+		<!-- 显示的字段（如果是数据表取数，必须是表的字段）和显示名称 -->
+		<property name="showItemsMap">
+			<!-- key:数据库字段,name:显示名称 -->
+			<map>
+				<entry key="orgCode" value="机构编码"></entry>
+				<entry key="orgName" value="机构名称"></entry>
+			</map>
+		</property>
+		<!-- 参照标题 -->
+		<property name="title" value="组织机构参照"></property>
+		<!-- 树型参照界面显示名称字段，多个字段用","隔开,一般最多为两个字段 -->
+		<property name="treeShowItem" value="orgCode,orgName"></property>
+		<!-- 界面显示字段 -->
+		<property name="mainShowItem" value="orgName"></property>
+	</bean>
+	
+	<bean id="eqptRefMetaDataImpl" class="com.imfbp.rz.service.ref.impl.DefaultRefMetaDataImpl">
+		<!-- 主键字段 -->
+		<property name="idItem" value="pkEqpt"></property>
+		<!-- 参照类型 list tree -->
+		<property name="refType" value="list"></property>
+		<property name="otherDataItemsMap">
+			<map>
+				<entry key="eqptType" value="eqptType"></entry>
+				<entry key="eqptBrand" value="eqptBrand"></entry>
+				<entry key="eqptVer" value="eqptVer"></entry>
+				<entry key="mfgNo" value="mfgNo"></entry>
+				<entry key="mfgDate" value="mfgDate"></entry>
+				<entry key="eqptPrice" value="eqptPrice"></entry>
+				<entry key="mfg" value="制造商"></entry>
+			</map>
+		</property>
+		<!-- 父主键字段 -->
+		<!-- <property name="parentItem" value=""></property> -->
+		<!-- 显示的字段（如果是数据表取数，必须是表的字段）和显示名称 -->
+		<property name="showItemsMap">
+			<!-- key:数据库字段,name:显示名称 -->
+			<map>
+				<entry key="eqptCode" value="设备编码"></entry>
+				<entry key="eqptName" value="设备名称"></entry>
+			</map>
+			
+		</property>
+		<!-- 参照标题 -->
+		
+		<property name="title" value="设备参照"></property>
+		<!-- 树型参照界面显示名称字段，多个字段用","隔开,一般最多为两个字段 -->
+		<!-- <property name="treeShowItem" value="eqptCode,eqptName"></property> -->
+		<!-- 界面显示字段 -->
+		<property name="tableName" value="rz_eqpt"></property>
+		<property name="mainShowItem" value="eqptName"></property>
+		<property name="pagination" value="true"></property>
+	</bean>
+	<bean id="pricecalRefMetaDataImpl" class="com.imfbp.rz.service.ref.impl.DefaultRefMetaDataImpl">
+		<!-- 主键字段 -->
+		<property name="idItem" value="pkPricecal"></property>
+		<!-- 参照类型 list tree -->
+		<property name="refType" value="list"></property>
+		<property name="otherDataItemsMap">
+			<map>
+				<entry key="pkCustomer" value="eqptType"></entry>
+				<entry key="leaseway" value="leaseway"></entry>
+				<entry key="busitype" value="busitype"></entry>
+				<entry key="launchdate" value="launchdate"></entry>
+				<entry key="itemamt" value="itemamt"></entry>
+				<entry key="leaseprd" value="leaseprd"></entry>
+				<entry key="firstpmtpct" value="firstpmtpct"></entry>
+				<entry key="firstpmtamt" value="firstpmtamt"></entry>
+				<entry key="pkCurrency" value="pkCurrency"></entry>
+				<entry key="ratetype" value="ratetype"></entry>
+				<entry key="baserate" value="baserate"></entry>
+				<entry key="floatpct" value="floatpct"></entry>
+				<entry key="pricerate" value="pricerate"></entry>
+				<entry key="planleasedate" value="planleasedate"></entry>
+				<entry key="reptcycle" value="reptcycle"></entry>
+				<entry key="optamt" value="optamt"></entry>
+				<entry key="yeardays" value="yeardays"></entry>
+				<entry key="irr" value="irr"></entry>
+				<entry key="reptway" value="reptway"></entry>
+			</map>
+		</property>
+		<!-- 父主键字段 -->
+		<!-- <property name="parentItem" value=""></property> -->
+		<!-- 显示的字段（如果是数据表取数，必须是表的字段）和显示名称 -->
+		<property name="showItemsMap">
+			<!-- key:数据库字段,name:显示名称 -->
+			<map>
+				<entry key="priceno" value="报价单编码"></entry>
+				<entry key="pricename" value="报价单名称"></entry>
+			</map>
+			
+		</property>
+		<!-- 参照标题 -->
+		
+		<property name="title" value="设备参照"></property>
+		<!-- 树型参照界面显示名称字段，多个字段用","隔开,一般最多为两个字段 -->
+		<!-- <property name="treeShowItem" value="eqptCode,eqptName"></property> -->
+		<!-- 界面显示字段 -->
+		<property name="tableName" value="rz_pricecal"></property>
+		<property name="mainShowItem" value="pricename"></property>
+		<property name="pagination" value="true"></property>
+	</bean>
+	
+	
+	<bean id="orgRefService"
+		class="com.imfbp.rz.service.orgref.impl.BdOrgRefRpcServiceImpl">
+		<property name="refMetaDataService" ref="orgRefMetaDataImpl"></property>
+	</bean>
+	<bean id="eqptRefService"
+		class="com.imfbp.rz.service.ref.impl.DefaultRefServiceImpl">
+		<property name="refMetaDataService" ref="eqptRefMetaDataImpl"></property>
+	</bean>
+	<bean id="prjcontrRefService"
+		class="com.imfbp.rz.service.ref.impl.DefaultRefServiceImpl">
+		<property name="refMetaDataService" ref="prjcontrRefMetaDataImpl"></property>
+	</bean>
+	<bean id="pricecalRefService"
+		class="com.imfbp.rz.service.ref.impl.DefaultRefServiceImpl">
+		<property name="refMetaDataService" ref="pricecalRefMetaDataImpl"></property>
+	</bean>
+	<!-- 配置组织机构参照元数据与Service end -->
+
+	<!-- 配置部门参照元数据与Service begin -->
+	<bean id="deptRefMetaDataImpl" class="com.imfbp.rz.service.ref.impl.DefaultRefMetaDataImpl">
+		<!-- 主键字段 -->
+		<property name="idItem" value="id"></property>
+		<!-- 参照类型 list tree -->
+		<property name="refType" value="tree"></property>
+		<!-- 父主键字段 -->
+		<property name="parentItem" value="deptPid"></property>
+		<!-- 显示的字段（如果是数据表取数，必须是表的字段）和显示名称 -->
+		<property name="showItemsMap">
+			<!-- key:数据库字段,name:显示名称 -->
+			<map>
+				<entry key="deptCode" value="部门编码"></entry>
+				<entry key="deptName" value="部门名称"></entry>
+			</map>
+		</property>
+		<!-- 参照标题 -->
+		<property name="title" value="部门参照"></property>
+		<!-- 树型参照界面显示名称字段，多个字段用","隔开,一般最多为两个字段 -->
+		<property name="treeShowItem" value="deptCode,deptName"></property>
+		<!-- 界面显示字段 -->
+		<property name="mainShowItem" value="deptName"></property>
+	</bean>
+	<bean id="deptRefService"
+		class="com.imfbp.rz.service.deptref.impl.BdDeptRefRpcServiceImpl">
+		<property name="refMetaDataService" ref="deptRefMetaDataImpl"></property>
+	</bean>
+	<!-- 配置部门参照元数据与Service end -->
+	
+	<!-- 配置部门参照元数据与Service begin -->
+	<bean id="personRefMetaDataImpl" class="com.imfbp.rz.service.ref.impl.DefaultRefMetaDataImpl">
+		<!-- 主键字段 -->
+		<property name="idItem" value="id"></property>
+		<!-- 参照类型 list tree -->
+		<property name="refType" value="list"></property>
+		<!-- 显示的字段（如果是数据表取数，必须是表的字段）和显示名称 -->
+		<property name="showItemsMap">
+			<!-- key:数据库字段,name:显示名称 -->
+			<map>
+				<entry key="personnelCode" value="人员编码"></entry>
+				<entry key="personnelRealName" value="姓名"></entry>
+			</map>
+		</property>
+		<!-- 参照标题 -->
+		<property name="title" value="人员信息"></property>
+		<!-- 树型参照界面显示名称字段，多个字段用","隔开,一般最多为两个字段 -->
+		<!-- 界面显示字段 -->
+		<property name="mainShowItem" value="personnelRealName"></property>
+		<property name="pagination" value="true"></property>
+	</bean>
+	<bean id="personRefService"
+		class="com.imfbp.rz.service.personref.impl.BdPersonRefServiceImpl">
+		<property name="refMetaDataService" ref="personRefMetaDataImpl"></property>
+	</bean>
+	<!-- 配置人员参照元数据与Service end -->
+
+	<!-- 配置立项申请参照元数据与Service begin -->
+	<bean id="rzprjapplyRefMetaDataImpl" class="com.imfbp.rz.service.ref.impl.DefaultRefMetaDataImpl">
+		<!-- 主键字段 -->
+		<property name="idItem" value="pkPrjapply"></property>
+		<!-- 参照类型 list tree -->
+		<property name="refType" value="list"></property>
+		<property name="otherDataItemsMap">
+			<map>
+				<entry key="pkPrjapply" value="立项申请主键"></entry>
+				<entry key="prjCode" value="项目编号"></entry>
+				<entry key="prjName" value="项目名称"></entry>
+				<entry key="pkPricecal" value="报价测算主键"></entry>
+				<entry key="pkCustomer" value="客户名称外键"></entry>
+				<entry key="custtype" value="客户类型"></entry>
+				<entry key="busitype" value="业务类型"></entry>
+				<entry key="leaseway" value="租赁方式"></entry>
+				<entry key="leasetype" value="租赁物类型"></entry>
+				<entry key="applydate" value="申请日期"></entry>
+				<entry key="launchdate" value="投放日期"></entry>
+				<entry key="prjSrc" value="项目来源"></entry>
+				<entry key="pkUserManager" value="项目经理"></entry>
+				<entry key="pkDeptApply" value="申请部门"></entry>
+				<entry key="itemamt" value="项目金额"></entry>
+				<entry key="leaseprd" value="租赁期限(月)"></entry>
+				<entry key="prjReason" value="项目承做原因"></entry>
+				<entry key="pkOrgLessor" value="出租人主键"></entry>
+				<entry key="remark" value="备注"></entry>
+				<entry key="eqptPriceTotal" value="设备总额"></entry>
+				<entry key="firstpmtpct" value="首付款比例"></entry>
+				<entry key="firstpmtamt" value="首付款金额"></entry>
+				<entry key="financeamt" value="融资金额"></entry>
+				<entry key="pkCurrency" value="币种主键"></entry>
+				<entry key="ratetype" value="利率类型"></entry>
+				<entry key="baserate" value="基准利率"></entry>
+				<entry key="floatpct" value="上下浮比例"></entry>
+				<entry key="pricerate" value="报价利率"></entry>
+				<entry key="planrentdate" value="计划收租日"></entry>
+				<entry key="reptcycle" value="还款周期"></entry>
+				<entry key="optamt" value="经营性每期租金"></entry>
+				<entry key="yeardays" value="年化天数"></entry>
+				<entry key="reptway" value="还款方式"></entry>
+				<entry key="paymentway" value="租金支付方式"></entry>
+				<entry key="paymentmethod" value="租金付款方式"></entry>
+				<entry key="irr" value="项目收益IRR(%)"></entry>
+				<entry key="depositpct" value="客户保证金比例(%)"></entry>
+				<entry key="depositamt" value="客户保证金金额"></entry>
+				<entry key="returndepositway" value="客户保证金退回方式"></entry>
+				<entry key="feeradix" value="手续费计算基数"></entry>
+				<entry key="feepct" value="手续费比例"></entry>
+				<entry key="feeamt" value="手续费金额"></entry>
+				<entry key="sctaxrate" value="税率"></entry>
+				<entry key="feepayway" value="手续费支付方式"></entry>
+				<entry key="scpct" value="服务费比例(%)"></entry>
+				<entry key="scamt" value="服务费总额"></entry>
+				<entry key="feetaxrate" value="服务费税率（%）"></entry>
+				<entry key="isselectrent" value="是否选择租赁物"></entry>
+				<entry key="pkOrg" value="机构外键"></entry>
+				<entry key="pkDept" value="部门外键"></entry>
+				<entry key="billmaker" value="制单人"></entry>
+				<entry key="billdate" value="制单日期"></entry>
+				<entry key="approveid" value="审批人"></entry>
+				<entry key="approvedate" value="审批时间"></entry>
+				<entry key="approvestatus" value="审批状态"></entry>
+				<entry key="approvenote" value="审批语"></entry>
+				<entry key="operator" value="录入人"></entry>
+				<entry key="operatordatetime" value="录入时间"></entry>
+				<entry key="modifor" value="修改人"></entry>
+				<entry key="modifydatetime" value="修改时间"></entry>
+				<entry key="flowinstanceid" value="流程实例ID"></entry>
+			</map>
+		</property>
+		<!-- 父主键字段 -->
+		<!-- <property name="parentItem" value=""></property> -->
+		<!-- 显示的字段（如果是数据表取数，必须是表的字段）和显示名称 -->
+		<property name="showItemsMap">
+			<!-- key:数据库字段,name:显示名称 -->
+			<map>
+				<entry key="prjCode" value="项目编号"></entry>
+				<entry key="prjName" value="项目名称"></entry>
+			</map>
+		</property>
+		<!-- 参照标题 -->
+		<property name="title" value="立项申请参照"></property>
+		<!-- 树型参照界面显示名称字段，多个字段用","隔开,一般最多为两个字段 -->
+		<!-- <property name="treeShowItem" value="eqptCode,eqptName"></property> -->
+		<!-- 界面显示字段 -->
+		<property name="tableName" value="rz_prjapply"></property>
+		<property name="mainShowItem" value="prjCode"></property>
+		<property name="pagination" value="true"></property>
+	</bean>
+
+	<!-- 配置项目评审单参照元数据与Service begin -->
+	<bean id="rzprjreviewRefMetaDataImpl" class="com.imfbp.rz.service.ref.impl.DefaultRefMetaDataImpl">
+		<!-- 主键字段 -->
+		<property name="idItem" value="pkPrjreview"></property>
+		<!-- 参照类型 list tree -->
+		<property name="refType" value="list"></property>
+		<property name="otherDataItemsMap">
+			<map>
+				<entry key="pkPrjreview" value="评审单主键"></entry>
+				<entry key="pkPrjapply" value="立项申请主键"></entry>
+				<entry key="pkCustomer" value="客户名称外键"></entry>
+				<entry key="pkPricecal" value="报价测算主键"></entry>
+				<entry key="busitype" value="业务类型"></entry>
+				<entry key="leaseway" value="租赁方式"></entry>
+				<entry key="leasetype" value="租赁物类型"></entry>
+				<entry key="prjSrc" value="项目来源"></entry>
+				<entry key="pkUserManager" value="项目经理"></entry>
+				<entry key="pkDeptApply" value="申请部门"></entry>
+				<entry key="leaseprd" value="租赁期限"></entry>
+				<entry key="isInsure" value="是否投保"></entry>
+				<entry key="isGuar" value="是否有担保"></entry>
+				<entry key="itemamt" value="项目金额"></entry>
+				<entry key="firstpmtamt" value="首付款金额"></entry>
+				<entry key="financeamt" value="融资金额"></entry>
+				<entry key="pricerate" value="报价利率"></entry>
+				<entry key="planrentdate" value="计划收租日"></entry>
+				<entry key="reptcycle" value="还款周期"></entry>
+				<entry key="paymentway" value="租金支付方式"></entry>
+				<entry key="reptway" value="还款方式"></entry>
+				<entry key="optamt" value="经营性每期租金"></entry>
+				<entry key="depositamt" value="客户保证金金额"></entry>
+				<entry key="feeIntotalAmt" value="手续费收入总额"></entry>
+				<entry key="scOuttotalAmt" value="服务费支出总额"></entry>
+				<entry key="prinTotalAmt" value="总本金"></entry>
+				<entry key="intTotalAmt" value="总利息"></entry>
+				<entry key="rentTotalAmt" value="总租金"></entry>
+				<entry key="irr" value="项目收益IRR"></entry>
+				<entry key="pkOrgLessor" value="出租人主键"></entry>
+				<entry key="remark" value="备注"></entry>
+				<entry key="ratetype" value="利率类型"></entry>
+				<entry key="baserate" value="基准利率"></entry>
+				<entry key="floatpct" value="上下浮比例"></entry>
+				<entry key="yeardays" value="年化天数"></entry>
+				<entry key="paymentmethod" value="租金付款方式"></entry>
+				<entry key="sctaxrate" value="服务费税率"></entry>
+				<entry key="feetaxrate" value="手续费税率"></entry>
+				<entry key="pkCurrency" value="币种"></entry>
+			</map>
+		</property>
+		<!-- 父主键字段 -->
+		<!-- <property name="parentItem" value=""></property> -->
+		<!-- 显示的字段（如果是数据表取数，必须是表的字段）和显示名称 -->
+		<property name="showItemsMap">
+			<!-- key:数据库字段,name:显示名称 -->
+			<map>
+				<entry key="reviewCode" value="项目评审单编码"></entry>
+			</map>
+		</property>
+		<!-- 参照标题 -->
+		<property name="title" value="项目评审单参照"></property>
+		<!-- 树型参照界面显示名称字段，多个字段用","隔开,一般最多为两个字段 -->
+		<!-- <property name="treeShowItem" value="eqptCode,eqptName"></property> -->
+		<!-- 界面显示字段 -->
+		<property name="tableName" value="rz_prjreview"></property>
+		<property name="mainShowItem" value="reviewCode"></property>
+		<property name="pagination" value="true"></property>
+	</bean>
+	<!-- 配置项目评审单参照元数据与Service begin -->
+	<bean id="prjcontrRefMetaDataImpl" class="com.imfbp.rz.service.ref.impl.DefaultRefMetaDataImpl">
+		<!-- 主键字段 -->
+		<property name="idItem" value="pkPrjcontr"></property>
+		<!-- 参照类型 list tree -->
+		<property name="refType" value="list"></property>
+		<property name="otherDataItemsMap">
+			<map>
+				<entry key="pkCustomer" value="pkCustomer"></entry>
+				<entry key="pkPrjapply" value="pkPrjapply"></entry>
+				<entry key="pkCustomer" value="pkCustomer"></entry>
+				<entry key="pkUserManager" value="pkUserManager"></entry>
+				<entry key="ratetype" value="ratetype"></entry>
+				<entry key="leaseprd" value="leaseprd"></entry>
+				<entry key="baserate" value="baserate"></entry>
+				<entry key="floatpct" value="floatpct"></entry>
+				<entry key="intType" value="intType"></entry>
+				<entry key="busitype" value="busitype"></entry>
+				<entry key="itemamt" value="itemamt"></entry>
+				<entry key="financeamt" value="financeamt"></entry>
+				<entry key="contrAmt" value="contrAmt"></entry>
+				<entry key="pricerate" value="pricerate"></entry>
+				<entry key="nomPrice" value="nomPrice"></entry>
+				<entry key="irr" value="irr"></entry>
+			</map>
+		</property>
+		<!-- 父主键字段 -->
+		<!-- <property name="parentItem" value=""></property> -->
+		<!-- 显示的字段（如果是数据表取数，必须是表的字段）和显示名称 -->
+		<property name="showItemsMap">
+			<!-- key:数据库字段,name:显示名称 -->
+			<map>
+				<entry key="contrCode" value="合同编码"></entry>
+				<entry key="contrName" value="合同名词"></entry>
+			</map>
+		</property>
+		<!-- 参照标题 -->
+		<property name="title" value="项目评审单参照"></property>
+		<!-- 树型参照界面显示名称字段，多个字段用","隔开,一般最多为两个字段 -->
+		<!-- <property name="treeShowItem" value="eqptCode,eqptName"></property> -->
+		<!-- 界面显示字段 -->
+		<property name="tableName" value="rz_prjcontr"></property>
+		<property name="mainShowItem" value="contrCode"></property>
+		<property name="pagination" value="true"></property>
+	</bean>
+
+		<!-- 融资设备参照元数据与Service begin -->
+	<bean id="rzeqptRefMetaDataImpl" class="com.imfbp.rz.service.ref.impl.DefaultRefMetaDataImpl">
+		<!-- 主键字段 -->
+		<property name="idItem" value="pkEqpt"></property>
+		<!-- 参照类型 list tree -->
+		<property name="refType" value="list"></property>
+		<property name="otherDataItemsMap">
+			<map>
+				<entry key="pkCustomer" value="供应商"></entry>
+				<entry key="mfg" value="制造商"></entry>
+				<entry key="eqptCode" value="设备编码"></entry>
+				<entry key="eqptName" value="设备名称"></entry>
+				<entry key="eqptType" value="设备类型"></entry>
+				<entry key="eqptBrand" value="设备品牌"></entry>
+				<entry key="eqptVer" value="设备型号"></entry>
+				<entry key="mfgNo" value="出厂编码"></entry>
+				<entry key="mfgDate" value="出厂日期"></entry>
+				<entry key="eqptPrice" value="设备价格"></entry>
+				<entry key="assessPrice" value="设备评估价值"></entry>
+				<entry key="ismove" value="是否方便移动"></entry>
+				<entry key="isliquidate" value="是否处置变现"></entry>
+				<entry key="totallife" value="使用寿命"></entry>
+				<entry key="restlife" value="尚可使用年限"></entry>
+				<entry key="remark" value="备注"></entry>
+			</map>
+		</property>
+		<!-- 父主键字段 -->
+		<!-- <property name="parentItem" value=""></property> -->
+		<!-- 显示的字段（如果是数据表取数，必须是表的字段）和显示名称 -->
+		<property name="showItemsMap">
+			<!-- key:数据库字段,name:显示名称 -->
+			<map>
+				<entry key="eqptCode" value="设备编码"></entry>
+				<entry key="eqptName" value="设备名称"></entry>
+			</map>
+		</property>
+		<!-- 参照标题 -->
+		<property name="title" value="项目评审单参照"></property>
+		<!-- 树型参照界面显示名称字段，多个字段用","隔开,一般最多为两个字段 -->
+		<!-- <property name="treeShowItem" value="eqptCode,eqptName"></property> -->
+		<!-- 界面显示字段 -->
+		<property name="tableName" value="rz_prjcontr"></property>
+		<property name="mainShowItem" value="contrCode"></property>
+		<property name="pagination" value="true"></property>
+	</bean>
+	
+	<bean id="rzprjreviewRefService"
+		  class="com.imfbp.rz.service.ref.impl.DefaultRefServiceImpl">
+		<property name="refMetaDataService" ref="rzprjreviewRefMetaDataImpl"></property>
+	</bean>
+	
+	<bean id="rzprjapplyRefService"
+		  class="com.imfbp.rz.service.ref.impl.DefaultRefServiceImpl">
+		<property name="refMetaDataService" ref="rzprjapplyRefMetaDataImpl"></property>
+	</bean>
+	
+	<bean id="rzeqptRefService"
+		  class="com.imfbp.rz.service.ref.impl.DefaultRefServiceImpl">
+		<property name="refMetaDataService" ref="rzeqptRefMetaDataImpl"></property>
+	</bean>
+	<!-- 配置项目评审单参照元数据与Service end -->
+
+
+	<!-- 配置项目合同参照元数据与Service begin -->
+	<bean id="rzprjcontrRefMetaDataImpl" class="com.imfbp.rz.service.ref.impl.DefaultRefMetaDataImpl">
+		<!-- 主键字段 -->
+		<property name="idItem" value="pkPrjcontr"></property>
+		<!-- 参照类型 list tree -->
+		<property name="refType" value="list"></property>
+		<property name="otherDataItemsMap">
+			<map>
+				<entry key="contrCode" value="合同编码"></entry>
+				<entry key="contrName" value="合同名称"></entry>
+				<entry key="contrYear" value="合同年份"></entry>
+				<entry key="contrAmt" value="合同金额"></entry>
+				<entry key="pkCurrency" value="币种"></entry>
+				<entry key="startLeaseDate" value="合同起租日期"></entry>
+				<entry key="endLeaseDate" value="合同结束日期"></entry>
+				<entry key="planSignedDate" value="合同预计签订日期"></entry>
+				<entry key="startLeaseway" value="起租方式"></entry>
+				<entry key="contrType" value="合同类型"></entry>
+				<entry key="paymentmethod" value="租金付款方式"></entry>
+				<entry key="intType" value="调息类型"></entry>
+				<entry key="signedDate" value="合同签订日期"></entry>
+				<entry key="pkUserSigned" value="合同签订人"></entry>
+				<entry key="signedAddress" value="合同签订地址"></entry>
+				<entry key="signedRemark" value="合同签订描述"></entry>
+				<entry key="contrStatus" value="合同状态"></entry>
+				<entry key="nomPrice" value="名义货价"></entry>
+				<entry key="residValue" value="资产余值"></entry>
+				<entry key="prjCode" value="项目编码"></entry>
+				<entry key="prjName" value="项目名称"></entry>
+				<entry key="pkPrjcontr" value="合同主键"></entry>
+				<entry key="pkPrjreview" value="评审单主键"></entry>
+				<entry key="pkPrjapply" value="立项申请主键"></entry>
+				<entry key="pkCustomer" value="客户名称外键"></entry>
+				<entry key="pkPricecal" value="报价测算主键"></entry>
+				<entry key="busitype" value="业务类型"></entry>
+				<entry key="leaseway" value="租赁方式"></entry>
+				<entry key="leasetype" value="租赁物类型"></entry>
+				<entry key="prjSrc" value="项目来源"></entry>
+				<entry key="pkUserManager" value="项目经理"></entry>
+				<entry key="pkDeptApply" value="申请部门"></entry>
+				<entry key="leaseprd" value="租赁期限"></entry>
+				<entry key="isInsure" value="是否投保"></entry>
+				<entry key="isGuar" value="是否有担保"></entry>
+				<entry key="itemamt" value="项目金额"></entry>
+				<entry key="itembal" value="项目余额"></entry>
+				<entry key="firstpmtamt" value="首付款金额"></entry>
+				<entry key="financeamt" value="融资金额"></entry>
+				<entry key="pricerate" value="合同利率"></entry>
+				<entry key="planrentdate" value="计划收租日"></entry>
+				<entry key="reptcycle" value="还款周期"></entry>
+				<entry key="paymentway" value="租金支付方式"></entry>
+				<entry key="reptway" value="还款方式"></entry>
+				<entry key="optamt" value="经营性每期租金"></entry>
+				<entry key="depositamt" value="客户保证金金额"></entry>
+				<entry key="feeIntotalAmt" value="手续费收入总额"></entry>
+				<entry key="scOuttotalAmt" value="服务费支出总额"></entry>
+				<entry key="prinTotalAmt" value="总本金"></entry>
+				<entry key="intTotalAmt" value="总利息"></entry>
+				<entry key="rentTotalAmt" value="总租金"></entry>
+				<entry key="irr" value="项目收益IRR"></entry>
+				<entry key="pkOrgLessor" value="出租人主键"></entry>
+				<entry key="remark" value="备注"></entry>
+				<entry key="ratetype" value="利率类型"></entry>
+				<entry key="baserate" value="基准利率"></entry>
+				<entry key="floatpct" value="上下浮比例"></entry>
+				<entry key="yeardays" value="年化天数"></entry>
+				<entry key="paymentmethod" value="租金付款方式"></entry>
+				<entry key="sctaxrate" value="服务费税率"></entry>
+				<entry key="feetaxrate" value="手续费税率"></entry>
+				<entry key="pkCustomerRcmd" value="推荐人"></entry>
+				<entry key="remarkRcmd" value="推荐人备注"></entry>
+			</map>
+		</property>
+		<!-- 父主键字段 -->
+		<!-- <property name="parentItem" value=""></property> -->
+		<!-- 显示的字段（如果是数据表取数，必须是表的字段）和显示名称 -->
+		<property name="showItemsMap">
+			<!-- key:数据库字段,name:显示名称 -->
+			<map>
+				<entry key="contrCode" value="合同编码"></entry>
+				<entry key="contrName" value="合同名称"></entry>
+			</map>
+		</property>
+		<!-- 参照标题 -->
+		<property name="title" value="项目评审单参照"></property>
+		<!-- 树型参照界面显示名称字段，多个字段用","隔开,一般最多为两个字段 -->
+		<!-- <property name="treeShowItem" value="eqptCode,eqptName"></property> -->
+		<!-- 界面显示字段 -->
+		<property name="tableName" value="rz_prjcontr"></property>
+		<property name="mainShowItem" value="contrCode"></property>
+		<property name="pagination" value="true"></property>
+	</bean>
+
+	<bean id="rzprjcontrRefService"
+		  class="com.imfbp.rz.service.ref.impl.DefaultRefServiceImpl">
+		<property name="refMetaDataService" ref="rzprjcontrRefMetaDataImpl"></property>
+	</bean>
+	<!-- 配置项目合同参照元数据与Service end -->
+</beans>

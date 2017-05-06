@@ -1,0 +1,27 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/bower_components/bootstrap/css/bootstrap.css')" type="text/css" />
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/bower_components/jquery-ui-bootstrap/css/custom-theme/jquery-ui-1.10.0.custom.css')" type="text/css" />
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/bower_components/font-awesome/css/font-awesome.min.css')" type="text/css" />
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/bower_components/jquery-ui-bootstrap/css/demo.css')" type="text/css" />
+	
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/bower_components/animate.css/animate.css')" type="text/css" />
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/bower_components/simple-line-icons/css/simple-line-icons.css')" type="text/css" />
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/css/font.css" type="text/css')" />
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/css/app.css" type="text/css')" />
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/css/tab.css" type="text/css')" />
+	
+	<script src="$homeModule.getTarget('/misc/bower_components/jquery/dist/jquery.min.js')"></script>
+	<script src="$homeModule.getTarget('/misc/bower_components/jquery-ui/ui/jquery-ui.js')"></script>
+	<script src="$homeModule.getTarget('/misc/bower_components/bootstrap/js/bootstrap.js')"></script> 
+	<script src="$homeModule.getTarget('/misc/bower_components/knockout/knockout-3.2.0.js')"></script>
+	
+
+
+<script>
+	var miscModuleUrl = "$miscModule";
+	var homeModuleUrl = "$homeModule";
+	var sess = '$session.getId()';
+</script>
+</head>

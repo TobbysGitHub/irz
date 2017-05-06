@@ -1,0 +1,144 @@
+<!-- search start  -->
+<div class="searchPanel padding-10">
+	<form class="form-horizontal">
+		<div class="searchContent  col-xs-8" data-bind="with:queryData">
+						
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">主键</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="pkPrjcontrIns" class="form-control" data-bind="value:pkPrjcontrIns">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">立项申请主键</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="pkPrjcontr" class="form-control" data-bind="value:pkPrjcontr">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">保单号</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="insNo" class="form-control" data-bind="value:insNo">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">合同类型：参照设备分类字典档案数据</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="insContrType" class="form-control" data-bind="value:insContrType">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--******更多条件放这里********-->
+			<div class="hideRule">
+				
+				<div class="row">
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">保险公司</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="insCorp" class="form-control" data-bind="value:insCorp">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">险种</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="insType" class="form-control" data-bind="value:insType">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">支付方</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="pkCustomerPay" class="form-control" data-bind="value:pkCustomerPay">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">支付金额(元)</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="payAmt" class="form-control" data-bind="value:payAmt">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">保额(元)</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="insAmt" class="form-control" data-bind="value:insAmt">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">受益人</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="pkUserBen" class="form-control" data-bind="value:pkUserBen">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">制造商</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="startDate" class="form-control" data-bind="value:startDate">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">保险期限(月)</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="insPrd" class="form-control" data-bind="value:insPrd">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">保险结束日期</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="endDate" class="form-control" data-bind="value:endDate">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">remark</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="remark" class="form-control" data-bind="value:remark">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 展开更多的一行-->
+		<div class="searchToolsbar">
+			<div data-target=".hideRule" data-toggle="collapse" class="moreRule">
+				<span>展开更多查询条件</span>
+				<i class="glyphicon glyphicon-triangle-bottom"></i>
+			</div>
+			<div class="search-box">
+				<button type="button" class="btn btn-default btn-sm reset-btn">重置</button>
+				<button type="button" class="btn btn-default btn-sm search-btn">查询</button>
+			</div>
+		</div>
+	</form>
+</div>
+<!-- search end -->

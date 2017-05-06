@@ -1,0 +1,398 @@
+<title>rzPricecalLease</title>
+<body>
+<div id="rzPricecalLeaseModule" >
+	
+	<!-- list page start -->
+	<div class="listPage startPage">
+		#parse("/WEB-INF/vm/rzPricecalLease/rzPricecalLeaseList.vm")
+	</div>
+	<!-- edit page end -->
+	<div class="rzPricecalLeaseEdit" style="display:none;">
+		#parse("/WEB-INF/vm/rzPricecalLease/rzPricecalLeaseEdit.vm")
+	</div>
+	
+</div>
+
+
+<script>
+
+jQuery(function(){
+
+
+	
+	//列表后台访问地址
+	var url_page = '$homeModule.getTarget('/rzPricecalLease/getRzPricecalLeaseByPage')';
+	//添加修改后台访问地址
+	var url_add = '$homeModule.getTarget('/rzPricecalLease/insertOrUpdate')';
+	//删除后台访问地址
+	var url_del = '$homeModule.getTarget('/rzPricecalLease/deleteRzPricecalLeaseByBatchId')';
+	//批量更新
+	var update_batch="$homeModule.getTarget('/rzPricecalLease/updateByBatchId')";
+	//查询对象
+	var queryData = new RzPricecalLeaseView();
+	//编辑对象
+	var editData = new RzPricecalLeaseView();
+	//空对象用来清空编辑和查询对象
+	var emptyData = new RzPricecalLeaseView();
+	
+	var viewModel={
+		queryData:ko.mapping.fromJS(queryData),
+		editData:ko.mapping.fromJS(editData),
+		pageState:ko.observable("")
+	}
+	
+	/**
+	 * 表头
+	 */
+	var col = [{
+		field:"num",
+		title:"期数"
+	},{
+		field:"rptDate",
+		title:"应还款日期"
+	},{
+		field:"paydur",
+		title:"偿还期间"
+	},{
+		field:"durdays",
+		title:"期间天数"
+	},{
+		field:"leaseRate",
+		title:"租赁利率(%)",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(4);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+	},{
+		field:"rptAmt",
+		title:"应还款本金",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(2);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+	},{
+		field:"rptInt",
+		title:"应还款利息",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(2);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+	},{
+		field:"rptRent",
+		title:"应还款租金",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(2);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+	},{
+		field:"payFee",
+		title:"应支付手续费",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(2);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+	},{
+		field:"rptTotal",
+		title:"应还款合计",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(2);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+	},{
+		field:"residualAmt",
+		title:"剩余本金",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(2);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+ 	}];
+    
+	
+	/**
+     * 初始化layoutMDI
+     */
+	$("#rzPricecalLeaseModule").layoutMDI({
+		//当页面后退时候触发的事件
+		onBackPage: function(target, options) {
+			ko.mapping.fromJS(emptyData,viewModel.editData);
+		} 
+	});
+	
+	/**
+     * 创建一个表格，但是没有赋值dataSource数据，这是表格将没有数据
+	 */
+	var gridObj = $("#rzPricecalLeaseModule .rzPricecalLeaseList").grid({
+		dataSource:'',
+    	id: 'case-g1',
+   		keyField: 'id',
+   		parentKeyField: 'pid',
+    	multiSelect:false,
+    	showNumCol:false,
+    	height: 350,
+    	columns: col,
+    	/*onDblClickFun:function(gridObj,rowObj,rowIndex){
+			//设置页面的输入框为不可修改
+			viewModel.editData.enableState(false);
+			//得到点击行
+    		var dbClickRow = gridObj.rowObj;
+    		//赋值
+    		ko.mapping.fromJS(dbClickRow.value, viewModel.editData);
+    		//跳转到编辑页
+        	$("#rzPricecalLeaseModule").layoutMDI("go", ".rzPricecalLeaseEdit");
+    	}*/
+    });
+	
+	/**
+	 * 初始化分页
+	 */
+	var paginationObj = $("#rzPricecalLeaseModule .pagination").pagination({
+		pageSize:1000,
+		styleMode:2,
+		onSelectPage:function(pageNumber, pageSize){
+			var queryData = $.extend(ko.mapping.toJS(viewModel.queryData),{pageNumber:pageNumber,pageSize:pageSize});
+			jQuery("#rzPricecalLeaseModule .rzPricecalLeaseList").gridPlugin("reLoad",queryData);
+		}
+	});
+	
+	/**
+	 * 初始化表格插件
+	 */
+	var gridPluginObj = jQuery("#rzPricecalLeaseModule .rzPricecalLeaseList").gridPlugin({
+		url: url_page,
+		gridObj:gridObj,
+		queryParam:getParams(),
+		pagination:true,//是否分页默认为否
+		paginationObj:paginationObj,//分页控件对象
+		initData:false,//初始化时候是否加载数据(true时候加载，false时候不加载)
+		onDataSuccess:function(data){
+			//当列表加载成功之后调用
+		},
+		onDataError:function(data){
+			//当列表加载失败之后调用
+		},
+	})
+	
+	/**
+	 * form表单插件
+	 */
+	jQuery("#rzPricecalLeaseModule .rzPricecalLeaseEditForm").formPlugin({
+		url: url_add,//添加修改的地址
+		gridPlugin:gridPluginObj,//表格插件对象
+		onSaveSuccess:function(data){
+			//保存成功后退出编辑页面
+			$("#rzPricecalLeaseModule").layoutMDI("back");
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+			jQuery("#rzPricecalLeaseModule .rzPricecalLeaseList").gridPlugin("load", {});
+		},
+		onDeleteSuccess:function(data){
+			
+		}
+	})
+	 
+	 //初始化有选择的加载数据
+	 function init(){
+		debugger
+		buttonManager.permission('0');
+	    var  pkPricecal="${pkPricecal}"
+	    viewModel.queryData.pkPricecal(pkPricecal)
+	   jQuery("#rzPricecalLeaseModule .rzPricecalLeaseList").gridPlugin("load",ko.mapping.toJS(viewModel.queryData));
+	}
+	/**
+	 * 新增功能
+	 */			
+    jQuery("#rzPricecalLeaseModule .toolsbarPanel .add-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为添加状态
+		viewModel.pageState(pageState.add);
+        $("#rzPricecalLeaseModule").layoutMDI("go", ".rzPricecalLeaseEdit");
+    });
+
+	/**
+	 * 修改功能
+	 */		    
+    jQuery("#rzPricecalLeaseModule .toolsbarPanel .edit-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为修改状态
+		viewModel.pageState(pageState.edit);
+		gridObj.setEditable(true);
+    	//当前选中行
+    	var selectRow = gridObj.getSelectRows();
+    	//将数据绑定到表单上面
+    	ko.mapping.fromJS(selectRow[0], viewModel.editData);
+    	//跳转到编辑页面
+        //$("#rzPricecalLeaseModule").layoutMDI("go", ".rzPricecalLeaseEdit");
+    });
+
+	/**
+	 * 删除功能
+	 */	    
+    jQuery("#rzPricecalLeaseModule .toolsbarPanel .delete-btn").click(function(){
+    	//要删除的id用","隔开
+		var batchId = "";
+		//当前选中行
+		var selectRow = gridObj.getSelectRows();
+		//判断是否选中要删除的数据
+		if(selectRow.length == 0) {
+			alert("请选择您要修改的数据");
+			return;
+		}
+	
+		for(var i = 0; i < selectRow.length; i++) {
+			var row = selectRow[i];
+			if(i == 0) {
+				batchId = row["pkPricecalLease"] + batchId;
+			} else {
+				batchId = row["pkPricecalLease"] + "," + batchId;
+			}
+		}
+		//删除数据
+		jQuery("#rzPricecalLeaseModule .rzPricecalLeaseEditForm").formPlugin("remove",{batchId:batchId,url:url_del});
+    });
+    
+    /**
+	 * 刷新功能(只是刷新当前页，如果要刷新所有页面使用 load 方法)
+	 */	 
+    jQuery("#rzPricecalLeaseModule .toolsbarPanel .refresh-btn").click(function(){
+		jQuery("#rzPricecalLeaseModule .rzPricecalLeaseList").gridPlugin("reLoad",viewModel.queryData);
+    });
+    
+    //保存功能
+	jQuery("#rzPricecalLeaseModule .toolsbarPanel .save-btn").click(function(){
+	debugger;
+		var temp=gridObj.dataSourceObj.options.values;
+		var list = JSON.stringify(temp);
+		var param={
+		list:list
+		}
+		$.ajax({url:update_batch,data:param,method:'post',dataType:'json'}).done(function(data){
+		$("#edit_msg_out").html("保存成功").show();
+		setTimeout(function(){
+		$("#edit_msg_out").hide();
+		//jQuery("#rzPricecalCfModule .toolsbarPanel .refresh-btn").trigger("click");
+		init()
+		},2000);
+		}).fail(function(){
+		layer.alert("保存失败!");
+		})
+	});
+	
+	//查找功能
+	jQuery("#rzPricecalLeaseModule .searchToolsbar .search-btn").click(function(){
+		jQuery("#rzPricecalLeaseModule .rzPricecalLeaseList").gridPlugin("load",ko.mapping.toJS(viewModel.queryData));
+	});
+	
+	//重置查询条件功能
+	jQuery("#rzPricecalLeaseModule .searchToolsbar .reset-btn").click(function(){
+		ko.mapping.fromJS(emptyData,viewModel.queryData);
+	});
+	
+	//编辑页返回
+	jQuery("#rzPricecalLeaseModule .rzPricecalLeaseEdit .back-btn").click(function(){
+		$("#rzPricecalLeaseModule").layoutMDI("back");
+	});
+
+	ko.applyBindings(viewModel);
+    init()
+});
+
+function RzPricecalLeaseView(){
+	//主键
+	this.pkPricecalLease="";
+	//主键
+	this.pkPricecal="";
+	//期数
+	this.num="";
+	//应还款日期
+	this.rptDate="";
+	//偿还期间
+	this.paydur="";
+	//期间天数
+	this.durdays="";
+	//租赁利率(%)
+	this.leaseRate="";
+	//应还款本金
+	this.rptAmt="";
+	//应还款利息
+	this.rptInt="";
+	//应还款租金
+	this.rptRent="";
+	//应支付手续费
+	this.payFee="";
+	//应还款合计
+	this.rptTotal="";
+	//剩余本金
+	this.residualAmt="";
+	//编辑页面状态
+	this.enableState=true;
+}
+
+function getParams(selector){
+	return {};
+}
+
+</script>
+	
+</body>

@@ -1,0 +1,19 @@
+<div class="panel panel-default browerEdit" style="border: none;">
+	<div class="panel-heading footer-saveOrCancel" >
+		<button type="button" class="btn btn-default btn-sm save-btn">保存</button>
+		<button type="button" class="btn btn-default btn-sm back-btn">取消</button>
+	</div>
+	<div class="panel-body form-parent">
+		<form class="rzRateEditForm form-horizontal">
+            <div class="row panel slideParent">
+                <div class="col-xs-12 panel-heading" data-toggle="collapse" data-target="#browerEditInfo">
+                    <h5>模板取数指数信息</h5><span class="glyphicon glyphicon-chevron-up"></span>
+                </div>
+                <div class="col-xs-12 panel-body collapse in" id="browerEditInfo">
+					<div class="row" id="browerEditTable">
+					</div>
+                </div>
+			</div>
+		</form>
+	</div>
+</div>

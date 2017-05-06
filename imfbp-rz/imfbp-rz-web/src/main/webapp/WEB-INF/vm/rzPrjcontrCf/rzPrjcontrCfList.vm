@@ -1,0 +1,14 @@
+<div class="padding-5">
+	<!--
+	<div class="toolsbarPanel">
+		<div class="btn-group" role="group">
+			<button type="button" class="btn btn-default btn-sm add-btn" >新增</button>
+			<button type="button" class="btn btn-default btn-sm delete-btn">删除</button>			
+			<button type="button" class="btn btn-default btn-sm update-btn">修改</button>
+			<button type="button" class="btn btn-default btn-sm refresh-btn">刷新</button>
+		</div>
+	</div>
+	-->
+	<div class="grid rzPrjcontrCfList"></div>
+	<ul id="pagination" class="pagination"></ul>
+</div>

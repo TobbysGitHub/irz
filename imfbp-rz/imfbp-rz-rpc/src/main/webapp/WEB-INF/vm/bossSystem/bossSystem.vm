@@ -1,0 +1,278 @@
+<title>bossSystem</title>
+<body class="easyui-layout" style="border:0px;">
+<!--这里的divID必须全局唯一，一般使用模块号  最外层的 div 里面的元素查找是必须是从当前div下面查找  start -->
+<div id="bossSystemModule" class="easyui-panel" data-options="fit:true,border:false">
+	<!-- layout start -->
+	<div class="easyui-layout" data-options="fit:true" >
+		<!-- layout left -->
+	    <div data-options="region:'west',split:true" style="width:200px;border-right-width:1px;" border="false" >
+			<ul class="easyui-tree bossSystemTree"></ul>
+	    </div>
+	    <!-- layout left -->
+		
+		 <!-- layout center -->
+	    <div data-options="region:'center',split:true" border="false" style="border-left-width:1px;" >
+	    	<!-- bossSystem datagrid start -->
+			<table class="bossSystemDataGrid" >
+				<thead>
+					<tr>
+						<th data-options="field:'ck',checkbox:true"></th>
+						<th data-options="field:'id',width:150" >系统ID</th>
+						<th data-options="field:'systemCode',width:150" >系统编号</th>
+						<th data-options="field:'systemName',width:150" >系统名称</th>
+						<th data-options="field:'created',width:150" >创建时间</th>
+						<th data-options="field:'creator',width:150" >创建者</th>
+						<th data-options="field:'modified',width:150" >修改时间</th>
+						<th data-options="field:'modifier',width:150" >修改者</th>
+						<th data-options="field:'remark',width:150" >备注</th>
+						<th data-options="field:'expand1',width:150" >扩展字段1</th>
+						<th data-options="field:'expand2',width:150" >扩展字段2</th>
+						<th data-options="field:'expand3',width:150" >扩展字段3</th>
+						<th data-options="field:'expand4',width:150" >扩展字段4</th>
+						<th data-options="field:'expand5',width:150" >扩展字段5</th>
+						<th data-options="field:'delState',width:150" >0 有效1 删除</th>
+						<th data-options="field:'systemUrl',width:150" >模块链接</th>
+					</tr>
+				</thead>
+			</table>
+			<!-- bossSystem datagrid end -->
+	    </div>
+		<!-- layout center -->
+	</div>
+	<!-- layout end -->
+
+	<!-- bossSystem datagrid toolbar start -->
+	<div class="bossSystemDataGridTb" style="height:auto" > 
+		<!-- 工具条 start -->
+		<a href="javascript:void(0)" class="easyui-linkbutton view-btn" data-options="iconCls:'icon-large-smartart',plain:true" >查看</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton add-btn" data-options="iconCls:'icon-add',plain:true" >添加</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton update-btn" data-options="iconCls:'icon-edit',plain:true" >修改</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton delete-btn" data-options="iconCls:'icon-remove',plain:true" >删除</a>
+		<!-- 工具条 end -->
+		<!-- 查询form表单 start -->
+		<!-- <div style="padding:1px;border-top:1px solid #dddddd;width:100%;background-color:#f4f4f4">  当有查询时使用 ,没有查询时使用<div> -->
+		
+	         <form class="searchBossSystemFormId" method="post" action="$homeModule.getTarget("/bossSystem/insertOrUpdate")" >
+	    		<table cellpadding="5" style="width:100%">
+	    			<tr>
+	    				<td align="right" >系统ID:</td>
+	    				<td >
+	    					<input class="easyui-validatebox textbox" type="text" name="id"  />
+	    				</td>
+	    				<td align="right" >系统编号:</td>
+	    				<td >
+	    					<input class="easyui-validatebox textbox" type="text" name="systemCode"  />
+	    				</td>
+	    				<td align="right" >系统名称:</td>
+	    				<td >
+	    					<input class="easyui-validatebox textbox" type="text" name="systemName"  />
+	    				</td>
+	    				<td align="right" >创建时间:</td>
+	    				<td >
+	    					<input class="easyui-validatebox textbox" type="text" name="created"  />
+	    				</td>
+	    				<td align="right" >创建者:</td>
+	    				<td >
+	    					<input class="easyui-validatebox textbox" type="text" name="creator"  />
+	    				</td>
+	    				<td align="right" >修改时间:</td>
+	    				<td >
+	    					<input class="easyui-validatebox textbox" type="text" name="modified"  />
+	    				</td>
+	    				<td align="right" >修改者:</td>
+	    				<td >
+	    					<input class="easyui-validatebox textbox" type="text" name="modifier"  />
+	    				</td>
+	    				<td align="right" >备注:</td>
+	    				<td >
+	    					<input class="easyui-validatebox textbox" type="text" name="remark"  />
+	    				</td>
+	    				<td align="right" >扩展字段1:</td>
+	    				<td >
+	    					<input class="easyui-validatebox textbox" type="text" name="expand1"  />
+	    				</td>
+	    				<td align="right" >扩展字段2:</td>
+	    				<td >
+	    					<input class="easyui-validatebox textbox" type="text" name="expand2"  />
+	    				</td>
+	    				<td align="right" >扩展字段3:</td>
+	    				<td >
+	    					<input class="easyui-validatebox textbox" type="text" name="expand3"  />
+	    				</td>
+	    				<td align="right" >扩展字段4:</td>
+	    				<td >
+	    					<input class="easyui-validatebox textbox" type="text" name="expand4"  />
+	    				</td>
+	    				<td align="right" >扩展字段5:</td>
+	    				<td >
+	    					<input class="easyui-validatebox textbox" type="text" name="expand5"  />
+	    				</td>
+	    				<td align="right" >0 有效1 删除:</td>
+	    				<td >
+	    					<input class="easyui-validatebox textbox" type="text" name="delState"  />
+	    				</td>
+	    				<td align="right" >模块链接:</td>
+	    				<td >
+	    					<input class="easyui-validatebox textbox" type="text" name="systemUrl"  />
+	    				</td>
+	    				<td style="width:10%" >
+	    					<a href="javascript:void(0)" class="easyui-linkbutton searchBossSystemBtnCls" onclick="gridSearch('#bossSystemModule .bossSystemDataGrid','#bossSystemModule .searchBossSystemFormId')" data-options="iconCls:'icon-search'" style="width:80px">搜索</a>
+	    				</td>
+	    			</tr>
+	    		</table>
+			</form>
+	    </div>
+	    <!-- 查询form表单 end -->
+	</div>
+	<!-- bossSystem datagrid toolbar end -->
+</div>
+
+<!-- bossSystem import edit page start -->
+#parse("/WEB-INF/vm/bossSystem/bossSystemEdit.vm")
+<!-- bossSystem import edit page end -->
+
+<script>
+
+	/**
+     * 打开查看窗口
+     */
+	jQuery('#bossSystemModule .bossSystemDataGridTb .view-btn').linkbutton({
+		onClick:function(){
+			jQuery('#bossSystemEditWinbbar .save-btn').hide();
+			jQuery('#bossSystemEditWinbbar .clear-btn').hide();
+			loadBossSystemWin();
+		}
+	})
+	
+	/**
+     * 打开添加窗口
+     */	
+	jQuery('#bossSystemModule .bossSystemDataGridTb .add-btn').linkbutton({
+		onClick:function(){
+			jQuery('#bossSystemEditWinbbar .save-btn').show();
+			jQuery('#bossSystemEditWinbbar .clear-btn').show();
+			var selectData = jQuery('#bossSystemModule .bossSystemTree').tree('getSelected');
+			if(selectData==null){
+				jQuery.messager.alert('错误提示','请选择资源分类树节点！','info');
+				return;		
+			}
+			jQuery('#bossSystemEditWin').window('open');
+			jQuery("#bossSystemEditWin .bossSystemEditForm input[textboxname='pid']").textbox('setValue',selectData.id);
+		}
+	})
+	
+	/**
+     * 打开修改窗口
+     */
+	jQuery('#bossSystemModule .bossSystemDataGridTb .update-btn').linkbutton({
+		onClick:function(){
+			jQuery('#bossSystemEditWinbbar .save-btn').show();
+			jQuery('#bossSystemEditWinbbar .clear-btn').hide();
+			loadBossSystemWin();
+		}
+	})
+
+ 	/**
+	 * 加载form表单数据
+     */
+
+    function loadBossSystemWin(id1){
+		var selectId1;
+		if(id1 != undefined ){
+				selectId1 = id1
+		}else{
+			var selectDataArr = jQuery('#bossSystemModule .bossSystemDataGrid').datagrid("getSelections");
+			if(selectDataArr.length==1){
+				selectId1 = selectDataArr[0].id
+			}else if(selectDataArr.length>1){
+				jQuery.messager.alert('错误提示','您不能同时操作多条记录！','info');
+				return;
+			}
+		}
+		if(selectId1 != undefined ){
+			jQuery('#bossSystemEditWin .bossSystemEditForm').form('load', '$homeModule.getTarget("/bossSystem/getBossSystemById")?id='+selectId1);
+		}else{
+			jQuery.messager.alert('错误提示','请选择您要操作的记录！','info');
+		}
+    }
+
+	/**
+	 * 删除
+	 */
+	jQuery('#bossSystemModule .bossSystemDataGridTb .delete-btn').linkbutton({
+		onClick:function(){
+			var url = "$!homeModule.getTarget("/bossSystem/deleteBossSystemByIdBatch")";
+			jQuery('#bossSystemModule .bossSystemDataGrid').datagrid("removeRow",{
+				searchFormId:"#bossSystemModule .searchBossSystemFormId",
+				url:url,
+				pkName:['id']
+			});
+		}
+	})
+	
+	/**
+     * bossSystem的tree
+     */
+	jQuery('#bossSystemModule .bossSystemTree').tree({
+		url:'$homeModule.getTarget("/tree_data1.json")',
+		method:'get',
+		animate:true,
+		onClick: function(node){
+			var id = node.id;
+		    jQuery("#bossSystemModule .searchBossSystemFormId input[name='id']").val(id);
+			gridRefreshTree('#bossSystemModule .bossSystemDataGrid','#bossSystemModule .searchBossSystemFormId','$homeModule.getTarget("/bossSystem/getBossSystemByPage")');
+		}
+	});
+
+	/**
+     * bossSystem的列表
+     */
+    jQuery(function(){
+        jQuery('#bossSystemModule .bossSystemDataGrid').datagrid({
+            url:'$homeModule.getTarget("/bossSystem/getBossSystemByPage")',
+            method:'post',
+            singleSelect:false,
+            border:false,
+            fit:true,//表格宽自适应
+            //fitColumns: true,//表格单元个宽自适应
+            nowrap : true,
+	        striped : true,
+	        remoteSort:false,
+	        multiSort:true,
+	        rownumbers:true,
+            toolbar:'#bossSystemModule .bossSystemDataGridTb',
+	        toolbarSelector:'#bossSystemModule .bossSystemDataGridTb',
+            pagination:true,//分页
+            pageSize : 20,//每页显示的条数
+            pageList : [5,10,15,20,22,50],//切换每页显示的条数
+            onDblClickRow:function(rowIndex,rowData){
+            	jQuery('#bossSystemEditWinbbar .save-btn').hide();
+				jQuery('#bossSystemEditWinbbar .clear-btn').hide();
+            	loadBossSystemWin(rowData.id);
+            },
+			queryParams:getFormJson('#bossSystemModule .searchBossSystemFormId'),
+			onSaveSuccess:function(data){
+            	//alert("onSaveSuccess");
+            },
+            onBeforeEdit:function(){
+            	//alert("onBeforeEdit");
+            },
+            onSaveError:function(){
+            	//alert("onSaveError");
+            },
+            onDeleteSuccess:function(data){
+            	//alert("onDeleteSuccess");
+            },
+            onBeforeDelete:function(){
+            	//alert("onBeforeDelete");
+            },
+            onDeleteError:function(){
+            	//alert("onDeleteError");
+            }
+        });
+    });
+	
+
+</script>
+	
+</body>

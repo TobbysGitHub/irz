@@ -1,0 +1,143 @@
+<style>
+	.navi ul.nav li ul li ul{
+		display: none;
+	    position: absolute;
+	    top: 0;
+	    left: 100%;
+	    width:100%;
+		
+	}
+	.navi>ul.nav>li>ul.nav-sub{
+	 	overflow: visible;
+	    display: none;
+	   
+	
+	}
+	.navi>ul.nav>li:hover>ul.nav-sub{
+	 	overflow: visible;
+	    display: block;
+	
+	}
+	
+	.navi ul.nav li ul li.active ul{
+		display: block;
+		
+	}
+	.navi ul.nav li ul li.active span i{
+		color: #fff;
+		opacity: 1;
+		font-weight:900;
+		font-size:15px;
+		
+	}
+	.navi ul.nav li ul li span i.fa-angle-right{
+		opacity: 0.8;
+		color: #fff;
+		
+	}
+	.navi ul.nav-sub li {
+   	     height: auto;
+    }
+    .navi ul.nav li ul li ul li a{
+    	
+    	text-align: left;
+    }
+    
+   	.navi ul.nav li ul{
+		background: #21282F;
+		width: 135px;
+		
+	}
+	.navi ul.nav li ul li{
+		
+		height:35px;
+		
+	}
+	
+	.navi ul.nav li ul li a{
+		height:35px;
+		font-family: .PingFang-SC-Medium;
+		font-size: 12px;
+		color: #ACB9C3;
+		padding-left: 30px !important;
+		padding-right: 10px !important;
+	
+	}
+   
+   
+    
+    
+    /*位置*/
+    
+		.app-aside-folded .navi > ul > li:nth-child(5) > ul{
+			top: -55% !important;
+		}
+		.app-aside-folded .navi > ul > li:nth-child(6) > ul{
+			top: -55% !important;
+		
+		}
+		.app-aside-folded .navi > ul > li:nth-child(7) > ul ul{
+			bottom:0;
+			top: auto !important;
+			
+		}
+		.app-aside-folded .navi > ul > li:nth-child(8) > ul, .app-aside-folded .navi > ul > li:nth-child(9) > ul {
+		    bottom: 0;
+		    top: auto !important;
+		    background: #21282F;
+		}
+		
+		
+		
+
+		
+	
+
+</style>
+<aside id="aside" class="app-aside hidden-xs bg-dark">
+	<div class="aside-wrap" >
+		<div class="navi-wrap" >
+
+
+			<!-- nav -->
+			<nav ui-nav class="navi clearfix">
+				${menu}
+			</nav>
+			<!-- nav -->
+		</div>
+	</div>
+</aside>
+<script>
+
+
+$(function(){
+	$(".navi>ul.nav>li>ul>li>a").click(function(event){
+		if($(this).parent().hasClass("active")){
+			$(this).parent().toggleClass("active");
+		}else{
+			$(".navi>ul.nav>li>ul>li").removeClass("active");
+			$(this).parent().addClass("active");
+			
+		}
+		
+
+		
+		
+		
+	})
+	$(".navi ul.nav li ul li ul li a").click(function(event){
+		if($(this).parent().hasClass("active")){
+			
+		}else{
+			$(".navi ul.nav li ul li.active ul li").removeClass("active");
+			$(this).parent().addClass("active");
+			
+		}
+		//$(".navi ul.nav li ul li.active ul li").removeClass("active");
+		//$(this).parent().addClass("active");
+		
+		
+	})
+})	
+</script>
+

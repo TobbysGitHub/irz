@@ -1,0 +1,135 @@
+<style type="text/css">
+		html,body,#rzPricecalModule,.rzPricecalEdit{height:100%;}
+		.wrap{
+			position: absolute;
+			width: 100% !important;
+			height: 98%;
+			padding-top:20px !important;
+			padding-left:5px !important;
+			}
+			#content2 {
+				position: absolute;
+				top:66px;
+				width: 100%;
+				bottom: 0;
+			padding-right:20px;
+			}
+
+			.wrap ul,li{
+				margin: 0;padding: 0 ;
+			}		
+			.head_name {
+				height: 77px;
+				padding-left:16px;
+			}			
+			.head_name h2 {
+				font-size: 14px;
+				font-family: "PingFang-SC-Medium";
+				color: #333333;
+				height: 20px;
+				font-weight: bold;
+			}
+			
+			.head_name p {
+				font-size: 14px;
+				color: #666666;
+				height: 20px;
+				font-weight: bold;
+			}
+			.tabb2{
+				border-bottom: 2px solid #EEEEEE;
+			}
+			.tabb2 li {
+				font-size: 14px;
+				text-align: center;
+				margin-right:10px;
+				list-style: none;
+				float: left;
+				width: 90px;
+				height: 27px;
+				cursor: pointer;
+				border:1px solid #ccc;
+				border-bottom: none;
+			}
+			
+			 .tabb2 div {
+				width: 90px;
+				border-bottom: 2px solid #EEEEEE;
+				margin-top: 7px;
+				
+			}
+			.show-div{
+				display:none;
+			height:100%;
+			}
+			 .tabb2 span {
+				font-family: "PingFangSC-Regular";
+				font-size: 14px;
+				color: #999999;
+				font-weight: bold;
+			}
+			.tabb2 li:hover div {
+				border-color: #00A0E8;
+			}
+			.tabb2 ul{
+			padding-left:5px !important;
+			}
+			.tabb2 li:hover span {
+				color: #00A0E8;
+			}
+			
+			#content2 {
+				margin-top: 20px;
+			}
+			.tab-active span{
+				color: #00A0E8;
+			}
+			.tab-active div{
+				border-color: #00A0E8;
+			}
+			.div-active{
+				display:block;
+			}
+
+</style>
+<div class="padding-5">
+	<div class="toolsbarPanel">
+		<h4 style="float:left">收付计划主表信息</h4>
+		<div class="btn-group" role="group">
+			<button type="button" class="btn btn-action btn-small checkVersion-btn" style="width:100px;">
+				查看历史版本
+			</button>
+			<button type="button" class="btn btn-action btn-small exportLease-btn" style="width:100px;">
+				导出租金计划
+			</button>
+			<button type="button" class="btn btn-action btn-small exportCf-btn" style="width:108px;">
+				导出现金流明细
+			</button>
+			<button type="button" class="btn btn-action btn-small refresh-btn">
+				刷新
+			</button>
+		</div>
+		<div id="version"></div>
+	</div>
+	<div class="grid rzPmtPlanList"></div>
+	<ul id="pagination" class="pagination"></ul>
+</div>
+<div class="wrap">
+			<nav class="tabb2">
+			<h4>收付计划子表信息</h4>
+				<ul class="clearfix">
+					<li class="tab-active" data-router="" onclick="eqptClick1(this);">
+							<span>租金计划表</span>
+							<div></div>
+					</li>
+					<li data-router="" onclick="eqptClick2(this)">
+							<span>现金流明细表</span>
+							<div></div>
+					</li>
+				</ul>
+			</nav>
+			<div id="content2">
+				<div class="show-div div-active"></div>
+				<div class="show-div"></div>
+			</div> 
+</div>

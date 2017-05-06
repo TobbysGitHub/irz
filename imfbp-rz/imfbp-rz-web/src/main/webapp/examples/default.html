@@ -1,0 +1,338 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Default Examples</title>
+<style>
+form {
+	margin: 0;
+}
+
+textarea {
+	display: block;
+}
+</style>
+<link rel="stylesheet" href="../themes/default/default.css" />
+<script charset="utf-8" src="../misc/jquery/jquery-3.0.0.js"></script>
+<script charset="utf-8" src="../misc/kindeditor/kindeditor-all.js"></script>
+<script charset="utf-8" src="../lang/zh_CN.js"></script>
+<script>
+	var editor;
+	KindEditor
+			.ready(function(K) {
+				editor = K.create('textarea[name="content"]', {
+					allowFileManager : true
+				});
+				K('input[name=getHtml]')
+						.click(
+								function(e) {
+									//alert(editor.html());
+									var htmlData = editor.html();
+									//alert(htmlData);
+									var jsonData1 = "{"+
+										//"'htmlData' : {"+
+											"\"templateDef\" : {"+
+												"\"templateCode\" : \"templateCode\","+
+												"\"templateName\" : \"templateName\""+
+											"},"+
+											"\"templateInputDefLists\" : [ {"+
+												"\"itemCode\" : \"${1}\","+
+												"\"itemName\" : \"itemName1\""+
+											"}, {"+
+												"\"itemCode\" : \"${2}\","+
+												"\"itemName\" : \"itemName2\""+
+											"} ]"+
+											//"'htmlContent' :"+"\""+htmlData+"\""
+									//	"}"+
+									"}";
+									var jsonData ={
+											'templateDef':{
+												'templateCode':'templateCode',
+												'templateName':'templateName'
+											},
+											'templateInputDefLists':[{
+												'itemCode':'${1}',
+												'itemName':'${itemName1}'
+											},{
+												'itemCode':'${2}',
+												'itemName':'${itemName2}'
+											}],
+											'htmlContent' :htmlData,
+									}
+									//alert(jsonData);
+									var jd = {'entryJsonData':jsonData1,'htmlData':htmlData};
+									//alert(jd);
+									//var jsonData = {'htmlData':htmlData,'billPk':'billPkbillPk','fileName':'fileName'};
+									var url = "http://127.0.0.1:8080/imfbp-rz-web/template/saveTemplatData";
+									/*$
+											.post(
+													url,
+													jsonData,
+													function(data) {
+														if (data != null
+																&& data.map.templateDefEntry.templateDef.templateFileId != null) {
+															var url = "http://127.0.0.1:8080/imfbp-rz-web/template/exportTemplateData?";
+															url += "fileFastdfsId="
+																	+ data.map.templateDefEntry.templateDef.templateFileId;
+															url += "&templateId="
+																	+ data.map.templateDefEntry.templateDef.id;
+															url += "&exportType=doc";
+															url += "&"
+																	+ Math
+																			.random();
+															//window.location.href = "http://127.0.0.1/imfbp-insurance-web/template/createDoc?fileFastdfsId=M00/00/00/Cg8AhFg8FKmAH4KpAADeV1YbvYs959.pdf&"+Math.random();	
+															alert(url);
+															window.location.href = url;
+														} else {
+															alert("保存失败");
+														}
+													});*/
+									$.ajax({
+										  type: 'POST',
+										  url: url,
+										  data: JSON.stringify(jsonData),
+										  headers : {  
+							                    'Content-Type' : 'application/json;charset=utf-8'  
+							                },
+										  dataType: "json",
+										  success: function(data) {
+												if (data != null
+														&& data.map.templateDefEntry.templateDef.templateFileId != null) {
+													var url = "http://127.0.0.1:8080/imfbp-rz-web/template/exportTemplateData?";
+													url += "fileFastdfsId="
+															+ data.map.templateDefEntry.templateDef.templateFileId;
+													url += "&templateId="
+															+ data.map.templateDefEntry.templateDef.id;
+													url += "&exportType=doc";
+													url += "&"
+															+ Math
+																	.random();
+													//window.location.href = "http://127.0.0.1/imfbp-insurance-web/template/createDoc?fileFastdfsId=M00/00/00/Cg8AhFg8FKmAH4KpAADeV1YbvYs959.pdf&"+Math.random();	
+													alert(url);
+													window.location.href = url;
+												} else {
+													alert("保存失败");
+												}
+											},
+										  error:function(){
+											  alert("调用保存失败");
+										  }
+										});
+								});
+				K('input[name=isEmpty]').click(function(e) {
+					alert(editor.isEmpty());
+				});
+				K('input[name=getText]').click(function(e) {
+					//alert(editor.text());
+					var url = "http://127.0.0.1:8080/imfbp-rz-web/template/exportTemplateData?";
+					//url += "fileFastdfsId=M00/00/04/Cg8Ah1hHaauAJeO7AAIRFywqZg845.html";
+					url += "templateId=ADMINCXIAO4BKB00006B";
+					url += "&exportType=doc";
+					url += "&"+ Math.random();
+					window.location.href = url;
+				});
+				K('input[name=selectedHtml]').click(function(e) {
+					alert(editor.selectedHtml());
+				});
+				K('input[name=setHtml]')
+						.click(
+								function(e) {
+									//editor.html('<h3>Hello KindEditor </h3>');
+									var htmlData = editor.html();
+									var jsonData={
+											'htmlData':htmlData
+									};
+									/*
+									var url = "http://127.0.0.1:8080/imfbp-rz-web/template/getInputDataByHtmlData";
+									$.post(url,jsonData,function(data) {
+										if (data != null && data.map != null && data.map.list != null) {
+											editor.html('');
+											editor.html(data.map.list[0].itemCode);
+											editor.html(data.map.list[0].itemName);
+										} else {
+											alert("预览失败");
+										}
+									});
+									var jsonData = {
+										'fileFastdfsId' : 'M00/00/08/Cg8AiFguuGWAFoXwAAQgs9T0Kbk40.html',
+										'billPk' : 'billPkbillPk',
+										'fileName' : 'fileName'
+									};
+									*/
+									var url = "http://127.0.0.1:8080/imfbp-rz-web/template/previewTemplatData";
+									$
+											.post(
+													url,
+													jsonData,
+													function(data) {
+														if (data != null
+																&& data.map != null
+																&& data.map.htmlData != null) {
+															//alert("数据:"+data.map.fileContent);
+															editor
+																	.html(data.map.htmlData);
+														}
+													});
+								});
+				K('input[name=getTemplate]').click(function(e) {
+					//editor.text('<h3>Hello KindEditor</h3>');
+					var jsonData={
+							'templateId':'ADMINCXIAO4BKB00006B'
+					};
+					var url = "http://127.0.0.1:8080/imfbp-rz-web/template/getTemplateDataById";
+					$.post(url,jsonData,function(data) {
+						if (data != null && data.success == true) {
+							alert("根据id获取模板成功");
+							editor.html('');
+							editor.html(data.map.templateDefEntry.htmlContent);
+						} else {
+							alert("根据id获取模板失败");
+						}
+					});
+				});
+				K('input[name=saveTemplateRules]').click(function(e) {
+					//editor.text('<h3>Hello KindEditor</h3>');
+					var jsonData=[
+					              {
+					            	 'templateNodeId':'00101' ,
+					            	 'inputItemId':'inputItemId',
+					            	 'formula':'formula',
+					            	 'formulaDetail':'formulaDetail'
+					              },{
+					            	  'templateNodeId':'001011' ,
+						            	 'inputItemId':'inputItemId1',
+						            	 'formula':'formula1',
+						            	 'formulaDetail':'formulaDetail1'  
+					              }];
+					var url = "http://127.0.0.1:8080/imfbp-rz-web/template/saveTemplateRulesForBatch";
+					$.ajax({
+						  type: 'POST',
+						  url: url,
+						  data: JSON.stringify(jsonData),
+						  headers : {  
+			                    'Content-Type' : 'application/json;charset=utf-8'  
+			                },
+						  dataType: "json",
+						  success: function(data) {
+							  if (data != null && data.success == true) {
+									alert("保存模板业务规则数据成功");
+									//editor.html('');
+									//editor.html(data.map.templateDefEntry.htmlContent);
+								} else {
+									alert("保存模板业务规则数据失败");
+								}
+							},
+						  error:function(){
+							  alert("调用保存模板业务规则数据失败");
+						  }
+						});
+				});
+				K('input[name=deleteTemplate]').click(function(e) {
+					//editor.text('<h3>Hello KindEditor</h3>');
+					var jsonData=[
+									'ADMINCXIAO4BKB000051',
+									'ADMINCXIAO4BKB000055',
+									'ADMINCXIAO4BKB000059'
+									];
+					var url = "http://127.0.0.1:8080/imfbp-rz-web/template/deleteTemplateDefByBatchId";
+					$.ajax({
+						  type: 'POST',
+						  url: url,
+						  data: JSON.stringify(jsonData),
+						  headers : {  
+			                    'Content-Type' : 'application/json;charset=utf-8'  
+			                },
+						  dataType: "json",
+						  success: function(data) {
+							  if (data != null && data.success == true) {
+									alert("批量删除模板成功");
+									//editor.html('');
+									//editor.html(data.map.templateDefEntry.htmlContent);
+								} else {
+									alert("批量删除模板失败");
+								}
+							},
+						  error:function(){
+							  alert("调用批量删除模板失败");
+						  }
+						});
+				});
+				K('input[name=getFuncMenuTree]').click(function(e) {
+					//editor.appendHtml('<strong>复制HTML</strong>');
+					//var htmlData = editor.html();
+					var jsonData={};
+					var url = "http://127.0.0.1:8080/imfbp-rz-web/template/getFunMenuTree";
+					$.post(url,jsonData,function(data) {
+						if (data != null) {
+							alert("获取功能节点树成功");
+							var tree = data;
+							var text="";
+							for(var index =0;index<tree.length;index++){
+								text += "code: "+index;
+								text += "<br/>";
+								text +=tree[index].code ;
+								text += "<br/>";
+								text += "text:"+index;
+								text += "<br/>";
+								text +=tree[index].text ;
+								text += "<br/>";
+							}
+							editor.html(text);
+						} else {
+							alert("获取功能节点树失败");
+						}
+					});
+				});
+				K('input[name=insertHtml]').click(function(e) {
+					editor.insertHtml('<strong>插入HTML</strong>');
+				});
+				K('input[name=appendHtml]').click(function(e) {
+					editor.appendHtml('<strong>添加HTML</strong>');
+				});
+				K('input[name=copyData]').click(function(e) {
+					//editor.appendHtml('<strong>复制HTML</strong>');
+					//var htmlData = editor.html();
+					var jsonData={
+							'templateId':'ADMINCXIAO4BKB00006B',
+							'templateName':'CopytemplateName'
+					};
+					var url = "http://127.0.0.1:8080/imfbp-rz-web/template/copyTemplateData";
+					$.post(url,jsonData,function(data) {
+						if (data != null && data.success == true) {
+							alert("模板复制成功");
+						} else {
+							alert("模板复制失败");
+						}
+					});
+				});
+				K('input[name=clear]').click(function(e) {
+					editor.html('');
+				});
+			});
+</script>
+</head>
+<body>
+	<h3>默认模式</h3>
+	<form>
+		<textarea name="content"
+			style="width: 800px; height: 400px; visibility: hidden;">KindEditor</textarea>
+		<p>
+			<input type="button" name="getHtml" value="取得HTML" /> <input
+				type="button" name="isEmpty" value="判断是否为空" /> <input type="button"
+				name="getText" value="取得文本(包含img,embed)" /> <input type="button"
+				name="selectedHtml" value="取得选中HTML" /> <br /> <br /> <input
+				type="button" name="setHtml" value="设置HTML" /> <input type="button"
+				name="setText" value="设置文本" /> <input type="button"
+				name="getTemplate" value="根据获取模板" /> <input type="button"
+				name="saveTemplateRules" value="保存模板规则数据" /> <input type="button"
+				name="deleteTemplate" value="删除模板" /> <input type="button"
+				name="getFuncMenuTree" value="获取功能节点" /> <input type="button"
+				name="insertHtml" value="插入HTML" /> <input type="button"
+				name="appendHtml" value="添加HTML" /> <input type="button"
+				name="copyData" value="复制模板" /> <input type="button"
+				name="clear" value="清空内容" /> <input type="reset" name="reset"
+				value="Reset" />
+		</p>
+	</form>
+</body>
+</html>

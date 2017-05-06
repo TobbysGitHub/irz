@@ -1,0 +1,385 @@
+<title>rzOverdueDeratePlan</title>
+<body>
+<div id="rzOverdueDeratePlanModule" >
+	
+	<!-- list page start -->
+	<div class="listPage startPage">
+		#parse("/WEB-INF/vm/rzOverdueDeratePlan/rzOverdueDeratePlanList.vm")
+	</div>
+	<!-- list page end -->
+	
+	<!-- edit page end -->
+	<div class="rzOverdueDeratePlanEdit" style="display:none;">
+		#parse("/WEB-INF/vm/rzOverdueDeratePlan/rzOverdueDeratePlanEdit.vm")
+	</div>
+	<!-- edit page end -->
+	
+</div>
+
+
+<script>
+
+jQuery(function(){
+
+	
+	//列表后台访问地址
+	var url_page = '$homeModule.getTarget('/rzOverdueDeratePlan/getRzOverdueDeratePlanByPage')';
+	//添加修改后台访问地址
+	var url_add = '$homeModule.getTarget('/rzOverdueDeratePlan/insertOrUpdate')';
+	//删除后台访问地址
+	var url_del = '$homeModule.getTarget('/rzOverdueDeratePlan/deleteRzOverdueDeratePlanByBatchId')';
+	
+	//查询对象
+	var queryDataPlan = new RzOverdueDeratePlanView();
+	//编辑对象
+	var editDataPlan = new RzOverdueDeratePlanView();
+	//空对象用来清空编辑和查询对象
+	var emptyDataPlan = new RzOverdueDeratePlanView();
+	
+	var viewModel={
+		queryDataPlan:ko.mapping.fromJS(queryDataPlan),
+		editDataPlan:ko.mapping.fromJS(editDataPlan),
+		pageState:ko.observable("")
+	}
+	
+	/**
+	 * 表头
+	 */
+	var col_plan = [{
+		field:"num",
+		title:"期数"
+	},{
+		field:"receivableDate",
+		title:"应收款日期"
+	},{
+		field:"receivableTotal",
+		title:"应收款合计(元)",
+		renderType:function(obj){
+       	 if (obj.value == 0){
+        		var html =  "<span></span>";
+        	 }else{
+	         	var formater = new u.NumberFormater(2);
+	 			var masker = new u.NumberMasker(null);
+	 			var svalue = masker.format(formater.format(obj.value)).value
+	         	var html =  "<span>"+ svalue +"</span>";
+        	}
+    	 	var innerDom = u.makeDOM(html);
+    	 	obj.element.appendChild(innerDom);
+        }
+	},{
+		field:"realTotal",
+		title:"实收款合计(元)",
+		renderType:function(obj){
+       	 if (obj.value == 0){
+        		var html =  "<span></span>";
+        	 }else{
+	         	var formater = new u.NumberFormater(2);
+	 			var masker = new u.NumberMasker(null);
+	 			var svalue = masker.format(formater.format(obj.value)).value
+	         	var html =  "<span>"+ svalue +"</span>";
+        	}
+    	 	var innerDom = u.makeDOM(html);
+    	 	obj.element.appendChild(innerDom);
+        }
+	},{
+		field:"receivableNrcyTotal",
+		title:"应收未收合计(元)",
+		renderType:function(obj){
+       	 if (obj.value == 0){
+        		var html =  "<span></span>";
+        	 }else{
+	         	var formater = new u.NumberFormater(2);
+	 			var masker = new u.NumberMasker(null);
+	 			var svalue = masker.format(formater.format(obj.value)).value
+	         	var html =  "<span>"+ svalue +"</span>";
+        	}
+    	 	var innerDom = u.makeDOM(html);
+    	 	obj.element.appendChild(innerDom);
+        }
+	},{
+		field:"overdueDays",
+		title:"逾期天数"
+	},{
+		field:"overdueRate",
+		title:"逾期利率(%)"
+	},{
+		field:"receivableDefInt",
+		title:"应收罚息(元)",
+		renderType:function(obj){
+       	 if (obj.value == 0){
+        		var html =  "<span></span>";
+        	 }else{
+	         	var formater = new u.NumberFormater(2);
+	 			var masker = new u.NumberMasker(null);
+	 			var svalue = masker.format(formater.format(obj.value)).value
+	         	var html =  "<span>"+ svalue +"</span>";
+        	}
+    	 	var innerDom = u.makeDOM(html);
+    	 	obj.element.appendChild(innerDom);
+        }
+	},{
+		field:"receivableNrcyDefInt",
+		title:"应收未收罚息(元)",
+		renderType:function(obj){
+       	 if (obj.value == 0){
+        		var html =  "<span></span>";
+        	 }else{
+	         	var formater = new u.NumberFormater(2);
+	 			var masker = new u.NumberMasker(null);
+	 			var svalue = masker.format(formater.format(obj.value)).value
+	         	var html =  "<span>"+ svalue +"</span>";
+        	}
+    	 	var innerDom = u.makeDOM(html);
+    	 	obj.element.appendChild(innerDom);
+        }
+	},{
+		field:"actOverdur",
+		title:"实际减免罚息(元)",
+		renderType:function(obj){
+       	 if (obj.value == 0){
+        		var html =  "<span></span>";
+        	 }else{
+	         	var formater = new u.NumberFormater(2);
+	 			var masker = new u.NumberMasker(null);
+	 			var svalue = masker.format(formater.format(obj.value)).value
+	         	var html =  "<span>"+ svalue +"</span>";
+        	}
+    	 	var innerDom = u.makeDOM(html);
+    	 	obj.element.appendChild(innerDom);
+        }
+	},{
+		field:"curOverdurApply",
+		title:"本次申请减免罚息(元)",
+		renderType:function(obj){
+       	 if (obj.value == 0){
+        		var html =  "<span></span>";
+        	 }else{
+	         	var formater = new u.NumberFormater(2);
+	 			var masker = new u.NumberMasker(null);
+	 			var svalue = masker.format(formater.format(obj.value)).value
+	         	var html =  "<span>"+ svalue +"</span>";
+        	}
+    	 	var innerDom = u.makeDOM(html);
+    	 	obj.element.appendChild(innerDom);
+        }
+ 	}];
+    
+	
+	/**
+     * 初始化layoutMDI
+     */
+	$("#rzOverdueDeratePlanModule").layoutMDI({
+		//当页面后退时候触发的事件
+		onBackPage: function(target, options) {
+			ko.mapping.fromJS(emptyDataPlan,viewModel.editDataPlan);
+		} 
+	});
+	
+	/**
+     * 创建一个表格，但是没有赋值dataSource数据，这是表格将没有数据
+	 */
+	var gridObjPlan = $("#rzOverdueDeratePlanModule .rzOverdueDeratePlanList").grid({
+		dataSource:'',
+    	id: 'case-g2',
+   		keyField: 'id',
+   		parentKeyField: 'pid',
+    	multiSelect: true,
+    	showNumcol:true,
+    	height: 370,
+    	columns: col_plan,
+    	onDblClickFun:function(gridObjPlan,rowObj,rowIndex){
+			//设置页面的输入框为不可修改
+			viewModel.editDataPlan.enableState(false);
+			//得到点击行
+    		var dbClickRow = gridObjPlan.rowObj;
+    		//赋值
+    		ko.mapping.fromJS(dbClickRow.value, viewModel.editDataPlan);
+    		//跳转到编辑页
+        	$("#rzOverdueDeratePlanModule").layoutMDI("go", ".rzOverdueDeratePlanEdit");
+    	}
+    });
+	
+	/**
+	 * 初始化分页
+	 */
+	var paginationObjPlan = $("#rzOverdueDeratePlanModule .pagination").pagination({
+		pageSize:10,
+		styleMode:2,
+		onSelectPage:function(pageNumber, pageSize){
+			var queryDataPlan = $.extend(ko.mapping.toJS(viewModel.queryDataPlan),{pageNumber:pageNumber,pageSize:pageSize});
+			jQuery("#rzOverdueDeratePlanModule .rzOverdueDeratePlanList").gridPlugin("reLoad",queryDataPlan);
+		}
+	});
+	
+	/**
+	 * 初始化表格插件
+	 */
+	var gridPluginObjPlan = jQuery("#rzOverdueDeratePlanModule .rzOverdueDeratePlanList").gridPlugin({
+		url: url_page,
+		gridObj:gridObjPlan,
+		queryParam:getParams(),
+		pagination:false,//是否分页默认为否
+		paginationObj:paginationObjPlan,//分页控件对象
+		initData:true,//初始化时候是否加载数据(true时候加载，false时候不加载)
+		onDataSuccess:function(data){
+			//当列表加载成功之后调用
+		},
+		onDataError:function(data){
+			//当列表加载失败之后调用
+		},
+	})
+	
+	/**
+	 * form表单插件
+	 */
+	jQuery("#rzOverdueDeratePlanModule .rzOverdueDeratePlanEditForm").formPlugin({
+		url: url_add,//添加修改的地址
+		gridPlugin:gridPluginObjPlan,//表格插件对象
+		onSaveSuccess:function(data){
+			//保存成功后退出编辑页面
+			$("#rzOverdueDeratePlanModule").layoutMDI("back");
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+			jQuery("#rzOverdueDeratePlanModule .rzOverdueDeratePlanList").gridPlugin("load", {});
+		},
+		onDeleteSuccess:function(data){
+			
+		}
+	})
+	
+	/**
+	 * 新增功能
+	 */			
+    jQuery("#rzOverdueDeratePlanModule .toolsbarPanel .add-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editDataPlan.enableState(true);
+		//设置页面为添加状态
+		viewModel.pageState(pageState.add);
+        $("#rzOverdueDeratePlanModule").layoutMDI("go", ".rzOverdueDeratePlanEdit");
+    });
+
+	/**
+	 * 修改功能
+	 */		    
+    jQuery("#rzOverdueDeratePlanModule .toolsbarPanel .update-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editDataPlan.enableState(true);
+		//设置页面为修改状态
+		viewModel.pageState(pageState.edit);
+    	//当前选中行
+    	var selectRow = gridObjPlan.getSelectRows();
+    	//将数据绑定到表单上面
+    	ko.mapping.fromJS(selectRow[0], viewModel.editDataPlan);
+    	//跳转到编辑页面
+        $("#rzOverdueDeratePlanModule").layoutMDI("go", ".rzOverdueDeratePlanEdit");
+    });
+
+	/**
+	 * 删除功能
+	 */	    
+    jQuery("#rzOverdueDeratePlanModule .toolsbarPanel .remove-btn").click(function(){
+    	//要删除的id用","隔开
+		var batchId = "";
+		//当前选中行
+		var selectRow = gridObjPlan.getSelectRows();
+		//判断是否选中要删除的数据
+		if(selectRow.length == 0) {
+			alert("请选择您要修改的数据");
+			return;
+		}
+	
+		for(var i = 0; i < selectRow.length; i++) {
+			var row = selectRow[i];
+			if(i == 0) {
+				batchId = row["pkOverdueDeratePlan"] + batchId;
+			} else {
+				batchId = row["pkOverdueDeratePlan"] + "," + batchId;
+			}
+		}
+		//删除数据
+		jQuery("#rzOverdueDeratePlanModule .rzOverdueDeratePlanEditForm").formPlugin("remove",{batchId:batchId,url:url_del});
+    });
+    
+    /**
+	 * 刷新功能(只是刷新当前页，如果要刷新所有页面使用 load 方法)
+	 */	 
+    jQuery("#rzOverdueDeratePlanModule .toolsbarPanel .refresh-btn").click(function(){
+		jQuery("#rzOverdueDeratePlanModule .rzOverdueDeratePlanList").gridPlugin("reLoad",viewModel.queryDataPlan);
+    });
+    
+    //保存功能
+	jQuery("#rzOverdueDeratePlanModule .rzOverdueDeratePlanEdit .save-btn").click(function(){
+		if(viewModel.pageState()=="add"){
+			ko.mapping.fromJS(emptyDataPlan,viewModel.queryDataPlan);
+		}
+		var param = {
+			formData:ko.mapping.toJS(viewModel.editDataPlan),//要提交的数据
+			queryDataPlan:ko.mapping.toJS(viewModel.queryDataPlan),//修改完毕刷新表格的参数
+			editType:viewModel.pageState()//页面的状态(add：添加，edit:编辑)
+		}
+		jQuery("#rzOverdueDeratePlanModule .rzOverdueDeratePlanEditForm").formPlugin("save",param);
+	});
+	
+	//查找功能
+	jQuery("#rzOverdueDeratePlanModule .searchToolsbar .search-btn").click(function(){
+		jQuery("#rzOverdueDeratePlanModule .rzOverdueDeratePlanList").gridPlugin("load",ko.mapping.toJS(viewModel.queryDataPlan));
+	});
+	
+	//重置查询条件功能
+	jQuery("#rzOverdueDeratePlanModule .searchToolsbar .reset-btn").click(function(){
+		ko.mapping.fromJS(emptyDataPlan,viewModel.queryDataPlan);
+	});
+	
+	//编辑页返回
+	jQuery("#rzOverdueDeratePlanModule .rzOverdueDeratePlanEdit .back-btn").click(function(){
+		$("#rzOverdueDeratePlanModule").layoutMDI("back");
+	});
+
+	ko.applyBindings(viewModel);
+
+});
+
+function RzOverdueDeratePlanView(){
+	//主键
+	this.pkOverdueDeratePlan="";
+	//主表主键
+	this.pkOverdueDerate="";
+	//期数
+	this.num="";
+	//序号
+	this.seqno="";
+	//应收款日期
+	this.receivableDate="";
+	//应收款合计(元)
+	this.receivableTotal="";
+	//实收款合计(元)
+	this.realTotal="";
+	//应收未收合计(元)
+	this.receivableNrcyTotal="";
+	//逾期天数
+	this.overdueDays="";
+	//逾期利率(%)
+	this.overdueRate="";
+	//应收罚息(元)
+	this.receivableDefInt="";
+	//应收未收罚息(元)
+	this.receivableNrcyDefInt="";
+	//实际减免罚息(元)
+	this.actOverdur="";
+	//本次申请减免罚息(元)
+	this.curOverdurApply="";
+	//编辑页面状态
+	this.enableState=true;
+}
+
+function getParams(selector){
+	return {};
+}
+
+</script>
+	
+</body>

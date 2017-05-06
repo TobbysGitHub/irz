@@ -1,0 +1,21 @@
+   
+<!-- hbox layout -->
+<div class="hbox hbox-auto-xs bg-light " >
+  <!-- column -->
+  <div class="col">
+    <div class="vbox">
+      <div class="row-row">
+        <div class="cell">
+          <div class="cell-inner">
+            <div class="wrapper-md" style="width:100%;height:100%">
+            			<iframe style="width:100%;height:100%" frameborder="1" src="http://ibop.yonyou.com:8080/imfbp-demo-web/demo/toDemo" name="aaa"></iframe>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /column -->
+</div>
+<!-- /hbox layout -->

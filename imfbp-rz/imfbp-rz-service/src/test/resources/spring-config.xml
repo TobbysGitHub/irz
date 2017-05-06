@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+	default-autowire="byName" default-lazy-init="false">
+
+	<description>Spring公共配置 </description>
+
+	<!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired的属性被注入 -->
+	<context:component-scan base-package="com.imfbp.rz" />
+
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:config.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<import resource="spring/spring-config-utils.xml" />
+	<import resource="spring/spring-config-resources.xml" />
+	<import resource="spring/spring-config-redis.xml"/>
+	<import resource="spring/spring-config-datasource_m.xml" />
+	<import resource="spring/spring-config-dao.xml" />
+	<import resource="spring/spring-config-service.xml" />
+	<import resource="spring/spring-config-servlet.xml" />
+	<!-- 
+	<import resource="spring/spring-config-velocity.xml" />
+	 -->
+	<import resource="spring/spring-config-ref.xml" /> 
+	<import resource="spring/spring-config-consumer.xml" />
+	<import resource="spring/spring-config-task.xml" />
+    <!--  <import resource="spring/spring-config-approvehandler.xml" />-->
+	<!-- <import resource="spring/spring-config-mq-provider.xml" />
+	<import resource="applicationContext-mq-consumer.xml"/>  -->
+	<!-- <import resource="spring/spring-config-provider.xml" />  -->
+</beans>

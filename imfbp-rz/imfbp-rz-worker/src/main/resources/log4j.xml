@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %p - %C[%L] - %m \n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="DEBUG" />
+		</filter>
+	</appender>
+	<appender name="File" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="encoding" value="utf-8" />
+		<param name="File" value="/export/Logs/yonyou.finacial.web/finacal.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %p - %C[%L] - %m \n" />
+		</layout>		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="WARN" />
+		</filter>
+	</appender>
+	<appender name="File-Error" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="encoding" value="utf-8" />
+		<param name="File" value="/export/Logs/yonyou.finacial.web/finacal-error.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %p - %C[%L] - %m \n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="ERROR" />
+		</filter>
+	</appender>    <category name="java.sql">    
+        <priority value="debug" />    
+    </category>   
+	<category name="com.ibatis" additivity="true">
+		<priority value="DEBUG" />
+	</category>
+	<root>		<priority value="DEBUG" />		<appender-ref ref="CONSOLE" />	</root></log4j:configuration>

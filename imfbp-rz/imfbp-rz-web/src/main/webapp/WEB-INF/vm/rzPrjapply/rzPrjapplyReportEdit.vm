@@ -1,0 +1,436 @@
+<div class="panel panel-default">
+	
+	<div class="panel-heading footer-saveOrCancel">
+		<div class="u-msg-footer">
+			<div class="toolPanelAdd ">
+				<button class=" btn btn-action btn-py sub_submit-btn"
+					style="background-color: #00A0E8">保存提交</button>
+				<button class="btn  btn-action btn-py save-btn"
+					style="background-color: #00A0E8">保存</button>
+				<button class="btn  btn-action btn-py cancel-btn">取消</button>
+			</div>
+			<div class="toolPanelEdit">
+				<button class=" btn btn-action btn-py sub_submit-btn"
+					style="background-color: #00A0E8">保存提交</button>
+				<button class="btn  btn-action btn-py save-btn"
+					style="background-color: #00A0E8">保存</button>
+				<button class=" btn btn-action btn-py remove-btn">删除</button>
+				<button class="btn btn-action btn-py cancel-btn">取消</button>
+			</div>
+			<div class="toolPanelQuery" style="display: none;">
+				<button class="btn  btn-action btn-py update-btn" style="width: 70px;">修改</button>
+				<button class="btn btn-action  btn-py submit-btn">提交</button>
+				<button class="btn btn-action  btn-py callback-btn">收回</button>
+				<button class=" btn btn-action btn-py approve-btn"
+					style="background-color: #00A0E8; width: 70px; border-radius: 4px !important;">审批</button>
+				<button class="btn btn-py unapprove-btn">取消审批</button>
+				<button class=" btn btn-action btn-py linkapprove-btn">联查审批流程</button>
+				<button class=" btn btn-action btn-py query-cus-btn">联查客户</button>
+				<button class=" btn btn-action btn-py remove-btn">删除</button>
+				<button class="btn btn-action btn-py cancel-btn">取消</button>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="panel-body form-parent" data-bind="with:editData">
+		<form class="rzPrjapplyReportEditForm form-horizontal">
+			<div class="reportBaseInfo row panel  slideParent">
+				<div class="col-xs-12 panel-heading" data-toggle="collapse"
+					data-target="#reportBaseInfo">
+					<h5>项目报价-基本信息</h5>
+					<span class="glyphicon glyphicon-chevron-up" style="left: 160px"></span>
+				</div>
+				<div class="col-xs-12 panel-body collapse in" id="reportBaseInfo">
+					<div class="row">
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">设备总额</label>
+								<div class="col-md-9 col-sm-8">
+									<input type="text" name="eqptPriceTotal"
+										class="form-control content-w210-input"
+										data-bind="value:eqptPriceTotal,enable:enableState">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">首付款比例(%)</label>
+								<div class="col-md-9 col-sm-8">
+									<input type="text" name="firstpmtpct"
+										class="form-control content-w210-input"
+										data-bind="value:firstpmtpct,enable:enableState">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">首付款金额</label>
+								<div class="col-md-9 col-sm-8">
+									<input type="text" name="firstpmtamt"
+										class="form-control content-w210-input"
+										data-bind="value:firstpmtamt,enable:enableState">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">融资金额</label>
+								<div class="col-md-9 col-sm-8">
+									<input type="text" name="financeamt"
+										class="form-control content-w210-input"
+										data-bind="value:financeamt,enable:false">
+								</div>
+							</div>
+						</div>
+					
+
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">币种</label>
+								<!-- data-bind="value:pkCurrency,enable:enableState"-->
+								<div class="col-md-9 col-sm-8">
+									<!-- <input type="text" name="pkCurrency" class="form-control content-w210-input"
+                                           data-bind = "enable:false"
+                                           data-imfbp-ref-bind="pkCurrency"
+                                           data-imfbp-ref-bind-field="">
+                                    <div class="icon-wrap ">
+                                        <i class="glyphicon glyphicon-th-list icon" id="icon"
+                                           name="pkCurrency"
+                                           data-imfbp-ref-bind="pkPricecal"
+                                           data-imfbp-ref-bind-field="pkCurrency"
+                                           data-imfbp-ref-name='currencyref' name="pkCurrency"
+                                           data-imfbp-ref-fun="outerRefCallFunction" data-imfbp-ref="ref"></i>
+                                    </div> -->
+									<select class="form-control content-w210-input"
+										name="pkCurrency"
+										data-bind="options:pkCurrencyList,optionsText:function(item){return item.currencyName},optionsValue:function(item){return item.id},value:pkCurrency,enable:enableState,">
+									</select>
+
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">利率类型</label>
+								<div class="col-md-9 col-sm-8">
+									<select type="text" name="ratetype"
+										class="form-control content-w210-input"
+										data-bind="value:ratetype,enable:enableState">
+										<option value="0">浮动</option>
+										<option value="1">固定</option>
+
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">基准利率(%)</label>
+								<div class="col-md-9 col-sm-8">
+									<input type="text" name="baserate"
+										class="form-control content-w210-input"
+										data-bind="value:baserate,enable:false">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">上下浮比例(%)</label>
+								<div class="col-md-9 col-sm-8">
+									<input type="text" name="floatpct"
+										class="form-control content-w210-input"
+										data-bind="value:floatpct,enable:enableState">
+								</div>
+							</div>
+						</div>
+					
+
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">报价利率(%)</label>
+								<div class="col-md-9 col-sm-8">
+									<input type="text" name="pricerate"
+										class="form-control content-w210-input"
+										data-bind="value:pricerate,enable:enableState">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">计划收租日</label>
+								<div class="col-md-9 col-sm-8">
+									<input type="text" name="planrentdate"
+										class="form-control content-w210-input"
+										data-bind="value:planrentdate,enable:enableState">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">还款周期(月)</label>
+								<div class="col-md-9 col-sm-8">
+									<input type="text" name="reptcycle"
+										class="form-control content-w210-input"
+										data-bind="value:reptcycle,enable:enableState">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">经营性每期租金</label>
+								<div class="col-md-9 col-sm-8">
+									<input type="text" name="optamt"
+										class="form-control content-w210-input"
+										data-bind="value:optamt,enable:enableState">
+								</div>
+							</div>
+						</div>
+				
+
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">年化天</label>
+								<div class="col-md-9 col-sm-8">
+									<select name="yeardays" class="form-control content-w210-input"
+										data-bind="value:yeardays,enable:enableState">
+										<option value="360">360</option>
+										<option value="365">365</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">还款方式</label>
+								<div class="col-md-9 col-sm-8">
+									<select name="reptway" class="form-control content-w210-input"
+										data-bind="value:reptway,enable:enableState">
+										<option value="0">等额租金法</option>
+										<option value="1">等额本息法</option>
+										<option value="2">平息法</option>
+										<option value="3">自由还款法</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">租金支付方式</label>
+								<div class="col-md-9 col-sm-8">
+									<select name="paymentway"
+										class="form-control content-w210-input"
+										data-bind="value:paymentway,enable:enableState">
+										<option value="0">期末支付</option>
+										<option value="1">期初支付</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">租金付款方式</label>
+								<div class="col-md-9 col-sm-8">
+									<select name="paymentmethod"
+										class="form-control content-w210-input"
+										data-bind="value:paymentmethod,enable:enableState">
+										<option value="0">现金</option>
+										<option value="1" selected="selected">网银支付</option>
+										<option value="2">汇款</option>
+										<option value="3">承兑汇票</option>
+										<option value="4">支付宝</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					
+
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">项目收益IRR(%)</label>
+								<div class="col-md-9 col-sm-8">
+									<input type="text" name="irr"
+										class="form-control content-w210-input"
+										data-bind="value:irr,enable:enableState">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="depositamtBaseInfo row panel  slideParent">
+				<div class="col-xs-12 panel-heading" data-toggle="collapse"
+					data-target="#depositamtBaseInfo">
+					<h5>项目报价-保证金信息</h5>
+					<span class="glyphicon glyphicon-chevron-up" style="left: 160px"></span>
+				</div>
+				<div class="col-xs-12 panel-body collapse in"
+					id="depositamtBaseInfo">
+					<div class="row">
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">客户保证金比例(%)</label>
+								<div class="col-md-9 col-sm-8">
+									<input type="text" name="depositpct"
+										class="form-control content-w210-input"
+										data-bind="value:depositpct,enable:enableState">
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">客户保证金金额</label>
+								<div class="col-md-9 col-sm-8">
+									<input type="text" name="depositamt"
+										class="form-control content-w210-input"
+										data-bind="value:depositamt,enable:enableState">
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">客户保证金退回方式</label>
+								<div class="col-md-9 col-sm-8">
+									<select name="returndepositway"
+										class="form-control content-w210-input"
+										data-bind="value:returndepositway,enable:enableState">
+										<option value="0">期末退回</option>
+										<option value="1">冲抵租金</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="moneyBaseInfo row panel  slideParent">
+				<div class="col-xs-12 panel-heading" data-toggle="collapse"
+					data-target="#moneyBaseInfo">
+					<h5>项目报价-手续费信息</h5>
+					<span class="glyphicon glyphicon-chevron-up" style="left: 160px"></span>
+				</div>
+				<div class="col-xs-12 panel-body collapse in" id="moneyBaseInfo">
+					<div class="row">
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">手续费计算基数</label>
+								<div class="col-md-9 col-sm-8">
+									<select name="feeradix" class="form-control content-w210-input"
+										data-bind="value:feeradix,enable:enableState">
+										<option value='0'>项目金额</option>
+										<option value='1' selected="selected">融资金额</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">手续费比例(%)</label>
+								<div class="col-md-9 col-sm-8">
+									<input type="text" name="feepct"
+										class="form-control content-w210-input"
+										data-bind="value:feepct,enable:enableState">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">手续费金额</label>
+								<div class="col-md-9 col-sm-8">
+									<input type="text" name="feeamt"
+										class="form-control content-w210-input"
+										data-bind="value:feeamt,enable:enableState">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">手续费税率</label>
+								<div class="col-md-9 col-sm-8">
+									<select name="feetaxrate"
+										class="form-control content-w210-input"
+										data-bind="value:feetaxrate,enable:enableState">
+										<option value="6">6%</option>
+										<option value="11">11%</option>
+										<option value="17">17%</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">手续费支付方式</label>
+								<div class="col-md-9 col-sm-8">
+									<select name="feepayway"
+										class="form-control content-w210-input"
+										data-bind="value:feepayway,enable:enableState">
+										<option value="0">一次性支付</option>
+										<option value="1">随租金支付</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="moneyBaseInfo row panel  slideParent">
+					<div class="col-xs-12 panel-heading" data-toggle="collapse"
+						data-target="#scBaseInfo">
+						<h5>项目报价-服务费信息</h5>
+						<span class="glyphicon glyphicon-chevron-up" style="left: 160px"></span>
+					</div>
+					<div class="col-xs-12 panel-body collapse in" id="scBaseInfo">
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">服务费比例(%)</label>
+								<div class="col-md-9 col-sm-8">
+									<input type="text" name="scpct"
+										class="form-control content-w210-input"
+										data-bind="value:scpct,enable:enableState">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">服务费总额</label>
+								<div class="col-md-9 col-sm-8">
+									<input type="text" name="scamt"
+										class="form-control content-w210-input"
+										data-bind="value:scamt,enable:enableState">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">服务费税率</label>
+								<div class="col-md-9 col-sm-8">
+									<select type="text" name="sctaxrate"
+										class="form-control content-w210-input"
+										data-bind="value:sctaxrate,enable:enableState">
+										<option value="0">0%</option>
+										<option value="6">6%</option>
+										<option value="11">11%</option>
+										<option value="17" selected="selected">17%</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<!-- <div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">是否选择租赁物：
+									Y 是 N否</label>
+								<div class="col-md-9 col-sm-8">
+									<input type="text" name="isselectrent" class="form-control content-w210-input" 
+										data-bind="value:isselectrent,enable:enableState">
+								</div>
+							</div>
+						</div> -->
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+

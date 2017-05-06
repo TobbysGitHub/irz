@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="templateDef">
+
+	<!-- 結果集 -->
+	<resultMap id="templateDefResult" type="com.imfbp.rz.domain.templatedef.TemplateDef">
+		<result property="id" column="id" />
+		<result property="templateCode" column="template_code" />
+		<result property="templateName" column="template_name" />
+		<result property="templateFileId" column="template_file_id" />
+		<result property="templateType" column="template_type" />
+		<result property="templateStatus" column="template_status" />
+		<result property="templateVersion" column="template_version" />
+		<result property="note" column="note" />
+		<result property="tenantId" column="tenant_id" />
+		<result property="createdate" column="createdate" />
+		<result property="creator" column="creator" />
+		<result property="createdtime" column="createdtime" />
+		<result property="operator" column="operator" />
+		<result property="operationtime" column="operationtime" />
+		<result property="modifier" column="modifier" />
+		<result property="modifiedtime" column="modifiedtime" />
+		<result property="ts" column="ts" />
+		<result property="dr" column="dr" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="templateDefField">
+		id,template_code,template_name,template_file_id,template_type,template_status,template_version,note,tenant_id,createdate,creator,createdtime,operator,operationtime,modifier,modifiedtime,ts,dr
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="condition">
+        <where>
+       	 ifnull(dr,0) = 0
+        	<if test="id != null and id != ''" >
+				and id = #{id}
+			</if>
+        	<if test="templateCode != null and templateCode != ''" >
+				and template_code = #{templateCode}
+			</if>
+        	<if test="templateName != null and templateName != ''" >
+				and template_name = #{templateName}
+			</if>
+        	<if test="templateFileId != null and templateFileId != ''" >
+				and template_file_id = #{templateFileId}
+			</if>
+        	<if test="templateType != null and templateType != ''" >
+				and template_type = #{templateType}
+			</if>
+        	<if test="templateStatus != null and templateStatus != ''" >
+				and template_status = #{templateStatus}
+			</if>
+        	<if test="templateVersion != null and templateVersion != ''" >
+				and template_version = #{templateVersion}
+			</if>
+        	<if test="note != null and note != ''" >
+				and note = #{note}
+			</if>
+        	<if test="tenantId != null and tenantId != ''" >
+				and tenant_id = #{tenantId}
+			</if>
+        	<if test="createdate != null and createdate != ''" >
+				and createdate = #{createdate}
+			</if>
+        	<if test="creator != null and creator != ''" >
+				and creator = #{creator}
+			</if>
+        	<if test="createdtime != null and createdtime != ''" >
+				and createdtime = #{createdtime}
+			</if>
+        	<if test="operator != null and operator != ''" >
+				and operator = #{operator}
+			</if>
+        	<if test="operationtime != null and operationtime != ''" >
+				and operationtime = #{operationtime}
+			</if>
+        	<if test="modifier != null and modifier != ''" >
+				and modifier = #{modifier}
+			</if>
+        	<if test="modifiedtime != null and modifiedtime != ''" >
+				and modifiedtime = #{modifiedtime}
+			</if>
+        	<if test="ts != null and ts != ''" >
+				and ts = #{ts}
+			</if>
+        	<if test="dr != null and dr != ''" >
+				and dr = #{dr}
+			</if>
+			<if test="isDistriTemp != null and isDistriTemp != '' and isDistriTemp = 'Y' and batchIds !=null  " >
+				and id  not in
+				<foreach item="id" index="index" collection="batchIds" open="("
+					separator="," close=")">
+					#{id}
+				</foreach>
+			</if>
+        </where>
+    </sql>
+    
+    <!-- 修改条件 -->
+	<sql id="updateByCondition">
+        <where>
+       	 ifnull(dr,0) = 0
+				<if test="parameter.id != null and parameter.id != ''" >
+					and id = #{parameter.id}
+				</if>
+				<if test="parameter.templateCode != null and parameter.templateCode != ''" >
+					and template_code = #{parameter.templateCode}
+				</if>
+				<if test="parameter.templateName != null and parameter.templateName != ''" >
+					and template_name = #{parameter.templateName}
+				</if>
+				<if test="parameter.templateFileId != null and parameter.templateFileId != ''" >
+					and template_file_id = #{parameter.templateFileId}
+				</if>
+				<if test="parameter.templateType != null and parameter.templateType != ''" >
+					and template_type = #{parameter.templateType}
+				</if>
+				<if test="parameter.templateStatus != null and parameter.templateStatus != ''" >
+					and template_status = #{parameter.templateStatus}
+				</if>
+				<if test="parameter.templateVersion != null and parameter.templateVersion != ''" >
+					and template_version = #{parameter.templateVersion}
+				</if>
+				<if test="parameter.note != null and parameter.note != ''" >
+					and note = #{parameter.note}
+				</if>
+				<if test="parameter.tenantId != null and parameter.tenantId != ''" >
+					and tenant_id = #{parameter.tenantId}
+				</if>
+				<if test="parameter.createdate != null and parameter.createdate != ''" >
+					and createdate = #{parameter.createdate}
+				</if>
+				<if test="parameter.creator != null and parameter.creator != ''" >
+					and creator = #{parameter.creator}
+				</if>
+				<if test="parameter.createdtime != null and parameter.createdtime != ''" >
+					and createdtime = #{parameter.createdtime}
+				</if>
+				<if test="parameter.operator != null and parameter.operator != ''" >
+					and operator = #{parameter.operator}
+				</if>
+				<if test="parameter.operationtime != null and parameter.operationtime != ''" >
+					and operationtime = #{parameter.operationtime}
+				</if>
+				<if test="parameter.modifier != null and parameter.modifier != ''" >
+					and modifier = #{parameter.modifier}
+				</if>
+				<if test="parameter.modifiedtime != null and parameter.modifiedtime != ''" >
+					and modifiedtime = #{parameter.modifiedtime}
+				</if>
+				<if test="parameter.ts != null and parameter.ts != ''" >
+					and ts = #{parameter.ts}
+				</if>
+				<if test="parameter.dr != null and parameter.dr != ''" >
+					and dr = #{parameter.dr}
+				</if>
+        </where>
+    </sql>
+    
+    <!-- 新增 -->	
+	<insert id="insertTemplateDef" parameterType="templateDef">
+		insert into template_def
+			(id,template_code,template_name,template_file_id,template_type,template_status,template_version,note,tenant_id,createdate,creator,createdtime,operator,operationtime,modifier,modifiedtime,ts,dr ) 
+		values 
+			(#{id,jdbcType=CHAR},#{templateCode,jdbcType=VARCHAR},#{templateName,jdbcType=VARCHAR},#{templateFileId,jdbcType=VARCHAR},#{templateType,jdbcType=VARCHAR},#{templateStatus,jdbcType=BIT},#{templateVersion,jdbcType=CHAR},#{note,jdbcType=VARCHAR},#{tenantId,jdbcType=CHAR},#{createdate,jdbcType=CHAR},#{creator,jdbcType=CHAR},#{createdtime,jdbcType=CHAR},#{operator,jdbcType=CHAR},#{operationtime,jdbcType=CHAR},#{modifier,jdbcType=CHAR},#{modifiedtime,jdbcType=CHAR},#{ts,jdbcType=CHAR},#{dr,jdbcType=BIT})
+    </insert>
+    
+    <!-- 批量新增 -->	
+	<insert id="insertBatchTemplateDef" parameterType="java.util.List">
+       insert into template_def
+			(id,template_code,template_name,template_file_id,template_type,template_status,template_version,note,tenant_id,createdate,creator,createdtime,operator,operationtime,modifier,modifiedtime,ts,dr ) 
+	   values
+	    <foreach collection="list" item="obj" index="index" separator="," >
+	    	(#{obj.id},#{obj.templateCode},#{obj.templateName},#{obj.templateFileId},#{obj.templateType},#{obj.templateStatus},#{obj.templateVersion},#{obj.note},#{obj.tenantId},#{obj.createdate},#{obj.creator},#{obj.createdtime},#{obj.operator},#{obj.operationtime},#{obj.modifier},#{obj.modifiedtime},#{obj.ts},#{obj.dr})
+	    </foreach>
+   </insert>
+    
+	<!-- 根据id进行逻辑删除 (修改数据库数据为删除状态) -->
+    <update id="logicDeleteTemplateDefById" parameterType="templateDefQuery" >
+    	update template_def  set dr=1 where id = #{id} 
+    </update>
+    
+    <!-- 根据条件进行逻辑删除  (修改数据库数据为删除状态)-->
+    <update id="logicDeleteTemplateDefByCondition" parameterType="templateDefQuery" >
+    	update template_def set dr=1<include refid="condition" /> 
+    </update>
+    
+    <!-- 根据条件进行逻辑删除  (修改数据库数据为删除状态)-->
+    <update id="logicDeleteTemplateDefByBatchId" parameterType="map" >
+    	update template_def set dr=1 
+    	where 
+    	id in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </update>
+    
+    <!-- 根据id删除 (删除数据库数据)-->
+    <delete id="deleteTemplateDefById" parameterType="templateDefQuery" >
+    	delete from template_def  where id = #{id} 
+    </delete>
+    
+    <!-- 根据条件删除 (删除数据库数据)-->
+    <delete id="deleteTemplateDefByCondition" parameterType="templateDefQuery" >
+    	delete from 
+    	template_def<include refid="condition" /> 
+    </delete>
+    
+    <!-- 根据主键批量删除 (删除数据库数据)-->
+    <delete id="deleteTemplateDefByBatchId" parameterType="templateDefQuery" >
+    	delete from template_def 
+    	where
+    	id in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据id修改 -->
+    <update id="updateTemplateDefById" parameterType="templateDefQuery">
+		update  template_def 
+		<set>
+			<if test="templateCode != null and templateCode != '' " >
+				template_code = #{templateCode},
+			</if>
+			<if test="templateName != null and templateName != '' " >
+				template_name = #{templateName},
+			</if>
+			<if test="templateFileId != null and templateFileId != '' " >
+				template_file_id = #{templateFileId},
+			</if>
+			<if test="templateType != null and templateType != '' " >
+				template_type = #{templateType},
+			</if>
+			<if test="templateStatus != null  " >
+				template_status = #{templateStatus},
+			</if>
+			<if test="templateVersion != null and templateVersion != '' " >
+				template_version = #{templateVersion},
+			</if>
+			<if test="note != null and note != '' " >
+				note = #{note},
+			</if>
+			<if test="tenantId != null and tenantId != '' " >
+				tenant_id = #{tenantId},
+			</if>
+			<if test="createdate != null and createdate != '' " >
+				createdate = #{createdate},
+			</if>
+			<if test="creator != null and creator != '' " >
+				creator = #{creator},
+			</if>
+			<if test="createdtime != null and createdtime != '' " >
+				createdtime = #{createdtime},
+			</if>
+			<if test="operator != null and operator != '' " >
+				operator = #{operator},
+			</if>
+			<if test="operationtime != null and operationtime != '' " >
+				operationtime = #{operationtime},
+			</if>
+			<if test="modifier != null and modifier != '' " >
+				modifier = #{modifier},
+			</if>
+			<if test="modifiedtime != null and modifiedtime != '' " >
+				modifiedtime = #{modifiedtime},
+			</if>
+			<if test="ts != null and ts != '' " >
+				ts = #{ts},
+			</if>
+			<if test="dr != null and dr != '' " >
+				dr = #{dr},
+			</if>
+		</set>
+		where
+			id = #{id} 
+    </update>
+    
+     <!-- 根据条件修改 -->
+    <update id="updateTemplateDefByCondition" parameterType="map">
+		update  template_def 
+		<set>
+				<if test="record.templateCode != null and record.templateCode != ''">
+					template_code = #{record.templateCode},
+				</if>
+				<if test="record.templateName != null and record.templateName != ''">
+					template_name = #{record.templateName},
+				</if>
+				<if test="record.templateFileId != null and record.templateFileId != ''">
+					template_file_id = #{record.templateFileId},
+				</if>
+				<if test="record.templateType != null and record.templateType != ''">
+					template_type = #{record.templateType},
+				</if>
+				<if test="record.templateStatus != null and record.templateStatus != ''">
+					template_status = #{record.templateStatus},
+				</if>
+				<if test="record.templateVersion != null and record.templateVersion != ''">
+					template_version = #{record.templateVersion},
+				</if>
+				<if test="record.note != null and record.note != ''">
+					note = #{record.note},
+				</if>
+				<if test="record.tenantId != null and record.tenantId != ''">
+					tenant_id = #{record.tenantId},
+				</if>
+				<if test="record.createdate != null and record.createdate != ''">
+					createdate = #{record.createdate},
+				</if>
+				<if test="record.creator != null and record.creator != ''">
+					creator = #{record.creator},
+				</if>
+				<if test="record.createdtime != null and record.createdtime != ''">
+					createdtime = #{record.createdtime},
+				</if>
+				<if test="record.operator != null and record.operator != ''">
+					operator = #{record.operator},
+				</if>
+				<if test="record.operationtime != null and record.operationtime != ''">
+					operationtime = #{record.operationtime},
+				</if>
+				<if test="record.modifier != null and record.modifier != ''">
+					modifier = #{record.modifier},
+				</if>
+				<if test="record.modifiedtime != null and record.modifiedtime != ''">
+					modifiedtime = #{record.modifiedtime},
+				</if>
+				<if test="record.ts != null and record.ts != ''">
+					ts = #{record.ts},
+				</if>
+				<if test="record.dr != null and record.dr != ''">
+					dr = #{record.dr},
+				</if>
+		</set>
+		<include refid="updateByCondition" />
+    </update>
+    
+    <!-- 根据主键进行批量修改 -->
+    <update id="updateTemplateDefByBatchId"  parameterType="java.util.List">
+    	<if test="list != null">
+	     <foreach collection="list" item='obj' separator=";" >
+	     update template_def
+	     <set>
+				<if test="obj.templateCode != null and obj.templateCode != ''">
+					template_code = #{obj.templateCode},
+				</if>
+				<if test="obj.templateName != null and obj.templateName != ''">
+					template_name = #{obj.templateName},
+				</if>
+				<if test="obj.templateFileId != null and obj.templateFileId != ''">
+					template_file_id = #{obj.templateFileId},
+				</if>
+				<if test="obj.templateType != null and obj.templateType != ''">
+					template_type = #{obj.templateType},
+				</if>
+				<if test="obj.templateStatus != null and obj.templateStatus != ''">
+					template_status = #{obj.templateStatus},
+				</if>
+				<if test="obj.templateVersion != null and obj.templateVersion != ''">
+					template_version = #{obj.templateVersion},
+				</if>
+				<if test="obj.note != null and obj.note != ''">
+					note = #{obj.note},
+				</if>
+				<if test="obj.tenantId != null and obj.tenantId != ''">
+					tenant_id = #{obj.tenantId},
+				</if>
+				<if test="obj.createdate != null and obj.createdate != ''">
+					createdate = #{obj.createdate},
+				</if>
+				<if test="obj.creator != null and obj.creator != ''">
+					creator = #{obj.creator},
+				</if>
+				<if test="obj.createdtime != null and obj.createdtime != ''">
+					createdtime = #{obj.createdtime},
+				</if>
+				<if test="obj.operator != null and obj.operator != ''">
+					operator = #{obj.operator},
+				</if>
+				<if test="obj.operationtime != null and obj.operationtime != ''">
+					operationtime = #{obj.operationtime},
+				</if>
+				<if test="obj.modifier != null and obj.modifier != ''">
+					modifier = #{obj.modifier},
+				</if>
+				<if test="obj.modifiedtime != null and obj.modifiedtime != ''">
+					modifiedtime = #{obj.modifiedtime},
+				</if>
+				<if test="obj.ts != null and obj.ts != ''">
+					ts = #{obj.ts},
+				</if>
+				<if test="obj.dr != null and obj.dr != ''">
+					dr = #{obj.dr},
+				</if>
+			</set>
+			where
+				id = #{obj.id} 
+	     </foreach>
+     	</if>
+    </update>
+    
+    <!-- 查询所有 -->
+    <select id="getTemplateDefAll" parameterType="templateDefQuery" resultMap="templateDefResult">
+		SELECT 
+		<include refid="templateDefField" />  
+		from  
+		template_def<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询总数 -->
+	<select id="getTemplateDefByPageCount" parameterType="templateDefQuery" resultType="int">
+		SELECT count(*) from  template_def
+		<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getTemplateDefByPage" parameterType="templateDefQuery" resultMap="templateDefResult">
+		SELECT <include refid="templateDefField" /> from template_def
+		<include refid="condition" />
+		<if test="sort !=null">
+		    ORDER BY ${sort} ${order} 
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+	
+	<!-- 根据Id查询 -->
+	<select id="getTemplateDefById" parameterType="templateDefQuery" resultMap="templateDefResult">
+		SELECT <include refid="templateDefField" /> from  template_def  where id = #{id} 
+		and ifnull(dr,0) = 0
+	</select>
+	
+	<!-- 根据批量Id查询 -->
+	<select id="getTemplateDefBybatchIds" parameterType="java.util.List"
+		resultMap="templateDefResult">
+		SELECT
+		<include refid="templateDefField" />
+		from template_def
+		where ifnull(dr,0) = 0
+		and id in
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+    
+    <!-- 查询相同模板编码最大版本号的模板 -->
+	<select id="getMaxVersionTemplateDefById" parameterType="templateDefQuery" resultMap="templateDefResult">
+		SELECT <include refid="templateDefField" /> from  template_def  where ifnull(dr,0)=0 
+		and template_code = (select max(template_code) from template_def where ifnull(dr,0)=0 and id=#{id}) 
+	</select>
+</mapper>

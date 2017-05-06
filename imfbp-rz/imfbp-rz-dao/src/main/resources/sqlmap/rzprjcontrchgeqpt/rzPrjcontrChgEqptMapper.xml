@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="rzPrjcontrChgEqpt">
+
+	<!-- 結果集 -->
+	<resultMap id="rzPrjcontrChgEqptResult" type="com.imfbp.rz.domain.rzprjcontrchgeqpt.RzPrjcontrChgEqpt">
+		<result property="pkPrjcontrChgEqpt" column="pk_prjcontr_chg_eqpt" />
+		<result property="pkPrjcontrChg" column="pk_prjcontr_chg" />
+		<result property="pkCustomer" column="pk_customer" />
+		<result property="pkEqpt" column="pk_eqpt" />
+		<result property="eqptType" column="eqpt_type" />
+		<result property="eqptBrand" column="eqpt_brand" />
+		<result property="eqptVer" column="eqpt_ver" />
+		<result property="mfgNo" column="mfg_no" />
+		<result property="mfgDate" column="mfg_date" />
+		<result property="eqptPrice" column="eqpt_price" />
+		<result property="mfg" column="mfg" />
+		<result property="eqptNum" column="eqpt_num" />
+		<result property="eqptPriceTotal" column="eqpt_price_total" />
+		<result property="assessPrice" column="assess_price" />
+		<result property="deliveryDate" column="delivery_date" />
+		<result property="netVal" column="net_val" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="rzPrjcontrChgEqptField">
+		pk_prjcontr_chg_eqpt,pk_prjcontr_chg,pk_customer,pk_eqpt,eqpt_type,eqpt_brand,eqpt_ver,mfg_no,mfg_date,eqpt_price,mfg,eqpt_num,eqpt_price_total,assess_price,delivery_date,net_val
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="condition">
+        <where>
+        	<if test="pkPrjcontrChgEqpt != null and pkPrjcontrChgEqpt != ''" >
+				and pk_prjcontr_chg_eqpt = #{pkPrjcontrChgEqpt}
+			</if>
+        	<if test="pkPrjcontrChg != null and pkPrjcontrChg != ''" >
+				and pk_prjcontr_chg = #{pkPrjcontrChg}
+			</if>
+        	<if test="pkCustomer != null and pkCustomer != ''" >
+				and pk_customer = #{pkCustomer}
+			</if>
+        	<if test="pkEqpt != null and pkEqpt != ''" >
+				and pk_eqpt = #{pkEqpt}
+			</if>
+        	<if test="eqptType != null and eqptType != ''" >
+				and eqpt_type = #{eqptType}
+			</if>
+        	<if test="eqptBrand != null and eqptBrand != ''" >
+				and eqpt_brand = #{eqptBrand}
+			</if>
+        	<if test="eqptVer != null and eqptVer != ''" >
+				and eqpt_ver = #{eqptVer}
+			</if>
+        	<if test="mfgNo != null and mfgNo != ''" >
+				and mfg_no = #{mfgNo}
+			</if>
+        	<if test="mfgDate != null and mfgDate != ''" >
+				and mfg_date = #{mfgDate}
+			</if>
+        	<if test="eqptPrice != null" >
+				and eqpt_price = #{eqptPrice}
+			</if>
+        	<if test="mfg != null and mfg != ''" >
+				and mfg = #{mfg}
+			</if>
+        	<if test="eqptNum != null" >
+				and eqpt_num = #{eqptNum}
+			</if>
+        	<if test="eqptPriceTotal != null" >
+				and eqpt_price_total = #{eqptPriceTotal}
+			</if>
+        	<if test="assessPrice != null" >
+				and assess_price = #{assessPrice}
+			</if>
+        	<if test="deliveryDate != null and deliveryDate != ''" >
+				and delivery_date = #{deliveryDate}
+			</if>
+        	<if test="netVal != null" >
+				and net_val = #{netVal}
+			</if>
+        </where>
+    </sql>
+    
+    <!-- 修改条件 -->
+	<sql id="updateByCondition">
+        <where>
+				<if test="parameter.pkPrjcontrChgEqpt != null and parameter.pkPrjcontrChgEqpt != ''" >
+					and pk_prjcontr_chg_eqpt = #{parameter.pkPrjcontrChgEqpt}
+				</if>
+				<if test="parameter.pkPrjcontrChg != null and parameter.pkPrjcontrChg != ''" >
+					and pk_prjcontr_chg = #{parameter.pkPrjcontrChg}
+				</if>
+				<if test="parameter.pkCustomer != null and parameter.pkCustomer != ''" >
+					and pk_customer = #{parameter.pkCustomer}
+				</if>
+				<if test="parameter.pkEqpt != null and parameter.pkEqpt != ''" >
+					and pk_eqpt = #{parameter.pkEqpt}
+				</if>
+				<if test="parameter.eqptType != null and parameter.eqptType != ''" >
+					and eqpt_type = #{parameter.eqptType}
+				</if>
+				<if test="parameter.eqptBrand != null and parameter.eqptBrand != ''" >
+					and eqpt_brand = #{parameter.eqptBrand}
+				</if>
+				<if test="parameter.eqptVer != null and parameter.eqptVer != ''" >
+					and eqpt_ver = #{parameter.eqptVer}
+				</if>
+				<if test="parameter.mfgNo != null and parameter.mfgNo != ''" >
+					and mfg_no = #{parameter.mfgNo}
+				</if>
+				<if test="parameter.mfgDate != null and parameter.mfgDate != ''" >
+					and mfg_date = #{parameter.mfgDate}
+				</if>
+		    	<if test="parameter.eqptPrice != null" >
+					and eqpt_price = #{parameter.eqptPrice}
+				</if>
+				<if test="parameter.mfg != null and parameter.mfg != ''" >
+					and mfg = #{parameter.mfg}
+				</if>
+		    	<if test="parameter.eqptNum != null" >
+					and eqpt_num = #{parameter.eqptNum}
+				</if>
+		    	<if test="parameter.eqptPriceTotal != null" >
+					and eqpt_price_total = #{parameter.eqptPriceTotal}
+				</if>
+		    	<if test="parameter.assessPrice != null" >
+					and assess_price = #{parameter.assessPrice}
+				</if>
+				<if test="parameter.deliveryDate != null and parameter.deliveryDate != ''" >
+					and delivery_date = #{parameter.deliveryDate}
+				</if>
+		    	<if test="parameter.netVal != null" >
+					and net_val = #{parameter.netVal}
+				</if>
+        </where>
+    </sql>
+    
+    <!-- 新增 -->	
+	<insert id="insertRzPrjcontrChgEqpt" parameterType="rzPrjcontrChgEqpt">
+		insert into rz_prjcontr_chg_eqpt
+			(pk_prjcontr_chg_eqpt,pk_prjcontr_chg,pk_customer,pk_eqpt,eqpt_type,eqpt_brand,eqpt_ver,mfg_no,mfg_date,eqpt_price,mfg,eqpt_num,eqpt_price_total,assess_price,delivery_date,net_val ) 
+		values 
+			(#{pkPrjcontrChgEqpt,jdbcType=CHAR},#{pkPrjcontrChg,jdbcType=CHAR},#{pkCustomer,jdbcType=CHAR},#{pkEqpt,jdbcType=CHAR},#{eqptType,jdbcType=VARCHAR},#{eqptBrand,jdbcType=VARCHAR},#{eqptVer,jdbcType=VARCHAR},#{mfgNo,jdbcType=VARCHAR},#{mfgDate,jdbcType=CHAR},#{eqptPrice,jdbcType=DECIMAL},#{mfg,jdbcType=VARCHAR},#{eqptNum,jdbcType=INTEGER},#{eqptPriceTotal,jdbcType=DECIMAL},#{assessPrice,jdbcType=DECIMAL},#{deliveryDate,jdbcType=CHAR},#{netVal,jdbcType=DECIMAL})
+    </insert>
+    
+    <!-- 批量新增 -->	
+	<insert id="insertBatchRzPrjcontrChgEqpt" parameterType="java.util.List">
+       insert into rz_prjcontr_chg_eqpt
+			(pk_prjcontr_chg_eqpt,pk_prjcontr_chg,pk_customer,pk_eqpt,eqpt_type,eqpt_brand,eqpt_ver,mfg_no,mfg_date,eqpt_price,mfg,eqpt_num,eqpt_price_total,assess_price,delivery_date,net_val ) 
+	   values
+	    <foreach collection="list" item="obj" index="index" separator="," >
+	    	(#{obj.pkPrjcontrChgEqpt},#{obj.pkPrjcontrChg},#{obj.pkCustomer},#{obj.pkEqpt},#{obj.eqptType},#{obj.eqptBrand},#{obj.eqptVer},#{obj.mfgNo},#{obj.mfgDate},#{obj.eqptPrice},#{obj.mfg},#{obj.eqptNum},#{obj.eqptPriceTotal},#{obj.assessPrice},#{obj.deliveryDate},#{obj.netVal})
+	    </foreach>
+   </insert>
+    
+    
+    <!-- 根据id删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjcontrChgEqptById" parameterType="rzPrjcontrChgEqptQuery" >
+    	delete from rz_prjcontr_chg_eqpt  where pk_prjcontr_chg_eqpt = #{pkPrjcontrChgEqpt} 
+    </delete>
+    
+    <!-- 根据条件删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjcontrChgEqptByCondition" parameterType="rzPrjcontrChgEqptQuery" >
+    	delete from 
+    	rz_prjcontr_chg_eqpt<include refid="condition" /> 
+    </delete>
+    
+    <!-- 根据主键批量删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjcontrChgEqptByBatchId" parameterType="rzPrjcontrChgEqptQuery" >
+    	delete from rz_prjcontr_chg_eqpt 
+    	where
+    	pk_prjcontr_chg_eqpt in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据id修改 -->
+    <update id="updateRzPrjcontrChgEqptById" parameterType="rzPrjcontrChgEqptQuery">
+		update  rz_prjcontr_chg_eqpt 
+		<set>
+			<if test="pkPrjcontrChg != null and pkPrjcontrChg != '' " >
+				pk_prjcontr_chg = #{pkPrjcontrChg},
+			</if>
+			<if test="pkCustomer != null and pkCustomer != '' " >
+				pk_customer = #{pkCustomer},
+			</if>
+			<if test="pkEqpt != null and pkEqpt != '' " >
+				pk_eqpt = #{pkEqpt},
+			</if>
+			<if test="eqptType != null and eqptType != '' " >
+				eqpt_type = #{eqptType},
+			</if>
+			<if test="eqptBrand != null and eqptBrand != '' " >
+				eqpt_brand = #{eqptBrand},
+			</if>
+			<if test="eqptVer != null and eqptVer != '' " >
+				eqpt_ver = #{eqptVer},
+			</if>
+			<if test="mfgNo != null and mfgNo != '' " >
+				mfg_no = #{mfgNo},
+			</if>
+			<if test="mfgDate != null and mfgDate != '' " >
+				mfg_date = #{mfgDate},
+			</if>
+			<if test="eqptPrice != null " >
+				eqpt_price = #{eqptPrice},
+			</if>
+			<if test="mfg != null and mfg != '' " >
+				mfg = #{mfg},
+			</if>
+			<if test="eqptNum != null " >
+				eqpt_num = #{eqptNum},
+			</if>
+			<if test="eqptPriceTotal != null " >
+				eqpt_price_total = #{eqptPriceTotal},
+			</if>
+			<if test="assessPrice != null " >
+				assess_price = #{assessPrice},
+			</if>
+			<if test="deliveryDate != null and deliveryDate != '' " >
+				delivery_date = #{deliveryDate},
+			</if>
+			<if test="netVal != null " >
+				net_val = #{netVal},
+			</if>
+		</set>
+		where
+			pk_prjcontr_chg_eqpt = #{pkPrjcontrChgEqpt} 
+    </update>
+    
+     <!-- 根据条件修改 -->
+    <update id="updateRzPrjcontrChgEqptByCondition" parameterType="map">
+		update  rz_prjcontr_chg_eqpt 
+		<set>
+				<if test="record.pkPrjcontrChg != null and record.pkPrjcontrChg != ''">
+					pk_prjcontr_chg = #{record.pkPrjcontrChg},
+				</if>
+				<if test="record.pkCustomer != null and record.pkCustomer != ''">
+					pk_customer = #{record.pkCustomer},
+				</if>
+				<if test="record.pkEqpt != null and record.pkEqpt != ''">
+					pk_eqpt = #{record.pkEqpt},
+				</if>
+				<if test="record.eqptType != null and record.eqptType != ''">
+					eqpt_type = #{record.eqptType},
+				</if>
+				<if test="record.eqptBrand != null and record.eqptBrand != ''">
+					eqpt_brand = #{record.eqptBrand},
+				</if>
+				<if test="record.eqptVer != null and record.eqptVer != ''">
+					eqpt_ver = #{record.eqptVer},
+				</if>
+				<if test="record.mfgNo != null and record.mfgNo != ''">
+					mfg_no = #{record.mfgNo},
+				</if>
+				<if test="record.mfgDate != null and record.mfgDate != ''">
+					mfg_date = #{record.mfgDate},
+				</if>
+		 		<if test="record.eqptPrice != null">
+					eqpt_price = #{record.eqptPrice},
+				</if>
+				<if test="record.mfg != null and record.mfg != ''">
+					mfg = #{record.mfg},
+				</if>
+		 		<if test="record.eqptNum != null">
+					eqpt_num = #{record.eqptNum},
+				</if>
+		 		<if test="record.eqptPriceTotal != null">
+					eqpt_price_total = #{record.eqptPriceTotal},
+				</if>
+		 		<if test="record.assessPrice != null">
+					assess_price = #{record.assessPrice},
+				</if>
+				<if test="record.deliveryDate != null and record.deliveryDate != ''">
+					delivery_date = #{record.deliveryDate},
+				</if>
+		 		<if test="record.netVal != null">
+					net_val = #{record.netVal},
+				</if>
+		</set>
+		<include refid="updateByCondition" />
+    </update>
+    
+    <!-- 根据主键进行批量修改 -->
+    <update id="updateRzPrjcontrChgEqptByBatchId"  parameterType="java.util.List">
+    	<if test="list != null">
+	     <foreach collection="list" item='obj' separator=";" >
+	     update rz_prjcontr_chg_eqpt
+	     <set>
+				<if test="obj.pkPrjcontrChg != null and obj.pkPrjcontrChg != ''">
+					pk_prjcontr_chg = #{obj.pkPrjcontrChg},
+				</if>
+				<if test="obj.pkCustomer != null and obj.pkCustomer != ''">
+					pk_customer = #{obj.pkCustomer},
+				</if>
+				<if test="obj.pkEqpt != null and obj.pkEqpt != ''">
+					pk_eqpt = #{obj.pkEqpt},
+				</if>
+				<if test="obj.eqptType != null and obj.eqptType != ''">
+					eqpt_type = #{obj.eqptType},
+				</if>
+				<if test="obj.eqptBrand != null and obj.eqptBrand != ''">
+					eqpt_brand = #{obj.eqptBrand},
+				</if>
+				<if test="obj.eqptVer != null and obj.eqptVer != ''">
+					eqpt_ver = #{obj.eqptVer},
+				</if>
+				<if test="obj.mfgNo != null and obj.mfgNo != ''">
+					mfg_no = #{obj.mfgNo},
+				</if>
+				<if test="obj.mfgDate != null and obj.mfgDate != ''">
+					mfg_date = #{obj.mfgDate},
+				</if>
+		 		<if test="obj.eqptPrice != null">
+					eqpt_price = #{obj.eqptPrice},
+				</if>
+				<if test="obj.mfg != null and obj.mfg != ''">
+					mfg = #{obj.mfg},
+				</if>
+		 		<if test="obj.eqptNum != null">
+					eqpt_num = #{obj.eqptNum},
+				</if>
+		 		<if test="obj.eqptPriceTotal != null">
+					eqpt_price_total = #{obj.eqptPriceTotal},
+				</if>
+		 		<if test="obj.assessPrice != null">
+					assess_price = #{obj.assessPrice},
+				</if>
+				<if test="obj.deliveryDate != null and obj.deliveryDate != ''">
+					delivery_date = #{obj.deliveryDate},
+				</if>
+		 		<if test="obj.netVal != null">
+					net_val = #{obj.netVal},
+				</if>
+			</set>
+			where
+				pk_prjcontr_chg_eqpt = #{obj.pkPrjcontrChgEqpt} 
+	     </foreach>
+     	</if>
+    </update>
+    
+    <!-- 查询所有 -->
+    <select id="getRzPrjcontrChgEqptAll" parameterType="rzPrjcontrChgEqptQuery" resultMap="rzPrjcontrChgEqptResult">
+		SELECT 
+		<include refid="rzPrjcontrChgEqptField" />  
+		from  
+		rz_prjcontr_chg_eqpt<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询总数 -->
+	<select id="getRzPrjcontrChgEqptByPageCount" parameterType="rzPrjcontrChgEqptQuery" resultType="int">
+		SELECT count(*) from  rz_prjcontr_chg_eqpt
+		<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getRzPrjcontrChgEqptByPage" parameterType="rzPrjcontrChgEqptQuery" resultMap="rzPrjcontrChgEqptResult">
+		SELECT <include refid="rzPrjcontrChgEqptField" /> from rz_prjcontr_chg_eqpt
+		<include refid="condition" />
+		<if test="sort !=null">
+		    ORDER BY ${sort} ${order} 
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+	
+	<!-- 根据Id查询 -->
+	<select id="getRzPrjcontrChgEqptById" parameterType="rzPrjcontrChgEqptQuery" resultMap="rzPrjcontrChgEqptResult">
+		SELECT <include refid="rzPrjcontrChgEqptField" /> from  rz_prjcontr_chg_eqpt  where pk_prjcontr_chg_eqpt = #{pkPrjcontrChgEqpt} 
+		 
+	</select>
+    
+</mapper>

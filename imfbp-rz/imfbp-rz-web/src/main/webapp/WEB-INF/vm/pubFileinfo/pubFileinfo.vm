@@ -1,0 +1,697 @@
+<title>pubFileinfo</title>
+<link rel="stylesheet" href="$homeModule.getTarget('/misc/libs/jquery-fileupload/css/jquery.fileupload.css')">
+<link rel="stylesheet" href="$homeModule.getTarget('/misc/libs/jquery-fileupload/css/jquery.fileupload-ui.css')">
+<script src="$homeModule.getTarget('/misc/libs/jquery-fileupload/js/vendor/jquery.ui.widget.js')"></script>
+<script src="$homeModule.getTarget('/misc/libs/jquery-fileupload/js/jquery.fileupload.js')"></script>
+<script src="$homeModule.getTarget('/misc/libs/jquery-fileupload/js/jquery.iframe-transport.js')"></script>
+<style>
+h4{
+	font-weight:600;
+}
+.addOuterdiv .fileinput-button{
+	width:100%;
+	height:50px;
+	line-height:38px;
+}
+.upload .outerdiv{
+	margin-top:80px;
+	padding:5px 30px;
+}
+.imgdiv{
+    width: 140px;
+    text-align: center;
+    height: 120px;
+    float: left;
+    padding:10px;
+}
+.imgdiv span{
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	display:block;
+}
+.imgdiv img{
+    height: 80px;
+    width: 80px;
+}
+
+.outerdiv{
+	padding-left:30px;
+	width:100%;
+}
+.attachdiv{
+	width:400px;
+	height:30px;
+}
+.recorddiv,.attachdiv{
+	width:400px;
+	height:30px;
+	line-height:30px;
+	padding:0 20px;
+}
+.recorddiv:hover,.attachdiv:hover{
+	background:#beebff;
+
+}
+.upload .f-remove{
+	position:absolute;
+	top:0;
+	right:0;
+	transition :all 0.2s ease;
+}
+.upload .f-remove:hover{
+	font-size:16px;
+}
+.imgdiv .f-remove{
+	top:10px;
+	right:30px;
+}
+.upload .files>div{
+	position:relative;
+}
+.attachdiv .f-remove,.recorddiv .f-remove{
+	top:6px;
+	right:6px;
+}
+.files{
+		min-height:100px;
+		border:1px solid #eee;
+		overflow:hidden;
+}
+.xiazai{
+ cursor:pointer;
+}
+.panel-heading button{height:42px;width:75px;}
+.toolsbarPanel button{height:42px;width:75px;}
+</style>
+<body>
+<div id="pubFileinfoModule" >
+	
+	<!-- list page start -->
+	<div class="listPage startPage">
+		#parse("/WEB-INF/vm/pubFileinfo/pubFileinfoList.vm")
+	</div>
+	<!-- list page end -->
+	
+	<!-- edit page end -->
+	<div class="pubFileinfoEdit" style="display:none;">
+		#parse("/WEB-INF/vm/pubFileinfo/pubFileinfoEdit.vm")
+	</div>
+	<!-- edit page end -->
+	
+</div>
+
+
+<script>
+
+jQuery(function(){
+
+	
+	//列表后台访问地址
+	var url_page = '$homeModule.getTarget('/pubFileinfo/getPubFileinfoByPage')';
+	//添加修改后台访问地址
+	var url_add = '$homeModule.getTarget('/pubFileinfo/insertOrUpdate')';
+	//删除后台访问地址
+	var url_del = '$homeModule.getTarget('/pubFileinfo/deletePubFileinfoByBatchId')';
+	
+	//查询对象
+	var queryData = new PubFileinfoView();
+	//编辑对象
+	var editData = new PubFileinfoView();
+	//空对象用来清空编辑和查询对象
+	var emptyData = new PubFileinfoView();
+	
+	 window.viewModel={
+		queryData:ko.mapping.fromJS(queryData),
+		editData:ko.mapping.fromJS(editData),
+		pageState:ko.observable("")
+	}
+	
+	/**
+	 * 表头
+	 */
+	var col = [{
+		field:"description",
+		title:"文件分类",
+		renderType: function (obj) {
+                 var html = "<span>"
+                    var state = obj.row.value.filesrc;
+                    if ("1" == state ) {
+                        html += "模板";
+                    }else if("2" == state ){
+                       html += "原件";
+                    }else{
+                       html += "扫描件";
+                    }
+                    html += "</span>";
+                    var innerDom = u.makeDOM(html);
+                    obj.element.appendChild(innerDom);
+        }
+		
+	},{
+		field:"filename",
+		title:"附件名称"
+	},{
+		field:"doctype",
+		title:"文档类型"
+	},{
+		field:"uploader",
+		title:"上传人",
+		 imfbpRefType: "userref",
+         renderType: "imfbpRefTransform"
+	},{
+		field:"uploadtime",
+		title:"上传时间"
+	},{
+		field:"filesrc",
+		title:"文件来源",
+		 renderType: function (obj) {
+                 var html = "<span>"
+                    var state = obj.row.value.filesrc;
+                    if ("1" == state ) {
+                        html += "手工上传";
+                    }else if("2" == state ){
+                       html += "自动生成";
+                    }else{
+                       html += "无";
+                    }
+                    html += "</span>";
+                    var innerDom = u.makeDOM(html);
+                    obj.element.appendChild(innerDom);
+                }
+ 	}];
+    
+	
+	/**
+     * 初始化layoutMDI
+     */
+	$("#pubFileinfoModule").layoutMDI({
+		//当页面后退时候触发的事件
+		onBackPage: function(target, options) {
+			ko.mapping.fromJS(emptyData,viewModel.editData);
+		} 
+	});
+	
+	/**
+     * 创建一个表格，但是没有赋值dataSource数据，这是表格将没有数据
+	 */
+	var gridObj = $("#pubFileinfoModule .pubFileinfoList").grid({
+		dataSource:'',
+    	id: 'case-g1',
+   		keyField: 'id',
+   		parentKeyField: 'pid',
+    	multiSelect: true,
+    	showNumCol:false,
+    	height: 370,
+    	columns: col,
+    	onDblClickFun:function(gridObj,rowObj,rowIndex){
+			//设置页面的输入框为不可修改
+			viewModel.editData.enableState(false);
+			//得到点击行
+    		var dbClickRow = gridObj.rowObj;
+    		$("#attachfiles").empty()
+    		$(".pubFileinfoEdit .update-btn,.pubFileinfoEdit .back-btn,.pubFileinfoEdit .delete-btn").show();
+			$(".pubFileinfoEdit .save-btn,.pubFileinfoEdit .upload-btn").hide();
+			$(".pubFileinfoEdit input,.pubFileinfoEdit select").css("background-color","#fff")
+    		//赋值
+    		ko.mapping.fromJS(dbClickRow.value, viewModel.editData);
+    		$(document).data("pkFile",dbClickRow.value.pkFile)
+    		getAttachments()
+    		setTraslateFunction()
+    		//跳转到编辑页
+        	$("#pubFileinfoModule").layoutMDI("go", ".pubFileinfoEdit");
+    	}
+    });
+	
+	/**
+	 * 初始化分页
+	 */
+	var paginationObj = $("#pubFileinfoModule .pagination").pagination({
+		pageSize:1000,
+		styleMode:2,
+		onSelectPage:function(pageNumber, pageSize){
+			var queryData = $.extend(ko.mapping.toJS(viewModel.queryData),{pageNumber:pageNumber,pageSize:pageSize});
+			jQuery("#pubFileinfoModule .pubFileinfoList").gridPlugin("reLoad",queryData);
+		}
+	});
+	
+	/**
+	 * 初始化表格插件
+	 */
+	var gridPluginObj = jQuery("#pubFileinfoModule .pubFileinfoList").gridPlugin({
+		url: url_page,
+		gridObj:gridObj,
+		queryParam:getParams(),
+		pagination:true,//是否分页默认为否
+		paginationObj:paginationObj,//分页控件对象
+		initData:true,//初始化时候是否加载数据(true时候加载，false时候不加载)
+		onDataSuccess:function(data){
+			var d = {};
+            d.values = data.rows;
+			imfbpDataTableTranform(gridObj, d.values, function () {
+                        $("#pubFileinfoModule .pubFileinfoList").grid().setDataSource(d);
+                    });
+		},
+		onDataError:function(data){
+			//当列表加载失败之后调用
+		},
+	})
+	
+	/**
+	 * form表单插件
+	 */
+	jQuery("#pubFileinfoModule .pubFileinfoEditForm").formPlugin({
+		url: url_add,//添加修改的地址
+		gridPlugin:gridPluginObj,//表格插件对象
+		onSaveSuccess:function(data){
+			//保存成功后退出编辑页面
+			//layer.alert("保存成功")
+			$("#pubFileinfoModule").layoutMDI("back");
+		},
+		onSaveError:function(data){
+		    layer.alert("保存失败")
+			//保存失败回调事件
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+			jQuery("#pubFileinfoModule .pubFileinfoList").gridPlugin("load", {});
+		},
+		onDeleteSuccess:function(data){
+			
+		}
+	})
+	
+	//初始化数据
+	
+	function init(){
+		debugger
+	    var  pkBill="${pkBill}"
+	    viewModel.queryData.pkBill(pkBill)
+	   jQuery("#pubFileinfoModule .pubFileinfoList").gridPlugin("load",ko.mapping.toJS(viewModel.queryData));
+	}
+	
+	
+	/**
+	 * 新增功能
+	 */			
+    jQuery("#pubFileinfoModule .toolsbarPanel .add-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		$(".pubFileinfoEdit .save-btn,.pubFileinfoEdit .upload-btn,.pubFileinfoEdit .back-btn").show();
+		$(".pubFileinfoEdit .update-btn,.pubFileinfoEdit .delete-btn").hide();
+		//设置页面为添加状态
+		viewModel.pageState(pageState.add);
+		$(document).data("pkFile",null)
+		$("#attachfiles").empty()
+		$(".pubFileinfoEdit input,.pubFileinfoEdit select").css("background-color","#fff")
+        $("#pubFileinfoModule").layoutMDI("go", ".pubFileinfoEdit");
+    });
+    
+    /**
+	 * 下载功能
+	 */			
+    jQuery("#pubFileinfoModule .toolsbarPanel .download-btn").click(function(){
+        debugger
+    	var selectRow = gridObj.getSelectRows();
+		if(selectRow.length == 0) {
+			layer.alert("请选择您要下载的数据");
+			return;
+		}
+	    var batchId=""
+		for(var i = 0; i < selectRow.length; i++) {
+			var row = selectRow[i];
+			if(i == 0) {
+				batchId = row["pkFile"] + batchId;
+			} else {
+				batchId = row["pkFile"] + "," + batchId;
+			}
+		}
+    	window.open('$homeModule.getTarget('/pubFileinfo/downLoadBatchFile')'+"?batchId="+batchId);
+    	
+    });
+    
+    
+	/**
+	 * 修改功能
+	 */		    
+    jQuery("#pubFileinfoModule .toolsbarPanel .update-btn").click(function(){
+    	debugger
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为修改状态
+		viewModel.pageState(pageState.edit);
+		$(".pubFileinfoEdit .save-btn,.pubFileinfoEdit .upload-btn,.pubFileinfoEdit .back-btn,.pubFileinfoEdit .delete-btn").show();
+		$(".pubFileinfoEdit .update-btn").hide();
+    	//当前选中行
+    	var selectRow = gridObj.getSelectRows();
+    	//将数据绑定到表单上面
+    	ko.mapping.fromJS(selectRow[0], viewModel.editData);
+    	$(document).data("pkFile",selectRow[0].pkFile)
+    	$("#attachfiles").empty()
+    	$(".pubFileinfoEdit input,.pubFileinfoEdit select").css("background-color","#fff")
+    	getAttachments()
+    	setTraslateFunction()
+    	//跳转到编辑页面
+        $("#pubFileinfoModule").layoutMDI("go", ".pubFileinfoEdit");
+    });
+    
+     /**
+	 * 编辑页面修改功能
+	 */		    
+    jQuery("#pubFileinfoModule .pubFileinfoEdit .update-btn").click(function(){
+    	debugger
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为修改状态
+		viewModel.pageState(pageState.edit);
+		$(".pubFileinfoEdit .save-btn,.pubFileinfoEdit .upload-btn,.pubFileinfoEdit .back-btn,.pubFileinfoEdit .delete-btn").show();
+		$(".pubFileinfoEdit .update-btn").hide();
+    });
+     
+	/**
+	 * 删除功能
+	 */	    
+    jQuery("#pubFileinfoModule .toolsbarPanel .delete-btn").click(function(){
+    	//要删除的id用","隔开
+		var batchId = "";
+		//当前选中行
+		var selectRow = gridObj.getSelectRows();
+		//判断是否选中要删除的数据
+		if(selectRow.length == 0) {
+			layer.alert("请选择您要修改的数据");
+			return;
+		}
+	
+		for(var i = 0; i < selectRow.length; i++) {
+			var row = selectRow[i];
+			if(i == 0) {
+				batchId = row["pkFile"] + batchId;
+			} else {
+				batchId = row["pkFile"] + "," + batchId;
+			}
+		}
+		jQuery("#pubFileinfoModule .pubFileinfoEditForm").formPlugin("remove",{batchId:batchId,url:url_del});
+    });
+    
+    /**
+	 * 编辑页面删除功能
+	 */	    
+    jQuery("#pubFileinfoModule .pubFileinfoEdit .delete-btn").click(function(){
+		layer.confirm('删除后将无法恢复,您确认删除该附件信息吗？', {icon: 3, title:'提示'}, function(index){
+  		layer.close(index);
+  		debugger
+  		var pkFile=$(document).data("pkFile");
+  		$.getJSON("$homeModule.getTarget('/pubFileinfo/deletePubFileinfoById')",{'pkFile':pkFile}).done(function(data){
+  		$("#pubFileinfoModule").layoutMDI("back");
+  		init()
+  		}).fail(function(data){
+  		layer.alert("删除失败")})
+          })
+    });
+    
+    /**
+	 * 刷新功能(只是刷新当前页，如果要刷新所有页面使用 load 方法)
+	 */	 
+    jQuery("#pubFileinfoModule .toolsbarPanel .refresh-btn").click(function(){
+		jQuery("#pubFileinfoModule .pubFileinfoList").gridPlugin("reLoad",viewModel.queryData);
+    });
+    
+    //保存功能
+	jQuery("#pubFileinfoModule .pubFileinfoEdit .save-btn").click(function(){
+		if(viewModel.pageState()=="add"){
+			ko.mapping.fromJS(emptyData,viewModel.queryData);
+		}
+		debugger
+		var param = {
+			formData:ko.mapping.toJS(viewModel.editData),//要提交的数据
+			queryData:ko.mapping.toJS(viewModel.queryData),//修改完毕刷新表格的参数
+			editType:viewModel.pageState()//页面的状态(add：添加，edit:编辑)
+		}
+		jQuery("#pubFileinfoModule .pubFileinfoEditForm").formPlugin("save",param);
+		init()
+	});
+	
+	//查找功能
+	jQuery("#pubFileinfoModule .searchToolsbar .search-btn").click(function(){
+		jQuery("#pubFileinfoModule .pubFileinfoList").gridPlugin("load",ko.mapping.toJS(viewModel.queryData));
+	});
+	
+	//重置查询条件功能
+	jQuery("#pubFileinfoModule .searchToolsbar .reset-btn").click(function(){
+		ko.mapping.fromJS(emptyData,viewModel.queryData);
+	});
+	
+	//编辑页返回
+	jQuery("#pubFileinfoModule .pubFileinfoEdit .back-btn").click(function(){
+		$("#pubFileinfoModule").layoutMDI("back");
+	});
+    
+    //导出
+    jQuery("#pubFileinfoModule .toolsbarPanel .export-btn").click(function(){
+        var batchId = "",url_export="";
+		var selectRow = gridObj.getSelectRows();
+		if(selectRow.length == 0) {
+			url_export='$homeModule.getTarget('/pubFileinfo/export')'
+		}
+	    else{
+		for(var i = 0; i < selectRow.length; i++) {
+			var row = selectRow[i];
+			if(i == 0) {
+				batchId = row["pkFile"] + batchId;
+			} else {
+				batchId = row["pkFile"] + "," + batchId;
+			}
+		 }
+		 url_export="$homeModule.getTarget('/pubFileinfo/export')"+"?batchId="+batchId;
+		}
+		window.open(url_export);
+    });
+    
+	ko.applyBindings(viewModel);
+    
+    
+    setTraslateFunction();
+    
+    function setTraslateFunction(){
+    refManager.setRefArea(".pubFileinfoEditForm");
+    refManager.initAreaLoadData(".pubFileinfoEditForm", function(name){
+        var fun = viewModel.editData[name];
+        if(typeof fun == 'function'){
+            return fun();
+        }
+    });
+	}      
+    function getAttachments(){
+    debugger
+     var pkBill='${pkBill}';
+     var deleteUrl = homeModuleUrl+'pubFileinfo/delete';
+     var pkFile= $(document).data("pkFile");
+    var initUrl=homeModuleUrl+'pubFileinfo/getPubFileinfoAll';
+   // if(pkBill!=undefined && pkBill!=null && pkBill!=""){
+    //初始化附件
+	    $.ajax({
+	    	url:initUrl,
+	    	type:"POST",
+	    	data:{"pkBill":pkBill,"pkFile":pkFile},
+	    	dataType:"json",
+	    	success:function(mes){
+	    		for(i=0;i<mes.length;i++){
+	    		if(mes[i].filename != null &&　mes[i].filename!= ""){
+		    		$("#attachfiles").append(
+	       				'<div class="attachdiv">'+
+	       					'<span data-id='+mes[i].pkFile+' class="f-remove glyphicon glyphicon-remove"></span>'+
+	       					'<span class="xiazai" data-id='+mes[i].pkFile+'><i class="glyphicon glyphicon-file"></i>&nbsp;'+mes[i].filename+'</span>'+
+	    				'</div>'
+	       			);
+	       		}
+	    		
+	    	}
+	    		$(".f-remove").click(function(){
+	    	        	$id=$(this).attr("data-id");
+	    	        	$this=$(this);
+	    	        	BootstrapDialog.show({
+	    		            title: '提示',
+	    		            message: "确定要删除吗！",
+	    		            draggable: false, 
+	    		            buttons: [{
+	    	            	label: '取消',
+	    	            	action:function(dialog){
+	    	            		dialog.close();
+	    	            	}
+	    	            },{
+	    	                label: '确定',
+	    	                action: function(dialog) {
+	    			     			$this.parent().remove();
+	    			     			$.post(deleteUrl,{"pkFile":$id},function(data){
+	    			     				$this.parent().remove();
+	    			     			});
+	    			     			dialog.close();
+	    	               	 }
+	    	           		}],
+	    			    });
+	    	        });
+	    		}
+	    		
+	    });
+    //}
+    
+    }
+    
+    /**              文件上传开始                                                 **////
+    debugger
+    var uploadUrl = homeModuleUrl+'pubFileinfo/upload';
+    var deleteUrl = homeModuleUrl+'pubFileinfo/delete';
+	var pkBill='${pkBill}';
+  	$(document).on("click",".xiazai",function(){
+  	var url=homeModuleUrl+'/pubFileinfo/downLoadFile';
+		var turnForm = document.createElement("form");   
+		    //一定要加入到body中！！   
+	    document.body.appendChild(turnForm);
+	    turnForm.method = 'post';
+	    turnForm.action = url;
+	    turnForm.target = '_blank';
+		 //创建隐藏表单
+	    var fileIdElement = document.createElement("input");
+	    fileIdElement.setAttribute("name","fileId");
+	    fileIdElement.setAttribute("type","hidden");
+	    fileIdElement.setAttribute("value",$(this).attr("data-id"));
+	    turnForm.appendChild(fileIdElement);
+	    turnForm.submit();
+  	})
+	
+    
+    function isValidFile(fileName){
+    	if(fileName.endsWith("doc")||fileName.endsWith("docx") || fileName.endsWith("xlsx") || fileName.endsWith("ppt")|| fileName.endsWith("pdf") || fileName.endsWith("xls")){
+    		return true;
+    	}
+    	return false;
+    }
+     //文件上传
+    $(".pubFileinfoEdit .upload-btn").on("click",function(){
+    debugger
+    var pkFile= $(document).data("pkFile");
+    $('#imgfileupload').trigger("click");
+    $('#imgfileupload').fileupload({
+        url: uploadUrl,
+        dataType: 'json',
+        formData:{pkBill:pkBill,pkFile:pkFile},
+        add: function (e, data) {
+			if(data.files.length!=0 && data.files[0].size>5242880){
+				layer.alert("文件过大，无法上传，单个文件大小不得超过5M");
+    			return;
+			}
+			if(!isValidFile(data.files[0].name)){
+				layer.alert(data.files[0].name+"文件格式不对");
+				return;
+			}
+			 data.submit();
+		},
+        done: function (e, data) {
+        debugger
+        	if(data.result.uploadResult==false){
+        		layer.alert(data.result.message);
+    			return;
+        	}//result.contentType
+        	$(".pubFileinfoEditForm input[name='filename']").val(data.result.fileName)
+		    $(".pubFileinfoEditForm input[name='uploader']").val(data.result.uploader)
+		    $(".pubFileinfoEditForm input[name='uploadtime']").val(data.result.uploadtime)
+		     $(".pubFileinfoEditForm input[name='doctype']").val(data.result.doctype)
+	       	pushHtml(data);	       	
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+         	$('#attachprogress').show();
+        	$('#attachprogress .progress-bar').css(
+                'width',
+                progress + '%'
+            );
+           	if(progress=="100"){
+           		var intervalId =setTimeout("$('#attachprogress').hide()",1000)
+        	}
+        }
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+        
+      })
+        function pushHtml(data){
+        	$("#attachfiles").empty()
+        	if(data.result.uploadResult==true){	        	
+	        	$(
+	       				'<div class="attachdiv">'+
+	       					'<span data-id='+data.result.fileId+' class="f-remove glyphicon glyphicon-remove"></span>'+
+	       					'<span class="xiazai" data-id='+data.result.fileId+'><i class="glyphicon  glyphicon-file"></i>&nbsp;'+data.result.fileName+'</span>'+
+	    				'</div>'
+	       			).appendTo($("#attachfiles")).find(".f-remove").click(function(){
+	       				addEv(this);
+	       			});
+	    	}
+        }
+        function addEv(obj){
+        	$id=$(obj).attr("data-id");
+        	$this=$(obj);
+        	BootstrapDialog.show({
+	            title: '提示',
+	            message: "确定要删除吗！",
+	            draggable: false, 
+	            buttons: [{
+            	label: '取消',
+            	action:function(dialog){
+            		dialog.close();
+            	}
+            },{
+                label: '确定',
+                action: function(dialog) {
+               			 debugger
+		     				$this.parent().remove();
+		     				$(".pubFileinfoEditForm input[name='filename']").val("")
+		     				$(".pubFileinfoEditForm input[name='uploader']").val("")
+		     				$(".pubFileinfoEditForm input[name='uploadtime']").val("")
+		     				 $(".pubFileinfoEditForm input[name='doctype']").val("")
+		     			$.post(deleteUrl,{"pkFile":$id},function(data){
+		     			debugger
+		     				$this.parent().remove();
+		     			});
+		     			dialog.close();
+               	 }
+           		}],
+		    });
+        }
+        /**              文件上传结束                                                **////  
+});
+
+function PubFileinfoView(){
+	//文件主键
+	this.pkFile="";
+	//节点号
+	this.funcode="";
+	//单据主键
+	this.pkBill="";
+	//文件名称
+	this.filename="";
+	//文件描述
+	this.description="";
+	//上传人
+	this.uploader="";
+	//上传时间
+	this.uploadtime="";
+	//文件类型
+	this.filetype="";
+	//文件长度
+	this.filelength="";
+	//
+	this.fileFastdfsGroup="";
+	//
+	this.fileFastdfsId="";
+	//文档类型
+	this.doctype="";
+	//文件来源
+	this.filesrc="";
+	//编辑页面状态
+	this.enableState=true;
+}
+
+function getParams(selector){
+	return { pkBill:"${pkBill}"};
+}
+</script>
+</body>

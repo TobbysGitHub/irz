@@ -1,0 +1,1292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="rzContrTally">
+
+	<!-- 結果集 -->
+	<resultMap id="rzContrTallyResult" type="com.imfbp.rz.domain.rzcontrtally.RzContrTally">
+		<result property="pkContrTally" column="pk_contr_tally" />
+		<result property="operSeq" column="oper_seq" />
+		<result property="pkPrjcontr" column="pk_prjcontr" />
+		<result property="pkUserManager" column="pk_user_manager" />
+		<result property="pkPrjcontrOri" column="pk_prjcontr_ori" />
+		<result property="contrCode" column="contr_code" />
+		<result property="pkPrjapply" column="pk_prjapply" />
+		<result property="contrName" column="contr_name" />
+		<result property="prjCode" column="prj_code" />
+		<result property="prjName" column="prj_name" />
+		<result property="intType" column="int_type" />
+		<result property="reptway" column="reptway" />
+		<result property="planrentdate" column="planrentdate" />
+		<result property="reptcycle" column="reptcycle" />
+		<result property="pkCustomer" column="pk_customer" />
+		<result property="leaseway" column="leaseway" />
+		<result property="pkCurrency" column="pk_currency" />
+		<result property="startLeaseDate" column="start_lease_date" />
+		<result property="endLeaseDate" column="end_lease_date" />
+		<result property="realEndDate" column="real_end_date" />
+		<result property="irr" column="irr" />
+		<result property="curIrr" column="cur_irr" />
+		<result property="financeamt" column="financeamt" />
+		<result property="leaseprd" column="leaseprd" />
+		<result property="itemamt" column="itemamt" />
+		<result property="itembal" column="itembal" />
+		<result property="contrAmt" column="contr_amt" />
+		<result property="contrBal" column="contr_bal" />
+		<result property="busitype" column="busitype" />
+		<result property="pricerate" column="pricerate" />
+		<result property="curPricerate" column="cur_pricerate" />
+		<result property="isExpire" column="is_expire" />
+		<result property="receivableAmt" column="receivable_amt" />
+		<result property="receivableInt" column="receivable_int" />
+		<result property="receivableRent" column="receivable_rent" />
+		<result property="receivablDefInt" column="receivabl_def_int" />
+		<result property="receivableFee" column="receivable_fee" />
+		<result property="receivablDefIntTotal" column="receivabl_def_int_total" />
+		<result property="receivableSc" column="receivable_sc" />
+		<result property="realPrin" column="real_prin" />
+		<result property="realInt" column="real_int" />
+		<result property="realRent" column="real_rent" />
+		<result property="realFee" column="real_fee" />
+		<result property="realDefInt" column="real_def_int" />
+		<result property="accruedDefInt" column="accrued_def_int" />
+		<result property="realSc" column="real_sc" />
+		<result property="isOverdue" column="is_overdue" />
+		<result property="overdueTimes" column="overdue_times" />
+		<result property="overdueRate" column="overdue_rate" />
+		<result property="overduePrin" column="overdue_prin" />
+		<result property="derateDefInt" column="derate_def_int" />
+		<result property="curPrinBal" column="cur_prin_bal" />
+		<result property="curRentBal" column="cur_rent_bal" />
+		<result property="putAmt" column="put_amt" />
+		<result property="riskType" column="risk_type" />
+		<result property="contrStatus" column="contr_status" />
+		<result property="datadate" column="datadate" />
+		<result property="isExtend" column="is_extend" />
+		<result property="extendTimes" column="extend_times" />
+		<result property="isReduce" column="is_reduce" />
+		<result property="reduceTimes" column="reduce_times" />
+		<result property="residueCheckTimes" column="residue_check_times" />
+		<result property="signedDate" column="signed_date" />
+		<result property="tradedate" column="tradedate" />
+		<result property="pkUserOper" column="pk_user_oper" />
+		<result property="pkOrg" column="pk_org" />
+		<result property="pkDeptdoc" column="pk_deptdoc" />
+		<result property="ts" column="ts" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="rzContrTallyField">
+		pk_contr_tally,oper_seq,pk_prjcontr,pk_user_manager,pk_prjcontr_ori,contr_code,pk_prjapply,contr_name,prj_code,prj_name,int_type,reptway,planrentdate,reptcycle,pk_customer,leaseway,pk_currency,start_lease_date,end_lease_date,real_end_date,irr,cur_irr,financeamt,leaseprd,itemamt,itembal,contr_amt,contr_bal,busitype,pricerate,cur_pricerate,is_expire,receivable_amt,receivable_int,receivable_rent,receivabl_def_int,receivable_fee,receivabl_def_int_total,receivable_sc,real_prin,real_int,real_rent,real_fee,real_def_int,accrued_def_int,real_sc,is_overdue,overdue_times,overdue_rate,overdue_prin,derate_def_int,cur_prin_bal,cur_rent_bal,put_amt,risk_type,contr_status,datadate,is_extend,extend_times,is_reduce,reduce_times,residue_check_times,signed_date,tradedate,pk_user_oper,pk_org,pk_deptdoc,ts
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="condition">
+        <where>
+        	<if test="pkContrTally != null and pkContrTally != ''" >
+				and pk_contr_tally = #{pkContrTally}
+			</if>
+        	<if test="operSeq != null" >
+				and oper_seq = #{operSeq}
+			</if>
+        	<if test="pkPrjcontr != null and pkPrjcontr != ''" >
+				and pk_prjcontr = #{pkPrjcontr}
+			</if>
+        	<if test="pkUserManager != null and pkUserManager != ''" >
+				and pk_user_manager = #{pkUserManager}
+			</if>
+        	<if test="pkPrjcontrOri != null and pkPrjcontrOri != ''" >
+				and pk_prjcontr_ori = #{pkPrjcontrOri}
+			</if>
+        	<if test="contrCode != null and contrCode != ''" >
+				and contr_code = #{contrCode}
+			</if>
+        	<if test="pkPrjapply != null and pkPrjapply != ''" >
+				and pk_prjapply = #{pkPrjapply}
+			</if>
+        	<if test="contrName != null and contrName != ''" >
+				and contr_name = #{contrName}
+			</if>
+        	<if test="prjCode != null and prjCode != ''" >
+				and prj_code = #{prjCode}
+			</if>
+        	<if test="prjName != null and prjName != ''" >
+				and prj_name = #{prjName}
+			</if>
+        	<if test="intType != null" >
+				and int_type = #{intType}
+			</if>
+        	<if test="reptway != null" >
+				and reptway = #{reptway}
+			</if>
+        	<if test="planrentdate != null and planrentdate != ''" >
+				and planrentdate = #{planrentdate}
+			</if>
+        	<if test="reptcycle != null" >
+				and reptcycle = #{reptcycle}
+			</if>
+        	<if test="pkCustomer != null and pkCustomer != ''" >
+				and pk_customer = #{pkCustomer}
+			</if>
+        	<if test="leaseway != null" >
+				and leaseway = #{leaseway}
+			</if>
+        	<if test="pkCurrency != null and pkCurrency != ''" >
+				and pk_currency = #{pkCurrency}
+			</if>
+        	<if test="startLeaseDate != null and startLeaseDate != ''" >
+				and start_lease_date = #{startLeaseDate}
+			</if>
+        	<if test="endLeaseDate != null and endLeaseDate != ''" >
+				and end_lease_date = #{endLeaseDate}
+			</if>
+        	<if test="realEndDate != null and realEndDate != ''" >
+				and real_end_date = #{realEndDate}
+			</if>
+        	<if test="irr != null" >
+				and irr = #{irr}
+			</if>
+        	<if test="curIrr != null" >
+				and cur_irr = #{curIrr}
+			</if>
+        	<if test="financeamt != null" >
+				and financeamt = #{financeamt}
+			</if>
+        	<if test="leaseprd != null" >
+				and leaseprd = #{leaseprd}
+			</if>
+        	<if test="itemamt != null" >
+				and itemamt = #{itemamt}
+			</if>
+        	<if test="itembal != null" >
+				and itembal = #{itembal}
+			</if>
+        	<if test="contrAmt != null" >
+				and contr_amt = #{contrAmt}
+			</if>
+        	<if test="contrBal != null" >
+				and contr_bal = #{contrBal}
+			</if>
+        	<if test="busitype != null and busitype != ''" >
+				and busitype = #{busitype}
+			</if>
+        	<if test="pricerate != null" >
+				and pricerate = #{pricerate}
+			</if>
+        	<if test="curPricerate != null" >
+				and cur_pricerate = #{curPricerate}
+			</if>
+        	<if test="isExpire != null and isExpire != ''" >
+				and is_expire = #{isExpire}
+			</if>
+        	<if test="receivableAmt != null" >
+				and receivable_amt = #{receivableAmt}
+			</if>
+        	<if test="receivableInt != null" >
+				and receivable_int = #{receivableInt}
+			</if>
+        	<if test="receivableRent != null" >
+				and receivable_rent = #{receivableRent}
+			</if>
+        	<if test="receivablDefInt != null" >
+				and receivabl_def_int = #{receivablDefInt}
+			</if>
+        	<if test="receivableFee != null" >
+				and receivable_fee = #{receivableFee}
+			</if>
+        	<if test="receivablDefIntTotal != null" >
+				and receivabl_def_int_total = #{receivablDefIntTotal}
+			</if>
+        	<if test="receivableSc != null" >
+				and receivable_sc = #{receivableSc}
+			</if>
+        	<if test="realPrin != null" >
+				and real_prin = #{realPrin}
+			</if>
+        	<if test="realInt != null" >
+				and real_int = #{realInt}
+			</if>
+        	<if test="realRent != null" >
+				and real_rent = #{realRent}
+			</if>
+        	<if test="realFee != null" >
+				and real_fee = #{realFee}
+			</if>
+        	<if test="realDefInt != null" >
+				and real_def_int = #{realDefInt}
+			</if>
+        	<if test="accruedDefInt != null" >
+				and accrued_def_int = #{accruedDefInt}
+			</if>
+        	<if test="realSc != null" >
+				and real_sc = #{realSc}
+			</if>
+        	<if test="isOverdue != null and isOverdue != ''" >
+				and is_overdue = #{isOverdue}
+			</if>
+        	<if test="overdueTimes != null" >
+				and overdue_times = #{overdueTimes}
+			</if>
+        	<if test="overdueRate != null" >
+				and overdue_rate = #{overdueRate}
+			</if>
+        	<if test="overduePrin != null" >
+				and overdue_prin = #{overduePrin}
+			</if>
+        	<if test="derateDefInt != null" >
+				and derate_def_int = #{derateDefInt}
+			</if>
+        	<if test="curPrinBal != null" >
+				and cur_prin_bal = #{curPrinBal}
+			</if>
+        	<if test="curRentBal != null" >
+				and cur_rent_bal = #{curRentBal}
+			</if>
+        	<if test="putAmt != null" >
+				and put_amt = #{putAmt}
+			</if>
+        	<if test="riskType != null" >
+				and risk_type = #{riskType}
+			</if>
+        	<if test="contrStatus != null" >
+				and contr_status = #{contrStatus}
+			</if>
+        	<if test="datadate != null and datadate != ''" >
+				and datadate = #{datadate}
+			</if>
+        	<if test="isExtend != null and isExtend != ''" >
+				and is_extend = #{isExtend}
+			</if>
+        	<if test="extendTimes != null" >
+				and extend_times = #{extendTimes}
+			</if>
+        	<if test="isReduce != null and isReduce != ''" >
+				and is_reduce = #{isReduce}
+			</if>
+        	<if test="reduceTimes != null" >
+				and reduce_times = #{reduceTimes}
+			</if>
+        	<if test="residueCheckTimes != null" >
+				and residue_check_times = #{residueCheckTimes}
+			</if>
+        	<if test="signedDate != null and signedDate != ''" >
+				and signed_date = #{signedDate}
+			</if>
+        	<if test="tradedate != null and tradedate != ''" >
+				and tradedate = #{tradedate}
+			</if>
+        	<if test="pkUserOper != null and pkUserOper != ''" >
+				and pk_user_oper = #{pkUserOper}
+			</if>
+        	<if test="pkOrg != null and pkOrg != ''" >
+				and pk_org = #{pkOrg}
+			</if>
+        	<if test="pkDeptdoc != null and pkDeptdoc != ''" >
+				and pk_deptdoc = #{pkDeptdoc}
+			</if>
+        	<if test="ts != null and ts != ''" >
+				and ts = #{ts}
+			</if>
+        </where>
+    </sql>
+    
+    <!-- 修改条件 -->
+	<sql id="updateByCondition">
+        <where>
+				<if test="parameter.pkContrTally != null and parameter.pkContrTally != ''" >
+					and pk_contr_tally = #{parameter.pkContrTally}
+				</if>
+		    	<if test="parameter.operSeq != null" >
+					and oper_seq = #{parameter.operSeq}
+				</if>
+				<if test="parameter.pkPrjcontr != null and parameter.pkPrjcontr != ''" >
+					and pk_prjcontr = #{parameter.pkPrjcontr}
+				</if>
+				<if test="parameter.pkUserManager != null and parameter.pkUserManager != ''" >
+					and pk_user_manager = #{parameter.pkUserManager}
+				</if>
+				<if test="parameter.pkPrjcontrOri != null and parameter.pkPrjcontrOri != ''" >
+					and pk_prjcontr_ori = #{parameter.pkPrjcontrOri}
+				</if>
+				<if test="parameter.contrCode != null and parameter.contrCode != ''" >
+					and contr_code = #{parameter.contrCode}
+				</if>
+				<if test="parameter.pkPrjapply != null and parameter.pkPrjapply != ''" >
+					and pk_prjapply = #{parameter.pkPrjapply}
+				</if>
+				<if test="parameter.contrName != null and parameter.contrName != ''" >
+					and contr_name = #{parameter.contrName}
+				</if>
+				<if test="parameter.prjCode != null and parameter.prjCode != ''" >
+					and prj_code = #{parameter.prjCode}
+				</if>
+				<if test="parameter.prjName != null and parameter.prjName != ''" >
+					and prj_name = #{parameter.prjName}
+				</if>
+		    	<if test="parameter.intType != null" >
+					and int_type = #{parameter.intType}
+				</if>
+		    	<if test="parameter.reptway != null" >
+					and reptway = #{parameter.reptway}
+				</if>
+				<if test="parameter.planrentdate != null and parameter.planrentdate != ''" >
+					and planrentdate = #{parameter.planrentdate}
+				</if>
+		    	<if test="parameter.reptcycle != null" >
+					and reptcycle = #{parameter.reptcycle}
+				</if>
+				<if test="parameter.pkCustomer != null and parameter.pkCustomer != ''" >
+					and pk_customer = #{parameter.pkCustomer}
+				</if>
+		    	<if test="parameter.leaseway != null" >
+					and leaseway = #{parameter.leaseway}
+				</if>
+				<if test="parameter.pkCurrency != null and parameter.pkCurrency != ''" >
+					and pk_currency = #{parameter.pkCurrency}
+				</if>
+				<if test="parameter.startLeaseDate != null and parameter.startLeaseDate != ''" >
+					and start_lease_date = #{parameter.startLeaseDate}
+				</if>
+				<if test="parameter.endLeaseDate != null and parameter.endLeaseDate != ''" >
+					and end_lease_date = #{parameter.endLeaseDate}
+				</if>
+				<if test="parameter.realEndDate != null and parameter.realEndDate != ''" >
+					and real_end_date = #{parameter.realEndDate}
+				</if>
+		    	<if test="parameter.irr != null" >
+					and irr = #{parameter.irr}
+				</if>
+		    	<if test="parameter.curIrr != null" >
+					and cur_irr = #{parameter.curIrr}
+				</if>
+		    	<if test="parameter.financeamt != null" >
+					and financeamt = #{parameter.financeamt}
+				</if>
+		    	<if test="parameter.leaseprd != null" >
+					and leaseprd = #{parameter.leaseprd}
+				</if>
+		    	<if test="parameter.itemamt != null" >
+					and itemamt = #{parameter.itemamt}
+				</if>
+		    	<if test="parameter.itembal != null" >
+					and itembal = #{parameter.itembal}
+				</if>
+		    	<if test="parameter.contrAmt != null" >
+					and contr_amt = #{parameter.contrAmt}
+				</if>
+		    	<if test="parameter.contrBal != null" >
+					and contr_bal = #{parameter.contrBal}
+				</if>
+				<if test="parameter.busitype != null and parameter.busitype != ''" >
+					and busitype = #{parameter.busitype}
+				</if>
+		    	<if test="parameter.pricerate != null" >
+					and pricerate = #{parameter.pricerate}
+				</if>
+		    	<if test="parameter.curPricerate != null" >
+					and cur_pricerate = #{parameter.curPricerate}
+				</if>
+				<if test="parameter.isExpire != null and parameter.isExpire != ''" >
+					and is_expire = #{parameter.isExpire}
+				</if>
+		    	<if test="parameter.receivableAmt != null" >
+					and receivable_amt = #{parameter.receivableAmt}
+				</if>
+		    	<if test="parameter.receivableInt != null" >
+					and receivable_int = #{parameter.receivableInt}
+				</if>
+		    	<if test="parameter.receivableRent != null" >
+					and receivable_rent = #{parameter.receivableRent}
+				</if>
+		    	<if test="parameter.receivablDefInt != null" >
+					and receivabl_def_int = #{parameter.receivablDefInt}
+				</if>
+		    	<if test="parameter.receivableFee != null" >
+					and receivable_fee = #{parameter.receivableFee}
+				</if>
+		    	<if test="parameter.receivablDefIntTotal != null" >
+					and receivabl_def_int_total = #{parameter.receivablDefIntTotal}
+				</if>
+		    	<if test="parameter.receivableSc != null" >
+					and receivable_sc = #{parameter.receivableSc}
+				</if>
+		    	<if test="parameter.realPrin != null" >
+					and real_prin = #{parameter.realPrin}
+				</if>
+		    	<if test="parameter.realInt != null" >
+					and real_int = #{parameter.realInt}
+				</if>
+		    	<if test="parameter.realRent != null" >
+					and real_rent = #{parameter.realRent}
+				</if>
+		    	<if test="parameter.realFee != null" >
+					and real_fee = #{parameter.realFee}
+				</if>
+		    	<if test="parameter.realDefInt != null" >
+					and real_def_int = #{parameter.realDefInt}
+				</if>
+		    	<if test="parameter.accruedDefInt != null" >
+					and accrued_def_int = #{parameter.accruedDefInt}
+				</if>
+		    	<if test="parameter.realSc != null" >
+					and real_sc = #{parameter.realSc}
+				</if>
+				<if test="parameter.isOverdue != null and parameter.isOverdue != ''" >
+					and is_overdue = #{parameter.isOverdue}
+				</if>
+		    	<if test="parameter.overdueTimes != null" >
+					and overdue_times = #{parameter.overdueTimes}
+				</if>
+		    	<if test="parameter.overdueRate != null" >
+					and overdue_rate = #{parameter.overdueRate}
+				</if>
+		    	<if test="parameter.overduePrin != null" >
+					and overdue_prin = #{parameter.overduePrin}
+				</if>
+		    	<if test="parameter.derateDefInt != null" >
+					and derate_def_int = #{parameter.derateDefInt}
+				</if>
+		    	<if test="parameter.curPrinBal != null" >
+					and cur_prin_bal = #{parameter.curPrinBal}
+				</if>
+		    	<if test="parameter.curRentBal != null" >
+					and cur_rent_bal = #{parameter.curRentBal}
+				</if>
+		    	<if test="parameter.putAmt != null" >
+					and put_amt = #{parameter.putAmt}
+				</if>
+		    	<if test="parameter.riskType != null" >
+					and risk_type = #{parameter.riskType}
+				</if>
+		    	<if test="parameter.contrStatus != null" >
+					and contr_status = #{parameter.contrStatus}
+				</if>
+				<if test="parameter.datadate != null and parameter.datadate != ''" >
+					and datadate = #{parameter.datadate}
+				</if>
+				<if test="parameter.isExtend != null and parameter.isExtend != ''" >
+					and is_extend = #{parameter.isExtend}
+				</if>
+		    	<if test="parameter.extendTimes != null" >
+					and extend_times = #{parameter.extendTimes}
+				</if>
+				<if test="parameter.isReduce != null and parameter.isReduce != ''" >
+					and is_reduce = #{parameter.isReduce}
+				</if>
+		    	<if test="parameter.reduceTimes != null" >
+					and reduce_times = #{parameter.reduceTimes}
+				</if>
+		    	<if test="parameter.residueCheckTimes != null" >
+					and residue_check_times = #{parameter.residueCheckTimes}
+				</if>
+				<if test="parameter.signedDate != null and parameter.signedDate != ''" >
+					and signed_date = #{parameter.signedDate}
+				</if>
+				<if test="parameter.tradedate != null and parameter.tradedate != ''" >
+					and tradedate = #{parameter.tradedate}
+				</if>
+				<if test="parameter.pkUserOper != null and parameter.pkUserOper != ''" >
+					and pk_user_oper = #{parameter.pkUserOper}
+				</if>
+				<if test="parameter.pkOrg != null and parameter.pkOrg != ''" >
+					and pk_org = #{parameter.pkOrg}
+				</if>
+				<if test="parameter.pkDeptdoc != null and parameter.pkDeptdoc != ''" >
+					and pk_deptdoc = #{parameter.pkDeptdoc}
+				</if>
+				<if test="parameter.ts != null and parameter.ts != ''" >
+					and ts = #{parameter.ts}
+				</if>
+        </where>
+    </sql>
+    
+    <!-- 新增 -->	
+	<insert id="insertRzContrTally" parameterType="rzContrTally">
+		insert into rz_contr_tally
+			(pk_contr_tally,oper_seq,pk_prjcontr,pk_user_manager,pk_prjcontr_ori,contr_code,pk_prjapply,contr_name,prj_code,prj_name,int_type,reptway,planrentdate,reptcycle,pk_customer,leaseway,pk_currency,start_lease_date,end_lease_date,real_end_date,irr,cur_irr,financeamt,leaseprd,itemamt,itembal,contr_amt,contr_bal,busitype,pricerate,cur_pricerate,is_expire,receivable_amt,receivable_int,receivable_rent,receivabl_def_int,receivable_fee,receivabl_def_int_total,receivable_sc,real_prin,real_int,real_rent,real_fee,real_def_int,accrued_def_int,real_sc,is_overdue,overdue_times,overdue_rate,overdue_prin,derate_def_int,cur_prin_bal,cur_rent_bal,put_amt,risk_type,contr_status,datadate,is_extend,extend_times,is_reduce,reduce_times,residue_check_times,signed_date,tradedate,pk_user_oper,pk_org,pk_deptdoc,ts ) 
+		values 
+			(#{pkContrTally,jdbcType=CHAR},#{operSeq,jdbcType=INTEGER},#{pkPrjcontr,jdbcType=CHAR},#{pkUserManager,jdbcType=CHAR},#{pkPrjcontrOri,jdbcType=CHAR},#{contrCode,jdbcType=VARCHAR},#{pkPrjapply,jdbcType=CHAR},#{contrName,jdbcType=VARCHAR},#{prjCode,jdbcType=VARCHAR},#{prjName,jdbcType=VARCHAR},#{intType,jdbcType=INTEGER},#{reptway,jdbcType=INTEGER},#{planrentdate,jdbcType=CHAR},#{reptcycle,jdbcType=INTEGER},#{pkCustomer,jdbcType=CHAR},#{leaseway,jdbcType=SMALLINT},#{pkCurrency,jdbcType=CHAR},#{startLeaseDate,jdbcType=CHAR},#{endLeaseDate,jdbcType=CHAR},#{realEndDate,jdbcType=CHAR},#{irr,jdbcType=DECIMAL},#{curIrr,jdbcType=DECIMAL},#{financeamt,jdbcType=DECIMAL},#{leaseprd,jdbcType=INTEGER},#{itemamt,jdbcType=DECIMAL},#{itembal,jdbcType=DECIMAL},#{contrAmt,jdbcType=DECIMAL},#{contrBal,jdbcType=DECIMAL},#{busitype,jdbcType=CHAR},#{pricerate,jdbcType=DECIMAL},#{curPricerate,jdbcType=DECIMAL},#{isExpire,jdbcType=CHAR},#{receivableAmt,jdbcType=DECIMAL},#{receivableInt,jdbcType=DECIMAL},#{receivableRent,jdbcType=DECIMAL},#{receivablDefInt,jdbcType=DECIMAL},#{receivableFee,jdbcType=DECIMAL},#{receivablDefIntTotal,jdbcType=DECIMAL},#{receivableSc,jdbcType=DECIMAL},#{realPrin,jdbcType=DECIMAL},#{realInt,jdbcType=DECIMAL},#{realRent,jdbcType=DECIMAL},#{realFee,jdbcType=DECIMAL},#{realDefInt,jdbcType=DECIMAL},#{accruedDefInt,jdbcType=DECIMAL},#{realSc,jdbcType=DECIMAL},#{isOverdue,jdbcType=CHAR},#{overdueTimes,jdbcType=INTEGER},#{overdueRate,jdbcType=DECIMAL},#{overduePrin,jdbcType=DECIMAL},#{derateDefInt,jdbcType=DECIMAL},#{curPrinBal,jdbcType=DECIMAL},#{curRentBal,jdbcType=DECIMAL},#{putAmt,jdbcType=DECIMAL},#{riskType,jdbcType=SMALLINT},#{contrStatus,jdbcType=INTEGER},#{datadate,jdbcType=CHAR},#{isExtend,jdbcType=CHAR},#{extendTimes,jdbcType=INTEGER},#{isReduce,jdbcType=CHAR},#{reduceTimes,jdbcType=INTEGER},#{residueCheckTimes,jdbcType=INTEGER},#{signedDate,jdbcType=CHAR},#{tradedate,jdbcType=CHAR},#{pkUserOper,jdbcType=CHAR},#{pkOrg,jdbcType=CHAR},#{pkDeptdoc,jdbcType=CHAR},#{ts,jdbcType=CHAR})
+    </insert>
+    
+    <!-- 批量新增 -->	
+	<insert id="insertBatchRzContrTally" parameterType="java.util.List">
+       insert into rz_contr_tally
+			(pk_contr_tally,oper_seq,pk_prjcontr,pk_user_manager,pk_prjcontr_ori,contr_code,pk_prjapply,contr_name,prj_code,prj_name,int_type,reptway,planrentdate,reptcycle,pk_customer,leaseway,pk_currency,start_lease_date,end_lease_date,real_end_date,irr,cur_irr,financeamt,leaseprd,itemamt,itembal,contr_amt,contr_bal,busitype,pricerate,cur_pricerate,is_expire,receivable_amt,receivable_int,receivable_rent,receivabl_def_int,receivable_fee,receivabl_def_int_total,receivable_sc,real_prin,real_int,real_rent,real_fee,real_def_int,accrued_def_int,real_sc,is_overdue,overdue_times,overdue_rate,overdue_prin,derate_def_int,cur_prin_bal,cur_rent_bal,put_amt,risk_type,contr_status,datadate,is_extend,extend_times,is_reduce,reduce_times,residue_check_times,signed_date,tradedate,pk_user_oper,pk_org,pk_deptdoc,ts ) 
+	   values
+	    <foreach collection="list" item="obj" index="index" separator="," >
+	    	(#{obj.pkContrTally},#{obj.operSeq},#{obj.pkPrjcontr},#{obj.pkUserManager},#{obj.pkPrjcontrOri},#{obj.contrCode},#{obj.pkPrjapply},#{obj.contrName},#{obj.prjCode},#{obj.prjName},#{obj.intType},#{obj.reptway},#{obj.planrentdate},#{obj.reptcycle},#{obj.pkCustomer},#{obj.leaseway},#{obj.pkCurrency},#{obj.startLeaseDate},#{obj.endLeaseDate},#{obj.realEndDate},#{obj.irr},#{obj.curIrr},#{obj.financeamt},#{obj.leaseprd},#{obj.itemamt},#{obj.itembal},#{obj.contrAmt},#{obj.contrBal},#{obj.busitype},#{obj.pricerate},#{obj.curPricerate},#{obj.isExpire},#{obj.receivableAmt},#{obj.receivableInt},#{obj.receivableRent},#{obj.receivablDefInt},#{obj.receivableFee},#{obj.receivablDefIntTotal},#{obj.receivableSc},#{obj.realPrin},#{obj.realInt},#{obj.realRent},#{obj.realFee},#{obj.realDefInt},#{obj.accruedDefInt},#{obj.realSc},#{obj.isOverdue},#{obj.overdueTimes},#{obj.overdueRate},#{obj.overduePrin},#{obj.derateDefInt},#{obj.curPrinBal},#{obj.curRentBal},#{obj.putAmt},#{obj.riskType},#{obj.contrStatus},#{obj.datadate},#{obj.isExtend},#{obj.extendTimes},#{obj.isReduce},#{obj.reduceTimes},#{obj.residueCheckTimes},#{obj.signedDate},#{obj.tradedate},#{obj.pkUserOper},#{obj.pkOrg},#{obj.pkDeptdoc},#{obj.ts})
+	    </foreach>
+   </insert>
+    
+    
+    <!-- 根据id删除 (删除数据库数据)-->
+    <delete id="deleteRzContrTallyById" parameterType="rzContrTallyQuery" >
+    	delete from rz_contr_tally  where pk_contr_tally = #{pkContrTally} 
+    </delete>
+    
+    <!-- 根据条件删除 (删除数据库数据)-->
+    <delete id="deleteRzContrTallyByCondition" parameterType="rzContrTallyQuery" >
+    	delete from 
+    	rz_contr_tally<include refid="condition" /> 
+    </delete>
+    
+    <!-- 根据主键批量删除 (删除数据库数据)-->
+    <delete id="deleteRzContrTallyByBatchId" parameterType="map" >
+    	delete from rz_contr_tally 
+    	where
+    	pk_contr_tally in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据id修改 -->
+    <update id="updateRzContrTallyById" parameterType="rzContrTallyQuery">
+		update  rz_contr_tally 
+		<set>
+			<if test="operSeq != null " >
+				oper_seq = #{operSeq},
+			</if>
+			<if test="pkPrjcontr != null and pkPrjcontr != '' " >
+				pk_prjcontr = #{pkPrjcontr},
+			</if>
+			<if test="pkUserManager != null and pkUserManager != '' " >
+				pk_user_manager = #{pkUserManager},
+			</if>
+			<if test="pkPrjcontrOri != null and pkPrjcontrOri != '' " >
+				pk_prjcontr_ori = #{pkPrjcontrOri},
+			</if>
+			<if test="contrCode != null and contrCode != '' " >
+				contr_code = #{contrCode},
+			</if>
+			<if test="pkPrjapply != null and pkPrjapply != '' " >
+				pk_prjapply = #{pkPrjapply},
+			</if>
+			<if test="contrName != null and contrName != '' " >
+				contr_name = #{contrName},
+			</if>
+			<if test="prjCode != null and prjCode != '' " >
+				prj_code = #{prjCode},
+			</if>
+			<if test="prjName != null and prjName != '' " >
+				prj_name = #{prjName},
+			</if>
+			<if test="intType != null " >
+				int_type = #{intType},
+			</if>
+			<if test="reptway != null " >
+				reptway = #{reptway},
+			</if>
+			<if test="planrentdate != null and planrentdate != '' " >
+				planrentdate = #{planrentdate},
+			</if>
+			<if test="reptcycle != null " >
+				reptcycle = #{reptcycle},
+			</if>
+			<if test="pkCustomer != null and pkCustomer != '' " >
+				pk_customer = #{pkCustomer},
+			</if>
+			<if test="leaseway != null " >
+				leaseway = #{leaseway},
+			</if>
+			<if test="pkCurrency != null and pkCurrency != '' " >
+				pk_currency = #{pkCurrency},
+			</if>
+			<if test="startLeaseDate != null and startLeaseDate != '' " >
+				start_lease_date = #{startLeaseDate},
+			</if>
+			<if test="endLeaseDate != null and endLeaseDate != '' " >
+				end_lease_date = #{endLeaseDate},
+			</if>
+			<if test="realEndDate != null and realEndDate != '' " >
+				real_end_date = #{realEndDate},
+			</if>
+			<if test="irr != null " >
+				irr = #{irr},
+			</if>
+			<if test="curIrr != null " >
+				cur_irr = #{curIrr},
+			</if>
+			<if test="financeamt != null " >
+				financeamt = #{financeamt},
+			</if>
+			<if test="leaseprd != null " >
+				leaseprd = #{leaseprd},
+			</if>
+			<if test="itemamt != null " >
+				itemamt = #{itemamt},
+			</if>
+			<if test="itembal != null " >
+				itembal = #{itembal},
+			</if>
+			<if test="contrAmt != null " >
+				contr_amt = #{contrAmt},
+			</if>
+			<if test="contrBal != null " >
+				contr_bal = #{contrBal},
+			</if>
+			<if test="busitype != null and busitype != '' " >
+				busitype = #{busitype},
+			</if>
+			<if test="pricerate != null " >
+				pricerate = #{pricerate},
+			</if>
+			<if test="curPricerate != null " >
+				cur_pricerate = #{curPricerate},
+			</if>
+			<if test="isExpire != null and isExpire != '' " >
+				is_expire = #{isExpire},
+			</if>
+			<if test="receivableAmt != null " >
+				receivable_amt = #{receivableAmt},
+			</if>
+			<if test="receivableInt != null " >
+				receivable_int = #{receivableInt},
+			</if>
+			<if test="receivableRent != null " >
+				receivable_rent = #{receivableRent},
+			</if>
+			<if test="receivablDefInt != null " >
+				receivabl_def_int = #{receivablDefInt},
+			</if>
+			<if test="receivableFee != null " >
+				receivable_fee = #{receivableFee},
+			</if>
+			<if test="receivablDefIntTotal != null " >
+				receivabl_def_int_total = #{receivablDefIntTotal},
+			</if>
+			<if test="receivableSc != null " >
+				receivable_sc = #{receivableSc},
+			</if>
+			<if test="realPrin != null " >
+				real_prin = #{realPrin},
+			</if>
+			<if test="realInt != null " >
+				real_int = #{realInt},
+			</if>
+			<if test="realRent != null " >
+				real_rent = #{realRent},
+			</if>
+			<if test="realFee != null " >
+				real_fee = #{realFee},
+			</if>
+			<if test="realDefInt != null " >
+				real_def_int = #{realDefInt},
+			</if>
+			<if test="accruedDefInt != null " >
+				accrued_def_int = #{accruedDefInt},
+			</if>
+			<if test="realSc != null " >
+				real_sc = #{realSc},
+			</if>
+			<if test="isOverdue != null and isOverdue != '' " >
+				is_overdue = #{isOverdue},
+			</if>
+			<if test="overdueTimes != null " >
+				overdue_times = #{overdueTimes},
+			</if>
+			<if test="overdueRate != null " >
+				overdue_rate = #{overdueRate},
+			</if>
+			<if test="overduePrin != null " >
+				overdue_prin = #{overduePrin},
+			</if>
+			<if test="derateDefInt != null " >
+				derate_def_int = #{derateDefInt},
+			</if>
+			<if test="curPrinBal != null " >
+				cur_prin_bal = #{curPrinBal},
+			</if>
+			<if test="curRentBal != null " >
+				cur_rent_bal = #{curRentBal},
+			</if>
+			<if test="putAmt != null " >
+				put_amt = #{putAmt},
+			</if>
+			<if test="riskType != null " >
+				risk_type = #{riskType},
+			</if>
+			<if test="contrStatus != null " >
+				contr_status = #{contrStatus},
+			</if>
+			<if test="datadate != null and datadate != '' " >
+				datadate = #{datadate},
+			</if>
+			<if test="isExtend != null and isExtend != '' " >
+				is_extend = #{isExtend},
+			</if>
+			<if test="extendTimes != null " >
+				extend_times = #{extendTimes},
+			</if>
+			<if test="isReduce != null and isReduce != '' " >
+				is_reduce = #{isReduce},
+			</if>
+			<if test="reduceTimes != null " >
+				reduce_times = #{reduceTimes},
+			</if>
+			<if test="residueCheckTimes != null " >
+				residue_check_times = #{residueCheckTimes},
+			</if>
+			<if test="signedDate != null and signedDate != '' " >
+				signed_date = #{signedDate},
+			</if>
+			<if test="tradedate != null and tradedate != '' " >
+				tradedate = #{tradedate},
+			</if>
+			<if test="pkUserOper != null and pkUserOper != '' " >
+				pk_user_oper = #{pkUserOper},
+			</if>
+			<if test="pkOrg != null and pkOrg != '' " >
+				pk_org = #{pkOrg},
+			</if>
+			<if test="pkDeptdoc != null and pkDeptdoc != '' " >
+				pk_deptdoc = #{pkDeptdoc},
+			</if>
+			<if test="ts != null and ts != '' " >
+				ts = #{ts},
+			</if>
+		</set>
+		where
+			pk_contr_tally = #{pkContrTally} 
+    </update>
+    
+     <!-- 根据条件修改 -->
+    <update id="updateRzContrTallyByCondition" parameterType="map">
+		update  rz_contr_tally 
+		<set>
+		 		<if test="record.operSeq != null">
+					oper_seq = #{record.operSeq},
+				</if>
+				<if test="record.pkPrjcontr != null and record.pkPrjcontr != ''">
+					pk_prjcontr = #{record.pkPrjcontr},
+				</if>
+				<if test="record.pkUserManager != null and record.pkUserManager != ''">
+					pk_user_manager = #{record.pkUserManager},
+				</if>
+				<if test="record.pkPrjcontrOri != null and record.pkPrjcontrOri != ''">
+					pk_prjcontr_ori = #{record.pkPrjcontrOri},
+				</if>
+				<if test="record.contrCode != null and record.contrCode != ''">
+					contr_code = #{record.contrCode},
+				</if>
+				<if test="record.pkPrjapply != null and record.pkPrjapply != ''">
+					pk_prjapply = #{record.pkPrjapply},
+				</if>
+				<if test="record.contrName != null and record.contrName != ''">
+					contr_name = #{record.contrName},
+				</if>
+				<if test="record.prjCode != null and record.prjCode != ''">
+					prj_code = #{record.prjCode},
+				</if>
+				<if test="record.prjName != null and record.prjName != ''">
+					prj_name = #{record.prjName},
+				</if>
+		 		<if test="record.intType != null">
+					int_type = #{record.intType},
+				</if>
+		 		<if test="record.reptway != null">
+					reptway = #{record.reptway},
+				</if>
+				<if test="record.planrentdate != null and record.planrentdate != ''">
+					planrentdate = #{record.planrentdate},
+				</if>
+		 		<if test="record.reptcycle != null">
+					reptcycle = #{record.reptcycle},
+				</if>
+				<if test="record.pkCustomer != null and record.pkCustomer != ''">
+					pk_customer = #{record.pkCustomer},
+				</if>
+		 		<if test="record.leaseway != null">
+					leaseway = #{record.leaseway},
+				</if>
+				<if test="record.pkCurrency != null and record.pkCurrency != ''">
+					pk_currency = #{record.pkCurrency},
+				</if>
+				<if test="record.startLeaseDate != null and record.startLeaseDate != ''">
+					start_lease_date = #{record.startLeaseDate},
+				</if>
+				<if test="record.endLeaseDate != null and record.endLeaseDate != ''">
+					end_lease_date = #{record.endLeaseDate},
+				</if>
+				<if test="record.realEndDate != null and record.realEndDate != ''">
+					real_end_date = #{record.realEndDate},
+				</if>
+		 		<if test="record.irr != null">
+					irr = #{record.irr},
+				</if>
+		 		<if test="record.curIrr != null">
+					cur_irr = #{record.curIrr},
+				</if>
+		 		<if test="record.financeamt != null">
+					financeamt = #{record.financeamt},
+				</if>
+		 		<if test="record.leaseprd != null">
+					leaseprd = #{record.leaseprd},
+				</if>
+		 		<if test="record.itemamt != null">
+					itemamt = #{record.itemamt},
+				</if>
+		 		<if test="record.itembal != null">
+					itembal = #{record.itembal},
+				</if>
+		 		<if test="record.contrAmt != null">
+					contr_amt = #{record.contrAmt},
+				</if>
+		 		<if test="record.contrBal != null">
+					contr_bal = #{record.contrBal},
+				</if>
+				<if test="record.busitype != null and record.busitype != ''">
+					busitype = #{record.busitype},
+				</if>
+		 		<if test="record.pricerate != null">
+					pricerate = #{record.pricerate},
+				</if>
+		 		<if test="record.curPricerate != null">
+					cur_pricerate = #{record.curPricerate},
+				</if>
+				<if test="record.isExpire != null and record.isExpire != ''">
+					is_expire = #{record.isExpire},
+				</if>
+		 		<if test="record.receivableAmt != null">
+					receivable_amt = #{record.receivableAmt},
+				</if>
+		 		<if test="record.receivableInt != null">
+					receivable_int = #{record.receivableInt},
+				</if>
+		 		<if test="record.receivableRent != null">
+					receivable_rent = #{record.receivableRent},
+				</if>
+		 		<if test="record.receivablDefInt != null">
+					receivabl_def_int = #{record.receivablDefInt},
+				</if>
+		 		<if test="record.receivableFee != null">
+					receivable_fee = #{record.receivableFee},
+				</if>
+		 		<if test="record.receivablDefIntTotal != null">
+					receivabl_def_int_total = #{record.receivablDefIntTotal},
+				</if>
+		 		<if test="record.receivableSc != null">
+					receivable_sc = #{record.receivableSc},
+				</if>
+		 		<if test="record.realPrin != null">
+					real_prin = #{record.realPrin},
+				</if>
+		 		<if test="record.realInt != null">
+					real_int = #{record.realInt},
+				</if>
+		 		<if test="record.realRent != null">
+					real_rent = #{record.realRent},
+				</if>
+		 		<if test="record.realFee != null">
+					real_fee = #{record.realFee},
+				</if>
+		 		<if test="record.realDefInt != null">
+					real_def_int = #{record.realDefInt},
+				</if>
+		 		<if test="record.accruedDefInt != null">
+					accrued_def_int = #{record.accruedDefInt},
+				</if>
+		 		<if test="record.realSc != null">
+					real_sc = #{record.realSc},
+				</if>
+				<if test="record.isOverdue != null and record.isOverdue != ''">
+					is_overdue = #{record.isOverdue},
+				</if>
+		 		<if test="record.overdueTimes != null">
+					overdue_times = #{record.overdueTimes},
+				</if>
+		 		<if test="record.overdueRate != null">
+					overdue_rate = #{record.overdueRate},
+				</if>
+		 		<if test="record.overduePrin != null">
+					overdue_prin = #{record.overduePrin},
+				</if>
+		 		<if test="record.derateDefInt != null">
+					derate_def_int = #{record.derateDefInt},
+				</if>
+		 		<if test="record.curPrinBal != null">
+					cur_prin_bal = #{record.curPrinBal},
+				</if>
+		 		<if test="record.curRentBal != null">
+					cur_rent_bal = #{record.curRentBal},
+				</if>
+		 		<if test="record.putAmt != null">
+					put_amt = #{record.putAmt},
+				</if>
+		 		<if test="record.riskType != null">
+					risk_type = #{record.riskType},
+				</if>
+		 		<if test="record.contrStatus != null">
+					contr_status = #{record.contrStatus},
+				</if>
+				<if test="record.datadate != null and record.datadate != ''">
+					datadate = #{record.datadate},
+				</if>
+				<if test="record.isExtend != null and record.isExtend != ''">
+					is_extend = #{record.isExtend},
+				</if>
+		 		<if test="record.extendTimes != null">
+					extend_times = #{record.extendTimes},
+				</if>
+				<if test="record.isReduce != null and record.isReduce != ''">
+					is_reduce = #{record.isReduce},
+				</if>
+		 		<if test="record.reduceTimes != null">
+					reduce_times = #{record.reduceTimes},
+				</if>
+		 		<if test="record.residueCheckTimes != null">
+					residue_check_times = #{record.residueCheckTimes},
+				</if>
+				<if test="record.signedDate != null and record.signedDate != ''">
+					signed_date = #{record.signedDate},
+				</if>
+				<if test="record.tradedate != null and record.tradedate != ''">
+					tradedate = #{record.tradedate},
+				</if>
+				<if test="record.pkUserOper != null and record.pkUserOper != ''">
+					pk_user_oper = #{record.pkUserOper},
+				</if>
+				<if test="record.pkOrg != null and record.pkOrg != ''">
+					pk_org = #{record.pkOrg},
+				</if>
+				<if test="record.pkDeptdoc != null and record.pkDeptdoc != ''">
+					pk_deptdoc = #{record.pkDeptdoc},
+				</if>
+				<if test="record.ts != null and record.ts != ''">
+					ts = #{record.ts},
+				</if>
+		</set>
+		<include refid="updateByCondition" />
+    </update>
+    
+    <!-- 根据主键进行批量修改 -->
+    <update id="updateRzContrTallyByBatchId"  parameterType="java.util.List">
+    	<if test="list != null">
+	     <foreach collection="list" item='obj' separator=";" >
+	     update rz_contr_tally
+	     <set>
+		 		<if test="obj.operSeq != null">
+					oper_seq = #{obj.operSeq},
+				</if>
+				<if test="obj.pkPrjcontr != null and obj.pkPrjcontr != ''">
+					pk_prjcontr = #{obj.pkPrjcontr},
+				</if>
+				<if test="obj.pkUserManager != null and obj.pkUserManager != ''">
+					pk_user_manager = #{obj.pkUserManager},
+				</if>
+				<if test="obj.pkPrjcontrOri != null and obj.pkPrjcontrOri != ''">
+					pk_prjcontr_ori = #{obj.pkPrjcontrOri},
+				</if>
+				<if test="obj.contrCode != null and obj.contrCode != ''">
+					contr_code = #{obj.contrCode},
+				</if>
+				<if test="obj.pkPrjapply != null and obj.pkPrjapply != ''">
+					pk_prjapply = #{obj.pkPrjapply},
+				</if>
+				<if test="obj.contrName != null and obj.contrName != ''">
+					contr_name = #{obj.contrName},
+				</if>
+				<if test="obj.prjCode != null and obj.prjCode != ''">
+					prj_code = #{obj.prjCode},
+				</if>
+				<if test="obj.prjName != null and obj.prjName != ''">
+					prj_name = #{obj.prjName},
+				</if>
+		 		<if test="obj.intType != null">
+					int_type = #{obj.intType},
+				</if>
+		 		<if test="obj.reptway != null">
+					reptway = #{obj.reptway},
+				</if>
+				<if test="obj.planrentdate != null and obj.planrentdate != ''">
+					planrentdate = #{obj.planrentdate},
+				</if>
+		 		<if test="obj.reptcycle != null">
+					reptcycle = #{obj.reptcycle},
+				</if>
+				<if test="obj.pkCustomer != null and obj.pkCustomer != ''">
+					pk_customer = #{obj.pkCustomer},
+				</if>
+		 		<if test="obj.leaseway != null">
+					leaseway = #{obj.leaseway},
+				</if>
+				<if test="obj.pkCurrency != null and obj.pkCurrency != ''">
+					pk_currency = #{obj.pkCurrency},
+				</if>
+				<if test="obj.startLeaseDate != null and obj.startLeaseDate != ''">
+					start_lease_date = #{obj.startLeaseDate},
+				</if>
+				<if test="obj.endLeaseDate != null and obj.endLeaseDate != ''">
+					end_lease_date = #{obj.endLeaseDate},
+				</if>
+				<if test="obj.realEndDate != null and obj.realEndDate != ''">
+					real_end_date = #{obj.realEndDate},
+				</if>
+		 		<if test="obj.irr != null">
+					irr = #{obj.irr},
+				</if>
+		 		<if test="obj.curIrr != null">
+					cur_irr = #{obj.curIrr},
+				</if>
+		 		<if test="obj.financeamt != null">
+					financeamt = #{obj.financeamt},
+				</if>
+		 		<if test="obj.leaseprd != null">
+					leaseprd = #{obj.leaseprd},
+				</if>
+		 		<if test="obj.itemamt != null">
+					itemamt = #{obj.itemamt},
+				</if>
+		 		<if test="obj.itembal != null">
+					itembal = #{obj.itembal},
+				</if>
+		 		<if test="obj.contrAmt != null">
+					contr_amt = #{obj.contrAmt},
+				</if>
+		 		<if test="obj.contrBal != null">
+					contr_bal = #{obj.contrBal},
+				</if>
+				<if test="obj.busitype != null and obj.busitype != ''">
+					busitype = #{obj.busitype},
+				</if>
+		 		<if test="obj.pricerate != null">
+					pricerate = #{obj.pricerate},
+				</if>
+		 		<if test="obj.curPricerate != null">
+					cur_pricerate = #{obj.curPricerate},
+				</if>
+				<if test="obj.isExpire != null and obj.isExpire != ''">
+					is_expire = #{obj.isExpire},
+				</if>
+		 		<if test="obj.receivableAmt != null">
+					receivable_amt = #{obj.receivableAmt},
+				</if>
+		 		<if test="obj.receivableInt != null">
+					receivable_int = #{obj.receivableInt},
+				</if>
+		 		<if test="obj.receivableRent != null">
+					receivable_rent = #{obj.receivableRent},
+				</if>
+		 		<if test="obj.receivablDefInt != null">
+					receivabl_def_int = #{obj.receivablDefInt},
+				</if>
+		 		<if test="obj.receivableFee != null">
+					receivable_fee = #{obj.receivableFee},
+				</if>
+		 		<if test="obj.receivablDefIntTotal != null">
+					receivabl_def_int_total = #{obj.receivablDefIntTotal},
+				</if>
+		 		<if test="obj.receivableSc != null">
+					receivable_sc = #{obj.receivableSc},
+				</if>
+		 		<if test="obj.realPrin != null">
+					real_prin = #{obj.realPrin},
+				</if>
+		 		<if test="obj.realInt != null">
+					real_int = #{obj.realInt},
+				</if>
+		 		<if test="obj.realRent != null">
+					real_rent = #{obj.realRent},
+				</if>
+		 		<if test="obj.realFee != null">
+					real_fee = #{obj.realFee},
+				</if>
+		 		<if test="obj.realDefInt != null">
+					real_def_int = #{obj.realDefInt},
+				</if>
+		 		<if test="obj.accruedDefInt != null">
+					accrued_def_int = #{obj.accruedDefInt},
+				</if>
+		 		<if test="obj.realSc != null">
+					real_sc = #{obj.realSc},
+				</if>
+				<if test="obj.isOverdue != null and obj.isOverdue != ''">
+					is_overdue = #{obj.isOverdue},
+				</if>
+		 		<if test="obj.overdueTimes != null">
+					overdue_times = #{obj.overdueTimes},
+				</if>
+		 		<if test="obj.overdueRate != null">
+					overdue_rate = #{obj.overdueRate},
+				</if>
+		 		<if test="obj.overduePrin != null">
+					overdue_prin = #{obj.overduePrin},
+				</if>
+		 		<if test="obj.derateDefInt != null">
+					derate_def_int = #{obj.derateDefInt},
+				</if>
+		 		<if test="obj.curPrinBal != null">
+					cur_prin_bal = #{obj.curPrinBal},
+				</if>
+		 		<if test="obj.curRentBal != null">
+					cur_rent_bal = #{obj.curRentBal},
+				</if>
+		 		<if test="obj.putAmt != null">
+					put_amt = #{obj.putAmt},
+				</if>
+		 		<if test="obj.riskType != null">
+					risk_type = #{obj.riskType},
+				</if>
+		 		<if test="obj.contrStatus != null">
+					contr_status = #{obj.contrStatus},
+				</if>
+				<if test="obj.datadate != null and obj.datadate != ''">
+					datadate = #{obj.datadate},
+				</if>
+				<if test="obj.isExtend != null and obj.isExtend != ''">
+					is_extend = #{obj.isExtend},
+				</if>
+		 		<if test="obj.extendTimes != null">
+					extend_times = #{obj.extendTimes},
+				</if>
+				<if test="obj.isReduce != null and obj.isReduce != ''">
+					is_reduce = #{obj.isReduce},
+				</if>
+		 		<if test="obj.reduceTimes != null">
+					reduce_times = #{obj.reduceTimes},
+				</if>
+		 		<if test="obj.residueCheckTimes != null">
+					residue_check_times = #{obj.residueCheckTimes},
+				</if>
+				<if test="obj.signedDate != null and obj.signedDate != ''">
+					signed_date = #{obj.signedDate},
+				</if>
+				<if test="obj.tradedate != null and obj.tradedate != ''">
+					tradedate = #{obj.tradedate},
+				</if>
+				<if test="obj.pkUserOper != null and obj.pkUserOper != ''">
+					pk_user_oper = #{obj.pkUserOper},
+				</if>
+				<if test="obj.pkOrg != null and obj.pkOrg != ''">
+					pk_org = #{obj.pkOrg},
+				</if>
+				<if test="obj.pkDeptdoc != null and obj.pkDeptdoc != ''">
+					pk_deptdoc = #{obj.pkDeptdoc},
+				</if>
+				<if test="obj.ts != null and obj.ts != ''">
+					ts = #{obj.ts},
+				</if>
+			</set>
+			where
+				pk_contr_tally = #{obj.pkContrTally} 
+	     </foreach>
+     	</if>
+    </update>
+    
+    <!-- 查询所有 -->
+    <select id="getRzContrTallyAll" parameterType="rzContrTallyQuery" resultMap="rzContrTallyResult">
+		SELECT 
+		<include refid="rzContrTallyField" />  
+		from  
+		rz_contr_tally<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询总数 -->
+	<select id="getRzContrTallyByPageCount" parameterType="rzContrTallyQuery" resultType="int">
+		SELECT count(*) from  rz_contr_tally
+		<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getRzContrTallyByPage" parameterType="rzContrTallyQuery" resultMap="rzContrTallyResult">
+		SELECT <include refid="rzContrTallyField" /> from rz_contr_tally
+		<include refid="condition" />
+		<if test="sort !=null">
+		    ORDER BY ${sort} ${order} 
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+	
+	<!-- 根据Id查询 -->
+	<select id="getRzContrTallyById" parameterType="rzContrTallyQuery" resultMap="rzContrTallyResult">
+		SELECT <include refid="rzContrTallyField" /> from  rz_contr_tally  where pk_contr_tally = #{pkContrTally} 
+		 
+	</select>
+	
+	
+	<!-- 查询最大序号台账数据 -->
+	<select id="getRzContrTallyMaxOperSeq" parameterType="rzContrTallyQuery" resultMap="rzContrTallyResult">
+		SELECT <include refid="rzContrTallyField" /> FROM  
+			(select <include refid="rzContrTallyField" /> FROM rz_contr_tally <include refid="condition" /> ) a   
+		INNER JOIN 
+			(SELECT pk_prjcontr as pk_prjcontr_max ,max(oper_seq) as oper_seq_max FROM rz_contr_tally <include refid="condition" /> group by  pk_prjcontr) b
+		on a.pk_prjcontr = b.pk_prjcontr_max and a.oper_seq = b.oper_seq_max
+	</select>
+	
+	<!-- 项目合同台账余额 -->
+	<select id="getRzContrTallyBalance" parameterType="rzContrTallyQuery" resultMap="rzContrTallyResult">
+		SELECT 
+			  a.pk_contr_tally,a.oper_seq,a.pk_prjcontr,a.pk_user_manager,
+			  a.pk_prjcontr_ori,a.contr_code,a.pk_prjapply,a.contr_name,
+			  a.prj_code,a.prj_name,a.int_type,a.reptway,a.planrentdate,a.reptcycle,
+			  a.pk_customer,
+			  a.leaseway,
+			  a.pk_currency,
+			  a.start_lease_date,
+			  a.end_lease_date,
+			  a.real_end_date,
+			  a.irr,
+			  a.cur_irr,
+			  a.financeamt,
+			  a.leaseprd,
+			  a.itemamt,
+			  a.itembal,
+			  a.contr_amt,
+			  a.contr_bal,
+			  a.busitype,
+			  a.pricerate,
+			  a.cur_pricerate,
+			  a.is_expire,
+			  a.receivable_amt,
+			  a.receivable_int,
+			  a.receivable_rent,
+			  a.receivabl_def_int,
+			  a.receivable_fee,
+			  a.receivabl_def_int_total,
+			  a.receivable_sc,
+			  a.real_prin,
+			  a.real_int,
+			  a.real_rent,
+			  a.real_fee,
+			  a.real_def_int,
+			  a.accrued_def_int,
+			  a.real_sc,
+			  a.is_overdue,
+			  a.overdue_times,
+			  a.overdue_rate,
+			  a.overdue_prin,
+			  a.derate_def_int,
+			  a.cur_prin_bal,
+			  a.cur_rent_bal,
+			  a.put_amt,
+			  a.risk_type,
+			  a.contr_status,
+			  a.datadate,
+			  a.is_extend,
+			  a.extend_times,
+			  a.is_reduce,
+			  a.reduce_times,
+			  a.residue_check_times,
+			  a.signed_date,
+			  a.tradedate,
+			  a.pk_user_oper,
+			  a.pk_org,
+			  a.pk_deptdoc,
+			  a.ts 		
+		FROM  
+			(select <include refid="rzContrTallyField" /> FROM rz_contr_tally <include refid="condition" /> ) a 
+			                                                
+		INNER JOIN 
+			(SELECT pk_prjcontr as pk_prjcontr_max ,max(oper_seq) as oper_seq_max FROM rz_contr_tally <include refid="condition" /> group by  pk_prjcontr) b
+		on a.pk_prjcontr = b.pk_prjcontr_max and a.oper_seq = b.oper_seq_max
+		LEFT JOIN rz_prj_state c
+		on a.contr_code = c.contr_code 
+		<if test="prjStateBatchId != null and prjStateBatchId != '' " >
+			and prj_state in
+	    	<foreach item="item" index="index" collection="prjStateBatchId" open="(" separator="," close=")">
+	    		#{item} 
+	    	</foreach>
+		</if>
+	</select>
+    
+</mapper>

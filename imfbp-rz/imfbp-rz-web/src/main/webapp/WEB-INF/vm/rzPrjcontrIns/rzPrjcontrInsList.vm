@@ -1,0 +1,25 @@
+<div class="padding-5">
+    <h4>合同保险基本信息</h4>
+	<div class="toolsbarPanel">
+		<div class="btn-group" role="group">
+			<button type="button" class="btn btn-default btn-sm add2-btn" id="addMain">新增</button>
+			<button type="button" class="btn btn-default btn-sm delete-btn" id="removeMain">删除</button>
+			<button type="button" class="btn btn-default btn-sm update-btn" id="updateMain">修改</button>			
+			<button type="button" class="btn btn-default btn-sm refresh-btn">刷新</button>
+		</div>
+	</div>
+	<div class="grid rzPrjcontrInsList"></div>
+	<ul id="pagination" class="pagination"></ul>
+    <h4>合同保险租赁物信息</h4>
+    <div class="toolsbarPanel" id="toolsbarPanelEqpt">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default btn-sm add2-btn" id="addDetail">新增</button>
+            <button type="button" class="btn btn-default btn-sm delete-btn" id="removeDetail">删除</button>
+            <button type="button" class="btn btn-default btn-sm update-btn" id="updateDetail">修改</button>
+        </div>
+    </div>
+    <div class="grid rzPrjcontrInsEqptList"></div>
+    <ul id="paginationEqpt" class="pagination"></ul>
+</div>
+
+

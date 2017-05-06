@@ -1,0 +1,76 @@
+<!-- search start  -->
+<div class="searchPanel padding-10">
+	<form class="form-horizontal">
+		<div class="searchContent col-xs-8" data-bind="with:queryData">
+						
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">主键</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="pkBaseParam" class="form-control" data-bind="value:pkBaseParam">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">收款提醒通知提前天数</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="advNoticeDays" class="form-control" data-bind="value:advNoticeDays">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">客户还款期限</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="rpmtTerm" class="form-control" data-bind="value:rpmtTerm">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">是否启用客户经理数据权限 Y 是 N 否</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="isEnableAuth" class="form-control" data-bind="value:isEnableAuth">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--******更多条件放这里********-->
+			<div class="hideRule">
+				
+				<div class="row">
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">首付款财务审批角色</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="finApprovalRole" class="form-control" data-bind="value:finApprovalRole">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">逾期罚息日利率(%)</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="overdueRate" class="form-control" data-bind="value:overdueRate">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 展开更多的一行-->
+		<div class="searchToolsbar">
+			<div data-target=".hideRule" data-toggle="collapse" class="moreRule">
+				<span>展开更多查询条件</span>
+				<i class="glyphicon glyphicon-triangle-bottom"></i>
+			</div>
+			<div class="search-box">
+				<button type="button" class="btn btn-default btn-sm reset-btn">重置</button>
+				<button type="button" class="btn btn-default btn-sm search-btn">查询</button>
+			</div>
+		</div>
+	</form>
+</div>
+<!-- search end -->

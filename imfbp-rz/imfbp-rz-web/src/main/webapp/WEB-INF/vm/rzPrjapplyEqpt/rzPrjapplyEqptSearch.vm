@@ -1,0 +1,160 @@
+<!-- search start  -->
+<div class="searchPanel padding-10">
+	<form class="form-horizontal">
+		<div class="searchContent col-xs-8" data-bind="with:queryData">
+						
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">主键</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="pkPrjapplyEqpt" class="form-control" data-bind="value:pkPrjapplyEqpt">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">立项申请主键</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="pkPrjapply" class="form-control" data-bind="value:pkPrjapply">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">客户主键</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="pkCustomer" class="form-control" data-bind="value:pkCustomer">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">租赁设备外键</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="pkEqpt" class="form-control" data-bind="value:pkEqpt">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--******更多条件放这里********-->
+			<div class="hideRule">
+				
+				<div class="row">
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">参照设备分类字典档案数据</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="eqptType" class="form-control" data-bind="value:eqptType">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">设备品牌</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="eqptBrand" class="form-control" data-bind="value:eqptBrand">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">设备型号</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="eqptVer" class="form-control" data-bind="value:eqptVer">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">出厂编码</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="mfgNo" class="form-control" data-bind="value:mfgNo">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">出厂日期</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="mfgDate" class="form-control" data-bind="value:mfgDate">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">设备价格</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="eqptPrice" class="form-control" data-bind="value:eqptPrice">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">制造商</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="mfg" class="form-control" data-bind="value:mfg">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">数量</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="eqptNum" class="form-control" data-bind="value:eqptNum">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">设备总价(元)</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="eqptPriceTotal" class="form-control" data-bind="value:eqptPriceTotal">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">设备评估价值（元）</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="assessPrice" class="form-control" data-bind="value:assessPrice">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">交货日期</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="deliveryDate" class="form-control" data-bind="value:deliveryDate">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">设备净值(元)</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="netVal" class="form-control" data-bind="value:netVal">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 展开更多的一行-->
+		<div class="searchToolsbar">
+			<div data-target=".hideRule" data-toggle="collapse" class="moreRule">
+				<span>展开更多查询条件</span>
+				<i class="glyphicon glyphicon-triangle-bottom"></i>
+			</div>
+			<div class="search-box">
+				<button type="button" class="btn btn-default btn-sm reset-btn">重置</button>
+				<button type="button" class="btn btn-default btn-sm search-btn">查询</button>
+			</div>
+		</div>
+	</form>
+</div>
+<!-- search end -->

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="templateVersion">
+
+	<!-- 結果集 -->
+	<resultMap id="templateVersionResult" type="com.imfbp.rz.domain.templateversion.TemplateVersion">
+		<result property="id" column="id" />
+		<result property="templateCode" column="template_code" />
+		<result property="templateVersion" column="template_version" />
+		<result property="templateFileId" column="template_file_id" />
+		<result property="ts" column="ts" />
+		<result property="dr" column="dr" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="templateVersionField">
+		id,template_code,template_version,template_file_id,ts,dr
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="condition">
+        <where>
+       	 ifnull(dr,0) = 0
+        	<if test="id != null and id != ''" >
+				and id = #{id}
+			</if>
+        	<if test="templateCode != null and templateCode != ''" >
+				and template_code = #{templateCode}
+			</if>
+        	<if test="templateVersion != null and templateVersion != ''" >
+				and template_version = #{templateVersion}
+			</if>
+        	<if test="templateFileId != null and templateFileId != ''" >
+				and template_file_id = #{templateFileId}
+			</if>
+        	<if test="ts != null and ts != ''" >
+				and ts = #{ts}
+			</if>
+        	<if test="dr != null and dr != ''" >
+				and dr = #{dr}
+			</if>
+        </where>
+    </sql>
+    
+    <!-- 修改条件 -->
+	<sql id="updateByCondition">
+        <where>
+       	 ifnull(dr,0) = 0
+				<if test="parameter.id != null and parameter.id != ''" >
+					and id = #{parameter.id}
+				</if>
+				<if test="parameter.templateCode != null and parameter.templateCode != ''" >
+					and template_code = #{parameter.templateCode}
+				</if>
+				<if test="parameter.templateVersion != null and parameter.templateVersion != ''" >
+					and template_version = #{parameter.templateVersion}
+				</if>
+				<if test="parameter.templateFileId != null and parameter.templateFileId != ''" >
+					and template_file_id = #{parameter.templateFileId}
+				</if>
+				<if test="parameter.ts != null and parameter.ts != ''" >
+					and ts = #{parameter.ts}
+				</if>
+				<if test="parameter.dr != null and parameter.dr != ''" >
+					and dr = #{parameter.dr}
+				</if>
+        </where>
+    </sql>
+    
+    <!-- 新增 -->	
+	<insert id="insertTemplateVersion" parameterType="templateVersion">
+		insert into template_version
+			(id,template_code,template_version,template_file_id,ts,dr ) 
+		values 
+			(#{id,jdbcType=CHAR},#{templateCode,jdbcType=VARCHAR},#{templateVersion,jdbcType=CHAR},#{templateFileId,jdbcType=VARCHAR},#{ts,jdbcType=CHAR},#{dr,jdbcType=BIT})
+    </insert>
+    
+    <!-- 批量新增 -->	
+	<insert id="insertBatchTemplateVersion" parameterType="java.util.List">
+       insert into template_version
+			(id,template_code,template_version,template_file_id,ts,dr ) 
+	   values
+	    <foreach collection="list" item="obj" index="index" separator="," >
+	    	(#{obj.id},#{obj.templateCode},#{obj.templateVersion},#{obj.templateFileId},#{obj.ts},#{obj.dr})
+	    </foreach>
+   </insert>
+    
+	<!-- 根据id进行逻辑删除 (修改数据库数据为删除状态) -->
+    <update id="logicDeleteTemplateVersionById" parameterType="templateVersionQuery" >
+    	update template_version  set dr=1 where id = #{id} 
+    </update>
+    
+    <!-- 根据条件进行逻辑删除  (修改数据库数据为删除状态)-->
+    <update id="logicDeleteTemplateVersionByCondition" parameterType="templateVersionQuery" >
+    	update template_version set dr=1<include refid="condition" /> 
+    </update>
+    
+    <!-- 根据条件进行逻辑删除  (修改数据库数据为删除状态)-->
+    <update id="logicDeleteTemplateVersionByBatchId" parameterType="map" >
+    	update template_version set dr=1 
+    	where 
+    	id in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </update>
+    
+    <!-- 根据id删除 (删除数据库数据)-->
+    <delete id="deleteTemplateVersionById" parameterType="templateVersionQuery" >
+    	delete from template_version  where id = #{id} 
+    </delete>
+    
+    <!-- 根据条件删除 (删除数据库数据)-->
+    <delete id="deleteTemplateVersionByCondition" parameterType="templateVersionQuery" >
+    	delete from 
+    	template_version<include refid="condition" /> 
+    </delete>
+    
+    <!-- 根据主键批量删除 (删除数据库数据)-->
+    <delete id="deleteTemplateVersionByBatchId" parameterType="templateVersionQuery" >
+    	delete from template_version 
+    	where
+    	id in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据id修改 -->
+    <update id="updateTemplateVersionById" parameterType="templateVersionQuery">
+		update  template_version 
+		<set>
+			<if test="templateCode != null and templateCode != '' " >
+				template_code = #{templateCode},
+			</if>
+			<if test="templateVersion != null and templateVersion != '' " >
+				template_version = #{templateVersion},
+			</if>
+			<if test="templateFileId != null and templateFileId != '' " >
+				template_file_id = #{templateFileId},
+			</if>
+			<if test="ts != null and ts != '' " >
+				ts = #{ts},
+			</if>
+			<if test="dr != null and dr != '' " >
+				dr = #{dr},
+			</if>
+		</set>
+		where
+			id = #{id} 
+    </update>
+    
+     <!-- 根据条件修改 -->
+    <update id="updateTemplateVersionByCondition" parameterType="map">
+		update  template_version 
+		<set>
+				<if test="record.templateCode != null and record.templateCode != ''">
+					template_code = #{record.templateCode},
+				</if>
+				<if test="record.templateVersion != null and record.templateVersion != ''">
+					template_version = #{record.templateVersion},
+				</if>
+				<if test="record.templateFileId != null and record.templateFileId != ''">
+					template_file_id = #{record.templateFileId},
+				</if>
+				<if test="record.ts != null and record.ts != ''">
+					ts = #{record.ts},
+				</if>
+				<if test="record.dr != null and record.dr != ''">
+					dr = #{record.dr},
+				</if>
+		</set>
+		<include refid="updateByCondition" />
+    </update>
+    
+    <!-- 根据主键进行批量修改 -->
+    <update id="updateTemplateVersionByBatchId"  parameterType="java.util.List">
+    	<if test="list != null">
+	     <foreach collection="list" item='obj' separator=";" >
+	     update template_version
+	     <set>
+				<if test="obj.templateCode != null and obj.templateCode != ''">
+					template_code = #{obj.templateCode},
+				</if>
+				<if test="obj.templateVersion != null and obj.templateVersion != ''">
+					template_version = #{obj.templateVersion},
+				</if>
+				<if test="obj.templateFileId != null and obj.templateFileId != ''">
+					template_file_id = #{obj.templateFileId},
+				</if>
+				<if test="obj.ts != null and obj.ts != ''">
+					ts = #{obj.ts},
+				</if>
+				<if test="obj.dr != null and obj.dr != ''">
+					dr = #{obj.dr},
+				</if>
+			</set>
+			where
+				id = #{obj.id} 
+	     </foreach>
+     	</if>
+    </update>
+    
+    <!-- 查询所有 -->
+    <select id="getTemplateVersionAll" parameterType="templateVersionQuery" resultMap="templateVersionResult">
+		SELECT 
+		<include refid="templateVersionField" />  
+		from  
+		template_version<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询总数 -->
+	<select id="getTemplateVersionByPageCount" parameterType="templateVersionQuery" resultType="int">
+		SELECT count(*) from  template_version
+		<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getTemplateVersionByPage" parameterType="templateVersionQuery" resultMap="templateVersionResult">
+		SELECT <include refid="templateVersionField" /> from template_version
+		<include refid="condition" />
+		<if test="sort !=null">
+		    ORDER BY ${sort} ${order} 
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+	
+	<!-- 根据Id查询 -->
+	<select id="getTemplateVersionById" parameterType="templateVersionQuery" resultMap="templateVersionResult">
+		SELECT <include refid="templateVersionField" /> from  template_version  where id = #{id} 
+		and ifnull(dr,0) = 0
+		 
+	</select>
+    
+</mapper>

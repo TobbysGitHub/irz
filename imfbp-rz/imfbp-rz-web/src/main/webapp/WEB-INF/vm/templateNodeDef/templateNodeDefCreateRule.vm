@@ -1,0 +1,51 @@
+<div class="panel panel-default">
+	<div id="panel-heading" class="panel-heading footer-saveOrCancel" >
+		<button type="button" class="btn btn-default btn-sm save-btn">保存</button>
+		<button type="button" class="btn btn-default btn-sm back-btn">取消</button>
+	</div>
+	<div id="panel-heading-back" class="panel-heading footer-saveOrCancel" style="display:none;" >
+		<button type="button" class="btn btn-default btn-sm back-btn">返回</button>
+	</div>
+	<div class="panel-body" data-bind="with:editData">
+		<form class="templateNodeDefEditForm form-horizontal">
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">系统名称</label>
+						<div class="col-md-9 col-sm-8">
+							<input id="input1" type="text" name="id" class="form-control" readOnly="readOnly">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">模板名称</label>
+						<div class="col-md-9 col-sm-8">
+							<input id="input2" type="text" name="nodeCode" class="form-control" readOnly="readOnly" >
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">模板编码</label>
+						<div class="col-md-9 col-sm-8">
+							<input id="input3" type="text" name="templateId" class="form-control" readOnly="readOnly"  >
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">模板版本号</label>
+						<div class="col-md-9 col-sm-8">
+							<input id="input4" type="text" name="isUse" class="form-control" readOnly="readOnly"  >
+						</div>
+					</div>
+				</div>
+			</div>		
+		</form>
+		<!--表格 -->
+	   <div id="editeTemplateRuleGrid"></div>
+	</div>	
+</div>
+
+

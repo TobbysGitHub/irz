@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="rzPricecalEqpt">
+
+	<!-- 結果集 -->
+	<resultMap id="rzPricecalEqptResult" type="com.imfbp.rz.domain.rzpricecaleqpt.RzPricecalEqpt">
+		<result property="pkPricecalEqpt" column="pk_pricecal_eqpt" />
+		<result property="pkPricecal" column="pk_pricecal" />
+		<result property="pkEqpt" column="pk_eqpt" />
+		<result property="num" column="num" />
+		<result property="price" column="price" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="rzPricecalEqptField">
+		pk_pricecal_eqpt,pk_pricecal,pk_eqpt,num,price
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="condition">
+        <where>
+        	<if test="pkPricecalEqpt != null and pkPricecalEqpt != ''" >
+				and pk_pricecal_eqpt = #{pkPricecalEqpt}
+			</if>
+        	<if test="pkPricecal != null and pkPricecal != ''" >
+				and pk_pricecal = #{pkPricecal}
+			</if>
+        	<if test="pkEqpt != null and pkEqpt != ''" >
+				and pk_eqpt = #{pkEqpt}
+			</if>
+        	<if test="num != null" >
+				and num = #{num}
+			</if>
+        	<if test="price != null" >
+				and price = #{price}
+			</if>
+        </where>
+    </sql>
+    
+    <!-- 修改条件 -->
+	<sql id="updateByCondition">
+        <where>
+				<if test="parameter.pkPricecalEqpt != null and parameter.pkPricecalEqpt != ''" >
+					and pk_pricecal_eqpt = #{parameter.pkPricecalEqpt}
+				</if>
+				<if test="parameter.pkPricecal != null and parameter.pkPricecal != ''" >
+					and pk_pricecal = #{parameter.pkPricecal}
+				</if>
+				<if test="parameter.pkEqpt != null and parameter.pkEqpt != ''" >
+					and pk_eqpt = #{parameter.pkEqpt}
+				</if>
+		    	<if test="parameter.num != null" >
+					and num = #{parameter.num}
+				</if>
+		    	<if test="parameter.price != null" >
+					and price = #{parameter.price}
+				</if>
+        </where>
+    </sql>
+    
+    <!-- 新增 -->	
+	<insert id="insertRzPricecalEqpt" parameterType="rzPricecalEqpt">
+		insert into rz_pricecal_eqpt
+			(pk_pricecal_eqpt,pk_pricecal,pk_eqpt,num,price ) 
+		values 
+			(#{pkPricecalEqpt,jdbcType=CHAR},#{pkPricecal,jdbcType=CHAR},#{pkEqpt,jdbcType=CHAR},#{num,jdbcType=INTEGER},#{price,jdbcType=DECIMAL})
+    </insert>
+    
+    <!-- 批量新增 -->	
+	<insert id="insertBatchRzPricecalEqpt" parameterType="java.util.List">
+       insert into rz_pricecal_eqpt
+			(pk_pricecal_eqpt,pk_pricecal,pk_eqpt,num,price ) 
+	   values
+	    <foreach collection="list" item="obj" index="index" separator="," >
+	    	(#{obj.pkPricecalEqpt},#{obj.pkPricecal},#{obj.pkEqpt},#{obj.num},#{obj.price})
+	    </foreach>
+   </insert>
+    
+    
+    <!-- 根据id删除 (删除数据库数据)-->
+    <delete id="deleteRzPricecalEqptById" parameterType="rzPricecalEqptQuery" >
+    	delete from rz_pricecal_eqpt  where pk_pricecal_eqpt = #{pkPricecalEqpt} 
+    </delete>
+    
+    <!-- 根据条件删除 (删除数据库数据)-->
+    <delete id="deleteRzPricecalEqptByCondition" parameterType="rzPricecalEqptQuery" >
+    	delete from 
+    	rz_pricecal_eqpt<include refid="condition" /> 
+    </delete>
+    
+    <!-- 根据主键批量删除 (删除数据库数据)-->
+    <delete id="deleteRzPricecalEqptByBatchId" parameterType="java.util.Map" >
+    	delete from rz_pricecal_eqpt 
+    	where
+    	pk_pricecal_eqpt in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据id修改 -->
+    <update id="updateRzPricecalEqptById" parameterType="rzPricecalEqptQuery">
+		update  rz_pricecal_eqpt 
+		<set>
+			<if test="pkPricecal != null and pkPricecal != '' " >
+				pk_pricecal = #{pkPricecal},
+			</if>
+			<if test="pkEqpt != null and pkEqpt != '' " >
+				pk_eqpt = #{pkEqpt},
+			</if>
+			<if test="num != null " >
+				num = #{num},
+			</if>
+			<if test="price != null " >
+				price = #{price},
+			</if>
+		</set>
+		where
+			pk_pricecal_eqpt = #{pkPricecalEqpt} 
+    </update>
+    
+     <!-- 根据条件修改 -->
+    <update id="updateRzPricecalEqptByCondition" parameterType="map">
+		update  rz_pricecal_eqpt 
+		<set>
+				<if test="record.pkPricecal != null and record.pkPricecal != ''">
+					pk_pricecal = #{record.pkPricecal},
+				</if>
+				<if test="record.pkEqpt != null and record.pkEqpt != ''">
+					pk_eqpt = #{record.pkEqpt},
+				</if>
+		 		<if test="record.num != null">
+					num = #{record.num},
+				</if>
+		 		<if test="record.price != null">
+					price = #{record.price},
+				</if>
+		</set>
+		<include refid="updateByCondition" />
+    </update>
+    
+    
+      <!-- 批量更新 -->
+    <update id="updateByBatchId" parameterType="java.util.Map">
+    <if test="list != null">
+     <foreach collection="list" item='item' separator=';'>
+     update rz_pricecal_eqpt
+     		<set>
+				<if test="item.pkPricecal != null and item.pkPricecal != ''">
+					pk_pricecal = #{item.pkPricecal},
+				</if>
+				<if test="item.pkEqpt != null and item.pkEqpt != ''">
+					pk_eqpt = #{item.pkEqpt},
+				</if>
+		 		<if test="item.num != null">
+					num = #{item.num},
+				</if>
+		 		<if test="item.price != null">
+					price = #{item.price},
+				</if>
+		</set>
+		where pk_pricecal_eqpt = #{pkPricecalEqpt} 
+     </foreach>
+     </if>
+    </update>
+    
+    <!-- 查询所有 -->
+    <select id="getRzPricecalEqptAll" parameterType="rzPricecalEqptQuery" resultMap="rzPricecalEqptResult">
+		SELECT 
+		<include refid="rzPricecalEqptField" />  
+		from  
+		rz_pricecal_eqpt<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询总数 -->
+	<select id="getRzPricecalEqptByPageCount" parameterType="rzPricecalEqptQuery" resultType="int">
+		SELECT count(*) from  rz_pricecal_eqpt
+		<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getRzPricecalEqptByPage" parameterType="rzPricecalEqptQuery" resultMap="rzPricecalEqptResult">
+		SELECT <include refid="rzPricecalEqptField" /> from rz_pricecal_eqpt
+		<include refid="condition" />
+		<if test="sort !=null">
+		    ORDER BY ${sort} ${order} 
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+	
+	<!-- 根据Id查询 -->
+	<select id="getRzPricecalEqptById" parameterType="rzPricecalEqptQuery" resultMap="rzPricecalEqptResult">
+		SELECT <include refid="rzPricecalEqptField" /> from  rz_pricecal_eqpt  where pk_pricecal_eqpt = #{pkPricecalEqpt} 
+		 
+	</select>
+    
+</mapper>

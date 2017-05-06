@@ -1,0 +1,177 @@
+<!-- bossSystem insert start -->
+<div id="bossSystemEditWin"  style="width:200px" >
+	<form class="bossSystemEditForm" method="post" action="$homeModule.getTarget("/bossSystem/insertOrUpdate")" >
+		<table cellspacing="5" fit="true" style="width:100%">
+			<tr>
+    			<td align="right">系统ID:</td>
+    			<td>
+    				<input class="easyui-validatebox textbox" type="text" name="id" style="width:100%"  />
+    			</td>
+			</tr>
+			<tr>
+    			<td align="right">系统编号:</td>
+    			<td>
+    				<input class="easyui-validatebox textbox" type="text" name="systemCode" style="width:100%"  />
+    			</td>
+			</tr>
+			<tr>
+    			<td align="right">系统名称:</td>
+    			<td>
+    				<input class="easyui-validatebox textbox" type="text" name="systemName" style="width:100%"  />
+    			</td>
+			</tr>
+			<tr>
+    			<td align="right">创建时间:</td>
+    			<td>
+    				<input class="easyui-validatebox textbox" type="text" name="created" style="width:100%"  />
+    			</td>
+			</tr>
+			<tr>
+    			<td align="right">创建者:</td>
+    			<td>
+    				<input class="easyui-validatebox textbox" type="text" name="creator" style="width:100%"  />
+    			</td>
+			</tr>
+			<tr>
+    			<td align="right">修改时间:</td>
+    			<td>
+    				<input class="easyui-validatebox textbox" type="text" name="modified" style="width:100%"  />
+    			</td>
+			</tr>
+			<tr>
+    			<td align="right">修改者:</td>
+    			<td>
+    				<input class="easyui-validatebox textbox" type="text" name="modifier" style="width:100%"  />
+    			</td>
+			</tr>
+			<tr>
+    			<td align="right">备注:</td>
+    			<td>
+    				<input class="easyui-validatebox textbox" type="text" name="remark" style="width:100%"  />
+    			</td>
+			</tr>
+			<tr>
+    			<td align="right">扩展字段1:</td>
+    			<td>
+    				<input class="easyui-validatebox textbox" type="text" name="expand1" style="width:100%"  />
+    			</td>
+			</tr>
+			<tr>
+    			<td align="right">扩展字段2:</td>
+    			<td>
+    				<input class="easyui-validatebox textbox" type="text" name="expand2" style="width:100%"  />
+    			</td>
+			</tr>
+			<tr>
+    			<td align="right">扩展字段3:</td>
+    			<td>
+    				<input class="easyui-validatebox textbox" type="text" name="expand3" style="width:100%"  />
+    			</td>
+			</tr>
+			<tr>
+    			<td align="right">扩展字段4:</td>
+    			<td>
+    				<input class="easyui-validatebox textbox" type="text" name="expand4" style="width:100%"  />
+    			</td>
+			</tr>
+			<tr>
+    			<td align="right">扩展字段5:</td>
+    			<td>
+    				<input class="easyui-validatebox textbox" type="text" name="expand5" style="width:100%"  />
+    			</td>
+			</tr>
+			<tr>
+    			<td align="right">0 有效1 删除:</td>
+    			<td>
+    				<input class="easyui-validatebox textbox" type="text" name="delState" style="width:100%"  />
+    			</td>
+			</tr>
+			<tr>
+    			<td align="right">模块链接:</td>
+    			<td>
+    				<input class="easyui-validatebox textbox" type="text" name="systemUrl" style="width:100%"  />
+    			</td>
+			</tr>
+		</table>
+	</form>
+</div>
+
+<!-- bossSystem win toolbar start -->
+<div id="bossSystemEditWinbbar" style="height: auto">
+	<a href="javascript:void(0)" class="easyui-linkbutton save-btn" data-options="iconCls:'icon-save'">保存</a> 
+	<a href="javascript:void(0)" class="easyui-linkbutton clear-btn" data-options="iconCls:'icon-clear'">重置</a>
+	<a href="javascript:void(0)" class="easyui-linkbutton close-btn" data-options="iconCls:'icon-no'">关闭</a>
+</div>
+<!-- bossSystem win toolbar start -->
+
+<script>
+
+	/**
+	 * window 编辑窗口初始化
+	 */
+	jQuery(function(){
+		// form表单
+    	jQuery('#bossSystemEditWin .bossSystemEditForm').form({
+    		novalidate:true,
+    		gridSelector:'#bossSystemModule .bossSystemDataGrid',
+    		winSelector:'#bossSystemEditWin',
+    		searchFormSelector:'#bossSystemModule .searchBossSystemFormId',
+    		onLoadSuccess:function(){
+    			//当数据加载完成打开form窗口
+    			jQuery('#bossSystemEditWin').window('open');
+    		}
+    	});
+
+	
+		//初始化windows
+		jQuery('#bossSystemEditWin').dialog({
+			width:500,
+			height: 370,
+			title:'bossSystem',
+			maximizable:true,
+			modal:true,
+			closed:true,
+			iconCls:'icon-save',
+			buttons:'#bossSystemEditWinbbar',
+			toolbar:'#bossSystemEditWinTb',
+			onClose:function(){
+				//当关闭窗口是清楚form表单
+				clearForm('#bossSystemEditWin .bossSystemEditForm');
+			},
+			onResize:function(width, height){
+				formLayout('#bossSystemEditWin .bossSystemEditForm',width,100,2);
+			}
+		})
+		
+	})
+	
+	
+	/*
+	 * 保存
+	 */
+    jQuery('#bossSystemEditWinbbar .save-btn').linkbutton({
+		onClick:function(){
+			jQuery('#bossSystemEditWin .bossSystemEditForm').form('saveData');
+		}
+	})
+	
+	/*
+	 * 关闭窗口
+	 */
+    jQuery('#bossSystemEditWinbbar .close-btn').linkbutton({
+		onClick:function(){
+			jQuery('#bossSystemEditWin').window('close');
+		}
+	})
+	
+	/*
+	 * 清除表单
+	 */
+	jQuery('#bossSystemEditWinbbar .clear-btn').linkbutton({
+		onClick:function(){
+			clearForm('#bossSystemEditWin .bossSystemEditForm');
+		}
+	})
+	
+	
+</script>

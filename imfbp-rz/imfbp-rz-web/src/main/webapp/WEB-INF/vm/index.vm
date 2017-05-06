@@ -1,0 +1,827 @@
+
+<link id="skinLink" rel="stylesheet" href="$homeModule.getTarget('misc/themeColor/headerSkin.css')">
+<style>
+/*-------------------------header----------------------*/
+.app-header-fixed{/*--统一app.css设置header高度--*/
+	padding-top:60px;
+}
+
+/*--appLight设置strat--*/
+
+.appLight #header{
+	background-color:#fff;
+	color:#9FA9BA;
+}
+.appLight #header .topTitle{
+	color:#333;
+	border-left-color:rgba(206,208,218,0.5);
+}
+.appLight #header span{
+	color:#9FA9BA;
+}
+.appLight #header #info-count{
+	background-color:#F39800;
+	color:#fff;
+}
+.appLight .navright li:hover{
+		background: #EFF3F6/*header划过*/
+	}
+.appLight #header .dropLi .dropdown-menu{
+	top: 56px;
+	border: 0;
+	box-shadow: none;
+}
+/*--appLight设置end--*/
+li{
+	list-style:none;
+}
+#header{
+	
+	box-sizing:border-box;
+	height:60px;
+	z-index:900;
+}
+#header>div,#header>ul{
+	height:100%!important;
+	line-height:100%!important;
+}
+#header .navLeft {
+	width:460px!important;
+	padding-left:30px;
+}
+#header .navRight{
+	
+	padding-left:0px!important;
+	margin-left:460px!important;
+	
+}
+.maxHeader{
+	height:60px;
+	position:fixed;
+	top:0;
+	width:100%;
+}
+.navleft{
+	float:left;
+}
+.navright{
+	float:right;
+	height:100%;
+}
+.navright>li{
+	float:left;
+	height:100%;
+}
+.navright li a{
+	padding:0 20px;
+}
+.navright li:hover{
+	background: #099FE5;
+}
+#header .hidden-xs{
+	display:none!important;
+}
+#header .logoBox{
+	line-height:58px!important;
+	text-align:left;
+	
+}
+#header .logoBox img{
+
+	height:32px!important;
+	max-height:32px!important;
+}
+#header .topTitle{
+	font-family: PingFangSC-Regular;
+	font-size: 18px;
+	color: #FFFFFF;
+	padding:4px 0 4px 20px;
+	border-left: 1px solid rgba(255,255,255,0.5);
+}
+#header .linkLi>a{
+	display:block;
+	height:60px!important;
+	line-height:60px!important;
+}
+.ui-state-hover{
+	border-bottom:0!important;
+}
+#header .dropLi .dropdown-toggle{
+	height:58px;
+	background:none;
+	border:0;
+	padding:14px 20px;
+	line-height:30px;
+	overflow:hidden;
+	
+}
+
+   
+#header span{
+	color:#fff;
+}
+#header .dropLi .dropdown-menu{
+	padding:0;
+	z-index:600;
+	border-radius:0;
+	width:100%;
+	min-width:100px;
+}
+#header .dropLi .dropdown-menu li{
+ 	border-bottom: 1px solid #E6EAEE;
+}
+#header .dropLi a{
+	height:45px;
+	line-height:35px;
+	text-align:center;
+	font-size: 12px;
+	color: #393C3E;
+}
+#header .dropdown-menu a:hover{
+	background:background: #EFF3F6;
+}
+#header .iconfont{
+	font-size:20px;
+}
+#header .iconCountBox{
+	position:relative;
+	width:30px;
+	height:30px;
+	
+}
+#header #info-count{
+	position:absolute;
+	top:13px;
+	left:15px;
+	width:14px; 
+	height:14px; 
+	background-color:white; 
+	border-radius:6px;
+	text-align:center;
+	line-height:14px;
+	color:#000;
+	font-size:10px;
+}
+/*---------------pifu--------------*/
+
+		.skinSet,.skinSet *{
+			box-sizing:content-box;
+		}
+		.skinSet{
+			width: 146px;
+			position: fixed;
+			z-index:600;
+			right: -146px;
+			top:60px;
+			transition: all 0.6s ease; 
+			-moz-transition:all 0.6s ease;	/* Firefox 4 */
+			-webkit-transition:all 0.6s ease;	/* Safari 和 Chrome */
+			-o-transition:all 0.6s ease;
+			-webkit-box-shadow:0 0px 20px rgba(0, 0, 0, 0.2);
+			-moz-box-shadow:0 0px 20px rgba(0, 0, 0, 0.2);
+			box-shadow:0 0px 20px rgba(0, 0, 0, 0.2);
+		}
+		.skinSet:hover{
+			transform:translateX(-146px);
+			-ms-transform:translateX(-146px); 	/* IE 9 */
+			-moz-transform:translateX(-146px); 	/* Firefox */
+			-webkit-transform:translateX(-146px); /* Safari 和 Chrome */
+			-o-transform:translateX(-146px);
+		}
+		.skinSet p{
+			padding: 0;
+			margin: 0;
+			height: 50px;
+			margin-left: -49px;
+			width: 144px;
+			background: #F5F8FA;
+			border: 1px solid #E6EAEE;
+			padding-left: 49px;
+			line-height: 50px;
+			font-family: .PingFang-SC-Medium!important;
+			font-size: 14px;
+			color: #393C3E;
+			-webkit-box-shadow:0px 0px 10px rgba(0, 0, 0, 0.2);
+			-moz-box-shadow:0px 0px 10px rgba(0, 0, 0, 0.2);
+			box-shadow:0px 0px -10px rgba(0, 0, 0, 0.2);
+		}
+		.skinSet p span{
+			position:absolute;
+			left:-50px;
+			top:0;
+			text-align:center;
+			height:50px;
+			width:50px;
+			line-height:50px;
+			font-size:18px;
+		}
+		.skinSet ul{
+			padding:0;
+			height: 240px;
+			width: 144px;
+			background: #F5F8FA;
+			border: 1px solid #E6EAEE;
+			border-top: 0;
+			padding-top: 10px;
+			overflow: hidden;
+			margin-bottom:0;
+		}
+		.skinSet ul li{
+			width: 49.99%;
+			float: left;
+			height: 34px;
+			padding: 5px 0;
+			position: relative;
+			text-align: center;
+		}
+		
+		.skinSet li .backimg{
+			display: none;
+			width: 50px;
+			height: 34px;
+			position: absolute;
+			top: 5px;
+			left: 11px;
+		}
+		.skinSet li .imgActive{
+			display: block;
+		}
+		.skinSet li img{
+			height: 34px;
+			width: 50px;
+		}
+		
+		/*刷新和更多按钮*/
+		.main-third-right #messageRefresh{
+			display: inline-block;
+		    color: #666;
+		    border: 1px solid #666;
+		    border-radius: 4px;
+		    font-size: 14px;
+		    line-height: 0;
+		    padding: 5px;
+		    background: rgba(250, 251, 252, 1);
+		    margin-right: 10px;
+		    vertical-align:bottom;
+		    		
+
+		}
+		
+		.main-third-right #moreinfo{
+			text-decoration: none !important;
+		    display: inline-block;
+		    color: #666;
+		    border: 1px solid #666;
+		    border-radius: 4px;
+		    font-size: 14px !important;
+		    line-height: 0;
+		    padding: 12px !important;
+		    background: rgba(250, 251, 252, 1);
+				
+		}
+		.main-third-right{
+			right: 15px !important;
+			padding-top: 10px;
+		}
+		.u-tabs__tab-bar{
+			justify-content: flex-start;
+		}
+	
+		
+</style>
+<body>
+
+<div class="app app-header-fixed app-aside-folded">
+
+	<!-- header -->
+	#parse("/WEB-INF/vm/top.vm")
+	<!-- / header -->
+
+	<!-- aside -->
+	#parse("/WEB-INF/vm/left.vm")
+	<!-- / aside -->
+
+
+
+
+    
+    
+	<!-- content -->
+  	<div id="content" class="app-content" style=" height: 100%;position: relative;overflow-x: hidden; overflow-y:hidden;" role="main">
+    	<!-- tab start -->
+		<div id="tabNav">
+			<div id="tabs2" style="background:#f7f7f7; margin: 0;height: 100%;position: relative;overflow-x: hidden; overflow-y:hidden;">
+				<ul style="padding:0px;width:100%" class="tab-ul">
+					<li><a href="#tabs-1">首页</a></li>
+				</ul>
+				<div id="tab-content" style="border-top: 1px solid #e2e2e2;bottom:0px;margin-top: 23px; min-width: 990px;">
+					<div id="tabs-1" style="height:100%;overflow:auto;">
+						#parse("/WEB-INF/vm/content.vm")
+					</div>
+				</div>
+
+				<div class="Hui-tabNav-more btn-group">
+					<a id="js-tabNav-prev"
+						class="btn radius btn-default size-S" href="javascript:;">
+						<i class="glyphicon glyphicon-chevron-left"></i>
+					</a> <a id="js-tabNav-next"
+						class="btn radius btn-default size-S" href="javascript:;">
+						<i class="glyphicon glyphicon-chevron-right"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- tab end -->
+  	</div>
+  	<!-- / content -->
+	<div id="context-menu">
+	  <ul class="dropdown-menu" role="menu">
+	    <li><a tabindex="1" contextValue="closeThis" href="#">关闭页签</a></li>
+	    <li><a tabindex="2" contextValue="closeOther" href="#">关闭其他页签</a></li>
+	    <li><a tabindex="3" contextValue="closeRight" href="#">关闭右侧页签</a></li>
+	  </ul>
+	</div>
+	
+
+</div>
+
+
+	<script src="$homeModule.getTarget('/misc/js/imfbp-menuscroll.js')"></script>
+<script>
+
+jQuery(function(){
+
+	var app, viewModel, basicDatas;
+	basicDatas = {
+		listData: new u.DataTable({
+			meta: {
+				id:{
+					type: 'long'
+				},
+				type: {
+					type: 'int'
+				},
+				typeText:{
+					type: 'string'
+				},
+				title: {
+					type: 'string'
+				},
+				content: {
+					type: 'string'
+				},
+				systemid:{
+					type: 'string'
+				},
+				moduleValue: {
+					type: 'string'
+				},
+				moduleName: {
+					type: 'string'
+				},
+				url:{
+					type: 'string'
+				},
+				billid:{
+					type: 'string'
+				},
+				creator:{
+					type: 'string'
+				},
+				readMark:{
+					type: 'int'
+				},
+				created:{
+					type: 'string'
+				}
+				
+			}
+		}),
+		pictureRender:function(obj){//自定义渲染类型
+			var data = obj.row;
+			if(data.value.readMark == 1) //已读
+			{
+				var html = "<i style='padding-top:5px;padding-left:5px;font-size:16px' class='fa fa-fw icon-envelope-open '></i>";	 	
+		    	var innerDom = u.makeDOM(html);
+		    	obj.element.appendChild(innerDom);
+			}else{
+				var htm = "<i style='padding-top:5px;padding-left:5px;font-size:16px' class='fa fa-fw icon-envelope iconChange'></i>";  
+				var	html = htm.replace("iconChange","iconChange"+obj.rowIndex);
+		    	var innerDom = u.makeDOM(html);
+		    	obj.element.appendChild(innerDom);
+			}
+    	},
+    	boldRender:function(obj){//自定义渲染类型
+			var data = obj.row;
+			if(data.value.readMark == 0) //未读
+			{			
+				var b = "readbold"+obj.rowIndex;
+		    	obj.element.classList.add(b);
+		    	obj.element.style.setProperty('font-weight','bold');
+		    	obj.element.innerHTML = obj.value;
+			}else{ 	
+		    	obj.element.innerHTML = obj.value;
+			}
+    	}
+	};
+	
+	events = {
+		
+	 	/**
+		 * 行双击事件
+	     */
+		rowDblClick: function(row, e) {
+			var data = row.rowObj;	
+			if(data.value.readMark == 0){
+				//根据cell这个jquery对象，替换其class属性，实现未读到已读图标的转换。
+				data.value.readMark = 1;
+				var param = "#messageCenter tbody tr:nth-child("+(row.rowIndex+1)+") td i";
+				var cell = jQuery(param); 	
+		    	cell.attr('class','fa fa-fw icon-envelope-open');
+		    	//根据readbold这个class属性，查找到加粗的dom元素，去掉加粗样式
+		    	var b = "#messageCenter ."+"readbold"+row.rowIndex;
+		    	var readList = jQuery(b); 
+		    	jQuery.each(readList, function(index, item){
+					item.style.removeProperty('font-weight');
+					
+ 				});	
+		    	//将已读状态提交到后台数据库
+				$.ajax({
+					type: 'post',
+					dataType: "json", 
+					data:"messageId="+data.value.id,
+					url: '$homeModule.getTarget('/setMessageReadMark')'
+				});
+			}
+			if(data.value.type == 1 || data.value.type == 3){
+				 BootstrapDialog.alert({
+		            title: data.value.title,
+		            message: data.value.content,
+		            draggable: true, 
+		            buttonLabel: '关闭'
+		        });
+			}else{
+				$.ajax({
+					type: 'post',
+					dataType: "json", 
+					data:"systemid="+data.value.systemid+"&moduleValue="+data.value.moduleValue,
+					url: '$homeModule.getTarget('/getMessageUrlByModuleValue')',
+					success: function(content) {
+						var obj={};
+						if(data.value.billid!=undefined&&data.value.billid!=""){
+							obj.param="&billid="+data.value.billid;
+						}
+						obj.module_url = content.url;
+						obj.module_value = content.moduleValue;
+						obj.title_name = content.moduleName;
+						Hui_admin_tab(obj);
+					}
+				});
+			}
+
+		},
+		
+	}
+
+	viewModel = u.extend({}, basicDatas, events);
+
+ 	/**
+	 * 初始化
+     */
+	var getInitData = function(type) {
+		//单证管理二级菜单展示位置上移
+		//jQuery(".navi>ul>li .icon-danzhengguanli").parent().parent().find("ul").css("cssText","top:-80px !important");
+		//财务结算二级菜单展示位置上移
+		//jQuery(".navi>ul>li .icon-caiwujiesuan").parent().parent().find("ul").css("cssText","top:-80px !important");
+		var paras = {
+			type:type
+		};
+		//得到头像url
+		getImgUrl();
+		//得到未读消息个数
+		getUnReadMessCount();
+		//得到个人客户，企业客户总数
+		getCustNum();
+		//得到昨天的新增客户，新增投保单等信息
+		getInfoByDate({timeBunket:"yesterday"})
+		//待办消息
+		queryDatas(paras);
+		
+	}
+	
+	//得到头像url
+ 	var getImgUrl = function(){
+ 		$.ajax({
+ 		    url:'$homeModule.getTarget('/getImageUrl')',
+ 		    type:'POST',
+ 		    data : "",
+ 		    success:function(data){
+     		    if(data.map.userheadimageurl){
+    	 		    	 $("#userHeader").attr('src',data.map.userheadimageurl); 
+     		    	}else{
+     		    		$("#userHeader").attr('src',"$homeModule.getTarget('/misc/img/user-header.png')"); 
+     		    	}
+     		    	
+     		    	if(data.map.logoimageurl){
+    	 		    	$("#logoImage").attr('src',data.map.logoimageurl); 
+     		    	}else{
+     		    		$("#logoImage").attr('src',"$homeModule.getTarget('/misc/img/imfbp-logo.png')"); 
+     		    }
+ 		    	
+ 		    }, 
+ 		    error:function(){
+ 		    	//请求失败
+ 		    	$("#userHeader").attr('src',"$homeModule.getTarget('/misc/img/user-header.png')"); 
+ 		    }
+ 		});
+
+ 	}
+ 	//得到未读消息个数
+ 	var getUnReadMessCount = function(){
+ 		$.ajax({
+ 			type: 'get',
+ 			dataType: 'json',
+ 			url:'$homeModule.getTarget('/getUnReadMessCount')',
+ 			data:"",
+ 			success:function(data){
+ 				jQuery("#info-count").text(data.map.datas);
+ 			}
+ 		})
+ 	}
+	//得到个人客户，企业客户总数
+	var	getCustNum = function(){
+		$.ajax({
+			type: 'get',
+			dataType: "json", 
+			url: '$homeModule.getTarget('/getCustNum')',
+			data:"",
+			success: function(data) {
+				var percustNum = 0;
+				var entcustNum = 0;
+				if(data.map.percustNum){
+					percustNum = data.map.percustNum;
+				}
+				if(data.map.entcustNum){
+					entcustNum = data.map.entcustNum;
+				}
+				jQuery("#percust").text(percustNum);
+				jQuery("#entcust").text(entcustNum);
+			}
+		});
+	}
+	//得到昨天的新增客户，新增投保单，新增保单等信息
+	var getInfoByDate = function(paras){
+		$.ajax({
+			type: 'get',
+			dataType: "json", 
+			url: '$homeModule.getTarget('/getInfoByDate')',
+			data:paras,
+			success: function(context) {
+				if(!context.success){
+					return;
+				}
+				var data = context.map;
+				//设置金额千分位
+				var formater = new u.NumberFormater(2);
+	            var masker = new u.NumberMasker(null);
+				jQuery("#contrAmt").text(masker.format(formater.format(data.contrAmt)).value);
+				jQuery("#contrCount").text(data.contrCount);
+				jQuery("#pricecalCount").text(data.pricecalCount);
+				jQuery("#prjapplyCount").text(data.prjapplyCount);
+				jQuery("#totalAmt").text(masker.format(formater.format(data.totalAmt)).value);
+				//var totaltaxpremium = data.totaltaxpremium;
+				/* 
+				if(data.totaltaxpremium == null){
+					totaltaxpremium = 0;
+				}
+				jQuery("#tota ltaxpremium").text(totaltaxpremium);*/
+			}
+		});
+		
+	}
+	//查询方法
+	var queryDatas = function(paras) {
+		//当前表格中展现的数据个数
+		var rows = 3;
+		//展现默认展现第一页
+		var page = 1;
+		if(paras == null || paras == 'undefined'){
+			paras = { rows:rows, page:page};
+		}else{
+			paras["rows"] = rows;
+			paras["page"] = page;
+		}
+		paras.systemid = "4";
+		$.ajax({
+			type: 'get',
+			dataType: "json", 
+			url: '$homeModule.getTarget('/getMessageByPage')',
+			data:paras,
+			success: function(data) {
+				if(data.success){
+					//关闭表格的清楚设置选项
+					$(".u-grid-header-columnmenu").hide();
+					
+					viewModel.listData.setSimpleData(data.map.datas.rows);
+				}
+			}
+		});
+		
+	}
+
+	
+	window.vm = viewModel;
+	app = u.createApp({
+		el: '#content',
+		model: viewModel
+	});
+	getInitData(2);
+	
+	window.onload=function(){
+		//diyScroll($(".navi>ul"),1);
+		
+		getSkinColor();
+	}
+	/**
+	 *点击查看不同时间点的新增客户等信息
+	 */
+	jQuery("#main-second .u-tabs__tab-bar a").click(function(){
+	 	var paras = {
+	 		timeBunket:$(this).attr("value")
+	 	}
+		getInfoByDate(paras);
+	});
+	/**
+	 *点击查看待办任务，预警消息和通知消息
+	 */
+	jQuery("#bodyTabs_info > div > a").click(function(){
+		var type = $(this).attr("value") - 0;
+		var paras = {
+			type:type
+		}
+		queryDatas(paras);
+	});
+	/**
+	 * 刷新
+     */
+	jQuery("#messageRefresh").click(function(){
+		//var page = jQuery("#page").val();
+		var that=this;
+		$(this).find("i").attr("class","glyphicon glyphicon-refresh");
+		var type = jQuery("#main-third .u-tabs__tab-bar a.is-active").attr("value") - 0;
+		var paras = {
+			type:type
+		};
+		
+		queryDatas(paras);
+		setTimeout(function(){
+			$(that).find("i").attr("class","glyphicon glyphicon-repeat");
+		},500)
+    	
+	});
+	/**
+	 *点击查看更多
+	 */
+	jQuery("#moreinfo").click(function(){
+		var content = jQuery("#main-third .u-tabs__tab-bar").find(".is-active");
+		var obj={};
+		obj.module_url = content.attr("module_url");
+		obj.module_value = content.attr("module_value");
+		obj.title_name = content.attr("title_name");
+		obj.type = "&type="+(content.attr("value") - 0);
+		Hui_admin_tab(obj);
+	});
+	/**
+	 *点击所有查看个人客户
+	 */
+	jQuery("#percust").click(function(){
+		var obj={};
+		obj.module_url = $(this).attr("module_url");
+		obj.module_value = $(this).attr("module_value");
+		obj.title_name = $(this).attr("title_name");
+		obj.flag = "&flag="+$(this).attr("flag");
+		Hui_admin_tab(obj);
+	});
+	/**
+	 *点击所有查看企业客户
+	 */
+	jQuery("#entcust").click(function(){
+		var obj={};
+		obj.module_url = $(this).attr("module_url");
+		obj.module_value = $(this).attr("module_value");
+		obj.title_name = $(this).attr("title_name");
+		obj.flag = "&flag="+$(this).attr("flag");
+		Hui_admin_tab(obj);
+	});
+	/**
+	 *点击查看时间投保单
+	 */
+	jQuery("#contrCount").click(function(){
+		var timeBunket = jQuery("#main-second .u-tabs__tab-bar a.is-active").attr("value");
+		var obj={};
+		obj.module_url = $(this).attr("module_url");
+		obj.module_value = $(this).attr("module_value");
+		obj.title_name = $(this).attr("title_name");
+		obj.timeBunket = "&timeBunket="+timeBunket;
+		Hui_admin_tab(obj);
+	});
+	jQuery("#prjapplyCount").click(function(){
+		var timeBunket = jQuery("#main-second .u-tabs__tab-bar a.is-active").attr("value");
+		var obj={};
+		obj.module_url = $(this).attr("module_url");
+		obj.module_value = $(this).attr("module_value");
+		obj.title_name = $(this).attr("title_name");
+		obj.timeBunket = "&timeBunket="+timeBunket;
+		Hui_admin_tab(obj);
+	});
+	/**
+	 *点击查看时间段内保单
+	 */
+	jQuery("#pricecalCount").click(function(){
+		var timeBunket = jQuery("#main-second .u-tabs__tab-bar a.is-active").attr("value");
+		var obj={};
+		obj.module_url = $(this).attr("module_url");
+		obj.module_value = $(this).attr("module_value");
+		obj.title_name = $(this).attr("title_name");
+		obj.timeBunket = "&timeBunket="+timeBunket;
+		Hui_admin_tab(obj);
+	});
+	
+	
+    // 开启全屏
+	function launchFullScreen(element) {
+	    if(element.requestFullScreen) {
+	        element.requestFullScreen();
+	    }else if(element.mozRequestFullScreen) { //兼容moz
+	        element.mozRequestFullScreen();
+	    }else if(element.webkitRequestFullScreen) { //兼容webkit
+	        element.webkitRequestFullScreen();
+	    }
+	}
+	    //退出全屏
+	function exitFullscreen() {
+	    if(document.exitFullscreen) {
+	        document.exitFullscreen();
+	    }else if(document.mozCancelFullScreen) { //兼容moz
+	        document.mozCancelFullScreen();
+	    }else if(document.webkitExitFullscreen) { //兼容webkit
+	        document.webkitExitFullscreen();
+	    }
+	}
+	var fullscreenstate=null;
+	document.addEventListener("fullscreenchange", function(e) {
+			if(fullscreenstate==0){
+				document.body.removeChild(document.querySelector("#case-g1"));
+				$(window.frames["iframeCenterName_pmt_plan"].frames[0].document.querySelector("#case-g1")).removeClass("fullpage-table");
+				fullscreenstate=1;
+
+			}else{
+			
+				fullscreenstate=0;
+			}
+	});
+	document.addEventListener("mozfullscreenchange", function(e) {
+			if(fullscreenstate==0){
+				document.body.removeChild(document.querySelector("#case-g1"));
+				$(window.frames["iframeCenterName_pmt_plan"].frames[0].document.querySelector("#case-g1")).removeClass("fullpage-table");
+				fullscreenstate=1;
+
+			}else{
+				fullscreenstate=0;
+			}
+	});		
+	document.addEventListener("webkitfullscreenchange", function(e) {
+			
+			if(fullscreenstate==0){
+				
+				document.body.removeChild(document.querySelector("#case-g1"));
+				$(window.frames["iframeCenterName_pmt_plan"].frames[0].document.querySelector("#case-g1")).removeClass("fullpage-table");
+				fullscreenstate=1;
+
+			}else{
+				
+				fullscreenstate=0;
+				
+			}			
+	});
+	document.addEventListener("msfullscreenchange", function(e) {
+			if(fullscreenstate==0){
+				document.body.removeChild(document.querySelector("#case-g1"));
+				$(window.frames["iframeCenterName_pmt_plan"].frames[0].document.querySelector("#case-g1")).removeClass("fullpage-table");
+				fullscreenstate=1;
+
+			}else{
+				fullscreenstate=0;
+			}
+	});
+
+	
+	
+});
+
+
+
+</script>
+	
+</body>
+<script src="$homeModule.getTarget('/misc/themeColor/skin.js')"></script>

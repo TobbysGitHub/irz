@@ -1,0 +1,15 @@
+<div class="padding-5">
+	<div class="toolsbarPanel">
+		<div class="btn-group" role="group">
+			<button type="button" class="btn btn-default btn-sm template template-assign" >模板分配</button>
+			<button type="button" class="btn btn-default btn-sm un_approve-btn template-cancle">取消分配</button>
+			<button type="button" class="btn btn-default btn-sm enable-btn" style="margin-right:0;">启用</button>
+            <button type="button" class="btn btn-default btn-sm disable-btn">停用</button>
+			<button type="button" class="btn btn-default btn-sm refresh-btn-new">刷新</button>
+           
+           
+		</div>
+	</div>
+	<div class="grid templateNodeDefList"></div>
+  <!--	<ul id="pagination" class="pagination"></ul>  -->
+</div>

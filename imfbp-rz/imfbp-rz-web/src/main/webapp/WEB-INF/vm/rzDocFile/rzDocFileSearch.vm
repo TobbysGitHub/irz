@@ -1,0 +1,186 @@
+<!-- search start  -->
+<div class="searchPanel padding-10">
+	<form class="form-horizontal">
+		<div class="searchContent col-xs-8" data-bind="with:queryData">
+						
+			<div class="row">
+				<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">主键</label>
+						<div class="col-md-8 col-sm-8" style="width:160px;">
+							<input type="text" name="id" class="form-control header-w150-input" data-bind="value:id">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">节点编码</label>
+						<div class="col-md-8 col-sm-8" style="width:160px;">
+							<input type="text" name="nodeCode" class="form-control header-w150-input" data-bind="value:nodeCode">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">单据id</label>
+						<div class="col-md-8 col-sm-8" style="width:160px;">
+							<input type="text" name="billId" class="form-control header-w150-input" data-bind="value:billId">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">租户id</label>
+						<div class="col-md-8 col-sm-8" style="width:160px;">
+							<input type="text" name="tenantId" class="form-control header-w150-input" data-bind="value:tenantId">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--******更多条件放这里********-->
+			<div class="hideRule">
+				
+				<div class="row">
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">创建人</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="creator" class="form-control header-w150-input" data-bind="value:creator">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">创建时间</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="createdtime" class="form-control header-w150-input" data-bind="value:createdtime">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">操作者</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="operator" class="form-control header-w150-input" data-bind="value:operator">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">操作时间</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="operationtime" class="form-control header-w150-input" data-bind="value:operationtime">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">修改人</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="modifier" class="form-control header-w150-input" data-bind="value:modifier">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">修改时间</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="modifiedtime" class="form-control header-w150-input" data-bind="value:modifiedtime">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">时间戳</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="ts" class="form-control header-w150-input" data-bind="value:ts">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">删除标识</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="dr" class="form-control header-w150-input" data-bind="value:dr">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">文件名称</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="filename" class="form-control header-w150-input" data-bind="value:filename">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">文件描述</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="description" class="form-control header-w150-input" data-bind="value:description">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">上传人</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="uploader" class="form-control header-w150-input" data-bind="value:uploader">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">上传时间</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="uploadtime" class="form-control header-w150-input" data-bind="value:uploadtime">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">文件类型</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="filetype" class="form-control header-w150-input" data-bind="value:filetype">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">文件长度</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="filelength" class="form-control header-w150-input" data-bind="value:filelength">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">文件id</label>
+							<div class="col-md-8 col-sm-8" style="width:160px;">
+								<input type="text" name="fileFastdfsId" class="form-control header-w150-input" data-bind="value:fileFastdfsId">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 展开更多的一行-->
+		<div class="searchToolsbar">
+			<div data-target=".hideRule" data-toggle="collapse" class="moreRule">
+				<span>展开更多查询条件</span>
+				<i class="glyphicon glyphicon-triangle-bottom"></i>
+			</div>
+			<div class="search-box">
+				<button type="button" class="btn btn-default btn-sm reset-btn">重置</button>
+				<button type="button" class="btn btn-default btn-sm search-btn">查询</button>
+			</div>
+		</div>
+	</form>
+</div>
+<!-- search end -->

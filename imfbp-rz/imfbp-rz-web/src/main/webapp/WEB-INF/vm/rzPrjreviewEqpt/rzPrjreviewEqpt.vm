@@ -1,0 +1,453 @@
+<title>rzPrjreviewEqpt</title>
+<body>
+<div id="rzPrjreviewEqptModule" >
+	
+	<!-- list page start -->
+	<div class="listPage startPage">
+		#parse("/WEB-INF/vm/rzPrjreviewEqpt/rzPrjreviewEqptList.vm")
+	</div>
+	<!-- list page end -->
+	
+	<!-- edit page end -->
+	<div class="rzPrjreviewEqptEdit" style="display:none;">
+		#parse("/WEB-INF/vm/rzPrjreviewEqpt/rzPrjreviewEqptEdit.vm")
+	</div>
+	<!-- edit page end -->
+	
+</div>
+
+
+<script>
+
+jQuery(function(){
+	//列表后台访问地址
+	var url_page = '$homeModule.getTarget('/rzPrjreviewEqpt/getRzPrjreviewEqptByPage')';
+	//添加修改后台访问地址
+	var url_add = '$homeModule.getTarget('/rzPrjreviewEqpt/insertOrUpdate')';
+	//删除后台访问地址
+	var url_del = '$homeModule.getTarget('/rzPrjreviewEqpt/deleteRzPrjreviewEqptByBatchId')';
+	
+	var url_page_apply = '$homeModule.getTarget('/rzPrjapplyEqpt/getRzPrjapplyEqptByPage')';
+	
+	//查询对象
+	var queryData = new RzPrjreviewEqptView();
+	//编辑对象
+	var editData = new RzPrjreviewEqptView();
+	//空对象用来清空编辑和查询对象
+	var emptyData = new RzPrjreviewEqptView();
+	
+	window.viewModel={
+		queryData:ko.mapping.fromJS(queryData),
+		editData:ko.mapping.fromJS(editData),
+		pageState:ko.observable("")
+	}
+	
+	/**
+	 * 表头
+	 */
+	var col = [{
+		field:"pkCustomer",
+		title:"供应商",
+		imfbpRefType:'customerref',
+        renderType:"imfbpRefTransform"
+	},{
+		field:"mfg",
+		title:"制造商"
+	},{
+		field:"pkEqpt",
+		title:"设备名称",
+		imfbpRefType:'eqptref',
+        renderType:"imfbpRefTransform"
+	},{
+		field:"eqptType",
+		title:"设备分类",
+		imfbpRefType: "eqpttyperef",
+        renderType:"imfbpRefTransform",
+	},{
+		field:"eqptBrand",
+		title:"设备品牌"
+	},{
+		field:"eqptVer",
+		title:"设备型号"
+	},{
+		field:"mfgNo",
+		title:"出厂编码"
+	},{
+		field:"mfgDate",
+		title:"出厂日期"
+	},{
+		field:"eqptPrice",
+		title:"设备价格(元)"
+	},{
+		field:"eqptNum",
+		title:"设备数量"
+	},{
+		field:"eqptPriceTotal",
+		title:"设备总价(元)"
+	},{
+		field:"assessPrice",
+		title:"设备评估价值（元）"
+	},{
+		field:"deliveryDate",
+		title:"交货日期"
+	},{
+		field:"netVal",
+		title:"设备净值(元)"
+	}];
+    
+	
+	/**
+     * 初始化layoutMDI
+     */
+	$("#rzPrjreviewEqptModule").layoutMDI({
+		//当页面后退时候触发的事件
+		onBackPage: function(target, options) {
+			ko.mapping.fromJS(emptyData,viewModel.editData);
+		} 
+	});
+	
+	/**
+     * 创建一个表格，但是没有赋值dataSource数据，这是表格将没有数据
+	 */
+	var gridObj = $("#rzPrjreviewEqptModule .rzPrjreviewEqptList").grid({
+		dataSource:'',
+    	id: 'case-g1',
+   		keyField: 'id',
+   		parentKeyField: 'pid',
+    	multiSelect: true,
+    	showNumCol:true,
+    	height: 350,
+    	columns: col,
+    	onDblClickFun:function(gridObj,rowObj,rowIndex){
+			//设置页面的输入框为不可修改
+			viewModel.editData.enableState(false);
+			//得到点击行
+    		var dbClickRow = gridObj.rowObj;
+    		//赋值
+    		ko.mapping.fromJS(dbClickRow.value, viewModel.editData);
+    		//跳转到编辑页
+        	$("#rzPrjreviewEqptModule").layoutMDI("go", ".rzPrjreviewEqptEdit");
+        	getEqpttype();
+    	}
+    });
+	
+	/**
+	 * 初始化分页
+	 */
+	var paginationObj = $("#rzPrjreviewEqptModule .pagination").pagination({
+		pageSize:10,
+		styleMode:2,
+		onSelectPage:function(pageNumber, pageSize){
+			var queryData = $.extend(ko.mapping.toJS(viewModel.queryData),{pageNumber:pageNumber,pageSize:pageSize});
+			jQuery("#rzPrjreviewEqptModule .rzPrjreviewEqptList").gridPlugin("reLoad",queryData);
+		}
+	});
+	
+	/**
+	 * 初始化表格插件
+	 */
+	var gridPluginObj = jQuery("#rzPrjreviewEqptModule .rzPrjreviewEqptList").gridPlugin({
+			url: url_page,
+			gridObj:gridObj,
+			queryParam:getParams(),
+			pagination:true,//是否分页默认为否
+			paginationObj:paginationObj,//分页控件对象
+			initData:true,//初始化时候是否加载数据(true时候加载，false时候不加载)
+			onDataSuccess:function(data){
+				//当列表加载成功之后调用
+				 imfbpDataTableTranform(gridObj, data.rows, function(){
+	                var d = {};
+	                d.values = data.rows;
+	                gridObj.setDataSource(d);
+	            });
+			},
+			onDataError:function(data){
+				//当列表加载失败之后调用
+			},
+		}) 
+	
+	/**
+	 * form表单插件
+	 */
+	jQuery("#rzPrjreviewEqptModule .rzPrjreviewEqptEditForm").formPlugin({
+		url: url_add,//添加修改的地址
+		gridPlugin:gridPluginObj,//表格插件对象
+		onSaveSuccess:function(data){
+			//保存成功后退出编辑页面
+			$("#rzPrjreviewEqptModule").layoutMDI("back");
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+			jQuery("#rzPrjreviewEqptModule .rzPrjreviewEqptList").gridPlugin("load", {});
+		},
+		onDeleteSuccess:function(data){
+			
+		}
+	})
+	
+	/**
+	 * 新增功能
+	 */			
+    jQuery("#rzPrjreviewEqptModule .toolsbarPanel .addeqpt-btn").click(function(){
+    	 var newdefaultData = [];
+         imfbpDataTableTranform(gridObj, newdefaultData, function(){
+             refManager.initAreaLoadData(".rzPrjreviewEqptModule", function(name){
+                 var fun = viewModel.editData[name];
+                 if(typeof fun == 'function'){
+                     return fun();
+                 }
+             });
+         });
+         refManager.setRefArea(".rzPrjreviewEqptEditForm");
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为添加状态
+		viewModel.pageState(pageState.add);
+        $("#rzPrjreviewEqptModule").layoutMDI("go", ".rzPrjreviewEqptEdit");
+        getEqpttype();
+        validatorForm();
+    });
+
+	/**
+	 * 修改功能
+	 */		    
+    jQuery("#rzPrjreviewEqptModule .toolsbarPanel .update-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为修改状态
+		viewModel.pageState(pageState.edit);
+    	//当前选中行
+    	var selectRow = gridObj.getSelectRows();
+    	//将数据绑定到表单上面
+    	ko.mapping.fromJS(selectRow[0], viewModel.editData);
+    	 refManager.setRefArea(".rzPrjreviewEqptEditForm");
+         refManager.initAreaLoadData(".rzPrjreviewEqptEditForm", function(name){
+             var fun = viewModel.editData[name];
+             if(typeof fun == 'function'){
+                 return fun();
+             }
+         });
+    	//跳转到编辑页面
+        $("#rzPrjreviewEqptModule").layoutMDI("go", ".rzPrjreviewEqptEdit");
+        getEqpttype();
+        validatorForm();
+    });
+
+	/**
+	 * 删除功能
+	 */	    
+    jQuery("#rzPrjreviewEqptModule .toolsbarPanel .delete-btn").click(function(){
+    	//要删除的id用","隔开
+		var batchId = "";
+		//当前选中行
+		var selectRow = gridObj.getSelectRows();
+		//判断是否选中要删除的数据
+		if(selectRow.length == 0) {
+			alert("请选择您要修改的数据");
+			return;
+		}
+	
+		for(var i = 0; i < selectRow.length; i++) {
+			var row = selectRow[i];
+			if(i == 0) {
+				batchId = row["pkPrjreviewEqpt"] + batchId;
+			} else {
+				batchId = row["pkPrjreviewEqpt"] + "," + batchId;
+			}
+		}
+		//删除数据
+		jQuery("#rzPrjreviewEqptModule .rzPrjreviewEqptEditForm").formPlugin("remove",{batchId:batchId,url:url_del});
+    });
+    
+    /**
+	 * 刷新功能(只是刷新当前页，如果要刷新所有页面使用 load 方法)
+	 */	 
+    jQuery("#rzPrjreviewEqptModule .toolsbarPanel .refresh-btn").click(function(){
+		jQuery("#rzPrjreviewEqptModule .rzPrjreviewEqptList").gridPlugin("reLoad",viewModel.queryData);
+    });
+    
+    //保存功能
+	jQuery("#rzPrjreviewEqptModule .rzPrjreviewEqptEdit .save-btn").click(function(){
+		if(viewModel.pageState()=="add"){
+			ko.mapping.fromJS(emptyData,viewModel.queryData);
+		}
+		var param = {
+			formData:ko.mapping.toJS(viewModel.editData),//要提交的数据
+			queryData:ko.mapping.toJS(viewModel.queryData),//修改完毕刷新表格的参数
+			editType:viewModel.pageState()//页面的状态(add：添加，edit:编辑)
+		}
+		$('.rzPrjreviewEqptEditForm').bootstrapValidator('validate');
+		debugger;
+		 if(viewModel.editData.pkCustomer() != null && viewModel.editData.pkCustomer() != ""){
+           var validator1 = $('.rzPrjreviewEqptEditForm').data('bootstrapValidator');
+           validator1.updateStatus("pkCustomer", 'VALID' , null);
+       } 
+		//赋值
+	    if($('.rzPrjreviewEqptEditForm').data('bootstrapValidator').isValid()) { 
+	    	jQuery("#rzPrjreviewEqptModule .rzPrjreviewEqptEditForm").formPlugin("save",param);
+		}
+	});
+	
+	//查找功能
+	jQuery("#rzPrjreviewEqptModule .searchToolsbar .search-btn").click(function(){
+		jQuery("#rzPrjreviewEqptModule .rzPrjreviewEqptList").gridPlugin("load",ko.mapping.toJS(viewModel.queryData));
+	});
+	
+	//重置查询条件功能
+	jQuery("#rzPrjreviewEqptModule .searchToolsbar .reset-btn").click(function(){
+		ko.mapping.fromJS(emptyData,viewModel.queryData);
+	});
+	
+	//编辑页返回
+	jQuery("#rzPrjreviewEqptModule .rzPrjreviewEqptEdit .back-btn").click(function(){
+		$("#rzPrjreviewEqptModule").layoutMDI("back");
+	});
+
+	ko.applyBindings(viewModel);
+	debugger;
+	
+	{
+		buttonManager.addBtn({button:".delete-btn",permission:['0']});
+		buttonManager.addBtn({button:".addeqpt-btn",permission:['0']});
+		buttonManager.permission("${approvestatus.approvestatus}");
+	} 
+	
+	
+	
+	$('.form_hhg_date').datetimepicker({
+	    language: 'cn',
+	    weekStart: 1,
+	    todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0,
+		autoclose: true,
+		todayHighlight: true,
+	});
+	function getnowdate(){
+		var date=new Date();
+		var yy=date.getFullYear();
+		var MM=date.getMonth()+1;
+		var DD=date.getDate();
+		if(DD<10){
+			DD="0"+DD;
+		}
+		if(MM<10){
+			MM="0"+MM;
+		}
+		var nowdate=yy+"-"+MM+"-"+DD;	
+		return nowdate;
+	}
+	function getnowtime(){
+		Date.prototype.Format = function (fmt) { //author: meizz
+		    var o = {
+		        "M+": this.getMonth() + 1, //月份
+		        "d+": this.getDate(), //日
+		        "h+": this.getHours(), //小时
+		        "m+": this.getMinutes(), //分
+		        "s+": this.getSeconds(), //秒
+		        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+		        "S": this.getMilliseconds() //毫秒
+		    };
+		    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+		    for (var k in o)
+		        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+		    return fmt;
+		}
+		return new Date().Format("yyyy-MM-dd hh:mm:ss");
+	}
+
+});
+//设备参照回调函数
+function eqptRefCallFunction(eleObj, data, name, id) {
+	debugger;
+    var fun = viewModel.editData[name];
+    if(typeof fun == 'function'){
+        fun(data[id]);
+   }
+    ko.mapping.fromJS(data,viewModel.editData);
+}
+function RzPrjreviewEqptView(){
+	//主键
+	this.pkPrjreviewEqpt="";
+	//立项申请主键
+	this.pkPrjreview='${pkPrjreview}';
+	//客户主键
+	this.pkCustomer="";
+	//租赁设备外键
+	this.pkEqpt="";
+	//参照设备分类字典档案数据
+	this.eqptType="";
+	//设备品牌
+	this.eqptBrand="";
+	//设备型号
+	this.eqptVer="";
+	//出厂编码
+	this.mfgNo="";
+	//出厂日期
+	this.mfgDate="";
+	//设备价格
+	this.eqptPrice="";
+	//制造商
+	this.mfg="";
+	//数量
+	this.eqptNum="";
+	//设备总价(元)
+	this.eqptPriceTotal="";
+	//设备评估价值（元）
+	this.assessPrice="";
+	//交货日期
+	this.deliveryDate="";
+	//设备净值(元)
+	this.netVal="";
+	//编辑页面状态
+	this.enableState=true;
+	this.eqptTypeList="";
+}
+
+function getParams(selector){
+	return {pkPrjreview:'${pkPrjreview}'};
+}
+
+function getEqpttype(){
+	$.getJSON("$homeModule.getTarget('/rzEqpt/getAllEqptType')").done(function(data){
+       return viewModel.editData.eqptTypeList(data.map.eqptTypeList);
+     }).fail(function(data){layer.alert("获取业务类型失败");});
+};
+
+function customerRefCallFunction(eleObj, data, name, id) {
+	debugger;
+	viewModel.editData[name](data[id]);
+	$(eleObj).attr("data-imfbp-ref-condition",data[id]);
+}
+
+<!--校验输入框-->
+function validatorForm() {
+ if($('.rzPrjreviewEqptEditForm').data('bootstrapValidator')!=null)  $(".rzPrjreviewEqptEditForm").data('bootstrapValidator').destroy();
+    $('.rzPrjreviewEqptEditForm').bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	pkCustomer : {
+                message: '不能为空',
+                validators: {
+                    notEmpty: {
+                        message: '不能为空'
+                    },
+                }
+            },  
+        }
+    });
+}
+</script>
+	
+</body>

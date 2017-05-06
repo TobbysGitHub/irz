@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="rzPricecalCf">
+
+	<!-- 結果集 -->
+	<resultMap id="rzPricecalCfResult" type="com.imfbp.rz.domain.rzpricecalcf.RzPricecalCf">
+		<result property="pkPricecalCf" column="pk_pricecal_cf" />
+		<result property="pkPricecal" column="pk_pricecal" />
+		<result property="prd" column="prd" />
+		<result property="planpmtdate" column="planpmtdate" />
+		<result property="planpmttype" column="planpmttype" />
+		<result property="planpmtcategory" column="planpmtcategory" />
+		<result property="pmtdur" column="pmtdur" />
+		<result property="durdays" column="durdays" />
+		<result property="leaseRate" column="lease_rate" />
+		<result property="receivableAmt" column="receivable_amt" />
+		<result property="receivableInt" column="receivable_int" />
+		<result property="receivableRent" column="receivable_rent" />
+		<result property="receivableFee" column="receivable_fee" />
+		<result property="receivableTotal" column="receivable_total" />
+		<result property="payableFa" column="payable_fa" />
+		<result property="payableSc" column="payable_sc" />
+		<result property="payableAmt" column="payable_amt" />
+		<result property="seqNo" column="seq_no" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="rzPricecalCfField">
+		pk_pricecal_cf,pk_pricecal,prd,planpmtdate,planpmttype,planpmtcategory,pmtdur,durdays,lease_rate,receivable_amt,receivable_int,receivable_rent,receivable_fee,receivable_total,payable_fa,payable_sc,payable_amt,seq_no
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="condition">
+        <where>
+        	<if test="pkPricecalCf != null and pkPricecalCf != ''" >
+				and pk_pricecal_cf = #{pkPricecalCf}
+			</if>
+        	<if test="pkPricecal != null and pkPricecal != ''" >
+				and pk_pricecal = #{pkPricecal}
+			</if>
+        	<if test="prd != null and prd != ''" >
+				and prd = #{prd}
+			</if>
+        	<if test="planpmtdate != null and planpmtdate != ''" >
+				and planpmtdate = #{planpmtdate}
+			</if>
+        	<if test="planpmttype != null" >
+				and planpmttype = #{planpmttype}
+			</if>
+        	<if test="planpmtcategory != null" >
+				and planpmtcategory = #{planpmtcategory}
+			</if>
+        	<if test="pmtdur != null and pmtdur != ''" >
+				and pmtdur = #{pmtdur}
+			</if>
+        	<if test="durdays != null" >
+				and durdays = #{durdays}
+			</if>
+        	<if test="leaseRate != null" >
+				and lease_rate = #{leaseRate}
+			</if>
+        	<if test="receivableAmt != null" >
+				and receivable_amt = #{receivableAmt}
+			</if>
+        	<if test="receivableInt != null" >
+				and receivable_int = #{receivableInt}
+			</if>
+        	<if test="receivableRent != null" >
+				and receivable_rent = #{receivableRent}
+			</if>
+        	<if test="receivableFee != null" >
+				and receivable_fee = #{receivableFee}
+			</if>
+        	<if test="receivableTotal != null" >
+				and receivable_total = #{receivableTotal}
+			</if>
+        	<if test="payableFa != null" >
+				and payable_fa = #{payableFa}
+			</if>
+        	<if test="payableSc != null" >
+				and payable_sc = #{payableSc}
+			</if>
+        	<if test="payableAmt != null" >
+				and payable_amt = #{payableAmt}
+			</if>
+        	<if test="seqNo != null" >
+				and seq_no = #{seqNo}
+			</if>
+        </where>
+    </sql>
+    
+    <!-- 修改条件 -->
+	<sql id="updateByCondition">
+        <where>
+				<if test="parameter.pkPricecalCf != null and parameter.pkPricecalCf != ''" >
+					and pk_pricecal_cf = #{parameter.pkPricecalCf}
+				</if>
+				<if test="parameter.pkPricecal != null and parameter.pkPricecal != ''" >
+					and pk_pricecal = #{parameter.pkPricecal}
+				</if>
+				<if test="parameter.prd != null and parameter.prd != ''" >
+					and prd = #{parameter.prd}
+				</if>
+				<if test="parameter.planpmtdate != null and parameter.planpmtdate != ''" >
+					and planpmtdate = #{parameter.planpmtdate}
+				</if>
+		    	<if test="parameter.planpmttype != null" >
+					and planpmttype = #{parameter.planpmttype}
+				</if>
+		    	<if test="parameter.planpmtcategory != null" >
+					and planpmtcategory = #{parameter.planpmtcategory}
+				</if>
+				<if test="parameter.pmtdur != null and parameter.pmtdur != ''" >
+					and pmtdur = #{parameter.pmtdur}
+				</if>
+		    	<if test="parameter.durdays != null" >
+					and durdays = #{parameter.durdays}
+				</if>
+		    	<if test="parameter.leaseRate != null" >
+					and lease_rate = #{parameter.leaseRate}
+				</if>
+		    	<if test="parameter.receivableAmt != null" >
+					and receivable_amt = #{parameter.receivableAmt}
+				</if>
+		    	<if test="parameter.receivableInt != null" >
+					and receivable_int = #{parameter.receivableInt}
+				</if>
+		    	<if test="parameter.receivableRent != null" >
+					and receivable_rent = #{parameter.receivableRent}
+				</if>
+		    	<if test="parameter.receivableFee != null" >
+					and receivable_fee = #{parameter.receivableFee}
+				</if>
+		    	<if test="parameter.receivableTotal != null" >
+					and receivable_total = #{parameter.receivableTotal}
+				</if>
+		    	<if test="parameter.payableFa != null" >
+					and payable_fa = #{parameter.payableFa}
+				</if>
+		    	<if test="parameter.payableSc != null" >
+					and payable_sc = #{parameter.payableSc}
+				</if>
+		    	<if test="parameter.payableAmt != null" >
+					and payable_amt = #{parameter.payableAmt}
+				</if>
+		    	<if test="parameter.seqNo != null" >
+					and seq_no = #{parameter.seqNo}
+				</if>
+        </where>
+    </sql>
+    
+    <!-- 新增 -->	
+	<insert id="insertRzPricecalCf" parameterType="rzPricecalCf">
+		insert into rz_pricecal_cf
+			(pk_pricecal_cf,pk_pricecal,prd,planpmtdate,planpmttype,planpmtcategory,pmtdur,durdays,lease_rate,receivable_amt,receivable_int,receivable_rent,receivable_fee,receivable_total,payable_fa,payable_sc,payable_amt,seq_no ) 
+		values 
+			(#{pkPricecalCf,jdbcType=CHAR},#{pkPricecal,jdbcType=CHAR},#{prd,jdbcType=VARCHAR},#{planpmtdate,jdbcType=CHAR},#{planpmttype,jdbcType=INTEGER},#{planpmtcategory,jdbcType=INTEGER},#{pmtdur,jdbcType=VARCHAR},#{durdays,jdbcType=INTEGER},#{leaseRate,jdbcType=DECIMAL},#{receivableAmt,jdbcType=DECIMAL},#{receivableInt,jdbcType=DECIMAL},#{receivableRent,jdbcType=DECIMAL},#{receivableFee,jdbcType=DECIMAL},#{receivableTotal,jdbcType=DECIMAL},#{payableFa,jdbcType=DECIMAL},#{payableSc,jdbcType=DECIMAL},#{payableAmt,jdbcType=DECIMAL},#{seqNo,jdbcType=INTEGER})
+    </insert>
+    
+    <!-- 批量新增 -->	
+	<insert id="insertBatchRzPricecalCf" parameterType="java.util.List">
+       insert into rz_pricecal_cf
+			(pk_pricecal_cf,pk_pricecal,prd,planpmtdate,planpmttype,planpmtcategory,pmtdur,durdays,lease_rate,receivable_amt,receivable_int,receivable_rent,receivable_fee,receivable_total,payable_fa,payable_sc,payable_amt,seq_no ) 
+	   values
+	    <foreach collection="list" item="obj" index="index" separator="," >
+	    	(#{obj.pkPricecalCf},#{obj.pkPricecal},#{obj.prd},#{obj.planpmtdate},#{obj.planpmttype},#{obj.planpmtcategory},#{obj.pmtdur},#{obj.durdays},#{obj.leaseRate},#{obj.receivableAmt},#{obj.receivableInt},#{obj.receivableRent},#{obj.receivableFee},#{obj.receivableTotal},#{obj.payableFa},#{obj.payableSc},#{obj.payableAmt},#{obj.seqNo})
+	    </foreach>
+   </insert>
+    
+    
+    <!-- 根据id删除 (删除数据库数据)-->
+    <delete id="deleteRzPricecalCfById" parameterType="rzPricecalCfQuery" >
+    	delete from rz_pricecal_cf  where pk_pricecal_cf = #{pkPricecalCf} 
+    </delete>
+    
+    <!-- 根据条件删除 (删除数据库数据)-->
+    <delete id="deleteRzPricecalCfByCondition" parameterType="rzPricecalCfQuery" >
+    	delete from 
+    	rz_pricecal_cf<include refid="condition" /> 
+    </delete>
+    
+    <!-- 根据主键批量删除 (删除数据库数据)-->
+    <delete id="deleteRzPricecalCfByBatchId" parameterType="map" >
+    	delete from rz_pricecal_cf 
+    	where
+    	pk_pricecal_cf in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据id修改 -->
+    <update id="updateRzPricecalCfById" parameterType="rzPricecalCfQuery">
+		update  rz_pricecal_cf 
+		<set>
+			<if test="pkPricecal != null and pkPricecal != '' " >
+				pk_pricecal = #{pkPricecal},
+			</if>
+			<if test="prd != null and prd != '' " >
+				prd = #{prd},
+			</if>
+			<if test="planpmtdate != null and planpmtdate != '' " >
+				planpmtdate = #{planpmtdate},
+			</if>
+			<if test="planpmttype != null " >
+				planpmttype = #{planpmttype},
+			</if>
+			<if test="planpmtcategory != null " >
+				planpmtcategory = #{planpmtcategory},
+			</if>
+			<if test="pmtdur != null and pmtdur != '' " >
+				pmtdur = #{pmtdur},
+			</if>
+			<if test="durdays != null " >
+				durdays = #{durdays},
+			</if>
+			<if test="leaseRate != null " >
+				lease_rate = #{leaseRate},
+			</if>
+			<if test="receivableAmt != null " >
+				receivable_amt = #{receivableAmt},
+			</if>
+			<if test="receivableInt != null " >
+				receivable_int = #{receivableInt},
+			</if>
+			<if test="receivableRent != null " >
+				receivable_rent = #{receivableRent},
+			</if>
+			<if test="receivableFee != null " >
+				receivable_fee = #{receivableFee},
+			</if>
+			<if test="receivableTotal != null " >
+				receivable_total = #{receivableTotal},
+			</if>
+			<if test="payableFa != null " >
+				payable_fa = #{payableFa},
+			</if>
+			<if test="payableSc != null " >
+				payable_sc = #{payableSc},
+			</if>
+			<if test="payableAmt != null " >
+				payable_amt = #{payableAmt},
+			</if>
+			<if test="seqNo != null " >
+				seq_no = #{seqNo},
+			</if>
+		</set>
+		where
+			pk_pricecal_cf = #{pkPricecalCf} 
+    </update>
+    
+     <!-- 根据条件修改 -->
+    <update id="updateRzPricecalCfByCondition" parameterType="map">
+		update  rz_pricecal_cf 
+		<set>
+				<if test="record.pkPricecal != null and record.pkPricecal != ''">
+					pk_pricecal = #{record.pkPricecal},
+				</if>
+				<if test="record.prd != null and record.prd != ''">
+					prd = #{record.prd},
+				</if>
+				<if test="record.planpmtdate != null and record.planpmtdate != ''">
+					planpmtdate = #{record.planpmtdate},
+				</if>
+		 		<if test="record.planpmttype != null">
+					planpmttype = #{record.planpmttype},
+				</if>
+		 		<if test="record.planpmtcategory != null">
+					planpmtcategory = #{record.planpmtcategory},
+				</if>
+				<if test="record.pmtdur != null and record.pmtdur != ''">
+					pmtdur = #{record.pmtdur},
+				</if>
+		 		<if test="record.durdays != null">
+					durdays = #{record.durdays},
+				</if>
+		 		<if test="record.leaseRate != null">
+					lease_rate = #{record.leaseRate},
+				</if>
+		 		<if test="record.receivableAmt != null">
+					receivable_amt = #{record.receivableAmt},
+				</if>
+		 		<if test="record.receivableInt != null">
+					receivable_int = #{record.receivableInt},
+				</if>
+		 		<if test="record.receivableRent != null">
+					receivable_rent = #{record.receivableRent},
+				</if>
+		 		<if test="record.receivableFee != null">
+					receivable_fee = #{record.receivableFee},
+				</if>
+		 		<if test="record.receivableTotal != null">
+					receivable_total = #{record.receivableTotal},
+				</if>
+		 		<if test="record.payableFa != null">
+					payable_fa = #{record.payableFa},
+				</if>
+		 		<if test="record.payableSc != null">
+					payable_sc = #{record.payableSc},
+				</if>
+		 		<if test="record.payableAmt != null">
+					payable_amt = #{record.payableAmt},
+				</if>
+		 		<if test="record.seqNo != null">
+					seq_no = #{record.seqNo},
+				</if>
+		</set>
+		<include refid="updateByCondition" />
+    </update>
+    
+    <!-- 批量更新 -->
+    <update id="updateByBatchId" parameterType="java.util.Map">
+    <if test="list != null">
+     <foreach collection="list" item='item' separator=';'>
+     update rz_pricecal_cf
+     <set>
+				<if test="item.pkPricecal != null and item.pkPricecal != ''">
+					pk_pricecal = #{item.pkPricecal},
+				</if>
+				<if test="item.prd != null and item.prd != ''">
+					prd = #{item.prd},
+				</if>
+				<if test="item.planpmtdate != null and item.planpmtdate != ''">
+					planpmtdate = #{item.planpmtdate},
+				</if>
+		 		<if test="item.planpmttype != null">
+					planpmttype = #{item.planpmttype},
+				</if>
+		 		<if test="item.planpmtcategory != null">
+					planpmtcategory = #{item.planpmtcategory},
+				</if>
+				<if test="item.pmtdur != null and item.pmtdur != ''">
+					pmtdur = #{item.pmtdur},
+				</if>
+		 		<if test="item.durdays != null">
+					durdays = #{item.durdays},
+				</if>
+		 		<if test="item.leaseRate != null">
+					lease_rate = #{item.leaseRate},
+				</if>
+		 		<if test="item.receivableAmt != null">
+					receivable_amt = #{item.receivableAmt},
+				</if>
+		 		<if test="item.receivableInt != null">
+					receivable_int = #{item.receivableInt},
+				</if>
+		 		<if test="item.receivableRent != null">
+					receivable_rent = #{item.receivableRent},
+				</if>
+		 		<if test="item.receivableFee != null">
+					receivable_fee = #{item.receivableFee},
+				</if>
+		 		<if test="item.receivableTotal != null">
+					receivable_total = #{item.receivableTotal},
+				</if>
+		 		<if test="item.payableFa != null">
+					payable_fa = #{item.payableFa},
+				</if>
+		 		<if test="item.payableSc != null">
+					payable_sc = #{item.payableSc},
+				</if>
+		 		<if test="item.payableAmt != null">
+					payable_amt = #{item.payableAmt},
+				</if>
+				<if test="item.seqNo != null">
+					seq_no = #{item.seqNo},
+				</if>
+		</set> 
+		where pk_pricecal_cf = #{item.pkPricecalCf} 
+     </foreach>
+     </if>
+    </update>
+    
+    <!-- 根据主键进行批量修改 -->
+    <update id="updateRzPricecalCfByBatchId"  parameterType="java.util.List">
+    	<if test="list != null">
+	     <foreach collection="list" item='obj' separator=";" >
+	     update rz_pricecal_cf
+	     <set>
+				<if test="obj.pkPricecal != null and obj.pkPricecal != ''">
+					pk_pricecal = #{obj.pkPricecal},
+				</if>
+				<if test="obj.prd != null and obj.prd != ''">
+					prd = #{obj.prd},
+				</if>
+				<if test="obj.planpmtdate != null and obj.planpmtdate != ''">
+					planpmtdate = #{obj.planpmtdate},
+				</if>
+		 		<if test="obj.planpmttype != null">
+					planpmttype = #{obj.planpmttype},
+				</if>
+		 		<if test="obj.planpmtcategory != null">
+					planpmtcategory = #{obj.planpmtcategory},
+				</if>
+				<if test="obj.pmtdur != null and obj.pmtdur != ''">
+					pmtdur = #{obj.pmtdur},
+				</if>
+		 		<if test="obj.durdays != null">
+					durdays = #{obj.durdays},
+				</if>
+		 		<if test="obj.leaseRate != null">
+					lease_rate = #{obj.leaseRate},
+				</if>
+		 		<if test="obj.receivableAmt != null">
+					receivable_amt = #{obj.receivableAmt},
+				</if>
+		 		<if test="obj.receivableInt != null">
+					receivable_int = #{obj.receivableInt},
+				</if>
+		 		<if test="obj.receivableRent != null">
+					receivable_rent = #{obj.receivableRent},
+				</if>
+		 		<if test="obj.receivableFee != null">
+					receivable_fee = #{obj.receivableFee},
+				</if>
+		 		<if test="obj.receivableTotal != null">
+					receivable_total = #{obj.receivableTotal},
+				</if>
+		 		<if test="obj.payableFa != null">
+					payable_fa = #{obj.payableFa},
+				</if>
+		 		<if test="obj.payableSc != null">
+					payable_sc = #{obj.payableSc},
+				</if>
+		 		<if test="obj.payableAmt != null">
+					payable_amt = #{obj.payableAmt},
+				</if>
+		 		<if test="obj.seqNo != null">
+					seq_no = #{obj.seqNo},
+				</if>
+			</set>
+			where
+				pk_pricecal_cf = #{obj.pkPricecalCf} 
+	     </foreach>
+     	</if>
+    </update>
+    
+    <!-- 查询所有 -->
+    <select id="getRzPricecalCfAll" parameterType="rzPricecalCfQuery" resultMap="rzPricecalCfResult">
+		SELECT 
+		<include refid="rzPricecalCfField" />  
+		from  
+		rz_pricecal_cf<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询总数 -->
+	<select id="getRzPricecalCfByPageCount" parameterType="rzPricecalCfQuery" resultType="int">
+		SELECT count(*) from  rz_pricecal_cf
+		<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getRzPricecalCfByPage" parameterType="rzPricecalCfQuery" resultMap="rzPricecalCfResult">
+		SELECT <include refid="rzPricecalCfField" /> from rz_pricecal_cf
+		<include refid="condition" />
+		<if test="sort !=null">
+		    ORDER BY ${sort} ${order} 
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+	
+	<!-- 根据Id查询 -->
+	<select id="getRzPricecalCfById" parameterType="rzPricecalCfQuery" resultMap="rzPricecalCfResult">
+		SELECT <include refid="rzPricecalCfField" /> from  rz_pricecal_cf  where pk_pricecal_cf = #{pkPricecalCf} 
+		 
+	</select>
+    
+</mapper>

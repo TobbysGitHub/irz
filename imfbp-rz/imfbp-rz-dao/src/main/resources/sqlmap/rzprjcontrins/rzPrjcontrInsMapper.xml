@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="rzPrjcontrIns">
+
+	<!-- 結果集 -->
+	<resultMap id="rzPrjcontrInsResult" type="com.imfbp.rz.domain.rzprjcontrins.RzPrjcontrIns">
+		<result property="pkPrjcontrIns" column="pk_prjcontr_ins" />
+		<result property="pkPrjcontr" column="pk_prjcontr" />
+		<result property="insNo" column="ins_no" />
+		<result property="insContrType" column="ins_contr_type" />
+		<result property="insCorp" column="ins_corp" />
+		<result property="insType" column="ins_type" />
+		<result property="pkCustomerPay" column="pk_customer_pay" />
+		<result property="payAmt" column="pay_amt" />
+		<result property="insAmt" column="ins_amt" />
+		<result property="pkUserBen" column="pk_user_ben" />
+		<result property="startDate" column="start_date" />
+		<result property="insPrd" column="ins_prd" />
+		<result property="endDate" column="end_date" />
+		<result property="remark" column="remark" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="rzPrjcontrInsField">
+		pk_prjcontr_ins,pk_prjcontr,ins_no,ins_contr_type,ins_corp,ins_type,pk_customer_pay,pay_amt,ins_amt,pk_user_ben,start_date,ins_prd,end_date,remark
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="condition">
+        <where>
+        	<if test="pkPrjcontrIns != null and pkPrjcontrIns != ''" >
+				and pk_prjcontr_ins = #{pkPrjcontrIns}
+			</if>
+        	<if test="pkPrjcontr != null and pkPrjcontr != ''" >
+				and pk_prjcontr = #{pkPrjcontr}
+			</if>
+        	<if test="insNo != null and insNo != ''" >
+				and ins_no = #{insNo}
+			</if>
+        	<if test="insContrType != null and insContrType != ''" >
+				and ins_contr_type = #{insContrType}
+			</if>
+        	<if test="insCorp != null and insCorp != ''" >
+				and ins_corp = #{insCorp}
+			</if>
+        	<if test="insType != null and insType != ''" >
+				and ins_type = #{insType}
+			</if>
+        	<if test="pkCustomerPay != null and pkCustomerPay != ''" >
+				and pk_customer_pay = #{pkCustomerPay}
+			</if>
+        	<if test="payAmt != null" >
+				and pay_amt = #{payAmt}
+			</if>
+        	<if test="insAmt != null" >
+				and ins_amt = #{insAmt}
+			</if>
+        	<if test="pkUserBen != null and pkUserBen != ''" >
+				and pk_user_ben = #{pkUserBen}
+			</if>
+        	<if test="startDate != null and startDate != ''" >
+				and start_date = #{startDate}
+			</if>
+        	<if test="insPrd != null" >
+				and ins_prd = #{insPrd}
+			</if>
+        	<if test="endDate != null and endDate != ''" >
+				and end_date = #{endDate}
+			</if>
+        	<if test="remark != null and remark != ''" >
+				and remark = #{remark}
+			</if>
+        </where>
+    </sql>
+    
+    <!-- 修改条件 -->
+	<sql id="updateByCondition">
+        <where>
+				<if test="parameter.pkPrjcontrIns != null and parameter.pkPrjcontrIns != ''" >
+					and pk_prjcontr_ins = #{parameter.pkPrjcontrIns}
+				</if>
+				<if test="parameter.pkPrjcontr != null and parameter.pkPrjcontr != ''" >
+					and pk_prjcontr = #{parameter.pkPrjcontr}
+				</if>
+				<if test="parameter.insNo != null and parameter.insNo != ''" >
+					and ins_no = #{parameter.insNo}
+				</if>
+				<if test="parameter.insContrType != null and parameter.insContrType != ''" >
+					and ins_contr_type = #{parameter.insContrType}
+				</if>
+				<if test="parameter.insCorp != null and parameter.insCorp != ''" >
+					and ins_corp = #{parameter.insCorp}
+				</if>
+				<if test="parameter.insType != null and parameter.insType != ''" >
+					and ins_type = #{parameter.insType}
+				</if>
+				<if test="parameter.pkCustomerPay != null and parameter.pkCustomerPay != ''" >
+					and pk_customer_pay = #{parameter.pkCustomerPay}
+				</if>
+		    	<if test="parameter.payAmt != null" >
+					and pay_amt = #{parameter.payAmt}
+				</if>
+		    	<if test="parameter.insAmt != null" >
+					and ins_amt = #{parameter.insAmt}
+				</if>
+				<if test="parameter.pkUserBen != null and parameter.pkUserBen != ''" >
+					and pk_user_ben = #{parameter.pkUserBen}
+				</if>
+				<if test="parameter.startDate != null and parameter.startDate != ''" >
+					and start_date = #{parameter.startDate}
+				</if>
+		    	<if test="parameter.insPrd != null" >
+					and ins_prd = #{parameter.insPrd}
+				</if>
+				<if test="parameter.endDate != null and parameter.endDate != ''" >
+					and end_date = #{parameter.endDate}
+				</if>
+				<if test="parameter.remark != null and parameter.remark != ''" >
+					and remark = #{parameter.remark}
+				</if>
+        </where>
+    </sql>
+    
+    <!-- 新增 -->	
+	<insert id="insertRzPrjcontrIns" parameterType="rzPrjcontrIns">
+		insert into rz_prjcontr_ins
+			(pk_prjcontr_ins,pk_prjcontr,ins_no,ins_contr_type,ins_corp,ins_type,pk_customer_pay,pay_amt,ins_amt,pk_user_ben,start_date,ins_prd,end_date,remark ) 
+		values 
+			(#{pkPrjcontrIns,jdbcType=CHAR},#{pkPrjcontr,jdbcType=CHAR},#{insNo,jdbcType=VARCHAR},#{insContrType,jdbcType=VARCHAR},#{insCorp,jdbcType=VARCHAR},#{insType,jdbcType=VARCHAR},#{pkCustomerPay,jdbcType=CHAR},#{payAmt,jdbcType=DECIMAL},#{insAmt,jdbcType=DECIMAL},#{pkUserBen,jdbcType=CHAR},#{startDate,jdbcType=CHAR},#{insPrd,jdbcType=INTEGER},#{endDate,jdbcType=CHAR},#{remark,jdbcType=VARCHAR})
+    </insert>
+    
+    <!-- 批量新增 -->	
+	<insert id="insertBatchRzPrjcontrIns" parameterType="java.util.List">
+       insert into rz_prjcontr_ins
+			(pk_prjcontr_ins,pk_prjcontr,ins_no,ins_contr_type,ins_corp,ins_type,pk_customer_pay,pay_amt,ins_amt,pk_user_ben,start_date,ins_prd,end_date,remark ) 
+	   values
+	    <foreach collection="list" item="obj" index="index" separator="," >
+	    	(#{obj.pkPrjcontrIns},#{obj.pkPrjcontr},#{obj.insNo},#{obj.insContrType},#{obj.insCorp},#{obj.insType},#{obj.pkCustomerPay},#{obj.payAmt},#{obj.insAmt},#{obj.pkUserBen},#{obj.startDate},#{obj.insPrd},#{obj.endDate},#{obj.remark})
+	    </foreach>
+   </insert>
+    
+    
+    <!-- 根据id删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjcontrInsById" parameterType="rzPrjcontrInsQuery" >
+    	delete from rz_prjcontr_ins  where pk_prjcontr_ins = #{pkPrjcontrIns} 
+    </delete>
+    
+    <!-- 根据条件删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjcontrInsByCondition" parameterType="rzPrjcontrInsQuery" >
+    	delete from 
+    	rz_prjcontr_ins<include refid="condition" /> 
+    </delete>
+    
+    <!-- 根据主键批量删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjcontrInsByBatchId" parameterType="rzPrjcontrInsQuery" >
+    	delete from rz_prjcontr_ins 
+    	where
+    	pk_prjcontr_ins in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据id修改 -->
+    <update id="updateRzPrjcontrInsById" parameterType="rzPrjcontrInsQuery">
+		update  rz_prjcontr_ins 
+		<set>
+			<if test="pkPrjcontr != null and pkPrjcontr != '' " >
+				pk_prjcontr = #{pkPrjcontr},
+			</if>
+			<if test="insNo != null and insNo != '' " >
+				ins_no = #{insNo},
+			</if>
+			<if test="insContrType != null and insContrType != '' " >
+				ins_contr_type = #{insContrType},
+			</if>
+			<if test="insCorp != null and insCorp != '' " >
+				ins_corp = #{insCorp},
+			</if>
+			<if test="insType != null and insType != '' " >
+				ins_type = #{insType},
+			</if>
+			<if test="pkCustomerPay != null and pkCustomerPay != '' " >
+				pk_customer_pay = #{pkCustomerPay},
+			</if>
+			<if test="payAmt != null " >
+				pay_amt = #{payAmt},
+			</if>
+			<if test="insAmt != null " >
+				ins_amt = #{insAmt},
+			</if>
+			<if test="pkUserBen != null and pkUserBen != '' " >
+				pk_user_ben = #{pkUserBen},
+			</if>
+			<if test="startDate != null and startDate != '' " >
+				start_date = #{startDate},
+			</if>
+			<if test="insPrd != null " >
+				ins_prd = #{insPrd},
+			</if>
+			<if test="endDate != null and endDate != '' " >
+				end_date = #{endDate},
+			</if>
+			<if test="remark != null and remark != '' " >
+				remark = #{remark},
+			</if>
+		</set>
+		where
+			pk_prjcontr_ins = #{pkPrjcontrIns} 
+    </update>
+    
+     <!-- 根据条件修改 -->
+    <update id="updateRzPrjcontrInsByCondition" parameterType="map">
+		update  rz_prjcontr_ins 
+		<set>
+				<if test="record.pkPrjcontr != null and record.pkPrjcontr != ''">
+					pk_prjcontr = #{record.pkPrjcontr},
+				</if>
+				<if test="record.insNo != null and record.insNo != ''">
+					ins_no = #{record.insNo},
+				</if>
+				<if test="record.insContrType != null and record.insContrType != ''">
+					ins_contr_type = #{record.insContrType},
+				</if>
+				<if test="record.insCorp != null and record.insCorp != ''">
+					ins_corp = #{record.insCorp},
+				</if>
+				<if test="record.insType != null and record.insType != ''">
+					ins_type = #{record.insType},
+				</if>
+				<if test="record.pkCustomerPay != null and record.pkCustomerPay != ''">
+					pk_customer_pay = #{record.pkCustomerPay},
+				</if>
+		 		<if test="record.payAmt != null">
+					pay_amt = #{record.payAmt},
+				</if>
+		 		<if test="record.insAmt != null">
+					ins_amt = #{record.insAmt},
+				</if>
+				<if test="record.pkUserBen != null and record.pkUserBen != ''">
+					pk_user_ben = #{record.pkUserBen},
+				</if>
+				<if test="record.startDate != null and record.startDate != ''">
+					start_date = #{record.startDate},
+				</if>
+		 		<if test="record.insPrd != null">
+					ins_prd = #{record.insPrd},
+				</if>
+				<if test="record.endDate != null and record.endDate != ''">
+					end_date = #{record.endDate},
+				</if>
+				<if test="record.remark != null and record.remark != ''">
+					remark = #{record.remark},
+				</if>
+		</set>
+		<include refid="updateByCondition" />
+    </update>
+    
+    <!-- 根据主键进行批量修改 -->
+    <update id="updateRzPrjcontrInsByBatchId"  parameterType="java.util.List">
+    	<if test="list != null">
+	     <foreach collection="list" item='obj' separator=";" >
+	     update rz_prjcontr_ins
+	     <set>
+				<if test="obj.pkPrjcontr != null and obj.pkPrjcontr != ''">
+					pk_prjcontr = #{obj.pkPrjcontr},
+				</if>
+				<if test="obj.insNo != null and obj.insNo != ''">
+					ins_no = #{obj.insNo},
+				</if>
+				<if test="obj.insContrType != null and obj.insContrType != ''">
+					ins_contr_type = #{obj.insContrType},
+				</if>
+				<if test="obj.insCorp != null and obj.insCorp != ''">
+					ins_corp = #{obj.insCorp},
+				</if>
+				<if test="obj.insType != null and obj.insType != ''">
+					ins_type = #{obj.insType},
+				</if>
+				<if test="obj.pkCustomerPay != null and obj.pkCustomerPay != ''">
+					pk_customer_pay = #{obj.pkCustomerPay},
+				</if>
+		 		<if test="obj.payAmt != null">
+					pay_amt = #{obj.payAmt},
+				</if>
+		 		<if test="obj.insAmt != null">
+					ins_amt = #{obj.insAmt},
+				</if>
+				<if test="obj.pkUserBen != null and obj.pkUserBen != ''">
+					pk_user_ben = #{obj.pkUserBen},
+				</if>
+				<if test="obj.startDate != null and obj.startDate != ''">
+					start_date = #{obj.startDate},
+				</if>
+		 		<if test="obj.insPrd != null">
+					ins_prd = #{obj.insPrd},
+				</if>
+				<if test="obj.endDate != null and obj.endDate != ''">
+					end_date = #{obj.endDate},
+				</if>
+				<if test="obj.remark != null and obj.remark != ''">
+					remark = #{obj.remark},
+				</if>
+			</set>
+			where
+				pk_prjcontr_ins = #{obj.pkPrjcontrIns} 
+	     </foreach>
+     	</if>
+    </update>
+    
+    <!-- 查询所有 -->
+    <select id="getRzPrjcontrInsAll" parameterType="rzPrjcontrInsQuery" resultMap="rzPrjcontrInsResult">
+		SELECT 
+		<include refid="rzPrjcontrInsField" />  
+		from  
+		rz_prjcontr_ins<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询总数 -->
+	<select id="getRzPrjcontrInsByPageCount" parameterType="rzPrjcontrInsQuery" resultType="int">
+		SELECT count(*) from  rz_prjcontr_ins
+		<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getRzPrjcontrInsByPage" parameterType="rzPrjcontrInsQuery" resultMap="rzPrjcontrInsResult">
+		SELECT <include refid="rzPrjcontrInsField" /> from rz_prjcontr_ins
+		<include refid="condition" />
+		<if test="sort !=null">
+		    ORDER BY ${sort} ${order} 
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+	
+	<!-- 根据Id查询 -->
+	<select id="getRzPrjcontrInsById" parameterType="rzPrjcontrInsQuery" resultMap="rzPrjcontrInsResult">
+		SELECT <include refid="rzPrjcontrInsField" /> from  rz_prjcontr_ins  where pk_prjcontr_ins = #{pkPrjcontrIns} 
+		 
+	</select>
+    
+</mapper>

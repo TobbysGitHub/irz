@@ -1,0 +1,219 @@
+<style type="text/css">
+html,body,#rzPrjreviewModule,.rzPrjreviewEditTotal{height:100%;}
+.wrap{
+	position: absolute;
+	width: 98%;
+	height: 98%;
+padding:20px;
+	}
+	#content {
+		position: absolute;
+		top: 150px;
+		width: 100%;
+		bottom: 0;
+	padding-right:20px;
+	}
+
+	.wrap ul,li{
+		margin: 0;padding: 0 ;
+	}		
+	.head_name {
+		height: 77px;
+		padding-left:16px;
+	}			
+	.head_name h2 {
+		font-size: 14px;
+		font-family: "PingFang-SC-Medium";
+		color: #333333;
+		height: 20px;
+		font-weight: bold;
+	}
+	
+	.head_name p {
+		font-size: 14px;
+		color: #666666;
+		height: 20px;
+		font-weight: bold;
+	}
+	.tabb{
+		border-bottom: 2px solid #EEEEEE;
+	}
+	.tabb li {
+		font-size: 14px;
+		text-align: center;
+		margin-right:10px;
+		list-style: none;
+		float: left;
+		width: 90px;
+		height: 27px;
+		cursor: pointer;
+	}
+	
+	 .tabb div {
+		width: 90px;
+		border-bottom: 2px solid #EEEEEE;
+		margin-top: 7px;
+		
+	}
+	.show-div{
+		display:none;
+	height:100%;
+	}
+	 .tabb span {
+		font-family: "PingFangSC-Regular";
+		font-size: 14px;
+		color: #999999;
+		font-weight: bold;
+	}
+	.tabb li:hover div {
+		border-color: #00A0E8;
+	}
+	
+	.tabb li:hover span {
+		color: #00A0E8;
+	}
+	
+	#content {
+		margin-top: 20px;
+	}
+	.tab-active span{
+		color: #00A0E8;
+	}
+	.tab-active div{
+		border-color: #00A0E8;
+	}
+	.div-active{
+		display:block;
+	}
+</style>
+
+		<div class="wrap">
+			<nav class="tabb">
+				<ul class="clearfix">
+					<li class="tab-active" data-router="">
+							<span>项目基本信息</span>
+							<div></div>
+					</li>
+					<li data-router="" onclick="supplierClick(this)">
+							<span>供应商信息</span>
+							<div></div>
+					</li>
+					<li data-router="" onclick="eqptClick(this)">
+							<span>租赁物信息</span>
+							<div></div>
+					</li>
+					<li data-router="" onclick="lessesClick(this)">
+							<span>承租人信息</span>
+							<div></div>
+					</li>
+					<li data-router="" onClick="guarClick(this)">
+							<span>担保人信息</span>
+							<div></div>
+					</li>
+					<li data-router="" onclick="fileClick(this)">
+							<span>附件信息</span>
+							<div></div>
+					</li>
+				</ul>
+			</nav>
+			<div id="content">
+				<div class="show-div div-active">#parse("/WEB-INF/vm/rzPrjreview/rzPrjreviewEdit.vm")</div>
+				<div class="show-div"></div>
+				<div class="show-div"></div>
+				<div class="show-div"></div>
+				<div class="show-div"></div>
+				<div class="show-div"></div>
+			</div> 
+			<div style="float:right;margin-top:-35px" >
+				<button class="btn btn-action btn-py back-btn" >返回</button>
+			</div> 
+		</div>
+
+<script type="text/javascript">
+	$(".back-btn").on("click",function(){
+		$("#rzPrjreviewModule").layoutMDI("back");
+	})
+	var url = '';
+	jQuery(".tabb li").on("click", function() {
+		pkPrjreview =$("#rzPrjreviewModule .rzPrjreviewEditForm input[name=pkPrjreview]").val();
+		if(!pkPrjreview){
+			jQuery(".tabb li").removeClass();
+			layer.alert('请先保存项目基本信息！');
+			jQuery(".tabb li").eq(0).addClass("tab-active");
+			$("#content>div").eq(0).addClass("div-active");
+			return;
+		}
+		if($(this).hasClass("tab-active"))
+		return;
+		
+		jQuery(".tabb li").removeClass();
+		jQuery(this).addClass("tab-active");
+		
+		if($(this).attr("data-router").length !=0){
+			$("#content>div").eq($(this).index()).html("")
+			var indexVal = $(this).index();
+			if(indexVal==2){
+				url = $(this).attr("data-router")+"?businessType=3&&businessId="+fkContactsClient;
+			}
+			$("#content>div").eq($(this).index()).load(url);
+		}
+		$("#content>div").removeClass("div-active");
+		$("#content>div").eq($(this).index()).addClass("div-active")
+	})
+	
+	function eqptClick(obj){
+		if($("#content_plan>div").eq($(obj).index()).find("iframe").length >0)
+			return;
+		if($(obj).hasClass("tab-active"))
+			return;
+		var pkPrjreview=$("#rzPrjreviewModule .rzPrjreviewEditForm input[name=pkPrjreview]").val();
+		url='$homeModule.getTarget('rzPrjreviewEqpt/toRzPrjreviewEqptPage')'+'?pkPrjreview='+pkPrjreview;
+		$("#content>div").removeClass("div-active");
+		$("#content>div").eq($(obj).index()).html("<iframe frameborder=0 width=100% height=100% marginheight=0 marginwidth=0  src="+url+"></iframe>")
+	}
+	
+	function fileClick(obj){
+		if($("#content_plan>div").eq($(obj).index()).find("iframe").length >0)
+			return;
+		if($(obj).hasClass("tab-active"))
+			return;
+		var pkPrjreview=$("#rzPrjreviewModule .rzPrjreviewEditForm input[name=pkPrjreview]").val();
+		url='$homeModule.getTarget('/pubFileinfo/toPubFileinfoPage')'+'?pkBill='+pkPrjreview;
+		$("#content>div").removeClass("div-active");
+		$("#content>div").eq($(obj).index()).html("<iframe frameborder=0 width=100% height=100% marginheight=0 marginwidth=0  src="+url+"></iframe>")
+	}
+	
+	function lessesClick(obj){
+		if($("#content_plan>div").eq($(obj).index()).find("iframe").length >0)
+			return;
+		if($(obj).hasClass("tab-active"))
+			return;
+		var pkPrjreview=$("#rzPrjreviewModule .rzPrjreviewEditForm input[name=pkPrjreview]").val();
+		debugger;
+		url='$homeModule.getTarget('rzPrjreviewLessee/toRzPrjreviewLesseePage')'+'?pkPrjreview='+pkPrjreview;
+		$("#content>div").removeClass("div-active");
+		$("#content>div").eq($(obj).index()).html("<iframe frameborder=0 width=100% height=100% marginheight=0 marginwidth=0  src="+url+"></iframe>")
+	}
+	
+	function supplierClick(obj){
+		if($("#content_plan>div").eq($(obj).index()).find("iframe").length >0)
+			return;
+		if($(obj).hasClass("tab-active"))
+			return;
+		var pkPrjreview=$("#rzPrjreviewModule .rzPrjreviewEditForm input[name=pkPrjreview]").val();
+		url='$homeModule.getTarget('rzPrjreviewSupplier/toRzPrjreviewSupplierPage')'+'?pkPrjreview='+pkPrjreview;
+		$("#content>div").removeClass("div-active");
+		$("#content>div").eq($(obj).index()).html("<iframe frameborder=0 width=100% height=100% marginheight=0 marginwidth=0  src="+url+"></iframe>")
+	}
+	
+	function guarClick(obj){
+		if($("#content_plan>div").eq($(obj).index()).find("iframe").length >0)
+			return;
+		if($(obj).hasClass("tab-active"))
+			return;
+		var pkPrjreview=$("#rzPrjreviewModule .rzPrjreviewEditForm input[name=pkPrjreview]").val();
+		url='$homeModule.getTarget('rzPrjreviewGuar/toRzPrjreviewGuarPage')'+'?pkPrjreview='+pkPrjreview;
+		$("#content>div").removeClass("div-active");
+		$("#content>div").eq($(obj).index()).html("<iframe frameborder=0 width=100% height=100% marginheight=0 marginwidth=0  src="+url+"></iframe>")
+	}
+</script>	

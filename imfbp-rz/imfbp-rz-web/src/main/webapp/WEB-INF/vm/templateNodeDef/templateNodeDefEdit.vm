@@ -1,0 +1,124 @@
+<div class="panel panel-default">
+	<div class="panel-heading ">
+		<button type="button" class="btn btn-default btn-sm save-btn">保存</button>
+		<button type="button" class="btn btn-default btn-sm back-btn">取消</button>
+	</div>
+	<div class="panel-body" data-bind="with:editData">
+		<form class="templateNodeDefEditForm form-horizontal">
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="id" class="form-control" data-bind="value:id,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">节点编码</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="nodeCode" class="form-control" data-bind="value:nodeCode,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">模板id</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="templateId" class="form-control" data-bind="value:templateId,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">是否启用</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="isUse" class="form-control" data-bind="value:isUse,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">租户id</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="tenantId" class="form-control" data-bind="value:tenantId,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">创建人</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="creator" class="form-control" data-bind="value:creator,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">创建时间</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="createdtime" class="form-control" data-bind="value:createdtime,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">操作者</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="operator" class="form-control" data-bind="value:operator,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">操作时间</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="operationtime" class="form-control" data-bind="value:operationtime,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">修改人</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="modifier" class="form-control" data-bind="value:modifier,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">修改时间</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="modifiedtime" class="form-control" data-bind="value:modifiedtime,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">时间戳</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="ts" class="form-control" data-bind="value:ts,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">删除标识</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="dr" class="form-control" data-bind="value:dr,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+

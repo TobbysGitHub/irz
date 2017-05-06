@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="rzEqpt">
+
+	<!-- 結果集 -->
+	<resultMap id="rzEqptResult" type="com.imfbp.rz.domain.rzeqpt.RzEqpt">
+		<result property="pkEqpt" column="pk_eqpt" />
+		<result property="pkCustomer" column="pk_customer" />
+		<result property="mfg" column="mfg" />
+		<result property="eqptCode" column="eqpt_code" />
+		<result property="eqptName" column="eqpt_name" />
+		<result property="eqptType" column="eqpt_type" />
+		<result property="eqptBrand" column="eqpt_brand" />
+		<result property="eqptVer" column="eqpt_ver" />
+		<result property="mfgNo" column="mfg_no" />
+		<result property="mfgDate" column="mfg_date" />
+		<result property="eqptPrice" column="eqpt_price" />
+		<result property="assessPrice" column="assess_price" />
+		<result property="ismove" column="ismove" />
+		<result property="isliquidate" column="isliquidate" />
+		<result property="totallife" column="totallife" />
+		<result property="restlife" column="restlife" />
+		<result property="remark" column="remark" />
+		<result property="ts" column="ts" />
+		<result property="dr" column="dr" />
+		<result property="def1" column="def1" />
+		<result property="def2" column="def2" />
+		<result property="def3" column="def3" />
+		<result property="enabledate" column="enabledate" />
+		<result property="enablestate" column="enablestate" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="rzEqptField">
+		pk_eqpt,pk_customer,mfg,eqpt_code,eqpt_name,eqpt_type,eqpt_brand,eqpt_ver,mfg_no,mfg_date,eqpt_price,assess_price,ismove,isliquidate,totallife,restlife,remark,ts,dr,def1,def2,def3,enabledate,enablestate
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="condition">
+        <where>
+       	 ifnull(dr,0) = 0
+        	<if test="pkEqpt != null and pkEqpt != ''" >
+				and pk_eqpt = #{pkEqpt}
+			</if>
+        	<if test="pkCustomer != null and pkCustomer != ''" >
+				and pk_customer = #{pkCustomer}
+			</if>
+        	<if test="mfg != null and mfg != ''" >
+				and mfg = #{mfg}
+			</if>
+        	<if test="eqptCode != null and eqptCode != ''" >
+				and eqpt_code = #{eqptCode}
+			</if>
+        	<if test="eqptName != null and eqptName != ''" >
+				and eqpt_name = #{eqptName}
+			</if>
+        	<if test="eqptType != null and eqptType != ''" >
+				and eqpt_type = #{eqptType}
+			</if>
+        	<if test="eqptBrand != null and eqptBrand != ''" >
+				and eqpt_brand = #{eqptBrand}
+			</if>
+        	<if test="eqptVer != null and eqptVer != ''" >
+				and eqpt_ver = #{eqptVer}
+			</if>
+        	<if test="mfgNo != null and mfgNo != ''" >
+				and mfg_no = #{mfgNo}
+			</if>
+        	<if test="mfgDate != null and mfgDate != ''" >
+				and mfg_date = #{mfgDate}
+			</if>
+        	<if test="eqptPrice != null" >
+				and eqpt_price = #{eqptPrice}
+			</if>
+        	<if test="assessPrice != null" >
+				and assess_price = #{assessPrice}
+			</if>
+        	<if test="ismove != null and ismove != ''" >
+				and ismove = #{ismove}
+			</if>
+        	<if test="isliquidate != null and isliquidate != ''" >
+				and isliquidate = #{isliquidate}
+			</if>
+        	<if test="totallife != null" >
+				and totallife = #{totallife}
+			</if>
+        	<if test="restlife != null" >
+				and restlife = #{restlife}
+			</if>
+        	<if test="remark != null and remark != ''" >
+				and remark = #{remark}
+			</if>
+        	<if test="ts != null and ts != ''" >
+				and ts = #{ts}
+			</if>
+        	<if test="dr != null" >
+				and dr = #{dr}
+			</if>
+        	<if test="def1 != null and def1 != ''" >
+				and def1 = #{def1}
+			</if>
+        	<if test="def2 != null and def2 != ''" >
+				and def2 = #{def2}
+			</if>
+        	<if test="def3 != null and def3 != ''" >
+				and def3 = #{def3}
+			</if>
+        	<if test="enabledate != null and enabledate != ''" >
+				and enabledate = #{enabledate}
+			</if>
+        	<if test="enablestate != null" >
+				and enablestate = #{enablestate}
+			</if>
+        </where>
+    </sql>
+    
+    <!-- 修改条件 -->
+	<sql id="updateByCondition">
+        <where>
+       	 ifnull(dr,0) = 0
+				<if test="parameter.pkEqpt != null and parameter.pkEqpt != ''" >
+					and pk_eqpt = #{parameter.pkEqpt}
+				</if>
+				<if test="parameter.pkCustomer != null and parameter.pkCustomer != ''" >
+					and pk_customer = #{parameter.pkCustomer}
+				</if>
+				<if test="parameter.mfg != null and parameter.mfg != ''" >
+					and mfg = #{parameter.mfg}
+				</if>
+				<if test="parameter.eqptCode != null and parameter.eqptCode != ''" >
+					and eqpt_code = #{parameter.eqptCode}
+				</if>
+				<if test="parameter.eqptName != null and parameter.eqptName != ''" >
+					and eqpt_name = #{parameter.eqptName}
+				</if>
+				<if test="parameter.eqptType != null and parameter.eqptType != ''" >
+					and eqpt_type = #{parameter.eqptType}
+				</if>
+				<if test="parameter.eqptBrand != null and parameter.eqptBrand != ''" >
+					and eqpt_brand = #{parameter.eqptBrand}
+				</if>
+				<if test="parameter.eqptVer != null and parameter.eqptVer != ''" >
+					and eqpt_ver = #{parameter.eqptVer}
+				</if>
+				<if test="parameter.mfgNo != null and parameter.mfgNo != ''" >
+					and mfg_no = #{parameter.mfgNo}
+				</if>
+				<if test="parameter.mfgDate != null and parameter.mfgDate != ''" >
+					and mfg_date = #{parameter.mfgDate}
+				</if>
+		    	<if test="parameter.eqptPrice != null" >
+					and eqpt_price = #{parameter.eqptPrice}
+				</if>
+		    	<if test="parameter.assessPrice != null" >
+					and assess_price = #{parameter.assessPrice}
+				</if>
+				<if test="parameter.ismove != null and parameter.ismove != ''" >
+					and ismove = #{parameter.ismove}
+				</if>
+				<if test="parameter.isliquidate != null and parameter.isliquidate != ''" >
+					and isliquidate = #{parameter.isliquidate}
+				</if>
+		    	<if test="parameter.totallife != null" >
+					and totallife = #{parameter.totallife}
+				</if>
+		    	<if test="parameter.restlife != null" >
+					and restlife = #{parameter.restlife}
+				</if>
+				<if test="parameter.remark != null and parameter.remark != ''" >
+					and remark = #{parameter.remark}
+				</if>
+				<if test="parameter.ts != null and parameter.ts != ''" >
+					and ts = #{parameter.ts}
+				</if>
+		    	<if test="parameter.dr != null" >
+					and dr = #{parameter.dr}
+				</if>
+				<if test="parameter.def1 != null and parameter.def1 != ''" >
+					and def1 = #{parameter.def1}
+				</if>
+				<if test="parameter.def2 != null and parameter.def2 != ''" >
+					and def2 = #{parameter.def2}
+				</if>
+				<if test="parameter.def3 != null and parameter.def3 != ''" >
+					and def3 = #{parameter.def3}
+				</if>
+				<if test="parameter.enabledate != null and parameter.enabledate != ''" >
+					and enabledate = #{parameter.enabledate}
+				</if>
+		    	<if test="parameter.enablestate != null" >
+					and enablestate = #{parameter.enablestate}
+				</if>
+        </where>
+    </sql>
+    
+    <!-- 新增 -->	
+	<insert id="insertRzEqpt" parameterType="rzEqpt">
+		insert into rz_eqpt
+			(pk_eqpt,pk_customer,mfg,eqpt_code,eqpt_name,eqpt_type,eqpt_brand,eqpt_ver,mfg_no,mfg_date,eqpt_price,assess_price,ismove,isliquidate,totallife,restlife,remark,ts,dr,def1,def2,def3,enabledate,enablestate ) 
+		values 
+			(#{pkEqpt,jdbcType=CHAR},#{pkCustomer,jdbcType=CHAR},#{mfg,jdbcType=VARCHAR},#{eqptCode,jdbcType=VARCHAR},#{eqptName,jdbcType=VARCHAR},#{eqptType,jdbcType=CHAR},#{eqptBrand,jdbcType=VARCHAR},#{eqptVer,jdbcType=VARCHAR},#{mfgNo,jdbcType=VARCHAR},#{mfgDate,jdbcType=CHAR},#{eqptPrice,jdbcType=DECIMAL},#{assessPrice,jdbcType=DECIMAL},#{ismove,jdbcType=CHAR},#{isliquidate,jdbcType=CHAR},#{totallife,jdbcType=INTEGER},#{restlife,jdbcType=INTEGER},#{remark,jdbcType=VARCHAR},#{ts,jdbcType=CHAR},#{dr,jdbcType=INTEGER},#{def1,jdbcType=VARCHAR},#{def2,jdbcType=VARCHAR},#{def3,jdbcType=VARCHAR},#{enabledate,jdbcType=VARCHAR},#{enablestate,jdbcType=INTEGER})
+    </insert>
+    
+    <!-- 批量新增 -->	
+	<insert id="insertBatchRzEqpt" parameterType="java.util.List">
+       insert into rz_eqpt
+			(pk_eqpt,pk_customer,mfg,eqpt_code,eqpt_name,eqpt_type,eqpt_brand,eqpt_ver,mfg_no,mfg_date,eqpt_price,assess_price,ismove,isliquidate,totallife,restlife,remark,ts,dr,def1,def2,def3,enabledate,enablestate ) 
+	   values
+	    <foreach collection="list" item="obj" index="index" separator="," >
+	    	(#{obj.pkEqpt},#{obj.pkCustomer},#{obj.mfg},#{obj.eqptCode},#{obj.eqptName},#{obj.eqptType},#{obj.eqptBrand},#{obj.eqptVer},#{obj.mfgNo},#{obj.mfgDate},#{obj.eqptPrice},#{obj.assessPrice},#{obj.ismove},#{obj.isliquidate},#{obj.totallife},#{obj.restlife},#{obj.remark},#{obj.ts},#{obj.dr},#{obj.def1},#{obj.def2},#{obj.def3},#{obj.enabledate},#{obj.enablestate})
+	    </foreach>
+   </insert>
+    
+	<!-- 根据id进行逻辑删除 (修改数据库数据为删除状态) -->
+    <update id="logicDeleteRzEqptById" parameterType="rzEqptQuery" >
+    	update rz_eqpt  set dr=1 where pk_eqpt = #{pkEqpt} 
+    </update>
+    
+    <!-- 根据条件进行逻辑删除  (修改数据库数据为删除状态)-->
+    <update id="logicDeleteRzEqptByCondition" parameterType="rzEqptQuery" >
+    	update rz_eqpt set dr=1<include refid="condition" /> 
+    </update>
+    
+    <!-- 根据条件进行逻辑删除  (修改数据库数据为删除状态)-->
+    <update id="logicDeleteRzEqptByBatchId" parameterType="map" >
+    	update rz_eqpt set dr=1 
+    	where 
+    	pk_eqpt in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </update>
+    
+    <!-- 根据id删除 (删除数据库数据)-->
+    <delete id="deleteRzEqptById" parameterType="rzEqptQuery" >
+    	delete from rz_eqpt  where pk_eqpt = #{pkEqpt} 
+    </delete>
+    
+    <!-- 根据条件删除 (删除数据库数据)-->
+    <delete id="deleteRzEqptByCondition" parameterType="rzEqptQuery" >
+    	delete from 
+    	rz_eqpt<include refid="condition" /> 
+    </delete>
+    
+    <!-- 根据主键批量删除 (删除数据库数据)-->
+    <delete id="deleteRzEqptByBatchId" parameterType="map" >
+    	delete from rz_eqpt 
+    	where
+    	pk_eqpt in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据id修改 -->
+    <update id="updateRzEqptById" parameterType="rzEqptQuery">
+		update  rz_eqpt 
+		<set>
+			<if test="pkCustomer != null and pkCustomer != '' " >
+				pk_customer = #{pkCustomer},
+			</if>
+			<if test="mfg != null and mfg != '' " >
+				mfg = #{mfg},
+			</if>
+			<if test="eqptCode != null and eqptCode != '' " >
+				eqpt_code = #{eqptCode},
+			</if>
+			<if test="eqptName != null and eqptName != '' " >
+				eqpt_name = #{eqptName},
+			</if>
+			<if test="eqptType != null and eqptType != '' " >
+				eqpt_type = #{eqptType},
+			</if>
+			<if test="eqptBrand != null and eqptBrand != '' " >
+				eqpt_brand = #{eqptBrand},
+			</if>
+			<if test="eqptVer != null and eqptVer != '' " >
+				eqpt_ver = #{eqptVer},
+			</if>
+			<if test="mfgNo != null and mfgNo != '' " >
+				mfg_no = #{mfgNo},
+			</if>
+			<if test="mfgDate != null and mfgDate != '' " >
+				mfg_date = #{mfgDate},
+			</if>
+			<if test="eqptPrice != null " >
+				eqpt_price = #{eqptPrice},
+			</if>
+			<if test="assessPrice != null " >
+				assess_price = #{assessPrice},
+			</if>
+			<if test="ismove != null and ismove != '' " >
+				ismove = #{ismove},
+			</if>
+			<if test="isliquidate != null and isliquidate != '' " >
+				isliquidate = #{isliquidate},
+			</if>
+			<if test="totallife != null " >
+				totallife = #{totallife},
+			</if>
+			<if test="restlife != null " >
+				restlife = #{restlife},
+			</if>
+			<if test="remark != null and remark != '' " >
+				remark = #{remark},
+			</if>
+			<if test="ts != null and ts != '' " >
+				ts = #{ts},
+			</if>
+			<if test="dr != null " >
+				dr = #{dr},
+			</if>
+			<if test="def1 != null and def1 != '' " >
+				def1 = #{def1},
+			</if>
+			<if test="def2 != null and def2 != '' " >
+				def2 = #{def2},
+			</if>
+			<if test="def3 != null and def3 != '' " >
+				def3 = #{def3},
+			</if>
+			<if test="enabledate != null and enabledate != '' " >
+				enabledate = #{enabledate},
+			</if>
+			<if test="enablestate != null " >
+				enablestate = #{enablestate},
+			</if>
+		</set>
+		where
+			pk_eqpt = #{pkEqpt} 
+    </update>
+    
+     <!-- 根据条件修改 -->
+    <update id="updateRzEqptByCondition" parameterType="map">
+		update  rz_eqpt 
+		<set>
+				<if test="record.pkCustomer != null and record.pkCustomer != ''">
+					pk_customer = #{record.pkCustomer},
+				</if>
+				<if test="record.mfg != null and record.mfg != ''">
+					mfg = #{record.mfg},
+				</if>
+				<if test="record.eqptCode != null and record.eqptCode != ''">
+					eqpt_code = #{record.eqptCode},
+				</if>
+				<if test="record.eqptName != null and record.eqptName != ''">
+					eqpt_name = #{record.eqptName},
+				</if>
+				<if test="record.eqptType != null and record.eqptType != ''">
+					eqpt_type = #{record.eqptType},
+				</if>
+				<if test="record.eqptBrand != null and record.eqptBrand != ''">
+					eqpt_brand = #{record.eqptBrand},
+				</if>
+				<if test="record.eqptVer != null and record.eqptVer != ''">
+					eqpt_ver = #{record.eqptVer},
+				</if>
+				<if test="record.mfgNo != null and record.mfgNo != ''">
+					mfg_no = #{record.mfgNo},
+				</if>
+				<if test="record.mfgDate != null and record.mfgDate != ''">
+					mfg_date = #{record.mfgDate},
+				</if>
+		 		<if test="record.eqptPrice != null">
+					eqpt_price = #{record.eqptPrice},
+				</if>
+		 		<if test="record.assessPrice != null">
+					assess_price = #{record.assessPrice},
+				</if>
+				<if test="record.ismove != null and record.ismove != ''">
+					ismove = #{record.ismove},
+				</if>
+				<if test="record.isliquidate != null and record.isliquidate != ''">
+					isliquidate = #{record.isliquidate},
+				</if>
+		 		<if test="record.totallife != null">
+					totallife = #{record.totallife},
+				</if>
+		 		<if test="record.restlife != null">
+					restlife = #{record.restlife},
+				</if>
+				<if test="record.remark != null and record.remark != ''">
+					remark = #{record.remark},
+				</if>
+				<if test="record.ts != null and record.ts != ''">
+					ts = #{record.ts},
+				</if>
+		 		<if test="record.dr != null">
+					dr = #{record.dr},
+				</if>
+				<if test="record.def1 != null and record.def1 != ''">
+					def1 = #{record.def1},
+				</if>
+				<if test="record.def2 != null and record.def2 != ''">
+					def2 = #{record.def2},
+				</if>
+				<if test="record.def3 != null and record.def3 != ''">
+					def3 = #{record.def3},
+				</if>
+				<if test="record.enabledate != null and record.enabledate != ''">
+					enabledate = #{record.enabledate},
+				</if>
+		 		<if test="record.enablestate != null">
+					enablestate = #{record.enablestate},
+				</if>
+		</set>
+		<include refid="updateByCondition" />
+    </update>
+    
+    <!-- 根据主键进行批量修改 -->
+    <update id="updateRzEqptByBatchId"  parameterType="java.util.List">
+    	<if test="list != null">
+	     <foreach collection="list" item='obj' separator=";" >
+	     update rz_eqpt
+	     <set>
+				<if test="obj.pkCustomer != null and obj.pkCustomer != ''">
+					pk_customer = #{obj.pkCustomer},
+				</if>
+				<if test="obj.mfg != null and obj.mfg != ''">
+					mfg = #{obj.mfg},
+				</if>
+				<if test="obj.eqptCode != null and obj.eqptCode != ''">
+					eqpt_code = #{obj.eqptCode},
+				</if>
+				<if test="obj.eqptName != null and obj.eqptName != ''">
+					eqpt_name = #{obj.eqptName},
+				</if>
+				<if test="obj.eqptType != null and obj.eqptType != ''">
+					eqpt_type = #{obj.eqptType},
+				</if>
+				<if test="obj.eqptBrand != null and obj.eqptBrand != ''">
+					eqpt_brand = #{obj.eqptBrand},
+				</if>
+				<if test="obj.eqptVer != null and obj.eqptVer != ''">
+					eqpt_ver = #{obj.eqptVer},
+				</if>
+				<if test="obj.mfgNo != null and obj.mfgNo != ''">
+					mfg_no = #{obj.mfgNo},
+				</if>
+				<if test="obj.mfgDate != null and obj.mfgDate != ''">
+					mfg_date = #{obj.mfgDate},
+				</if>
+		 		<if test="obj.eqptPrice != null">
+					eqpt_price = #{obj.eqptPrice},
+				</if>
+		 		<if test="obj.assessPrice != null">
+					assess_price = #{obj.assessPrice},
+				</if>
+				<if test="obj.ismove != null and obj.ismove != ''">
+					ismove = #{obj.ismove},
+				</if>
+				<if test="obj.isliquidate != null and obj.isliquidate != ''">
+					isliquidate = #{obj.isliquidate},
+				</if>
+		 		<if test="obj.totallife != null">
+					totallife = #{obj.totallife},
+				</if>
+		 		<if test="obj.restlife != null">
+					restlife = #{obj.restlife},
+				</if>
+				<if test="obj.remark != null and obj.remark != ''">
+					remark = #{obj.remark},
+				</if>
+				<if test="obj.ts != null and obj.ts != ''">
+					ts = #{obj.ts},
+				</if>
+		 		<if test="obj.dr != null">
+					dr = #{obj.dr},
+				</if>
+				<if test="obj.def1 != null and obj.def1 != ''">
+					def1 = #{obj.def1},
+				</if>
+				<if test="obj.def2 != null and obj.def2 != ''">
+					def2 = #{obj.def2},
+				</if>
+				<if test="obj.def3 != null and obj.def3 != ''">
+					def3 = #{obj.def3},
+				</if>
+				<if test="obj.enabledate != null and obj.enabledate != ''">
+					enabledate = #{obj.enabledate},
+				</if>
+		 		<if test="obj.enablestate != null">
+					enablestate = #{obj.enablestate},
+				</if>
+			</set>
+			where
+				pk_eqpt = #{obj.pkEqpt} 
+	     </foreach>
+     	</if>
+    </update>
+    
+    <!-- 查询所有 -->
+    <select id="getRzEqptAll" parameterType="rzEqptQuery" resultMap="rzEqptResult">
+		SELECT 
+		<include refid="rzEqptField" />  
+		from  
+		rz_eqpt<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询总数 -->
+	<select id="getRzEqptByPageCount" parameterType="rzEqptQuery" resultType="int">
+		SELECT count(*) from  rz_eqpt
+		<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getRzEqptByPage" parameterType="rzEqptQuery" resultMap="rzEqptResult">
+		SELECT <include refid="rzEqptField" /> from rz_eqpt
+		<include refid="condition" />
+		<if test="sort !=null">
+		    ORDER BY ${sort} ${order} 
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+	
+	<!-- 根据Id查询 -->
+	<select id="getRzEqptById" parameterType="rzEqptQuery" resultMap="rzEqptResult">
+		SELECT <include refid="rzEqptField" /> from  rz_eqpt  where pk_eqpt = #{pkEqpt} 
+		and ifnull(dr,0) = 0
+		 
+	</select>
+    
+</mapper>

@@ -1,0 +1,223 @@
+<style type="text/css">
+    html,body,#rzPrjcontrChgModule,.rzPrjcontrChgEditTotal{height:100%;}
+    .wrap{
+        position: absolute;
+        width: 98%;
+        height: 98%;
+        padding:20px;
+    }
+    #content {
+        position: absolute;
+        top: 150px;
+        width: 100%;
+        bottom: 0;
+        padding-right:20px;
+    }
+
+    .wrap ul,li{
+        margin: 0;padding: 0 ;
+    }
+    .head_name {
+        height: 77px;
+        padding-left:16px;
+    }
+    .head_name h2 {
+        font-size: 14px;
+        font-family: "PingFang-SC-Medium";
+        color: #333333;
+        height: 20px;
+        font-weight: bold;
+    }
+
+    .head_name p {
+        font-size: 14px;
+        color: #666666;
+        height: 20px;
+        font-weight: bold;
+    }
+    .tabb{
+        border-bottom: 2px solid #EEEEEE;
+    }
+    .tabb li {
+        font-size: 14px;
+        text-align: center;
+        margin-right:10px;
+        list-style: none;
+        float: left;
+        width: 90px;
+        height: 27px;
+        cursor: pointer;
+    }
+
+    .tabb div {
+        width: 90px;
+        border-bottom: 2px solid #EEEEEE;
+        margin-top: 7px;
+
+    }
+    .show-div{
+        display:none;
+        height:100%;
+    }
+    .tabb span {
+        font-family: "PingFangSC-Regular";
+        font-size: 14px;
+        color: #999999;
+        font-weight: bold;
+    }
+    .tabb li:hover div {
+        border-color: #00A0E8;
+    }
+
+    .tabb li:hover span {
+        color: #00A0E8;
+    }
+
+    #content {
+        margin-top: 20px;
+    }
+    .tab-active span{
+        color: #00A0E8;
+    }
+    .tab-active div{
+        border-color: #00A0E8;
+    }
+    .div-active{
+        display:block;
+    }
+</style>
+
+<div class="wrap">
+    <nav class="tabb">
+        <ul class="clearfix">
+            <li class="tab-active" data-router="">
+                <span>合同基本信息</span>
+                <div></div>
+            </li>
+            <li data-router="" onclick="supplierClick(this);">
+                <span>供应商信息</span>
+                <div></div>
+            </li>
+            <li data-router="" onclick="eqptClick(this);">
+                <span>租赁物信息</span>
+                <div></div>
+            </li>
+            <li data-router="" onclick="lessesClick(this);">
+                <span>承租人信息</span>
+                <div></div>
+            </li>
+            <li data-router="" onclick="guarClick(this);">
+                <span>担保方信息</span>
+                <div></div>
+            </li>
+            <li data-router="" onclick="insClick(this);">
+                <span>保险信息</span>
+                <div></div>
+            </li>
+        </ul>
+    </nav>
+    <div id="content">
+        <div class="show-div div-active">#parse("/WEB-INF/vm/rzPrjcontrChg/rzPrjcontrChgEdit.vm")</div>
+        <div class="show-div"></div>
+        <div class="show-div"></div>
+        <div class="show-div"></div>
+        <div class="show-div"></div>
+        <div class="show-div"></div>
+    </div>
+    <div style="float:right;margin-top:-35px" >
+				<button class="btn btn-action btn-py back-btn" click='function(){$("#rzPrjcontrChgModule").layoutMDI("back");}'>返回</button>
+			</div> 
+</div>
+
+<script type="text/javascript">
+    var url = '';
+    jQuery(".tabb li").on("click", function() {
+        var pkPrjcontr = $("#rzPrjcontrChgModule .rzPrjcontrChgEditForm input[name=pkPrjcontrChg]").val();
+        if(!pkPrjcontr){
+            jQuery(".tabb li").removeClass();
+            layer.alert('请先保存合同变更基本信息！');
+            jQuery(".tabb li").eq(0).addClass("tab-active");
+            $("#content>div").eq(0).addClass("div-active");
+            return;
+        }
+        if($(this).hasClass("tab-active")){
+            return;
+        }
+
+        jQuery(".tabb li").removeClass();
+        jQuery(this).addClass("tab-active");
+
+        if($(this).attr("data-router").length !=0){
+            $("#content>div").eq($(this).index()).html("")
+            var indexVal = $(this).index();
+            if(indexVal==2){
+                url = $(this).attr("data-router")+"?businessType=3&&businessId="+fkContactsClient;
+            }
+            $("#content>div").eq($(this).index()).load(url);
+        }
+        $("#content>div").removeClass("div-active");
+        $("#content>div").eq($(this).index()).addClass("div-active")
+    })
+
+    //租赁物信息
+    function eqptClick(obj){
+        if($(obj).hasClass("tab-active")){
+            return;
+        }
+        //合同变更主键
+        var pkPrjcontrChg = $("#rzPrjcontrChgModule .rzPrjcontrChgEditForm input[name=pkPrjcontrChg]").val();
+        url='$homeModule.getTarget('rzPrjcontrChgEqpt/toRzPrjcontrChgEqptPage')'+'?pkPrjcontrChg='+pkPrjcontrChg;
+        $("#content>div").removeClass("div-active");
+        $("#content>div").eq($(obj).index()).html("<iframe frameborder=0 width=100% height=100% marginheight=0 marginwidth=0  src="+url+"></iframe>")
+    }
+
+    //承租人信息
+    function lessesClick(obj){
+        if($(obj).hasClass("tab-active")){
+            return;
+        }
+        //合同变更主键
+        var pkPrjcontrChg = $("#rzPrjcontrChgModule .rzPrjcontrChgEditForm input[name=pkPrjcontrChg]").val();
+        url='$homeModule.getTarget('rzPrjcontrChgLessee/toRzPrjcontrChgLesseePage')'+'?pkPrjcontrChg='+pkPrjcontrChg;
+        $("#content>div").removeClass("div-active");
+        $("#content>div").eq($(obj).index()).html("<iframe frameborder=0 width=100% height=100% marginheight=0 marginwidth=0  src="+url+"></iframe>")
+    }
+
+    //供应商信息
+    function supplierClick(obj){
+        if($(obj).hasClass("tab-active")){
+            return;
+        }
+        //合同变更主键
+        var pkPrjcontrChg = $("#rzPrjcontrChgModule .rzPrjcontrChgEditForm input[name=pkPrjcontrChg]").val();
+        //业务类型
+        var busitype = $("#rzPrjcontrChgModule .rzPrjcontrChgEditForm input[name=busitype]").val();
+        url='$homeModule.getTarget('rzPrjcontrChgSupplier/toRzPrjcontrChgSupplierPage')'+'?pkPrjcontrChg='+pkPrjcontrChg+'&busitype='+busitype;
+        $("#content>div").removeClass("div-active");
+        $("#content>div").eq($(obj).index()).html("<iframe frameborder=0 width=100% height=100% marginheight=0 marginwidth=0  src="+url+"></iframe>")
+    }
+
+    //担保方信息
+    function guarClick(obj){
+        if($(obj).hasClass("tab-active")){
+            return;
+        }
+        //合同变更主键
+        var pkPrjcontrChg = $("#rzPrjcontrChgModule .rzPrjcontrChgEditForm input[name=pkPrjcontrChg]").val();
+        url='$homeModule.getTarget('rzPrjcontrChgGuar/toRzPrjcontrChgGuarPage')'+'?pkPrjcontrChg='+pkPrjcontrChg;
+        $("#content>div").removeClass("div-active");
+        $("#content>div").eq($(obj).index()).html("<iframe frameborder=0 width=100% height=100% marginheight=0 marginwidth=0  src="+url+"></iframe>")
+    }
+
+    //保险信息
+    function insClick(obj){
+        if($(obj).hasClass("tab-active")){
+            return;
+        }
+        //合同变更主键
+        var pkPrjcontrChg = $("#rzPrjcontrChgModule .rzPrjcontrChgEditForm input[name=pkPrjcontrChg]").val();
+        url='$homeModule.getTarget('rzPrjcontrChgIns/toRzPrjcontrChgInsPage')'+'?pkPrjcontrChg='+pkPrjcontrChg;
+        $("#content>div").removeClass("div-active");
+        $("#content>div").eq($(obj).index()).html("<iframe frameborder=0 width=100% height=100% marginheight=0 marginwidth=0  src="+url+"></iframe>")
+    }
+</script>

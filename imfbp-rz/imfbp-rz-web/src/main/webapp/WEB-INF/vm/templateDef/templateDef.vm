@@ -1,0 +1,951 @@
+<title>templateDef</title>
+<link rel="stylesheet" href="$homeModule.getTarget('/misc/css/templateDef.css')" type="text/css" />
+<body>
+<div id="templateDefModule" >
+	
+	<!-- list page start -->
+	<div class="listPage startPage" style="overflow:auto;height:100%;">
+		#parse("/WEB-INF/vm/templateDef/templateDefSearch.vm")
+		#parse("/WEB-INF/vm/templateDef/templateDefList.vm")
+	</div>
+	<!-- list page end -->
+	
+	<!-- edit page end -->
+	<div class="templateDefAdd" style="display:none;">
+		#parse("/WEB-INF/vm/templateDef/templateDefAdd.vm")
+	</div>
+	<div class="templateDefStep2Add" style="display:none;">
+		#parse("/WEB-INF/vm/templateDef/templateDefStep2Add.vm")
+	</div>
+	<div class="templateDefStep3Add" style="display:none;">
+		#parse("/WEB-INF/vm/templateDef/templateDefStep3Add.vm")
+	</div>
+	<!-- 超链接浏览页面 -->
+	<div class="brower" style="display:none;">
+		#parse("/WEB-INF/vm/templateDef/templateDefBrower.vm")
+	</div>
+	<!-- 在线编辑页面 -->
+	<div class="browerEdit" style="display:none;">
+		#parse("/WEB-INF/vm/templateDef/templateDefBrowerEdit.vm")
+	</div>
+	<!-- 修改页面 -->
+	<div class="templateDefEdit" style="display:none;">
+		#parse("/WEB-INF/vm/templateDef/templateDefEdit.vm")
+	</div>
+	<!-- edit page end -->
+	
+</div>
+
+
+<script>
+
+jQuery(function(){
+
+	//列表后台访问地址
+	var url_page = '$homeModule.getTarget('/template/getTemplateDefByPage')';
+	//添加修改后台访问地址
+	var url_add = '$homeModule.getTarget('/template/saveTemplatData')';
+	//删除后台访问地址
+	var url_del = '$homeModule.getTarget('/template/deleteTemplateDefByBatchId')';
+	
+	//查询对象
+	var queryData = new TemplateDefView();
+	//编辑对象
+	var editData = new TemplateDefView();
+	//空对象用来清空编辑和查询对象
+	var emptyData = new TemplateDefView();
+	
+	var viewModel={
+		queryData:ko.mapping.fromJS(queryData),
+		editData:ko.mapping.fromJS(editData),
+		pageState:ko.observable("")
+	}
+	
+	/**
+	 * 表头
+	 */
+	var col = [{
+		field:"templateCode",
+		title:"模板编码"
+	},{
+		field:"templateName",
+		title:"模板名称"
+	},{
+		field:"templateType",
+		title:"模板类型",
+		renderType: function (obj) {
+            var html = "<span>"
+            //获取状态：通过状态判断更改相应代码 模板类型
+            //0:报价单 1:申请表 2:合同 3:报告 4:合同变更单 5:还款计划表
+            var state = obj.row.value.templateType;
+            if (0 == state ) {
+                html += "报价单";
+            } else if(1 == state){
+                html += "申请表";
+            }else if(2 == state){
+                html += "合同";
+            }else if(3 == state){
+                html += "报告";
+            }else if(4 == state){
+                html += "合同变更单";
+            }else if(5 == state){
+            	html += "还款计划表"
+            }
+            html += "</span>";
+            var innerDom = u.makeDOM(html);
+            obj.element.appendChild(innerDom);
+        }
+	},{
+		field:"templateFileName",
+		title:"模板文件名称",
+		renderType: function (obj) {
+            var html = "<span><a class=''>"
+            var state = obj.row.value.templateFileName;
+           	html += state;
+            html += "</a></span>";
+            var innerDom = u.makeDOM(html);
+           	$(innerDom).unbind();
+            $(innerDom).click(function(event){
+            	event.stopPropagation();
+            	//发送ajax请求,获取html数据;
+	           	var jsonData={
+		  			'templateId':obj.row.value.id
+			  	};
+	            ko.mapping.fromJS(obj.row.value, viewModel.editData);
+			  	var url = "$homeModule.getTarget('/template/getTemplateDataById')";
+	  	 		$.post(url,jsonData,function(data) {
+	  				if (data != null && data.success == true) {
+		  				browerEditor.html(data.map.templateDefEntry.htmlContent);
+		  				$(".brower").find("input[name='templateFileName']").val(obj.row.value.templateFileName);
+		            	browerEditor.readonly(true);
+		            	$(".brower .browerShow").show();
+		            	$(".brower .editShow").hide();
+		            	$("#templateDefModule").layoutMDI("go", ".brower");
+			  		} else {
+			  			layer.alert(data.errorMessage);
+			  		}
+			  	});
+            })
+            obj.element.appendChild(innerDom);
+        }
+	},{
+		field:"templateVersion",
+		title:"模板版本号"
+	},{
+		field:"templateStatus",
+		title:"模板状态",
+		renderType: function (obj) {
+            var html = "<span>"
+            //获取状态：通过状态判断更改相应代码 模板状态
+            // 0：已停用 1：已启用 2：已分配
+            var state = obj.row.value.templateStatus;
+            if (0 == state ) {
+                html += "已停用";
+            } else if(1 == state){
+                html += "已启用";
+            }else if(2 == state){
+                html += "已分配";
+            }
+            html += "</span>";
+            var innerDom = u.makeDOM(html);
+            obj.element.appendChild(innerDom);
+        }
+	},{
+		field:"note",
+		title:"备注"
+	},{
+		field:"creator",
+		title:"创建人",
+		imfbpRefType:'userref',
+		renderType:"imfbpRefTransform",
+	},{
+		field:"createdtime",
+		title:"创建时间"
+	},{
+		field:"modifier",
+		title:"修改人",
+		visible:false,
+		imfbpRefType:'userref',
+		renderType:"imfbpRefTransform",
+	}];
+   
+	/**
+     * 初始化layoutMDI
+     */
+	$("#templateDefModule").layoutMDI({
+		//当页面后退时候触发的事件
+		onBackPage: function(target, options) {
+			ko.mapping.fromJS(emptyData,viewModel.editData);
+		} 
+	});
+	
+	/**
+     * 创建一个表格，但是没有赋值dataSource数据，这是表格将没有数据
+	 */
+	var gridObj = $("#templateDefModule .templateDefList").grid({
+		dataSource:'',
+    	id: 'case-g1',
+   		keyField: 'id',
+   		parentKeyField: 'pid',
+    	multiSelect: true,
+    	showNumCol:true,
+    	height: 400,
+    	columns: col,
+    	onRowSelected:function(obj){
+    		//buttonManager.permission("0");
+    		/* if(obj.rowObj.value.templateStatus == 0){
+    			$(".able-btn").attr("disabled",false);
+    			$(".disable-btn").attr("disabled",true);
+    		}else if(obj.rowObj.value.templateStatus == 1){
+    			$(".able-btn").attr("disabled",true);
+    			$(".disable-btn").attr("disabled",false);
+    		}else{
+    			$(".able-btn").attr("disabled",false);
+    			$(".disable-btn").attr("disabled",false);
+    		} */
+    	},
+    	onRowFocus:function(obj){
+    	},
+    	onRowUnSelected:function(){
+    	},
+    	onBeforeClickFun:function(obj){
+	   		index = obj.rowIndex;
+	   		selectRowsList = gridObj.getSelectRowsIndex();
+	   		if ($.inArray(obj.rowIndex,selectRowsList) != -1){
+	   			gridObj.setRowUnselect(obj.rowIndex);
+	   		}else{
+	   			gridObj.setRowSelect(obj.rowIndex);
+   			}
+   		},
+    	onDblClickFun:function(gridObj,rowObj,rowIndex){
+    		buttonManager.permission("0");
+			//设置页面的输入框为不可修改
+			viewModel.editData.enableState(false);
+			//得到点击行
+    		var dbClickRow = gridObj.rowObj;
+    		//赋值
+    		ko.mapping.fromJS(dbClickRow.value, viewModel.editData);
+    		//发送ajax请求,获取html数据;
+           	var jsonData={
+	  			'templateId':dbClickRow.value.id
+		  	};
+		  	var url = "$homeModule.getTarget('/template/getTemplateDataById')";
+  	 		$.post(url,jsonData,function(data) {
+  				if (data != null && data.success == true) {
+	  				editEditor.html(data.map.templateDefEntry.htmlContent);
+	  				//$(".templateDefEdit").find("input[name='templateFileName']").val(obj.row.value.templateFileName);
+	  				refManager.setRefArea("#templateDefModule");
+			   	    refManager.initAreaLoadData("#templateDefModule", function(name){
+			   	        var fun = viewModel.editData[name];
+			   	        if(typeof fun == 'function'){
+			   	            return fun();
+			   	        }
+			   	    });
+	            	editEditor.readonly(true);
+	            	$(".templateDefEdit .browerShow").show();
+	            	$(".templateDefEdit .editShow").hide();
+	            	$("#templateDefModule").layoutMDI("go", ".templateDefEdit");
+		  		} else {
+		  			layer.alert(data.errorMessage);
+		  		}
+		  	});
+    	}
+    });
+	
+	/**
+	 * 初始化分页
+	 */
+	var paginationObj = $("#templateDefModule .pagination").pagination({
+		pageSize:10,
+		styleMode:2,
+		onSelectPage:function(pageNumber, pageSize){
+			var queryData = $.extend(ko.mapping.toJS(viewModel.queryData),{page:pageNumber,rows:pageSize});
+			//jQuery("#templateDefModule .templateDefList").gridPlugin("reLoad",queryData);
+			//查询方法
+			queryDatas(queryData);
+		}
+	});
+	
+	/**
+	 * 初始化表格插件
+	 */
+	var gridPluginObj = jQuery("#templateDefModule .templateDefList").gridPlugin({
+		url: url_page,
+		gridObj:gridObj,
+		queryParam:getParams(),
+		pagination:true,//是否分页默认为否
+		paginationObj:paginationObj,//分页控件对象
+		initData:false,//初始化时候是否加载数据(true时候加载，false时候不加载)
+		onDataSuccess:function(data){
+			//当列表加载成功之后调用
+		},
+		onDataError:function(data){
+			//当列表加载失败之后调用
+		},
+	})
+	
+	/**
+	 * form表单插件
+	 */
+	jQuery("#templateDefModule .templateDefAddForm").formPlugin({
+		url: url_add,//添加修改的地址
+		gridPlugin:gridPluginObj,//表格插件对象
+		onSaveSuccess:function(data){
+			clearData();//清除编辑页面数据
+			//保存成功后退出编辑页面
+			$("#templateDefModule").layoutMDI("go", ".listPage");
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+			jQuery("#templateDefModule .templateDefList").gridPlugin("load", {});
+		},
+		onDeleteSuccess:function(data){
+			
+		}
+	})
+	
+	/**
+	 * 新增-->模板基本定义
+	 */			
+    jQuery("#templateDefModule .toolsbarPanel .add-btn").click(function(){
+    	var defaultData = [];
+        var dData = {
+       		templateStatus : "1",
+       		creator : loginuser,
+       		createdtime : new Date().Format("yyyy-MM-dd hh:mm:ss"),
+        };
+        defaultData.push(dData);
+        //向editData中赋初始化数据
+        for(var field in dData){
+        	var func = viewModel.editData[field];
+        	if(typeof func == 'function'){
+   	            func(dData[field]);
+   	        }
+        }
+   		viewModel.editData.enableState(true);
+   	 	imfbpDataTableTranform(gridObj, defaultData, function(){
+	   	 	refManager.setRefArea("#templateDefModule");
+	   	    refManager.initAreaLoadData("#templateDefModule", function(name){
+	   	        var fun = viewModel.editData[name];
+	   	        if(typeof fun == 'function'){
+	   	            return fun();
+	   	        }
+	   	    });
+			//设置页面为添加状态
+			viewModel.pageState(pageState.add);
+	        $("#templateDefModule").layoutMDI("go", ".templateDefAdd");
+        });
+    });
+	/**
+	 * 新增-->模板样式确定
+	 */			
+    jQuery(".toStep2-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+    	viewModel.editData.templateFileName(viewModel.editData.templateName()+".doc");
+		//设置页面为添加状态
+		viewModel.pageState(pageState.add);
+        $("#templateDefModule").layoutMDI("go", ".templateDefStep2Add");
+    });
+	//返回新增第一步
+	jQuery(".backToStep1-btn").click(function(){
+		$("#templateDefModule").layoutMDI("go", ".templateDefAdd");
+	});
+	//返回新增第二步
+	jQuery(".backToStep2-btn").click(function(){
+		$("#addTable").empty();//清空table
+		$("#templateDefModule").layoutMDI("go", ".templateDefStep2Add");
+	});
+	/**
+	 * 新增-->模板确定--取数指数
+	 */			
+    jQuery(".toStep3-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为添加状态
+		viewModel.pageState(pageState.add);
+		var htmlData = addEditor.html();
+	 	var jsonData={
+	 		'templateId':"",
+ 			'htmlData':htmlData
+	 	};
+	 	//后台处理模板取数指数新西
+	 	var url = "$homeModule.getTarget('/template/getInputDataByHtmlData')";
+	 	$.post(url,jsonData,function(data) {
+	 		if (data.success) {
+	 			createTableFun(data.map.list,"#addTable");
+        		$("#templateDefModule").layoutMDI("go", ".templateDefStep3Add");
+	 		}else{
+	 			layer.alert(data.errorMessage);
+	 		}
+	 	});
+	 	/*
+	 	 *前台处理模板取数指数信息
+	 	 *
+	 	 */
+		/* var r = /\$\{(.+?)\}/g;
+		var data = "<p>分期交费的业务应该在分期${1该在}该在分期}业务应该在分期${2分期交费的业务应}该在分期}</p>";
+		var ret = data.match(r);
+		if(ret.length > 0){
+			
+		}else{
+			layer.alert("不存在模板取数指数信息");
+		} */
+    });
+	 jQuery(".brower .defExport-btn").click(function(){
+		 var url = "http://127.0.0.1:8080/imfbp-rz-web/template/exportTemplateData?";
+		 url += "templateId="+viewModel.editData.id();
+		 url += "&exportType=doc";
+		 url += "&"+ Math.random();
+		 window.location.href = url;
+	 });
+	 //浏览页面-->在线编辑页面
+	 jQuery(".brower .toEditStep1").click(function(){
+		 browerEditor.readonly(false);
+		 $(".browerShow").hide();
+		 $(".editShow").show();
+	 })
+	 //在线编辑页面--编辑取数指数
+	 jQuery(".brower .toEditStep2").click(function(){
+		
+		 var jsonData={
+			'templateId':viewModel.editData.id(),
+ 			'htmlData':browerEditor.html()
+	 	};
+	 	//后台处理模板取数指数新西
+	 	var url = "$homeModule.getTarget('/template/getInputDataByHtmlData')";
+	 	$.post(url,jsonData,function(data) {
+	 		if (data.success) {
+	 			createTableFun(data.map.list,"#browerEditTable");
+        		$("#templateDefModule").layoutMDI("go", ".browerEdit");
+	 		} else {
+	 			layer.alert(data.errorMessage);
+	 		}
+	 	});
+	 })
+	 
+	 //导入模板文档,仅限doc格式
+	jQuery("#importBtn").click(function(){
+		$("#path").trigger("click");
+		$("#path").change(function(){
+			var obj = $(this);
+			if(obj.val() != null && obj.val() != ""){
+				var pathArr = obj.val().split(".") 
+				var fileType = pathArr[pathArr.length - 1];
+				if("doc" == fileType || "docx" == fileType){
+					var arr = obj.val().split("\\");
+					var fileName = arr[arr.length - 1];
+					viewModel.editData.templateFileName(fileName);
+					$.ajaxFileUpload({  
+	    		        url : homeModuleUrl+'/template/importExampleFile',  
+	    		        secureuri : false,  
+	    		        fileElementId : 'path',  //文件上传域的ID
+	    		        data : '',
+	    		        dataType : 'json',
+	    		        async:false,  
+	    		        success : function(d, status) {
+	    		        	if(status == "success"){
+		    		        	addEditor.html(d.map.htmlData);
+		    		        	viewModel.editData.templateFileName("");
+		    		        	$("#path").val("");
+	    		        	}
+	    		        } 
+	    		    });  
+					
+				}else{
+					layer.alert("请选择word文件");
+					viewModel.editData.templateFileName(null);
+					$(this).val(null);
+				}
+			}
+		})
+	})
+	
+	/**
+	 * 列表页面--点击修改按钮
+	 */		    
+    jQuery("#templateDefModule .toolsbarPanel .temp-update-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为修改状态
+		viewModel.pageState(pageState.edit);
+    	//当前选中行
+    	var selectRow = gridObj.getSelectRows();
+    	if(!selectRow || selectRow.length < 1){
+    		layer.alert("请选中一行记录");
+    		return;
+    	}
+    	//将数据绑定到表单上面
+    	ko.mapping.fromJS(selectRow[0], viewModel.editData);
+    	//发送ajax请求,获取html数据;
+       	var jsonData={
+  			'templateId':selectRow[0].id
+	  	};
+	  	var url = "$homeModule.getTarget('/template/getTemplateDataById')";
+ 		$.post(url,jsonData,function(data) {
+			if (data != null && data.success == true) {
+				refManager.setRefArea("#templateDefModule");
+		   	    refManager.initAreaLoadData("#templateDefModule", function(name){
+		   	        var fun = viewModel.editData[name];
+		   	        if(typeof fun == 'function'){
+		   	            return fun();
+		   	        }
+		   	    });
+				editEditor.html(data.map.templateDefEntry.htmlContent);
+	           	editEditor.readonly(false);
+		    	$(".templateDefEdit .browerShow").hide();
+		    	$(".templateDefEdit .editShow").show();
+	           	$("#templateDefModule").layoutMDI("go", ".templateDefEdit");
+	  		} else {
+	  			layer.alert(data.errorMessage);
+	  		}
+	  	});
+    });
+    /**
+	 * 查看页面--跳转修改页面
+	 */		    
+    jQuery("#templateDefModule .templateDefEdit .temp-update-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为修改状态
+		viewModel.pageState(pageState.edit);
+    	editEditor.readonly(false);
+    	$(".templateDefEdit .browerShow").hide();
+    	$(".templateDefEdit .editShow").show();
+    });
+    //查看页面--跳转修改取数指数页面
+    jQuery(".templateDefEdit .toEditStep2").click(function(){
+    	browerEditor.html(editEditor.html());
+    	var jsonData={
+   			'templateId':viewModel.editData.id(),
+ 			'htmlData':editEditor.html()
+	 	};
+	 	//后台处理模板取数指数信息
+	 	var url = "$homeModule.getTarget('/template/getInputDataByHtmlData')";
+	 	$.post(url,jsonData,function(data) {
+	 		if (data != null && data.map != null && data.map.list != null && data.map.list.length > 0) {
+	 			createTableFun(data.map.list,"#browerEditTable");
+        		$("#templateDefModule").layoutMDI("go", ".browerEdit");
+	 		} else {
+	 			layer.alert("不存在模板取数指数信息");
+	 		}
+	 	});
+    });
+
+	/**
+	 * 删除功能
+	 */	    
+    jQuery("#templateDefModule .toolsbarPanel .delete-btn").click(function(){
+    	//要删除的id用","隔开
+		var batchId = [];
+		//当前选中行
+		var selectRow = gridObj.getSelectRows();
+		//判断是否选中要删除的数据
+		if(!selectRow||selectRow.length == 0) {
+			layer.alert("请选择记录");
+			return;
+		}
+		for(var i = 0; i < selectRow.length; i++) {
+			var row = selectRow[i];
+			batchId.push(row["id"])
+		}
+		var url = "$homeModule.getTarget('/template/deleteTemplateDefByBatchId')";
+		layer.confirm('确认删除这几条数据?', {icon: 3, title:'提示'}, function(index){
+			$.ajax({
+    	 		  type: 'POST',
+    	 		  url: url,
+    	 		  data: JSON.stringify(batchId),
+    	 		  headers : {  
+    	                'Content-Type' : 'application/json;charset=utf-8'  
+    	            },
+    	 		  dataType: "json",
+    	 		  success: function(data) {
+    	 			 layer.close(index);
+    	 			  if (data != null && data.success == true) {
+    	 				 $("#edit_msg_out").css("display","block").html("批量删除成功");
+    						setTimeout(function(){
+    							$("#edit_msg_out").hide();
+    						},2000)
+    						queryDatas(ko.mapping.toJS(viewModel.queryData));
+    	 				} else {
+    	 					layer.alert("批量删除模板失败");
+    	 				}
+    	 			},
+    	 		  	error:function(){
+    	 		  		layer.alert(data.errorMessage);
+    	 		  	}
+     			});
+			
+	  		
+  		})
+		//删除数据
+		//jQuery("#templateDefModule .templateDefAddForm").formPlugin("remove",{batchId:batchId,url:url_del});
+    });
+    jQuery("#templateDefModule .copy-btn").click(function(){
+    	var selectRow = gridObj.getSelectRows();
+    	if(!selectRow || selectRow.length != 1){
+    		layer.alert("请选择一条记录");
+    		return;
+    	}
+    	var jsonData={
+	 		'templateId':selectRow[0]["id"],
+	 		'templateName':''
+	 	};
+	 	var url = "$homeModule.getTarget('/template/copyTemplateData')";
+	 	$.post(url,jsonData,function(data) {
+	 		if (data != null && data.success == true) {
+	 			editEditor.html(data.map.templateDefEntry.htmlContent);//html数据
+	           	editEditor.readonly(false);
+		    	$(".templateDefEdit .browerShow").hide();
+		    	$(".templateDefEdit .editShow").show();
+	 			ko.mapping.fromJS(data.map.templateDefEntry.templateDef,viewModel.editData)//基础数据
+	 			refManager.setRefArea("#templateDefModule");
+		   	    refManager.initAreaLoadData("#templateDefModule", function(name){
+		   	        var fun = viewModel.editData[name];
+		   	        if(typeof fun == 'function'){
+		   	            return fun();
+		   	        }
+		   	    });
+	           	$("#templateDefModule").layoutMDI("go", ".templateDefEdit");
+	 			//data.map.templateDefEntry.templateInputDefList//取数指数数据
+	 		} else {
+	 			layer.alert(data.errorMessage);
+	 		}
+	 	});
+    })
+    //设置启用状态
+    jQuery("#templateDefModule .able-btn").click(function(){
+    	
+    	if(gridObj.getSelectRows().length != 1){
+    		layer.alert("请选择一条记录");
+    		return;
+    	}
+    	var obj = gridObj.getSelectRows()[0];
+    	if(obj.templateStatus == 0){
+    		updateTemplateStatus();
+		}else{
+			layer.alert("当前数据无需启用");
+		}
+    })
+    //设置停用状态
+    jQuery("#templateDefModule .disable-btn").click(function(){
+    	if(gridObj.getSelectRows().length != 1){
+    		layer.alert("请选择一条数据");
+    		return;
+    	}
+    	var obj = gridObj.getSelectRows()[0];
+    	if(obj.templateStatus != 0){
+    		updateTemplateStatus();
+		}else{
+			layer.alert("当前数据处于停用状态");
+		}
+    })
+    //新增--保存功能
+	jQuery("#templateDefModule .templateDefStep3Add .save-btn").click(function(){
+		var htmlData = addEditor.html();
+		var templateInputDefLists = getTableArr("#addTable");
+		var temObj = ko.mapping.toJS(viewModel.editData);
+		delete temObj["enableState"];
+		var jsonData ={
+			'templateDef':temObj,
+			'templateInputDefLists':templateInputDefLists,
+			'htmlContent' :htmlData,
+		};
+		saveFun(jsonData);
+	});
+	//浏览--在线编辑保存功能
+	jQuery("#templateDefModule .browerEdit .save-btn").click(function(){
+		var htmlData = browerEditor.html();
+		var templateInputDefLists = getTableArr("#browerEditTable");
+		var temObj = ko.mapping.toJS(viewModel.editData);
+		delete temObj["enableState"];
+		var jsonData ={
+			'templateDef':temObj,
+			'templateInputDefLists':templateInputDefLists,
+			'htmlContent' :htmlData,
+		};
+		saveFun(jsonData);
+	});
+	//查找功能
+	jQuery("#templateDefModule .searchToolsbar .search-btn").click(function(){
+		//jQuery("#templateDefModule .templateDefList").gridPlugin("load",ko.mapping.toJS(viewModel.queryData));
+		var params = ko.mapping.toJS(viewModel.queryData);
+		queryDatas(params);
+		
+	});
+	//重置查询条件功能
+	jQuery("#templateDefModule .searchToolsbar .reset-btn").click(function(){
+		ko.mapping.fromJS(emptyData,viewModel.queryData);
+	});
+	
+	//编辑页返回
+	jQuery(".back-btn").click(function(){
+		//清空编辑页面数据
+		clearData();
+		//buttonManager.permission("defaultPermission");//取消选中后,按钮状态恢复默认状态
+		$("#templateDefModule").layoutMDI("go", ".listPage");
+	});
+	 /**
+	 * 刷新功能(只是刷新当前页，如果要刷新所有页面使用 load 方法)
+	 */	 
+    jQuery("#templateDefModule .toolsbarPanel .refresh-btn").click(function(){
+		//jQuery("#templateDefModule .templateDefList").gridPlugin("reLoad",viewModel.queryData);
+		queryDatas(ko.mapping.fromJS(viewModel.queryData));
+    });
+
+	//初始化新增页面,修改/查看页面,浏览页面在线编辑器
+    KindEditor.ready(function(K) {
+	     window.addEditor = K.create('textarea[name="addEditor"]');//新增页面
+	     window.browerEditor = K.create('textarea[name="borwerEditor"]');//浏览--在线编辑页面
+	     window.editEditor = K.create('textarea[name="editEditor"]');//双击查看/编辑页面
+		 jQuery("input[name='browerPreview']").click(function(){
+			 //$("span[data-name='preview']").trigger("click");
+			 previewFun(browerEditor);
+		 });
+		 jQuery("input[name='addPreview']").click(function(){
+			 previewFun(addEditor);
+		 });
+		 jQuery("input[name='editPreview']").click(function(){
+			 previewFun(editEditor);
+		 });
+		 //预览方法
+		 function previewFun(self){
+			var htmlData = self.html();
+		 	var jsonData={
+		 			'htmlData':htmlData
+		 	};
+		 	var url = "$homeModule.getTarget('/template/previewTemplatData')";
+		 	$.post(url,jsonData,function(data) {
+		 		if (data != null && data.map != null && data.map.htmlData != null) {
+		 			var name = 'preview';
+				   	var lang = self.lang(name + '.'),
+					html = '<div style="padding:10px 20px;">' +
+						'<iframe class="ke-textarea" frameborder="0" style="width:708px;height:400px;"></iframe>' +
+						'</div>',
+					dialog = self.createDialog({
+						name : name,
+						width : 750,
+						title : self.lang(name),
+						body : html
+					}),
+					iframe = K('iframe', dialog.div),
+					doc = K.iframeDoc(iframe);
+					doc.open();
+					doc.write(data.map.htmlData);
+					doc.close();
+					K(doc.body).css('background-color', '#FFF');
+					iframe[0].contentWindow.focus();
+		 		} else {
+		 			alert("预览失败");
+		 		}
+		 	});
+			
+	   }
+    });
+    KindEditor.plugin('preview', function(K) {
+    	var self = this, name = 'preview', undefined;
+    	self.clickToolbar(name, function() {
+    		var htmlData = self.html();
+		 	var jsonData={
+		 			'htmlData':htmlData
+		 	};
+		 	var url = "$homeModule.getTarget('/template/previewTemplatData')";
+    		$.post(url,jsonData,function(data) {
+		 		if (data != null && data.map != null && data.map.htmlData != null) {
+		 			var name = 'preview';
+				   	var lang = self.lang(name + '.'),
+					html = '<div style="padding:10px 20px;">' +
+						'<iframe class="ke-textarea" frameborder="0" style="width:708px;height:400px;"></iframe>' +
+						'</div>',
+					dialog = self.createDialog({
+						name : name,
+						width : 750,
+						title : self.lang(name),
+						body : html
+					}),
+					iframe = K('iframe', dialog.div),
+					doc = K.iframeDoc(iframe);
+					doc.open();
+					doc.write(data.map.htmlData);
+					doc.close();
+					K(doc.body).css('background-color', '#FFF');
+					iframe[0].contentWindow.focus();
+		 		} else {
+		 			alert("预览失败");
+		 		}
+		 	});
+    	});
+    });
+    		
+    	
+	//改变模板状态 启用 <--->停用
+	function updateTemplateStatus(){
+		var selectRow = gridObj.getSelectRows();
+    	if(!selectRow || selectRow.length != 1){
+    		layer.alert("请选择一条记录");
+    		return;
+    	}
+    	var status = selectRow[0]["templateStatus"] == 0 ? 1 : 0;
+    	var jsonData = {
+   			'templateId':selectRow[0]["id"],
+   	 		'templateStatus':selectRow[0]["templateStatus"] == 0 ? 1 : 0
+    	}
+    	var url = "$homeModule.getTarget('template/updateTemplateDefStatus')";
+    	selectRow[0]["templateStatus"] = status;
+    	$.post(url,jsonData,function(data) {
+	 		if (data != null && data.success == true) {
+	 			queryDatas(ko.mapping.toJS(viewModel.queryData));
+	 		} else {
+	 			layer.alert(data.errorMessage);
+	 		}
+	 	});
+	}
+	//新增保存,浏览保存,修改保存方法 jsonData:保存的数据
+	function saveFun(jsonData){
+		var url = "$homeModule.getTarget('/template/saveTemplatData')";
+	    $.ajax({
+	 	   type: 'POST',
+	 	   url: url,
+	 	   data: JSON.stringify(jsonData),
+	 	   headers : {  
+                'Content-Type' : 'application/json;charset=utf-8'  
+           },
+	 	   dataType: "json",
+	 	   success: function(data) {
+	 			if (data != null && data.success) {
+	 				$("#edit_msg_out").css("display","block").html("保存成功");
+					setTimeout(function(){
+						$("#edit_msg_out").hide();
+					},2000)
+ 					//清空数据信息
+ 					clearData();
+					$("#templateDefModule").layoutMDI("go", ".listPage");
+					queryDatas(ko.mapping.toJS(viewModel.queryData));
+	 			} else {
+	 				layer.alert(data.errorMessage);
+	 			}
+	 		},
+	 	   error:function(){
+ 	  	   	   alert("保存失败");
+	 	   }
+       }); 
+	}
+	//查询方法 params:查询条件
+	function queryDatas(params){
+		var paginationObj = $("#templateDefModule .pagination");
+		//分页控件对象的参数
+        var popts = paginationObj.pagination("options");
+		if(!params.rows){
+			params = $.extend(params,{page:popts.pageNumber,rows:popts.pageSize});
+		}
+		$.post("$homeModule.getTarget('/template/getTemplateDefByPage')",params,function(data){
+			if(data.success){
+				var d = {};
+				d.values = data.map.gridResult.rows;
+				imfbpDataTableTranform(gridObj, d.values, function(){
+					gridObj.setDataSource(d);
+                	//刷新分页控件
+                	paginationObj.pagination('refresh',{pageSize:popts.pageSize,total:data.map.gridResult.total});
+				});
+			}else{
+				layer.alert(data.errorMessage);
+			}
+		});
+	}
+	
+	//取消或者保存成功后清除当前数据信息
+	function clearData(){
+		ko.mapping.fromJS(emptyData,viewModel.editData);
+		addEditor.html("");//清空在线编辑器数据
+		browerEditor.html("");//清空在线编辑器数据
+		$("#addTable").empty();//清空table
+		$("#browerEditTable").empty();//清空table
+	}
+	
+	/**
+	 *创建模板取数指数table
+	 *list 创建table的数据
+	 *parent: 当前table的父元素
+	 */
+	 function createTableFun(list,parent){
+		 var table = $("<table class='templateTable' id='templateTable'><tr><th>序号</th><th>指标编码</th><th>指标名称 </th></tr></table>");
+		 for(var i = 0; i < list.length; i++){
+			 var tr = $("<tr><td>"+(i+1)+"</td><td>"+list[i]["itemCode"]+"</td><td><input type='text' name='' value='"+list[i]["itemName"]+"'/></td></tr>")
+			table.append(tr);
+		 }
+		 $(parent).append(table);
+	 }
+		
+    /*
+	*通过id得到某个div中的table的取数指数数组
+	*parent 
+	*/
+	function getTableArr(parent){
+		var arr = [];
+		//循环获取模板取数指数数组
+		$(parent).find("table tr").each(function(){
+			var tdArr = $(this).find("td");
+			if(tdArr.length > 0){
+				var obj = {};
+				obj["itemCode"] = $(tdArr[1]).text();
+				obj["itemName"] = $(tdArr[2]).find("input").val();
+				arr.push(obj);
+			}
+		});
+		return arr;
+	}
+    
+	ko.applyBindings(viewModel);
+});
+
+function TemplateDefView(){
+	//主键
+	this.id="";
+	//模板编码
+	this.templateCode="";
+	//模板名称
+	this.templateName="";
+	//模板文件id
+	this.templateFileId="";
+	//模板文件名称
+	this.templateFileName="";
+	// 模板类型
+	this.templateType = "";
+	// 模板状态 0：已停用 1：已启用  2：已分配
+	this.templateStatus = "";
+	// 模板版本号
+	this.templateVersion = "";
+	//租户id
+	this.tenantId="";
+	//备注
+	this.note = "";
+	//创建人
+	this.creator="";
+	//创建时间
+	this.createdtime="";
+	//操作者
+	this.operator="";
+	//操作时间
+	this.operationtime="";
+	//修改人
+	this.modifier="";
+	//修改时间
+	this.modifiedtime="";
+	//时间戳
+	this.ts="";
+	//删除标识
+	this.dr="";
+	//编辑页面状态
+	this.enableState=true;
+}
+
+function getParams(selector){
+	return {};
+}
+
+</script>
+	
+</body>

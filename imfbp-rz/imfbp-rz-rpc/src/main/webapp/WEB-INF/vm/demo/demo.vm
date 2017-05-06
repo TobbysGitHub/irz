@@ -1,0 +1,54 @@
+<title>bossSystem</title>
+<body >
+<div id="demo_id" class="app">
+	
+	
+	<!-- 查找 start -->
+	<div class="demo_find" style="border:1px solid red">    
+		名称：<input  type="text" >
+	</div>
+	<!-- 查找 end -->
+
+	<!-- 工具条 start -->
+	<div class="toolsbar" style="border:1px solid red">
+		<button>dsa</button>
+	</div>
+	<!-- 工具条 end -->
+	
+	<!-- 表格 start -->
+	<div class="demo_list" style="border:1px solid red">
+		<table class="table" border=1>
+			<tr>
+				<td>aaaaaaaaaaaaaaaaaa</td>
+				<td>aaaaaaaaaaaaaaaaaa</td>
+			</tr>
+			<tr>
+				<td>aaaaaaaaaaaaaaaaaa</td>
+				<td>aaaaaaaaaaaaaaaaaa</td>
+			</tr>
+		</table>
+	</div>
+	<!-- 表格 end -->
+		
+	<!-- zi'bian表格 -->
+	<div class="demo_sub_list">
+		<table class="sub_table" border=1>
+			<tr>
+				<td>aaaaaaaaaaaaaaaaaa</td>
+				<td>aaaaaaaaaaaaaaaaaa</td>
+			</tr>
+			<tr>
+				<td>aaaaaaaaaaaaaaaaaa</td>
+				<td>aaaaaaaaaaaaaaaaaa</td>
+			</tr>
+		</table>
+	</div>
+
+
+</div>
+	
+</body>
+
+
+	
+	

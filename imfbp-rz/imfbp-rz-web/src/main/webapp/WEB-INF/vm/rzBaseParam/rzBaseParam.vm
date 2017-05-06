@@ -1,0 +1,365 @@
+<title>rzBaseParam</title>
+<body>
+	<div id="rzBaseParamModule">
+
+		<!-- list page start -->
+		<div class="listPage rzBaseParamEdit  startPage">
+			#parse("/WEB-INF/vm/rzBaseParam/rzBaseParamEdit.vm")</div>
+
+	</div>
+
+
+	<script>
+
+jQuery(function(){
+	
+	//添加修改后台访问地址
+	var url_add = '$homeModule.getTarget('/rzBaseParam/insertOrUpdate')';
+	//删除后台访问地址
+	var url_del = '$homeModule.getTarget('/rzBaseParam/deleteRzBaseParamByBatchId')';
+	//获取基本字段地址
+	var url_getRzBaseParamAll = '$homeModule.getTarget('/rzBaseParam/getRzBaseParamAll')';
+	//获取资产风险分类地址
+	var url_getRzRiskTypeAll = '$homeModule.getTarget('/rzBaseParam/getRzRiskTypeByPage')';
+	//本界面地址
+	var url_thisPage='$homeModule.getTarget('/rzBaseParam/toRzBaseParamPage')';
+	//查询对象
+	var queryData = new RzBaseParamView();
+	//编辑对象
+	var editData = new RzBaseParamView();
+	//空对象用来清空编辑和查询对象
+	var emptyData = new RzBaseParamView();
+	
+	window.viewModel={
+		queryData:ko.mapping.fromJS(queryData),
+		editData:ko.mapping.fromJS(editData),
+		pageState:ko.observable("")
+	}
+	
+	
+	 $("#form-horizontal").bootstrapValidator({
+
+	　　　　　　　　message: 'This value is not valid',
+	           feedbackIcons:{
+	        	   valid:'glyphicon glyphicon-ok',
+	        	   invalid:'glyphicon glyphicon-remove',
+	        	   validating:'glyphicon glyphicon-refresh'
+	            
+	           },
+	            　               
+	           fields: {
+	        	   advNoticeDays: {
+	                    
+	                    validators: {
+	                        notEmpty: {
+	                            message: '时间不能为空'
+	                        },
+	                        regexp: {
+		                         regexp:  /^[0-9]+$/  ,
+		                         message: '时间由数字组成'
+		                     }
+	                    }
+	                },
+	                rpmtTerm: {
+	                    validators: {
+	                        notEmpty: {
+	                            message: '还款期限不能为空'
+	                        },
+	                        regexp: {
+		                         regexp:  /^[0-9]+$/  ,
+		                         message: '期限由数字组成'
+		                     }
+	                    }
+	                },
+	                finApprovalRole: {
+	                    validators: {
+	                        notEmpty: {
+	                            message: '审批角色不能为空'
+	                        },
+	                        stringLength: {
+	                            min: 1,
+	                            max: 20,
+	                            message: '角色名长度必须在1到20之间'
+	                        },
+	                        
+	                    }
+	                },
+	                overdueRate: {
+	                    validators: {
+	                        notEmpty: {
+	                            message: '逾期罚息日利率不能为空'
+	                        },
+	                        regexp: {
+		                         regexp:  /^[0-9]+$/  ,
+		                         message: '利率由数字组成'
+		                     }
+	                
+	                    }
+	                    
+	                }
+	            }
+	        });
+
+	/**
+	 * 表头
+	 */
+	var col = [{
+		field:"riskType",
+		title:"资产风险分类",
+		renderType: function (obj) {
+            var html = "<span>"
+            //获取资产风险分类：通过状态判断更改相应代码0 正常类、1 关注类、2 次级类、3 可疑类、4 损失类
+            var state = obj.row.value.riskType;
+            if (0 == state ) {
+                html += "正常类";
+            } else if(1 == state){
+               html += "关注类";
+            }else if(2 == state){
+                 html += "次级类";
+            }else if(3 == state){
+                 html += "可疑类";
+            }else if(4 == state){
+                 html += "损失类";
+            }
+            html += "</span>";
+            var innerDom = u.makeDOM(html);
+            obj.element.appendChild(innerDom);
+        },
+        editable:false
+		
+	},{
+		field:"overdueMin",
+		title:"逾期天数最小值（含）"
+		
+	},{
+		field:"overdueMax",
+		title:"逾期天数最大值（含）"
+		
+	},{
+		field:"remark",
+		title:"备注"
+		
+	},
+	 {
+		field:"finApprovalRole",
+		title:"",
+		imfbpRefType: "roleref",
+	    renderType:"imfbpRefTransform",
+	    visible:false,
+	}, 
+	];
+    /**
+     * 加载数据库中基本数据
+     */
+     
+     function init(){
+    jQuery.ajax({
+		type : 'post',
+		url : url_getRzBaseParamAll,
+		cache:true,
+		success:function(data){
+			
+			ko.mapping.fromJS(data[0], viewModel.editData);
+			var radioAll  = $("input[name='isEnableAuth']");
+			      if(data[0].isEnableAuth=="Y"){
+			          radioAll.get(0).checked = true;
+			      }else
+			    	radioAll.get(1).checked = true;
+		}
+	});
+    }
+  /**
+     * 创建一个表格，但是没有赋值dataSource数据，这是表格将没有数据
+     */
+ 
+ 	var gridObj = $("#rzBaseParamModule .systemList").grid({
+		dataSource:'',
+    	id: 'case-g1',
+   		keyField: 'id',
+   		parentKeyField: 'pid',
+    	columns: col,
+    	editable:true,
+    	onValueChange:function(obj){
+    		debugger;
+    		var rows = obj.gridObj.dataSourceObj.rows, 
+    		length = rows.length,
+    		row = rows[obj.rowIndex],
+    		data = gridObj.getRowByIndex(obj.rowIndex).value;
+    		parentKeyField = obj.gridObj.options.keyField,
+    		ppk = row.parentKeyValue,
+    		prow = null,
+    		rowIndex = -1;
+    		/**
+    		 * 如果field是overdueMax、overdueMin时判断输入的是否是数字，且逾期天数最大值大于逾期天数最小值   
+    		 */
+    		if(obj.field == "overdueMax" || obj.field == "overdueMin"){
+    		        var re = /^[0-9]*[1-9][0-9]*$/ ;  //判断是否为正整数的正则表达式
+                    if(re.test(obj.newValue)){       
+    		    	    if(obj.field == "overdueMin")
+    		    		    obj.gridObj.updateValueAt(obj.rowIndex, obj.field , obj.newValue, false);
+    		    	else{
+    		    		if(obj.gridObj.editRowObj.overdueMin<obj.newValue)
+    		    			obj.gridObj.updateValueAt(obj.rowIndex, obj.field , obj.newValue, false);
+    		    		else{
+    		    			alert("逾期天数最大值必须大于最小值！");
+    		    			obj.gridObj.updateValueAt(obj.rowIndex,obj.field,obj.oldValue, false);
+    		    		}
+    		    	}
+    		    }else{
+    			    alert("请输入正整数！");
+    			    var val = obj.oldValue;
+    			    obj.gridObj.updateValueAt(obj.rowIndex,obj.field,val, false);
+    		    }
+    	    }
+    	
+        }
+
+    });
+	
+	 
+ 	 var paginationObj = $("#pagination").pagination({
+		pageSize:10,
+		total:0,
+		styleMode:2,
+		 onSelectPage:function(pageNumber, pageSize){
+			jQuery("#rzBaseParamModule .systemList").gridPlugin({
+				queryParam:{pageNumber:pageNumber,pageSize:pageSize},
+			})
+		}, 
+		onBeforeRefresh:function(pageNumber, pageSize){
+			alert(pageNumber);
+			alert(pageSize);
+		},
+		
+		onRefresh:function(pageNumber, pageSize){
+			
+		}
+	}); 
+	 
+	
+	 
+ 	/**
+ 	 * 初始化表格插件
+ 	 */
+ 	var gridPluginObj = jQuery("#rzBaseParamModule .systemList").gridPlugin({
+		url: url_getRzRiskTypeAll,
+		gridObj:gridObj,
+		queryParam:getParams(),
+		pageSize: 100000,//每页显示多少条
+		pageNumber: 1,//当前页
+		pagination:true,//是否分页默认为否
+		editData:true,
+		paginationObj:paginationObj,//分页控件对象
+		initData:true,
+		onDataSuccess:function(data){
+			var d = {};
+			imfbpDataTableTranform(gridObj, data.rows,function(){
+				d.values = data.rows;
+				gridObj.setDataSource(d);
+			});
+		   
+		   
+		},
+		onDataError:function(data){
+			//当列表加载失败之后调用
+			alert("error");
+		}
+	})
+	/**
+	 * form表单插件
+	 */
+	jQuery("#rzBaseParamModule .rzBaseParamEditForm").formPlugin({
+		url: url_add,//添加修改的地址
+		gridPlugin:gridPluginObj,//表格插件对象
+		onSaveSuccess:function(data){
+			
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+			
+		},
+		onDeleteSuccess:function(data){
+			
+		}
+	})
+
+    //保存功能
+	 jQuery("#rzBaseParamModule .save-btn").click(function(){
+	    //if(viewModel.pageState()=="add"){
+		ko.mapping.fromJS(emptyData,viewModel.queryData);
+		debugger;
+		var type=gridObj;
+		//}
+		 var radioAll  = $("input[name='isEnableAuth']");
+		 if(radioAll.get(0).checked == true){
+	           viewModel.editData.isEnableAuth="Y"
+	      }else
+	    	  viewModel.editData.isEnableAuth="N"
+	     viewModel.editData.def1(JSON.stringify(gridObj.dataSourceObj.options.values));
+		var param = {
+			formData:ko.mapping.toJS(viewModel.editData),//要提交的数据
+			queryData:ko.mapping.toJS(viewModel.queryData),//修改完毕刷新表格的参数
+			editType:viewModel.pageState()//页面的状态(add：添加，edit:编辑)
+		}
+		jQuery("#rzBaseParamModule .rzBaseParamEditForm").formPlugin("save",param); 
+	    
+	 });  
+	
+	//取消按钮返回初始数据界面
+ 	jQuery("#rzBaseParamModule .rzBaseParamEdit .back-btn").click(function(){
+ 	     init();
+ 	    jQuery("#rzBaseParamModule .systemList").gridPlugin("reLoad",viewModel.editData);
+	});
+
+   
+  	init();
+	ko.applyBindings(viewModel);
+	setTraslateFunction();
+}); 
+
+function RzBaseParamView(){
+	//主键
+	this.pkBaseParam="";
+	//收款提醒通知提前天数
+	this.advNoticeDays="";
+	//客户还款期限
+	this.rpmtTerm="";
+	//是否启用客户经理数据权限 Y 是 N 否
+	this.isEnableAuth="N";
+	//首付款财务审批角色
+	this.finApprovalRole="";
+	//逾期罚息日利率(%)
+	this.overdueRate="";
+	//编辑页面状态
+	this.enableState=true;
+	//table
+	this.def1="";
+}
+
+function getParams(selector){
+	return {};
+}
+
+//回调函数
+function outRpcCallFunction(eleObj, data, name, id) {
+	  var fun = viewModel.editData[name];
+	    if(typeof fun == 'function'){
+			fun(data[id]);
+	    }
+}
+
+function setTraslateFunction(){
+    refManager.setRefArea("#rzBaseParamModule");
+    refManager.initAreaLoadData("#rzBaseParamModule", function(name){
+        var fun = viewModel.editData[name];
+        if(typeof fun == 'function'){
+            return fun();
+        }
+    });
+}
+</script>
+
+</body>

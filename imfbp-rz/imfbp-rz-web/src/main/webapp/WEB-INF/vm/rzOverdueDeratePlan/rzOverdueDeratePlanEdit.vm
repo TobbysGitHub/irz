@@ -1,0 +1,132 @@
+<div class="panel panel-default">
+	<div class="panel-heading ">
+		<button type="button" class="btn btn-default btn-sm save-btn">保存</button>
+		<button type="button" class="btn btn-default btn-sm back-btn">取消</button>
+	</div>
+	<div class="panel-body" data-bind="with:editDataPlan">
+		<form class="rzOverdueDeratePlanEditForm form-horizontal">
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkOverdueDeratePlan" class="form-control" data-bind="value:pkOverdueDeratePlan,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">主表主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkOverdueDerate" class="form-control" data-bind="value:pkOverdueDerate,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">期数</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="num" class="form-control" data-bind="value:num,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">序号</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="seqno" class="form-control" data-bind="value:seqno,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">应收款日期</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="receivableDate" class="form-control" data-bind="value:receivableDate,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">应收款合计(元)</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="receivableTotal" class="form-control" data-bind="value:receivableTotal,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">实收款合计(元)</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="realTotal" class="form-control" data-bind="value:realTotal,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">应收未收合计(元)</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="receivableNrcyTotal" class="form-control" data-bind="value:receivableNrcyTotal,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">逾期天数</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="overdueDays" class="form-control" data-bind="value:overdueDays,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">逾期利率(%)</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="overdueRate" class="form-control" data-bind="value:overdueRate,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">应收罚息(元)</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="receivableDefInt" class="form-control" data-bind="value:receivableDefInt,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">应收未收罚息(元)</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="receivableNrcyDefInt" class="form-control" data-bind="value:receivableNrcyDefInt,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">实际减免罚息(元)</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="actOverdur" class="form-control" data-bind="value:actOverdur,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">本次申请减免罚息(元)</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="curOverdurApply" class="form-control" data-bind="value:curOverdurApply,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+

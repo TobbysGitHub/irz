@@ -1,0 +1,169 @@
+<div class="panel panel-default" style="border: none;">
+	<div class="panel-heading footer-saveOrCancel browerShow" >
+		<button type="button" class="btn btn-default btn-sm btn-im temp-update-btn">修改</button>
+		<button type="button" class="btn btn-default btn-sm back-btn">取消</button>
+	</div>
+	<div class="panel-heading footer-saveOrCancel editShow" >
+		<button type="button" class="btn btn-default btn-sm btn-im toEditStep2">下一步</button>
+		<button type="button" class="btn btn-default btn-sm back-btn">取消</button>
+	</div>
+	<div class="panel-body form-parent" data-bind="with:editData">
+		<form class="templateDefAddForm form-horizontal">
+            <div class="row panel slideParent">
+                <div class="col-xs-12 panel-heading" data-toggle="collapse" data-target="#editBaseInfo">
+                    <h5>修改模板</h5><span class="glyphicon glyphicon-chevron-up"></span>
+                </div>
+                <div class="col-xs-12 panel-body collapse in" id="editBaseInfo">
+                	<div><h5>模板基本信息</h5></div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">模板名称</label>
+								<div class="col-md-9 col-sm-8">
+									<input type="text" name="templateName" class="form-control" data-bind="value:templateName,enable:enableState">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">模板编码</label>
+								<div class="col-md-9 col-sm-8">
+									<input type="text" name="templateCode" class="form-control" data-bind="value:templateCode,enable:false">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">模板类型</label>
+	                            <div class="col-md-9 col-sm-8">
+	                                <select name="templateType" class="form-control"
+	                                        data-bind="value:templateType,enable:enableState">
+	                                    <option value="">全部</option>
+		                                <option value = "0">报价单</option>
+		                                <option value = "1">申请表</option>
+		                                <option value = "2">合同</option>
+		                                <option value = "3">报告</option>
+		                                <option value = "4">合同变更单</option>
+		                                <option value = "5">还款计划表</option>
+	                                </select>
+	                            </div>
+							</div>
+						</div>
+                    	<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">模板状态</label>
+								<div class="col-md-9 col-sm-8">
+									 <select name="templateStatus" class="form-control"
+	                                        data-bind="value:templateStatus,enable:false">
+	                                    <option value="">全部</option>
+		                                <option value = "0">已停用</option>
+		                                <option value = "1">已启用</option>
+		                                <option value = "2">已分配</option>
+	                                </select>
+								</div>
+							</div>
+						</div>
+                    	<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">制单人</label>
+								<div class="col-md-9 col-sm-8">
+									<input type="text" name="creator" class="form-control"
+										data-bind="value:creator,enable:false"
+										data-imfbp-ref-bind="creator"
+										data-imfbp-ref-bind-field="userRealName"
+										data-imfbp-ref-value="">
+									<div class="icon-wrap ">
+										<i class="glyphicon glyphicon-th-list icon" id="icon"
+											data-imfbp-ref-name='userref' name="creator"
+											data-imfbp-ref-use='false'
+											data-imfbp-ref-fun="outerRefCallFunction"
+											data-imfbp-ref="ref"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">制单时间</label>
+								<div class="col-md-9 col-sm-8">
+									<input type="text" name="createdtime" class="form-control" data-bind="value:createdtime,enable:false">
+									<div class="icon-wrap ">
+										<i class="glyphicon glyphicon-calendar" id="icon"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">修改人</label>
+								<div class="col-md-9 col-sm-8">
+									<input type="text" name="modifier" class="form-control"
+										data-bind="value:modifier,enable:false"
+										data-imfbp-ref-bind="modifier"
+										data-imfbp-ref-bind-field="userRealName"
+										data-imfbp-ref-value="">
+									<div class="icon-wrap ">
+										<i class="glyphicon glyphicon-th-list icon" id="icon"
+											data-imfbp-ref-name='userref' name="modifier"
+											data-imfbp-ref-use='false'
+											data-imfbp-ref-fun="outerRefCallFunction"
+											data-imfbp-ref="ref"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">修改时间</label>
+								<div class="col-md-9 col-sm-8">
+									<input type="text" name="modifiedtime" class="form-control" data-bind="value:modifiedtime,enable:false">
+									<div class="icon-wrap ">
+										<i class="glyphicon glyphicon-calendar" id="icon"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+                    	<div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">备注</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <textarea name="note" class="form-control" data-bind="value:note,enable:enableState" style="width:545px;height:90px;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div><h5>模板样式</h5></div>
+                    <div class="row">
+						<div class="col-md-7">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">模板文件名称</label>
+								<div class="col-md-9 col-sm-8">
+									<div class="input-group col-md-5">
+										<input type="text" name="templateFileName" class="form-control content-w210-input" data-bind="value:templateFileName,enable:enableState" style="width: 550px;">
+										<input type="file" name="path" style="display:none" id="path"/>
+										<!-- <span class="input-group-addon" id="importBtn" style="cursor: pointer;">浏览</span> -->
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-5">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">
+									<i class="glyphicon iconfont icon-guanyu icon" style="margin-right: 5px;"></i>
+									模板版本号: V1.0</label>
+								<div class="col-md-3 col-sm-8" style="float:right;">
+									<div class="input-group col-md-5">
+										<input type="button" name="editPreview" class="form-control btn btn-default"  value="预览业务模板" style="height: 32px;"/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<textarea name="editEditor" style="width: 100%; height: 500px; visibility: hidden;"></textarea>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

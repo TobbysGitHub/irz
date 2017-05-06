@@ -1,0 +1,68 @@
+<!-- search start  -->
+<div class="searchPanel padding-10">
+	<form class="form-horizontal">
+		<div class="searchContent col-xs-8" data-bind="with:queryData">
+						
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">主键</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="pkPrjcontrChgLessee" class="form-control" data-bind="value:pkPrjcontrChgLessee">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">项目评审主键  </label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="pkPrjcontrChg" class="form-control" data-bind="value:pkPrjcontrChg">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">承租人（客户主键）</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="pkCustomer" class="form-control" data-bind="value:pkCustomer">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">是否主承租人 Y是 N否</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="isMainLessee" class="form-control" data-bind="value:isMainLessee">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--******更多条件放这里********-->
+			<div class="hideRule">
+				
+				<div class="row">
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">备注</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="remark" class="form-control" data-bind="value:remark">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 展开更多的一行-->
+		<div class="searchToolsbar">
+			<div data-target=".hideRule" data-toggle="collapse" class="moreRule">
+				<span>展开更多查询条件</span>
+				<i class="glyphicon glyphicon-triangle-bottom"></i>
+			</div>
+			<div class="search-box">
+				<button type="button" class="btn btn-default btn-sm reset-btn">重置</button>
+				<button type="button" class="btn btn-default btn-sm search-btn">查询</button>
+			</div>
+		</div>
+	</form>
+</div>
+<!-- search end -->

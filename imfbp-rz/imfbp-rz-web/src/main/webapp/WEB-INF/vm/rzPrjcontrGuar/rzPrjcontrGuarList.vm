@@ -1,0 +1,16 @@
+<div class="padding-5">
+    <div class="toolsbarPanel">
+        <div class="btn-group" role="group" >
+			<button type="button" class="btn btn-default btn-sm add2-btn" >新增</button>
+			<button type="button" class="btn btn-default btn-sm delete-btn">删除</button>			
+			<button type="button" class="btn btn-default btn-sm edit-btn">修改</button>
+			<button type="button" class="btn btn-default btn-sm refresh-btn">刷新</button>
+        </div>
+    </div>
+    <h4>担保方基本信息</h4>
+    <div class="grid rzPrjcontrGuarList"></div>
+    <ul id="pagination" class="pagination"></ul>
+    <h4>担保方抵押物信息</h4>
+    <div class="grid rzPrjcontrGuarBList"></div>
+    <ul id="pagination" class="pagination" style="display:none"></ul>
+</div>

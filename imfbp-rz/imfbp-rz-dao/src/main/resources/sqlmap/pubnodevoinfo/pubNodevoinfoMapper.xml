@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pubNodevoinfo">
+
+	<!-- 結果集 -->
+	<resultMap id="pubNodevoinfoResult" type="com.imfbp.rz.domain.pubnodevoinfo.PubNodevoinfo">
+		<result property="id" column="id" />
+		<result property="nodecode" column="nodecode" />
+		<result property="nodename" column="nodename" />
+		<result property="dbtablename" column="dbtablename" />
+		<result property="voclassname" column="voclassname" />
+		<result property="modelpath" column="modelpath" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="pubNodevoinfoField">
+		id,nodecode,nodename,dbtablename,voclassname,modelpath
+	</sql>
+    
+    <!-- 查询所有 -->
+    <select id="getPubNodevoinfoByFuncode" parameterType="pubNodevoinfoQuery" resultMap="pubNodevoinfoResult">
+		SELECT 
+		<include refid="pubNodevoinfoField" />  
+		from  
+		pub_nodevoinfo where nodecode = #{nodecode}
+	</select>
+	
+</mapper>

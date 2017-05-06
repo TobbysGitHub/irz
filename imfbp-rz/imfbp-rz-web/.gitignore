@@ -1,0 +1,6 @@
+/target/
+/.settings/
+.project
+/.metadata/
+/bin/
+/src/main/webapp/misc-bak

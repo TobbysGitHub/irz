@@ -1,0 +1,128 @@
+<style type="text/css">
+html,body,#rzPlanChangeLeaseModule,.rzPlanChangeLeaseEdit{height:100%;}
+.wrap{
+	position: absolute;
+	width: 98%;
+	height: 98%;
+padding:20px;
+	}
+	#content1 {
+		position: absolute;
+		top: 50px;
+		width: 100%;
+		bottom: 0;
+	padding-right:20px;
+	}
+
+	.wrap ul,li{
+		margin: 0;padding: 0 ;
+	}		
+	.head_name {
+		height: 77px;
+		padding-left:16px;
+	}			
+	.head_name h2 {
+		font-size: 14px;
+		font-family: "PingFang-SC-Medium";
+		color: #333333;
+		height: 20px;
+		font-weight: bold;
+	}
+	
+	.head_name p {
+		font-size: 14px;
+		color: #666666;
+		height: 20px;
+		font-weight: bold;
+	}
+	.tabb1{
+		border-bottom: 2px solid #EEEEEE;
+	}
+	.tabb1 li {
+		font-size: 14px;
+		text-align: center;
+		margin-right:10px;
+		list-style: none;
+		float: left;
+		width: 90px;
+		height: 27px;
+		cursor: pointer;
+		border:1px solid #ccc;
+		border-bottom: none;
+	}
+	
+	 .tabb1 div {
+		width: 90px;
+		border-bottom: 2px solid #EEEEEE;
+		margin-top: 7px;
+		
+	}
+	.show-div{
+		display:none;
+	height:100%;
+	}
+	 .tabb1 span {
+		font-family: "PingFangSC-Regular";
+		font-size: 14px;
+		color: #999999;
+		font-weight: bold;
+	}
+	.tabb1 li:hover div {
+		border-color: #00A0E8;
+	}
+	
+	.tabb1 li:hover span {
+		color: #00A0E8;
+	}
+	
+	#content1 {
+		margin-top: 20px;
+	}
+	.tab-active span{
+		color: #00A0E8;
+	}
+	.tab-active div{
+		border-color: #00A0E8;
+	}
+	.div-active{
+		display:block;
+	}
+
+</style>
+
+<div class="wrap">
+	<nav class="tabb1">
+		<ul class="clearfix" style="margin-bottom:1px;">
+			<li class="tab-active" data-router="" onclick="beforeChangeClick(this);" style="width:159px;">
+					<span>租金计划表(变更前)</span>
+					<div style="width:159px;"></div>
+			</li>
+			<li data-router="" onclick="afterChangeClick(this)" style="width:159px;">
+					<span>租金计划表(变更后)</span>
+					<div style="width:159px;"></div>
+			</li>
+		</ul>
+	</nav>
+	<div id="content1">
+		<div class="show-div div-active"></div>
+		<div class="show-div"></div>
+	</div> 
+</div>
+
+<script type="text/javascript">
+var url = '';
+jQuery(".tabb1 li").on("click", function() {
+	jQuery(".tabb1 li").removeClass();
+	jQuery(this).addClass("tab-active");
+	if($(this).attr("data-router").length !=0){
+		$("#content1>div").eq($(this).index()).html("")
+		var indexVal = $(this).index();
+		if(indexVal==2){
+			url = $(this).attr("data-router")+"?businessType=3&&businessId="+fkContactsClient;
+		}
+		$("#content1>div").eq($(this).index()).load(url);
+	}
+	$("#content1>div").removeClass("div-active");
+	$("#content1>div").eq($(this).index()).addClass("div-active")
+})
+</script>

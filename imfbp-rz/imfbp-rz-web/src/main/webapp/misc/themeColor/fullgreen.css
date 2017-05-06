@@ -1,0 +1,20 @@
+﻿#header{
+	background-color:#72C11C;
+}
+#header .navright li:hover{
+		background: #6BB61A;/*header划过*/
+	}
+#tabs-1  .main-first{
+ 	border-top-color:#72C11C
+ }
+ #aside .navi>.nav>li:hover {
+ 	border-left-color:#72C11C;
+ }
+
+/*--------多表格导航u-tabs__tab-bar选中导航border-bttom和动画颜色--------u.css-------*/	
+	.u-tabs.is-upgraded .u-tabs__tab.is-active:after{
+		background-color:#72C11C;
+	}
+	.u-tabs__tab .u-tabs__ripple-container .u-ripple{
+		background-color:#72C11C;
+	}

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/rabbit
+	http://www.springframework.org/schema/rabbit/spring-rabbit-1.4.xsd">
+ 
+  <!-- 将多个配置文件读取到容器中，交给Spring管理 -->
+	
+	<!-- 连接服务配置  -->
+	<rabbit:connection-factory id="connectionFactory"  
+		addresses="${mq.addresses}"  username="${mq.username}"
+		password="${mq.password}" virtual-host="${mq.vhost}"/>
+	        
+	<rabbit:admin connection-factory="connectionFactory"/>
+	
+	
+	<!-- 声明的订阅模型的queue -->
+	<rabbit:queue id="imfbp-boss-job-rz-queue" durable="true" auto-delete="false" exclusive="false" name="imfbp-boss-job-rz-queue"/>
+	
+    <!-- 将订阅的queue绑定到exchange上 -->
+    <rabbit:fanout-exchange name="ifbp-boss-job-exchange" durable="true" auto-delete="false" id="fanout-exchange">
+        <rabbit:bindings>
+            <rabbit:binding queue="imfbp-boss-job-rz-queue"></rabbit:binding>
+        </rabbit:bindings> 
+    </rabbit:fanout-exchange>
+    
+    
+    <!-- queue litener  观察 监听模式 当有消息到达时会通知监听在对应的队列上的监听对象-->
+	<rabbit:listener-container connection-factory="connectionFactory" acknowledge="auto">
+		<rabbit:listener queues="imfbp-boss-job-rz-queue" ref="taskMQListener"/>
+	</rabbit:listener-container>
+
+	
+	<!-- 用户监听 -->
+	<bean id="taskMQListener" class="com.imfbp.mq.task.TaskMQListener">
+		<property name="rabbitMQProducer" ref="rabbitMQProducer"></property>
+	</bean>
+  
+</beans>

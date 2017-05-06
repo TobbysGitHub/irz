@@ -1,0 +1,273 @@
+	li{
+		list-style:none;
+	}
+	#wrap-container {
+			padding: 40px;
+		}
+										
+		#more_search {
+			font-size: 14px;
+			color: #00A0E8;
+		}
+		
+		#quick_search {
+			border: 1px solid #aeaeae;
+			background-color: #e0e0e0;
+			height: 40px;
+			line-height: 40px;
+			display: block;
+			width: 150px;
+			text-align: center;
+		}
+		
+		
+		#much_button button {
+			float: right;
+			margin-left:10px;
+		}
+										
+		label span {
+			color: #f00;
+		}
+		
+		.enditPage h5 {
+			text-align: left;
+			margin: 0;
+			padding-left: 40px;
+		}
+		
+		.enditPage {
+			padding: 15px;
+		}
+		.enditPage select {
+			height: 32px;
+		}
+		
+		.enditPage .row input[type="text"] {
+			height: 32px;
+			width: 100%;
+			background: #FFFFFF;
+			border: 1px solid #DDDDDD;
+			border-radius: 3px;
+			padding-left:6px;
+		}
+		
+		.searchPanel .row input[type="text"] {
+			height: 32px;
+			width: 100%;
+			background: #FFFFFF;
+			border: 1px solid #DDDDDD;
+			border-radius: 3px;
+			padding-left:6px;
+		}
+		
+		.enditPage select {
+			background: #FFFFFF;
+			border: 1px solid #DDDDDD;
+			border-radius: 3px;
+		}
+		
+		.enditPage .row input[type="checkbox"] {
+			height: 20px;
+			width: 20px;
+		}
+		.enditPage .form-group{
+			
+			margin-left:0px;
+		}
+		.enditPage .panel{
+			box-shadow:none;
+			margin-bottom:0px;
+			border:none;
+		}
+		
+		.editfooter {
+			text-align: center;
+			margin-top: 10px;
+		}
+		.editfooter button{
+			margin-left:10px;
+		}
+		.enditPage textarea {
+			height: 90px;
+			resize: none;
+		}
+		.form-group{
+			margin-bottom:0;
+		}
+		.help-block{
+			margin-top:3px;
+		}
+		.panel-body>div {
+			margin-top: 20px;
+		}
+		.enditPage .panel-heading{
+			background: #EEEEEE;
+			height:40px;
+		cursor:pointer;
+
+		}
+		.btn-group>.btn:not(:last-child){
+			margin-right:10px;
+		}
+		.toolsbarPanel{
+			margin:10px 0px;
+			text-align:right;
+		}
+		.panel-body{
+			padding:0px;
+		}
+		.search-box button{
+			margin-left:15px;
+		}
+		.enditPage .panel-body{
+			padding-right:15px !important;
+			background: #F7F7F7;
+		}		
+		.enditPage .panel-body::after{
+			height:20px;			
+		}
+			
+		.enditPage b {
+			margin-left: 10px;
+			line-height: 22px;
+		}
+		
+		.editpage-btn {
+			margin-left: 20px;
+			width: 80px;
+			height: 40px;
+		}
+		.col-xs-4{
+			padding-left:0px;
+		}
+		.editpage-btn:hover {
+			color: #FFFFFF;
+			background-color: #00A0E8;
+			border: none;
+		}
+		.btn-lg{
+			height:44px;
+			padding:10px 26px;
+		}
+		.btn-sm{
+			height:36px;
+			padding:10px 26px;
+		}
+		.btn-primary{
+			background-color:#00A0E8;
+			border-color:#00A0E8;
+		}
+		.btn{
+			border-radius:3px !important;
+		}
+		.enditPage h5 {
+			font-weight: bolder;
+			padding-right: 10px;
+		}
+		
+		.enditPage .row label {
+			text-align: right;
+			font-size: 13px;
+			color: #333333;
+			padding-top: 6px;
+			padding-right: 10px;
+		} 
+		
+		.icon {
+			font-size: 14px;
+		}
+		
+		.icon-wrap {
+			position: absolute;
+			right: 2px;
+			top: 2px;
+			height: 28px;
+			width: 32px;
+			background-color: #EDF1F2;
+			line-height: 28px;
+			text-align: center;
+			cursor: pointer;
+		}
+		
+		.icon-trigle {
+			position: absolute;
+			margin: auto;
+			left: 0;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			width: 0;
+			height: 0;
+			border-top: 12px solid #000;
+			border-right: 8px solid transparent;
+			border-left: 8px solid transparent;
+		}
+		
+		
+		.current-vesion-hide {
+			display: none;
+		}
+		
+		.searchPanel {
+			padding: 30px 20px 10px 20px;
+		}
+		.col-xs-8{
+			padding:0;
+		}
+		.row{
+			margin:0;
+		}
+		.searchPanel  .searchToolsbar{
+			margin-top:20px;
+			text-align:center;
+		}
+		.listPanel {
+			padding: 0px 20px 20px 20px;
+		}
+		
+		
+		.searchPanel label {
+			line-height: 32px;
+			text-align: right;
+		}
+		
+		.searchPanel input {
+			width: 100%;
+			height:32px;
+		}
+		
+		#more_search {
+			text-align: right;
+			text-decoration: underline;
+		}
+		
+
+		
+		#dLabel a:hover,#quick-search a:hover {
+			background-color: #00A0E8;
+			color: #FFF;
+		}
+		
+		#dLabel,#quick-search {
+			outline: none;
+		}
+		.has-feedback .form-control-feedback {
+		    top: 0;
+		    right: -30px;
+		}
+		.des{
+			margin-left:-6px;
+		}
+		.detailInfo{
+			padding:20px;
+		}
+
+		.header{
+			padding:15px 0;
+			margin:0 15px;
+			background-color:#EEE;
+		}
+		.form-group small{
+			position:absolute;
+		}

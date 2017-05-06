@@ -1,0 +1,358 @@
+<style>
+	.main-first{
+		border-top:2px solid #00A0E8;
+		border-right:1px solid #eee;	
+		border-left:1px solid #eee;	
+		border-bottom:1px solid #eee;	
+	}
+	.main-first div:nth-child(2){
+		border-left: 1px dotted #ddd;
+	}
+	
+	.main-first img{
+		display: inline-block;
+    	margin: 15px 25px;
+	}
+	
+	.main-first p{
+	    margin: 10px 0 0;
+	    vertical-align: middle;
+	    display: inline-block;
+	    line-height: 25px;
+        color: #333;
+    	font-size: 16px;
+	}
+	.main-cust{
+		color:#666 !important;
+		font-size:14px !important;
+		line-height:50px !important;
+	}
+	.main-cust strong{
+		font-weight: 400;
+    	color: #00A0E8;
+    	font-size: 50px;
+	}
+	.main-cust span{
+    	font-size: 12px;
+	}
+	.main-second-content{
+		text-align: center;
+    	padding: 5px 15px;
+	}
+	.main-second-content p{
+		margin: 0px;
+		font-size: 12px;
+	    border-right: 2px solid #eee;
+	    color: #666;
+	}
+	.main-second-content strong{
+		color: #666;
+	    font-weight: normal;
+	    font-size: 30px;
+	}
+	.main-second-content span{
+		font-size: 14px;
+	}
+	.main-third-right a{
+		color:#00A0E8;
+	    padding: 0 15px;
+	    line-height: 48px;
+	    font-size: 14px;
+	}
+	.u-grid-header-columnmenu fa fa-bars{
+		display:none;
+	}
+	#header-pagination-moreinfo div{
+		display : block !important;
+	}
+</style>
+
+<body>
+
+
+	<!-- content -->
+	<div class="ui-tabs">
+  	<div id="content" class="ui-tabs-panel">
+			<div class="u-tabs" id="bodyTabs_moreinfo">
+			    <!--表体多页签-->
+			    <div class="u-tabs__tab-bar">
+			        <a href="#messageCenter" class="u-tabs__tab is-active" value="2">待办消息</a>
+			        <a href="#messageCenter" class="u-tabs__tab" value="3">预警消息</a>
+			        <a href="#messageCenter" class="u-tabs__tab" value="1">通知消息</a>
+			        <div class="main-third-right"style="position:absolute; right:0px;margin-right: 5px;">
+					    <a href="#" id="messageRefresh"><i class="glyphicon glyphicon-repeat"></i></a>
+				    </div>
+			    </div>
+			    
+			    <div class="u-tabs__panel is-active " id="messageCenter">
+			    	<div class="container-fluid" style="padding:0px;">
+				    	
+				    	<div u-meta='{"height":"370","id":"grid1","type":"grid","data":"listData","onDblClickFun":"rowDblClick"}' style="margin: 15px 0px;" >
+							<div options='{"width":"60","field":"readMark","title":"状态", "renderType":"pictureRender"}'></div>
+							<div options='{"field":"title","dataType":"string","title":"主题","renderType":"boldRender"}'></div>
+							<div options='{"field":"content","dataType":"string","title":"任务内容","renderType":"boldRender"}'></div>
+							<div options='{"field":"creator","dataType":"string","title":"提交人","renderType":"boldRender"}'></div>
+							<div options='{"field":"created","dataType":"string","title":"提交时间","renderType":"boldRender"}'></div>
+							<div options='{"field":"typeText","dataType":"string","title":"任务类型","renderType":"boldRender"}'></div>
+						</div>
+				    	<div id="header-pagination-moreinfo">
+						<!-- 分页 -->
+							<div   class='u-pagination' u-meta='{"type":"pagination","data":"listData","pageChange":"pageChangeFunc","sizeChange":"sizeChangeFunc","totalCount":"100"}'></div>
+						<!-- 分页 -->
+						</div>
+	      			</div>
+			    </div>
+	
+	    	</div>
+	    	
+  	</div>
+</div>
+
+
+    	
+<script>
+
+jQuery(function(){
+	
+	var app, viewModel, basicDatas;
+	basicDatas = {
+		listData: new u.DataTable({
+			meta: {
+				id:{
+					type: 'long'
+				},
+				type: {
+					type: 'int'
+				},
+				typeText:{
+					type: 'string'
+				},
+				title: {
+					type: 'string'
+				},
+				content: {
+					type: 'string'
+				},
+				systemid:{
+					type: 'string'
+				},
+				moduleValue: {
+					type: 'string'
+				},
+				moduleName: {
+					type: 'string'
+				},
+				url:{
+					type: 'string'
+				},
+				billid:{
+					type: 'string'
+				},
+				creator:{
+					type: 'string'
+				},
+				readMark:{
+					type: 'int'
+				},
+				created:{
+					type: 'string'
+				}
+				
+			}
+		}),
+		pictureRender:function(obj){//自定义渲染类型
+			var data = obj.row;
+			if(data.value.readMark == 1) //已读
+			{
+				var html = "<i style='padding-top:5px;padding-left:5px;font-size:16px' class='fa fa-fw icon-envelope-open '></i>";	 	
+		    	var innerDom = u.makeDOM(html);
+		    	obj.element.appendChild(innerDom);
+			}else{
+				var htm = "<i style='padding-top:5px;padding-left:5px;font-size:16px' class='fa fa-fw icon-envelope iconChange'></i>";  
+				var	html = htm.replace("iconChange","iconChange"+obj.rowIndex);
+		    	var innerDom = u.makeDOM(html);
+		    	obj.element.appendChild(innerDom);
+			}
+    	},
+    	boldRender:function(obj){//自定义渲染类型
+			var data = obj.row;
+			if(data.value.readMark == 0) //未读
+			{			
+				var b = "readbold"+obj.rowIndex;
+		    	obj.element.classList.add(b);
+		    	obj.element.style.setProperty('font-weight','bold');
+		    	obj.element.innerHTML = obj.value;
+			}else{ 	
+		    	obj.element.innerHTML = obj.value;
+			}
+    	}
+	};
+	
+	events = {
+		
+	 	/**
+		 * 行双击事件
+	     */
+		rowDblClick: function(row, e) {
+			var data = row.rowObj;	
+			if(data.value.readMark == 0){
+				//根据cell这个jquery对象，替换其class属性，实现未读到已读图标的转换。
+				data.value.readMark = 1;
+				var param = "#messageCenter tbody tr:nth-child("+(row.rowIndex+1)+") td i";
+				var cell = jQuery(param); 	
+		    	cell.attr('class','fa fa-fw icon-envelope-open');
+		    	//根据readbold这个class属性，查找到加粗的dom元素，去掉加粗样式
+		    	var b = "#messageCenter ."+"readbold"+row.rowIndex;
+		    	var readList = jQuery(b); 
+		    	jQuery.each(readList, function(index, item){
+					item.style.removeProperty('font-weight');
+					
+ 				});	
+		    	//将已读状态提交到后台数据库
+				$.ajax({
+					type: 'post',
+					dataType: "json", 
+					data:"messageId="+data.value.id,
+					url: '$homeModule.getTarget('/setMessageReadMark')'
+				});
+			}
+			if(data.value.type == 1){
+				 BootstrapDialog.alert({
+		            title: data.value.title,
+		            message: data.value.content,
+		            draggable: true, 
+		            buttonLabel: '关闭'
+		        });
+			}else{
+				$.ajax({
+					type: 'post',
+					dataType: "json", 
+					data:"systemid="+data.value.systemid+"&moduleValue="+data.value.moduleValue,
+					url: '$homeModule.getTarget('/getMessageUrlByModuleValue')',
+					success: function(content) {
+						var obj={};
+						if(data.value.billid!=undefined&&data.value.billid!=""){
+							obj.param="&billid="+data.value.billid;
+						}
+						obj.module_url = content.url;
+						obj.module_value = content.moduleValue;
+						obj.title_name = content.moduleName;
+						window.parent.Hui_admin_tab(obj);
+					}
+				});
+			}
+
+		},
+		//分页改变事件
+		pageChangeFunc: function(pageSize){
+			var type = jQuery(".u-tabs__tab-bar a.is-active").attr("value") - 0;
+			var paras = {type:type}
+			queryDatas(paras,pageSize+1);
+		
+		},
+		//页面展示数目改变事件
+		sizeChangeFunc: function(pageSize, pageIndex){
+			var type = jQuery(".u-tabs__tab-bar a.is-active").attr("value") - 0;
+			var paras = {type:type}
+			queryDatas(paras,pageSize+1);
+		}
+		
+		
+	}
+
+	viewModel = u.extend({}, basicDatas, events);
+
+ 	/**
+	 * 初始化
+     */
+     var initType = function(){
+     	type = "${type}";
+		jQuery("#bodyTabs_moreinfo>div>a").each(function(){
+			if($(this).attr("value") == type){
+				$(this).addClass("is-active");
+			}else{
+				$(this).removeClass("is-active");
+			}
+		});
+		var paras = {
+			type:type,
+			page:1
+		}
+		queryDatas(paras);
+     }
+     //查询方法
+	var queryDatas = function(paras,currentPage) {
+		//当前表格中展现的数据个数
+		var rows = $('#header-pagination-moreinfo .u-pagination .page_z').val();
+		if(!rows){
+			rows = 10;
+		}
+		//展现默认展现第一页
+		var page = currentPage;
+		if(paras == null || paras == 'undefined'){
+			paras = { rows:rows, page:page};
+		}else{
+			paras["rows"] = rows;
+			paras["page"] = page;
+		}
+		$.ajax({
+			type: 'get',
+			dataType: "json", 
+			url: '$homeModule.getTarget('/getMessageByPage')',
+			data:paras,
+			success: function(data) {
+				if(data.success){
+					//关闭表格的清楚设置选项
+					$(".u-grid-header-columnmenu").hide();
+			 		viewModel.listData.pageSize(rows);
+			 		//设置记录信息
+				 	viewModel.listData.setSimpleData(data.map.datas.rows);
+				 	viewModel.listData.totalRow(data.map.datas.total);
+				 	//计算展现多少页
+				 	if(data.map.datas.total == 0){
+				 		viewModel.listData.totalPages(1);
+				 	}else{
+					 	viewModel.listData.totalPages(parseInt(data.map.datas.total/rows)+parseInt(data.map.datas.total%rows>0?1:0));
+				 	}
+				}
+			}
+		});
+		
+	}
+
+	window.vm = viewModel;
+	app = u.createApp({
+		el: '#content',
+		model: viewModel
+	});
+	
+	initType();
+	
+	/**
+	 * 刷新
+     */
+	jQuery("#messageRefresh").click(function(){
+		var type = jQuery(".u-tabs__tab-bar a.is-active").attr("value") - 0;
+		var params = {
+				type:type
+		}
+		queryDatas(params,0);
+	});
+	
+	/**
+	 *点击查看待办任务，预警消息和通知消息
+	 */
+	jQuery("#bodyTabs_moreinfo>div>a").click(function(){
+		var type = $(this).attr("value") - 0;
+		var paras = {
+			type:type,
+			page:1
+		}
+		queryDatas(paras);
+	});
+});
+
+</script>
+
+	
+</body>

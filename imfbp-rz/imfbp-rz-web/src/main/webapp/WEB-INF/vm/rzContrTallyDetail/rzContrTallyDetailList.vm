@@ -1,0 +1,23 @@
+<div class="padding-5">
+    <div class="toolsbarPanel" >
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-action btn-sm add-btn" >
+                联查<i class="iconfont icon-xiangxia1"></i>
+            </button>
+            <button type="button" class="btn btn-action btn-sm update-btn">
+                合计设置
+            </button>
+            <button type="button" class="btn btn-action btn-sm remove-btn">
+                导出
+            </button>
+            <button type="button" class="btn btn-action btn-sm remove-btn">
+                打印
+            </button>
+            <button type="button" class="btn btn-action btn-sm refresh-btn">
+                <i class="glyphicon icon-refresh" ></i> 刷新
+            </button>
+        </div>
+    </div>
+    <table id="rzContrTallyDetailList"></table>
+    <ul id="pagination" class="pagination"></ul>
+</div>

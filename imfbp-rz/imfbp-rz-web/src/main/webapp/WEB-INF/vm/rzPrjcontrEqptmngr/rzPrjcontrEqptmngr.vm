@@ -1,0 +1,580 @@
+<title>rzPrjcontrEqptmngr</title>
+<body>
+<div id="rzPrjcontrEqptmngrModule" >
+	
+	<!-- list page start -->
+	<div class="listPage startPage">
+		#parse("/WEB-INF/vm/rzPrjcontrEqptmngr/rzPrjcontrEqptmngrSearch.vm")
+		#parse("/WEB-INF/vm/rzPrjcontrEqptmngr/rzPrjcontrEqptmngrList.vm")
+	</div>
+	<!-- list page end -->
+	
+	<!-- edit page end -->
+	<div class="rzPrjcontrEqptmngrEdit" style="display:none;">
+		#parse("/WEB-INF/vm/rzPrjcontrEqptmngr/rzPrjcontrEqptmngrEdit.vm")
+	</div>
+	<!-- edit page end -->
+	
+</div>
+
+
+<script>
+
+jQuery(function(){
+    //设置查询区域参照
+    refManager.setRefArea("#searchPanel");
+	
+	//列表后台访问地址
+	var url_page = '$homeModule.getTarget('/rzPrjcontrEqptmngr/getRzPrjcontrEqptmngrByPage')';
+	//添加修改后台访问地址
+	var url_add = '$homeModule.getTarget('/rzPrjcontrEqptmngr/insertOrUpdate')';
+	//删除后台访问地址
+	var url_del = '$homeModule.getTarget('/rzPrjcontrEqptmngr/deleteRzPrjcontrEqptmngrByBatchId')';
+	
+	//查询对象
+	var queryData = new RzPrjcontrEqptmngrView();
+	//编辑对象
+	var editData = new RzPrjcontrEqptmngrView();
+	//空对象用来清空编辑和查询对象
+	var emptyData = new RzPrjcontrEqptmngrView();
+	
+	window.viewModel={
+		queryData:ko.mapping.fromJS(queryData),
+		editData:ko.mapping.fromJS(editData),
+		pageState:ko.observable("")
+	}
+	
+	/**
+	 * 表头
+	 */
+	var col = [{  
+		field:"pkPrjcontrEqptmngr",
+		title:"主键",
+		visible:false
+	},{
+		field:"pkPrjcontr",
+		title:"项目合同主键",
+        visible:false,
+        imfbpRefType:'rzprjcontrref',
+        renderType:"imfbpRefTransform"
+	},{
+		field:"contrCode",
+		title:"合同编号"
+	},{
+		field:"contrName",
+		title:"合同名称"
+	},{
+		field:"pkPrjreview",
+		title:"项目评审主键",
+        visible:false
+	},{
+		field:"pkPrjapply",
+		title:"项目申请主键",
+        visible:false
+	},{
+		field:"prjCode",
+		title:"项目编号"
+	},{
+		field:"prjName",
+		title:"项目名称"
+	},{
+		field:"pkCustomer",
+		title:"客户名称",
+        imfbpRefType:'customerref',
+        renderType:"imfbpRefTransform"
+	},{
+		field:"pkCustomerSupp",
+		title:"供应商",
+        imfbpRefType:'customerref',
+        renderType:"imfbpRefTransform"
+	},{
+		field:"pkEqpt",
+		title:"租赁设备",
+        imfbpRefType:'eqptref',
+        renderType:"imfbpRefTransform"
+	},{
+		field:"mfg",
+		title:"制造商"
+	},{
+		field:"eqptType",
+		title:"设备分类",
+        renderType: function (obj) {
+            var html = "<span>"
+            //获取状态：通过状态判断更改相应代码0 一般设备、1 中型设备、2 大型设备
+            var state = obj.row.value.eqptType;
+            if (0 == state ) {
+                html += "一般设备";
+            }else if(1 == state){
+                html += "中型设备";
+            }else{
+                html += "大型设备";
+            }
+            html += "</span>";
+            var innerDom = u.makeDOM(html);
+            obj.element.appendChild(innerDom);
+        }
+	},{
+		field:"eqptBrand",
+		title:"设备品牌"
+	},{
+		field:"eqptVer",
+		title:"设备型号"
+	},{
+		field:"mfgNo",
+		title:"出厂编码"
+	},{
+		field:"mfgDate",
+		title:"出厂日期"
+	},{
+		field:"eqptPrice",
+		title:"设备价格"
+	},{
+		field:"eqptNum",
+		title:"数量"
+	},{
+		field:"eqptPriceTotal",
+		title:"设备总价(元)"
+	},{
+		field:"purcDate",
+		title:"采购日期"
+	},{
+		field:"purcAddr",
+		title:"采购地址"
+	},{
+		field:"purcNo",
+		title:"采购发票号码"
+	},{
+		field:"deliveryDate",
+		title:"交货日期"
+	},{
+		field:"deliveryAddr",
+		title:"交货地点"
+	},{
+		field:"useAddr",
+		title:"使用地址"
+	},{
+		field:"usedLife",
+		title:"总使用寿命(年)"
+	},{
+		field:"prjapplyDate",
+		title:"立项日期"
+	},{
+		field:"checker",
+		title:"验收人"
+	},{
+		field:"itembal",
+		title:"项目余额(元)"
+	},{
+		field:"itemamt",
+		title:"项目金额(元)"
+	},{
+		field:"startLeaseDate",
+		title:"合同起租日期"
+	},{
+		field:"endLeaseDate",
+		title:"合同结束日期"
+	},{
+		field:"financeamt",
+		title:"融资金额"
+	},{
+		field:"leaseprd",
+		title:"租赁期限(月)"
+	},{
+		field:"ismove",
+		title:"是否方便移动"
+	},{
+		field:"isliquidate",
+		title:"是否处置变现"
+	},{
+		field:"totallife",
+		title:"总使用寿命(年)"
+	},{
+		field:"restlife",
+		title:"尚可使用年限(年)"
+	},{
+		field:"netVal",
+		title:"设备净值(元)"
+	},{
+		field:"remark",
+		title:"备注"
+	}];
+    
+	
+	/**
+     * 初始化layoutMDI
+     */
+	$("#rzPrjcontrEqptmngrModule").layoutMDI({
+		//当页面后退时候触发的事件
+		onBackPage: function(target, options) {
+			ko.mapping.fromJS(emptyData,viewModel.editData);
+		} 
+	});
+	
+	/**
+     * 创建一个表格，但是没有赋值dataSource数据，这是表格将没有数据
+	 */
+	var gridObj = $("#rzPrjcontrEqptmngrModule .rzPrjcontrEqptmngrList").grid({
+		dataSource:'',
+    	id: 'case-g1',
+   		keyField: 'id',
+   		parentKeyField: 'pid',
+    	multiSelect: false,
+    	showNumCol:true,
+    	height: 350,
+    	columns: col,
+    	onDblClickFun:function(gridObj,rowObj,rowIndex){
+			//设置页面的输入框为不可修改
+			viewModel.editData.enableState(false);
+			//得到点击行
+    		var dbClickRow = gridObj.rowObj;
+    		//赋值
+    		ko.mapping.fromJS(dbClickRow.value, viewModel.editData);
+            refManager.initAreaLoadData(".rzPrjcontrEqptmngrEditForm", function(name){
+                var fun = viewModel.editData[name];
+                if(typeof fun == 'function'){
+                    return fun();
+                }
+            });
+            refManager.setRefArea(".rzPrjcontrEqptmngrEditForm");
+    		//跳转到编辑页
+        	$("#rzPrjcontrEqptmngrModule").layoutMDI("go", ".rzPrjcontrEqptmngrEdit");
+    	},
+        onRowSelected:function(obj){
+            buttonManager.permission("0");
+        }
+    });
+	
+	/**
+	 * 初始化分页
+	 */
+	var paginationObj = $("#rzPrjcontrEqptmngrModule .pagination").pagination({
+		pageSize:10,
+		styleMode:2,
+		onSelectPage:function(pageNumber, pageSize){
+			var queryData = $.extend(ko.mapping.toJS(viewModel.queryData),{pageNumber:pageNumber,pageSize:pageSize});
+			jQuery("#rzPrjcontrEqptmngrModule .rzPrjcontrEqptmngrList").gridPlugin("reLoad",queryData);
+		}
+	});
+	
+	/**
+	 * 初始化表格插件
+	 */
+	var gridPluginObj = jQuery("#rzPrjcontrEqptmngrModule .rzPrjcontrEqptmngrList").gridPlugin({
+		url: url_page,
+		gridObj:gridObj,
+		queryParam:getParams(),
+		pagination:true,//是否分页默认为否
+		paginationObj:paginationObj,//分页控件对象
+		initData:false,//初始化时候是否加载数据(true时候加载，false时候不加载)
+		onDataSuccess:function(data){
+			//当列表加载成功之后调用
+            imfbpDataTableTranform(gridObj, data.rows,function(){
+                var d = {};
+                d.values = data.rows;
+                gridObj.setDataSource(d);
+            });
+		},
+		onDataError:function(data){
+			//当列表加载失败之后调用
+		},
+	})
+	
+	/**
+	 * form表单插件
+	 */
+	jQuery("#rzPrjcontrEqptmngrModule .rzPrjcontrEqptmngrEditForm").formPlugin({
+		url: url_add,//添加修改的地址
+		gridPlugin:gridPluginObj,//表格插件对象
+		onSaveSuccess:function(data){
+			//保存成功后退出编辑页面
+			$("#rzPrjcontrEqptmngrModule").layoutMDI("back");
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+			jQuery("#rzPrjcontrEqptmngrModule .rzPrjcontrEqptmngrList").gridPlugin("load", {});
+		},
+		onDeleteSuccess:function(data){
+			
+		}
+	})
+	
+	/**
+	 * 新增功能
+	 */			
+    jQuery("#rzPrjcontrEqptmngrModule .toolsbarPanel .add2-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为添加状态
+		viewModel.pageState(pageState.add);
+        //初始化input框
+        refManager.initAreaLoadData(".rzPrjcontrEqptmngrEditForm", function(name){
+            var fun = viewModel.editData[name];
+            if(typeof fun == 'function'){
+                return fun();
+            }
+        });
+        refManager.setRefArea(".rzPrjcontrEqptmngrEditForm");
+        $("#rzPrjcontrEqptmngrModule").layoutMDI("go", ".rzPrjcontrEqptmngrEdit");
+    });
+
+	/**
+	 * 修改功能
+	 */		    
+    jQuery("#rzPrjcontrEqptmngrModule .toolsbarPanel .update-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为修改状态
+		viewModel.pageState(pageState.edit);
+    	//当前选中行
+    	var selectRow = gridObj.getSelectRows();
+    	//将数据绑定到表单上面
+    	ko.mapping.fromJS(selectRow[0], viewModel.editData);
+        //初始化input框
+        refManager.initAreaLoadData(".rzPrjcontrEqptmngrEditForm", function(name){
+            var fun = viewModel.editData[name];
+            if(typeof fun == 'function'){
+                return fun();
+            }
+        });
+        refManager.setRefArea(".rzPrjcontrEqptmngrEditForm");
+    	//跳转到编辑页面
+        $("#rzPrjcontrEqptmngrModule").layoutMDI("go", ".rzPrjcontrEqptmngrEdit");
+    });
+
+	/**
+	 * 删除功能
+	 */	    
+    jQuery("#rzPrjcontrEqptmngrModule .toolsbarPanel .remove-btn").click(function(){
+    	//要删除的id用","隔开
+		var batchId = "";
+		//当前选中行
+		var selectRow = gridObj.getSelectRows();
+		//判断是否选中要删除的数据
+		if(selectRow.length == 0) {
+			alert("请选择您要修改的数据");
+			return;
+		}
+	
+		for(var i = 0; i < selectRow.length; i++) {
+			var row = selectRow[i];
+			if(i == 0) {
+				batchId = row["pkPrjcontrEqptmngr"] + batchId;
+			} else {
+				batchId = row["pkPrjcontrEqptmngr"] + "," + batchId;
+			}
+		}
+		//删除数据
+		jQuery("#rzPrjcontrEqptmngrModule .rzPrjcontrEqptmngrEditForm").formPlugin("remove",{batchId:batchId,url:url_del});
+    });
+    
+    /**
+	 * 刷新功能(只是刷新当前页，如果要刷新所有页面使用 load 方法)
+	 */	 
+    jQuery("#rzPrjcontrEqptmngrModule .toolsbarPanel .refresh-btn").click(function(){
+		jQuery("#rzPrjcontrEqptmngrModule .rzPrjcontrEqptmngrList").gridPlugin("reLoad",viewModel.queryData);
+    });
+    
+    //保存功能
+	jQuery("#rzPrjcontrEqptmngrModule .rzPrjcontrEqptmngrEdit .save-btn").click(function(){
+		if(viewModel.pageState()=="add"){
+			ko.mapping.fromJS(emptyData,viewModel.queryData);
+		}
+		var param = {
+			formData:ko.mapping.toJS(viewModel.editData),//要提交的数据
+			queryData:ko.mapping.toJS(viewModel.queryData),//修改完毕刷新表格的参数
+			editType:viewModel.pageState()//页面的状态(add：添加，edit:编辑)
+		}
+		jQuery("#rzPrjcontrEqptmngrModule .rzPrjcontrEqptmngrEditForm").formPlugin("save",param);
+	});
+	
+	//查找功能
+	jQuery("#rzPrjcontrEqptmngrModule .searchToolsbar .search-btn").click(function(){
+		jQuery("#rzPrjcontrEqptmngrModule .rzPrjcontrEqptmngrList").gridPlugin("load",ko.mapping.toJS(viewModel.queryData));
+	});
+	
+	//重置查询条件功能
+	jQuery("#rzPrjcontrEqptmngrModule .searchToolsbar .reset-btn").click(function(){
+		ko.mapping.fromJS(emptyData,viewModel.queryData);
+	});
+	
+	//编辑页返回
+	jQuery("#rzPrjcontrEqptmngrModule .rzPrjcontrEqptmngrEdit .back-btn").click(function(){
+		$("#rzPrjcontrEqptmngrModule").layoutMDI("back");
+	});
+
+	ko.applyBindings(viewModel);
+	{
+		buttonManager.addBtn({button:".add2-btn",permission:['0']});
+		buttonManager.addBtn({button:".delete-btn",permission:['0']});
+		buttonManager.permission(parent.approvestatus);
+	} 
+
+    $('.form_hhg_date').datetimepicker({
+        language: 'cn',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        autoclose: true,
+        todayHighlight: true
+    });
+
+});
+
+//合同参照回调函数
+function pkPrjcontrRefCallFunction(eleObj, data, name, id) {
+//    var fun = viewModel.editData[name];
+//    if(typeof fun == 'function'){
+//        fun(data[id]);
+//    }
+    ko.mapping.fromJS(data,viewModel.editData);
+}
+
+//设备参照回调函数
+function eqptRefCallFunction(eleObj, data, name, id) {
+    debugger;
+//    var fun = viewModel.editDataEqpt[name];
+//    if(typeof fun == 'function'){
+//        fun(data[id]);
+//    }
+    ko.mapping.fromJS(data,viewModel.editData);
+}
+
+//查询区域参照回调函数
+function queryRefCallFunction(eleObj, data, name, id) {
+    var fun = viewModel.queryData[name];
+    if(typeof fun == 'function'){
+        fun(data[id]);
+    }
+//    ko.mapping.fromJS(data,viewModel.editData);
+}
+function RzPrjcontrEqptmngrView(){
+	//主键
+	this.pkPrjcontrEqptmngr="";
+	//项目合同主键
+	this.pkPrjcontr="";
+	//合同编号
+	this.contrCode="";
+	//合同名称
+	this.contrName="";
+	//项目评审主键
+	this.pkPrjreview="";
+	//项目申请主键
+	this.pkPrjapply="";
+	//项目编号
+	this.prjCode="";
+	//项目名称
+	this.prjName="";
+	//客户名称外键
+	this.pkCustomer="";
+	//供应商主键
+	this.pkCustomerSupp="";
+	//租赁设备外键
+	this.pkEqpt="";
+	//制造商
+	this.mfg="";
+	//参照设备分类字典档案数据
+	this.eqptType="";
+	//设备品牌
+	this.eqptBrand="";
+	//设备型号
+	this.eqptVer="";
+	//出厂编码
+	this.mfgNo="";
+	//出厂日期
+	this.mfgDate="";
+	//设备价格
+	this.eqptPrice="";
+	//数量
+	this.eqptNum="";
+	//设备总价(元)
+	this.eqptPriceTotal="";
+	//采购日期
+	this.purcDate="";
+	//采购地址
+	this.purcAddr="";
+	//采购发票号码
+	this.purcNo="";
+	//交货日期
+	this.deliveryDate="";
+	//交货地点
+	this.deliveryAddr="";
+	//使用地址
+	this.useAddr="";
+	//总使用寿命(年)
+	this.usedLife="";
+	//立项日期
+	this.prjapplyDate="";
+	//验收人
+	this.checker="";
+	//项目余额(元)
+	this.itembal="";
+	//项目金额(元)
+	this.itemamt="";
+	//合同启租日期
+	this.startLeaseDate="";
+	//合同结束日期
+	this.endLeaseDate="";
+	//融资金额
+	this.financeamt="";
+	//租赁期限(月)
+	this.leaseprd="";
+	//是否方便移动(Y 是 /N 否)
+	this.ismove="";
+	//是否处置变现(Y 是 N 否)
+	this.isliquidate="";
+	//总使用寿命（年）
+	this.totallife="";
+	//尚可使用年限（年）
+	this.restlife="";
+	//设备净值(元)
+	this.netVal="";
+	//备注
+	this.remark="";
+	//机构外键
+	this.pkOrg="";
+	//部门外键
+	this.pkDept="";
+	//制单人
+	this.billmaker="";
+	//制单日期
+	this.billdate="";
+	//录入人
+	this.operator="";
+	//录入时间
+	this.operatordatetime="";
+	//修改人
+	this.modifor="";
+	//修改时间
+	this.modifydatetime="";
+	//
+	this.ts="";
+	//0 未删除 1已删除
+	this.dr="";
+	//
+	this.def1="";
+	//
+	this.def2="";
+	//
+	this.def3="";
+	//
+	this.def4="";
+	//
+	this.def5="";
+	//编辑页面状态
+	this.enableState=true;
+}
+
+function getParams(selector){
+	return {};
+}
+
+</script>
+	
+</body>

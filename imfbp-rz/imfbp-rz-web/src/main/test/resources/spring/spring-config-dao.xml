@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+	    http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd"
+	default-autowire="byName">
+
+	<description>Spring 持久层公共配置 </description>
+
+	<bean id="xdContractEndDao"
+		class="com.imfbp.loan.dao.xdcontractend.impl.XdContractEndDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdContractHistoryDao"
+		class="com.imfbp.loan.dao.xdcontracthistory.impl.XdContractHistoryDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdContractRenewalDao"
+		class="com.imfbp.loan.dao.xdcontractrenewal.impl.XdContractRenewalDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdEntCustDao" class="com.imfbp.loan.dao.xdentcust.impl.XdEntCustDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdEntCustBDao" class="com.imfbp.loan.dao.xdentcustb.impl.XdEntCustBDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdEntCustCDao" class="com.imfbp.loan.dao.xdentcustc.impl.XdEntCustCDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdEntCustDDao" class="com.imfbp.loan.dao.xdentcustd.impl.XdEntCustDDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdLoanContractDao"
+		class="com.imfbp.loan.dao.xdloancontract.impl.XdLoanContractDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdLoanDuebillDao"
+		class="com.imfbp.loan.dao.xdloanduebill.impl.XdLoanDuebillDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdLoanFivestatusDao"
+		class="com.imfbp.loan.dao.xdloanfivestatus.impl.XdLoanFivestatusDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdLoanGuarantorDao"
+		class="com.imfbp.loan.dao.xdloanguarantor.impl.XdLoanGuarantorDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdLoanitemstateDao"
+		class="com.imfbp.loan.dao.xdloanitemstate.impl.XdLoanitemstateDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdLoanMoniteDao"
+		class="com.imfbp.loan.dao.xdloanmonite.impl.XdLoanMoniteDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdLoanMoniteBDao"
+		class="com.imfbp.loan.dao.xdloanmoniteb.impl.XdLoanMoniteBDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdLoanMortgagedDao"
+		class="com.imfbp.loan.dao.xdloanmortgaged.impl.XdLoanMortgagedDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdLoanPaymentDao"
+		class="com.imfbp.loan.dao.xdloanpayment.impl.XdLoanPaymentDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdLoanPayplanDao"
+		class="com.imfbp.loan.dao.xdloanpayplan.impl.XdLoanPayplanDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdLoanPayplanBDao"
+		class="com.imfbp.loan.dao.xdloanpayplanb.impl.XdLoanPayplanBDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdLoanPledgeDao"
+		class="com.imfbp.loan.dao.xdloanpledge.impl.XdLoanPledgeDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdLoanProcessDao"
+		class="com.imfbp.loan.dao.xdloanprocess.impl.XdLoanProcessDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdLoanProcessBDao"
+		class="com.imfbp.loan.dao.xdloanprocessb.impl.XdLoanProcessBDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdLoantallyDao" class="com.imfbp.loan.dao.xdloantally.impl.XdLoantallyDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdLoanTaskDao" class="com.imfbp.loan.dao.xdloantask.impl.XdLoanTaskDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdPerCustDao" class="com.imfbp.loan.dao.xdpercust.impl.XdPerCustDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdPerCustBDao" class="com.imfbp.loan.dao.xdpercustb.impl.XdPerCustBDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdPerCustCDao" class="com.imfbp.loan.dao.xdpercustc.impl.XdPerCustCDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdPerCustDDao" class="com.imfbp.loan.dao.xdpercustd.impl.XdPerCustDDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdPerCustFDao" class="com.imfbp.loan.dao.xdpercustf.impl.XdPerCustFDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdPreLoanappDao"
+		class="com.imfbp.loan.dao.xdpreloanapp.impl.XdPreLoanappDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdPreLoandocDao"
+		class="com.imfbp.loan.dao.xdpreloandoc.impl.XdPreLoandocDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdProductDao" class="com.imfbp.loan.dao.xdproduct.impl.XdProductDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdRateChangeDao"
+		class="com.imfbp.loan.dao.xdratechange.impl.XdRateChangeDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+	<bean id="xdRepaymentPrincipalDao"
+		class="com.imfbp.loan.dao.xdrepaymentprincipal.impl.XdRepaymentPrincipalDaoImpl">
+		<property name="sqlSessionFactory" ref="commonSqlSessionFactory"></property>
+	</bean>
+</beans>

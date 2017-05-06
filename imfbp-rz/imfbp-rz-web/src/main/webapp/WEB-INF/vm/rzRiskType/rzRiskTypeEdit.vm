@@ -1,0 +1,56 @@
+<div class="panel panel-default">
+	<div class="panel-heading ">
+		<button type="button" class="btn btn-default btn-sm save-btn">保存</button>
+		<button type="button" class="btn btn-default btn-sm back-btn">取消</button>
+	</div>
+	<div class="panel-body" data-bind="with:editData">
+		<form class="rzRiskTypeEditForm form-horizontal">
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkRiskType" class="form-control" data-bind="value:pkRiskType,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">资产风险类别：0正常类 1 关注类 2次级类 3可疑 4 损失</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="riskType" class="form-control" data-bind="value:riskType,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">逾期天数最小值(含)</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="overdueMin" class="form-control" data-bind="value:overdueMin,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">逾期天数最大值(含)</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="overdueMax" class="form-control" data-bind="value:overdueMax,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">备注</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="remark" class="form-control" data-bind="value:remark,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+

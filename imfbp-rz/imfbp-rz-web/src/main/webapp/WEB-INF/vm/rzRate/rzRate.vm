@@ -1,0 +1,1275 @@
+<title>rzRate</title>
+<style>
+	.export-btn{
+		border-radius:4px !important;
+	}
+	#first-control-label{
+		width:42px;
+	}
+	
+
+
+
+	#dynamicShow input,
+	#billBaseInfo input,
+	#billBaseInfo select{
+	    width: 210px;
+        height: 32px;
+        background: #FFFFFF;
+        border: 1px solid #CED0DA;
+        border-radius: 3px;
+    }
+    #dynamicShow .col-md-9{
+    	width:370px;
+    	float:left;
+   }
+   #billBaseInfo .col-md-9{
+   		width:210px;
+   }
+
+   	
+   #dynamicShow  .row,
+   #billBaseInfo .row{
+   	    float:left;
+   }
+   #rzRateModule{
+   		height:100vh;
+   		overflow:hidden;
+   }
+   .content-w210-input{
+   		width:210px !important;
+   }
+
+   
+		
+  
+</style>
+<body>
+<div id="rzRateModule" >
+	
+	<!-- list page start -->
+	<div class="listPage startPage">
+		#parse("/WEB-INF/vm/rzRate/rzRateSearch.vm")
+		#parse("/WEB-INF/vm/rzRate/rzRateList.vm")
+	</div>
+	<!-- list page end -->
+	
+	<!-- edit page end -->
+	<div class="rzRateEdit" style="display:none;">
+		#parse("/WEB-INF/vm/rzRate/rzRateEdit.vm")
+	</div>
+	<!-- edit page end -->
+	
+</div>
+
+
+<script>
+
+jQuery(function(){
+
+    //设置查询区域参照
+    refManager.setRefArea("#searchPanel");
+	
+	//列表后台访问地址
+	var url_page = '$homeModule.getTarget('/rzRate/getRzRateByPage')';
+	//添加修改后台访问地址
+	var url_add = '$homeModule.getTarget('/rzRate/insertOrUpdate')';
+	//删除后台访问地址
+	var url_del = '$homeModule.getTarget('/rzRate/deleteRzRateByBatchId')';
+    //动态获取显示列
+    var dynamicCol_query = '$homeModule.getTarget('/rzRateprd/getRzRateprdAllDynamic')';
+    //审批时检查时间段合法性
+    var checkPeriod = '$homeModule.getTarget('/rzRate/checkPeriod')';
+	
+	//查询对象
+	var queryData = new RzRateView();
+	//编辑对象
+	var editData = new RzRateView();
+	//空对象用来清空编辑和查询对象
+	var emptyData = new RzRateView();
+    dynamicKo();
+    function dynamicKo(){
+        jQuery.ajax({
+            type: 'post',
+            dataType: "json",
+            url: dynamicCol_query,
+            async:false,
+            //data: getParams(),
+            success: function (data) {
+                $.each(data,function(i, item){
+                    editData[item.field] = "";
+                });
+                window.viewModel={
+                    queryData:ko.mapping.fromJS(queryData),
+                    editData:ko.mapping.fromJS(editData),
+                    pageState:ko.observable("")
+                }
+//                viewModel.editData.enddate = ko.computed(function(){
+//                    return viewModel.editData.startdate();
+//                }, this);
+            }
+        })
+    }
+
+	
+	/**
+	 * 表头
+	 */
+	var col = [{  
+		field:"pkRate",
+		title:"主键"
+	},{
+		field:"pkCurrency",
+		title:"币种主键"
+	},{
+		field:"startdate",
+		title:"生效日期"
+	},{
+		field:"enddate",
+		title:"失效日期"
+	},{
+		field:"pkOrg",
+		title:"组织机构"
+	},{
+		field:"pkDept",
+		title:"部门"
+	},{
+		field:"billmaker",
+		title:"制单人"
+	},{
+		field:"billdate",
+		title:"制单日期"
+	},{
+		field:"approveid",
+		title:"审批人"
+	},{
+		field:"approvedate",
+		title:"审批时间"
+	},{
+		field:"approvestatus",
+		title:"审批状态(0 自由 1提交 2 审批中 3 审批通过 4 审批不通过)"
+	},{
+		field:"approvenote",
+		title:"审批语"
+	},{
+		field:"operator",
+		title:"录入人"
+	},{
+		field:"operatordatetime",
+		title:"录入时间"
+	},{
+		field:"modifor",
+		title:"修改人"
+	},{
+		field:"modifydatetime",
+		title:"修改时间"
+	},{
+		field:"flowinstanceid",
+		title:"流程实例ID"
+	},{
+		field:"ts",
+		title:"ts"
+	},{
+		field:"dr",
+		title:"0 未删除 1已删除"
+	},{
+		field:"def1",
+		title:"def1"
+	},{
+		field:"def2",
+		title:"def2"
+	},{
+		field:"def3",
+		title:"def3"
+ 	},{
+        field:"remark",
+        title:"备注"
+    }];
+
+    dynamicCol();
+    function dynamicCol(){
+        jQuery.ajax({
+            type: 'post',
+            dataType: "json",
+            url: dynamicCol_query,
+            async:false,
+            //data: getParams(),
+            success: function (data) {
+                var approvestatus = {field:"approvestatus",title:"审批状态",
+                    renderType: function (obj) {
+                        var html = "<span>"
+                        //获取状态：通过状态判断更改相应代码 审批状态(0 自由 1提交 2 审批中 3 审批通过 4 审批不通过)
+                        var state = obj.row.value.approvestatus;
+                        if (0 == state ) {
+                            html += "自由";
+                        } else if(1 == state){
+                            html += "提交";
+                        }else if(2 == state){
+                            html += "审批中";
+                        }else if(3 == state){
+                            html += "审批通过";
+                        }else{
+                            html += "审批不通过";
+                        }
+                        html += "</span>";
+                        var innerDom = u.makeDOM(html);
+                        obj.element.appendChild(innerDom);
+                    }
+                };
+                data.push(approvestatus);
+//                var pkCurrency = {field:"pkCurrency",title:"币种",imfbpRefType:"currencyref",visible:true};
+//                data.push(pkCurrency);
+                var pkDept = {field:"pkDept",title:"部门",imfbpRefType:"deptref",visible:false};
+                data.push(pkDept);
+                var pkOrg = {field:"pkOrg",title:"组织",imfbpRefType:"orgref",visible:false};
+                data.push(pkOrg);
+                window.gridObj = $("#rzRateModule .rzRateList").grid({
+                    dataSource:'',
+                    id: 'case-g1',
+                    keyField: 'id',
+                    parentKeyField: 'pid',
+                    multiSelect: false,
+                    showNumCol:true,
+                    height: 350,
+                    columns: data,
+                    onDblClickFun:function(gridObj,rowObj,rowIndex){
+                        //设置参照类型不可使用
+                        $("#rzRateModule .rzRateEditForm i").attr("data-imfbp-ref-use", false);
+                        if ('approvestatus' in gridObj.rowObj.value){
+                            var approvestatus= gridObj.rowObj.value.approvestatus;
+                            buttonManager.permission(approvestatus);
+                        }
+                        $("#rzRateModule .toolPanelAdd").hide();
+                        $("#rzRateModule .toolPanelEdit").hide();
+                        $("#rzRateModule .toolPanelQuery").show();
+                        //设置页面的输入框为不可修改
+                        viewModel.editData.enableState(false);
+                        //得到点击行
+                        var dbClickRow = gridObj.rowObj;
+                        //赋值
+                        ko.mapping.fromJS(dbClickRow.value, viewModel.editData);
+                        refManager.initAreaLoadData(".rzRateEditForm", function(name){
+                            var fun = viewModel.editData[name];
+                            if(typeof fun == 'function'){
+                                return fun();
+                            }
+                        });
+                        refManager.setRefArea(".rzRateEditForm");
+                        //跳转到编辑页
+                        $("#rzRateModule").layoutMDI("go", ".rzRateEdit");
+                    },
+                    onRowSelected:function(obj){
+                        if ('approvestatus' in obj.rowObj.value){
+                            var approvestatus= obj.rowObj.value.approvestatus;
+                            buttonManager.permission(approvestatus);
+                        }
+                    }
+                });
+                dynamicShow(data);
+            }
+        });
+    }
+
+    function dynamicShow(data){
+        var dynamicShow = $("#dynamicShow");
+        $.each(data,function(i, item){
+            if(item.field.indexOf("prd_name", 0) != -1){
+                var text = '<div class="row">';
+                text = text + '<div class="col-md-9 col-sm-6">';
+                text = text + '<div class="form-group">';
+                text = text + '<label class="col-md-3 col-sm-4 control-label no-padding-right">' + item.title + '</label>';
+                text = text + '<div class="col-md-3 col-sm-8">';
+                text = text + '<input type="text" name="'+ item.field +')" onkeyup="onlyNumber(this)" onblur="onlyNumber(this)" class="form-control" data-bind="value:'+ item.field +',enable:enableState">';
+                text = text + '</div>';
+                text = text + '</div>';
+                text = text + '</div>';
+                text = text + '</div>';
+                var innerTextDom = u.makeDOM(text);
+                dynamicShow.append(innerTextDom);
+            }
+        });
+    }
+	
+	/**
+     * 初始化layoutMDI
+     */
+	$("#rzRateModule").layoutMDI({
+		//当页面后退时候触发的事件
+		onBackPage: function(target, options) {
+            //设置查询区域参照
+            refManager.setRefArea("#searchPanel");
+			ko.mapping.fromJS(emptyData,viewModel.editData);
+		} 
+	});
+
+	/**
+	 * 初始化分页
+	 */
+	var paginationObj = $("#rzRateModule .pagination").pagination({
+		pageSize:10,
+		styleMode:2,
+		onSelectPage:function(pageNumber, pageSize){
+			/* var queryData = $.extend(ko.mapping.toJS(viewModel.queryData),{pageNumber:pageNumber,pageSize:pageSize});
+			jQuery("#rzRateModule .rzRateList").gridPlugin("reLoad",queryData); */
+			jQuery("#rzRateModule .toolsbarPanel .refresh-btn").trigger("click");
+		}
+	});
+	
+	/**
+	 * 初始化表格插件
+	 */
+	var gridPluginObj = jQuery("#rzRateModule .rzRateList").gridPlugin({
+		url: url_page,
+		gridObj:gridObj,
+		queryParam:getParams(),
+		pagination:true,//是否分页默认为否
+		paginationObj:paginationObj,//分页控件对象
+		initData:false,//初始化时候是否加载数据(true时候加载，false时候不加载)
+		onDataSuccess:function(data){
+			//当列表加载成功之后调用
+            imfbpDataTableTranform(gridObj, data.rows,function(){
+                var d = {};
+                d.values = data.rows;
+                gridObj.setDataSource(d);
+            });
+		},
+		onDataError:function(data){
+			//当列表加载失败之后调用
+		},
+	})
+	
+	/**
+	 * form表单插件
+	 */
+	jQuery("#rzRateModule .rzRateEditForm").formPlugin({
+        url: url_add,//添加修改的地址
+		gridPlugin:gridPluginObj,//表格插件对象
+		onSaveSuccess:function(data){
+			//保存成功后退出编辑页面
+			$("#rzRateModule").layoutMDI("back");
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+			jQuery("#rzRateModule .rzRateList").gridPlugin("load", {});
+		},
+		onDeleteSuccess:function(data){
+			
+		},
+        onSubmitData:function(data){
+            var rowIndex = gridObj.getRowIndexByValue('pkRate',data.map.value.pkRate);
+            saveSubmit(data.map.value, '${moduleValue}',gridPluginObj,rowIndex, "rzPrjcontrEditForm");
+            //存在按键异步问题，取消保存时候刷界面，改到提交成功后刷，为了按键同步
+            $("#rzRateModule").layoutMDI("back");
+            jQuery("#rzRateModule .rzPrjcontrList").gridPlugin("load",ko.mapping.toJS(viewModel.queryData));
+
+        }
+	})
+	/**
+	 * 新增功能
+	 */			
+    jQuery("#rzRateModule .toolsbarPanel .add-btn").click(function(){
+        $("#rzRateModule .toolPanelAdd").show();
+        $("#rzRateModule .toolPanelEdit").hide();
+        $("#rzRateModule .toolPanelQuery").hide();
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为添加状态
+		viewModel.pageState(pageState.add);
+		//手动清除动态属性的值
+        $.each(viewModel.editData,function(i, item){
+			if(i.indexOf("prd_name", 0) != -1){
+				item("");
+			}
+            if(i == "billmaker" || i == "operator"){
+                //制单人或创建人
+                item(loginuser);
+            }
+            if(i == "billdate" || i == "startdate"){
+                //制单日期
+                item(new Date().Format("yyyy-MM-dd"));
+            }
+            if(i == "operatordatetime"){
+                //创建日期
+                item(new Date().Format("yyyy-MM-dd hh:mm:ss"));
+            }
+            if(i == "approvestatus"){
+                //审批状态
+                item("0");
+            }
+            if(i == "pkOrg"){
+                //组织
+                item(loginorg);
+            }
+            if(i == "pkDept"){
+                //部门
+                item(logindept);
+            }
+            if(i == "pkCurrency"){
+                //部门
+                item("1");
+            }
+        });
+        var defaultData = [];
+        var dData = {
+            billmaker : loginuser,
+            operator : loginuser,
+            pkOrg : loginorg,
+            pkDept : logindept,
+            pkCurrency:"1"
+        };
+        defaultData.push(dData);
+        imfbpDataTableTranform(gridObj, defaultData, function(){
+            refManager.initAreaLoadData(".rzRateEditForm", function(name){
+                var fun = viewModel.editData[name];
+                if(typeof fun == 'function'){
+                    return fun();
+                }
+            });
+        });
+        refManager.setRefArea(".rzRateEditForm");
+        $("#rzRateModule").layoutMDI("go", ".rzRateEdit");
+    });
+
+	/**
+	 * 修改功能
+	 */		    
+    jQuery("#rzRateModule .toolsbarPanel .edit-btn").click(function(){
+        $("#rzRateModule .toolPanelAdd").hide();
+        $("#rzRateModule .toolPanelEdit").show();
+        $("#rzRateModule .toolPanelQuery").hide();
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为修改状态
+		viewModel.pageState(pageState.edit);
+    	//当前选中行
+    	var selectRow = gridObj.getSelectRows();
+        //添加修改人、修改时间
+        viewModel.editData.modifor(loginuser);
+        viewModel.editData.modifydatetime(new Date().Format("yyyy-MM-dd hh:mm:ss"));
+    	//将数据绑定到表单上面
+    	ko.mapping.fromJS(selectRow[0], viewModel.editData);
+        refManager.initAreaLoadData(".rzRateEditForm", function(name){
+            var fun = viewModel.editData[name];
+            if(typeof fun == 'function'){
+                return fun();
+            }
+        });
+        refManager.setRefArea(".rzRateEditForm");
+    	//跳转到编辑页面
+        $("#rzRateModule").layoutMDI("go", ".rzRateEdit");
+    });
+
+	/**
+	 * 删除功能
+	 */	    
+    jQuery("#rzRateModule  .toolsbarPanel .remove-btn").click(function(){
+    	//要删除的id用","隔开
+		var batchId = "";
+		//当前选中行
+		var selectRow = gridObj.getSelectRows();
+        //判断是否选中要删除的数据
+        if(selectRow.length == 0) {
+            alert("请选择您删除的数据");
+            return;
+        }
+	
+		for(var i = 0; i < selectRow.length; i++) {
+			var row = selectRow[i];
+			if(i == 0) {
+				batchId = row["pkRate"] + batchId;
+			} else {
+				batchId = row["pkRate"] + "," + batchId;
+			}
+		}
+		//删除数据
+		//jQuery("#rzRateModule .rzRateEditForm").formPlugin("remove",{batchId:batchId,url:url_del});
+        jQuery("#rzRateModule .rzRateEditForm").each(function(){
+            _delete(this, {batchId:batchId,url:url_del});
+        });
+    });
+
+
+    jQuery("#rzRateModule .toolPanelAdd .remove-btn,#rzRateModule .toolPanelEdit .remove-btn,#rzRateModule .toolPanelQuery .remove-btn").click(function(){
+        //要删除的id用","隔开
+        //当前选中行
+      	var batchId= viewModel.editData.pkRate();;
+        //删除数据
+        //jQuery("#rzRateModule .rzRateEditForm").formPlugin("remove",{batchId:batchId,url:url_del});
+        jQuery("#rzRateModule .rzRateEditForm").each(function(){
+            _delete(this, {batchId:batchId,url:url_del});
+        });
+    });
+    //删除方法
+    function _delete(target, param){
+        var options = $.data(target, 'formPlugin').options;
+        jQuery.ajax({
+            type : 'post',
+            dataType : "json",
+            data: {batchId:param.batchId},
+            url : param.url,
+            success:function(data){
+                if(data.success) {
+                    //当saveSuccessType为true的时候自己处理保存成功的业务逻辑
+                    if(!options.deleteSuccessType) {
+                        if(data.successMessage != undefined) {
+                            alert(data.successMessage);
+                        } else {
+                            $("#edit_msg_out").css("display","block").html("删除成功");
+                            $("#rzRateModule").layoutMDI("back");
+                            setTimeout(function(){
+                                $("#edit_msg_out").hide();
+                                //options.gridPlugin.gridPlugin("load", {});
+                                //重新加载页面数据(解决动态列数据不刷新问题)
+                                jQuery("#rzRateModule .rzRateList").each(function(){
+                                    _load(this, ko.mapping.toJS(viewModel.queryData));
+                                });
+                                //在用户完成保存并且保存成功的时候触发，
+                                options.onDeleteSuccess.call(this, data);
+                            },2000)
+                        }
+                    }
+                } else {
+                    //当saveErrorType为true的时候自己处理保存失败的业务逻辑
+                    if(!options.deleteErrorType) {
+                        if(data.errorMessage != undefined) {
+                            layer.alert(data.errorMessage);
+                        } else {
+                            layer.alert('删除记录失败！');
+                        }
+                    }
+                    //在用户完成保存并且保存失败的时候触发，
+                    options.onDeleteError.call(this, data);
+                }
+            },
+            error:function(data){
+                //保存失败回掉事件
+                layer.alert("删除失败");
+            }
+        });
+    }
+    
+    /**
+	 * 刷新功能(只是刷新当前页，如果要刷新所有页面使用 load 方法)
+	 */	 
+    jQuery("#rzRateModule .toolsbarPanel .refresh-btn").click(function(){
+		//jQuery("#rzRateModule .rzRateList").gridPlugin("reLoad",viewModel.queryData);
+        jQuery("#rzRateModule .rzRateList").each(function(){
+            _reLoad(this, viewModel.queryData);
+        });
+    });
+    jQuery("#rzRateModule .sub_submit-btn").click(function(){
+		//jQuery("#rzRateModule .rzRateList").gridPlugin("reLoad",viewModel.queryData);
+		 validatorReportForm()
+		if(viewModel.pageState()=="add"){
+			ko.mapping.fromJS(emptyData,viewModel.queryData);
+		}
+		var param = {
+			formData:ko.mapping.toJS(viewModel.editData),//要提交的数据
+			queryData:ko.mapping.toJS(viewModel.queryData),//修改完毕刷新表格的参数
+			editType:viewModel.pageState()//页面的状态(add：添加，edit:编辑)
+		}
+        //开启验证，验证表单
+        $('.rzRateEditForm').bootstrapValidator('validate');
+        if(viewModel.editData.pkCurrency() != null && viewModel.editData.pkCurrency() != ""){
+            debugger;
+            var validator = $('.rzRateEditForm').data('bootstrapValidator');
+            validator.updateStatus("pkCurrency", 'VALID' , null);
+            //validator1.enableFieldValidators("pkCurrency", false);
+        }
+        if($('.rzRateEditForm').data('bootstrapValidator').isValid()){
+            jQuery("#rzRateModule .rzRateEditForm").each(function(){
+                _saveSubmit(this, param);
+            });
+        }
+		
+		
+    });
+
+    function _reLoad(target, param){
+        var options = $.data(target, 'gridPlugin').options;
+        //合并查询参数
+        _query(options,param,"_reLoad");
+    }
+    
+    //保存功能
+	jQuery("#rzRateModule .save-btn").click(function(){
+        validatorReportForm()
+		if(viewModel.pageState()=="add"){
+			ko.mapping.fromJS(emptyData,viewModel.queryData);
+		}
+		var param = {
+			formData:ko.mapping.toJS(viewModel.editData),//要提交的数据
+			queryData:ko.mapping.toJS(viewModel.queryData),//修改完毕刷新表格的参数
+			editType:viewModel.pageState()//页面的状态(add：添加，edit:编辑)
+		}
+        //开启验证，验证表单
+        $('.rzRateEditForm').bootstrapValidator('validate');
+        if(viewModel.editData.pkCurrency() != null && viewModel.editData.pkCurrency() != ""){
+            debugger;
+            var validator = $('.rzRateEditForm').data('bootstrapValidator');
+            validator.updateStatus("pkCurrency", 'VALID' , null);
+            //validator1.enableFieldValidators("pkCurrency", false);
+        }
+        if($('.rzRateEditForm').data('bootstrapValidator').isValid()){
+            jQuery("#rzRateModule .rzRateEditForm").each(function(){
+                _save(this, param);
+            });
+        }
+		//jQuery("#rzRateModule .rzRateEditForm").formPlugin("save",param);
+	});
+
+    function _save(target, param) {
+        var options = $.data(target, 'formPlugin').options;
+        //合并查询参数
+        $.extend(options, param);
+
+        jQuery.ajax({
+            type: 'post',
+            dataType: "json",
+            contentType:"application/json;charset=UTF-8",
+            data: JSON.stringify(options.formData),
+            url: options.url,
+            success: function(data) {
+                if(data.success) {
+                    //当saveSuccessType为true的时候自己处理保存成功的业务逻辑
+                    if(!options.saveSuccessType) {
+                        if(data.successMessage != null || data.successMessage!=undefined) {
+                            layer.alert(data.successMessage);
+                        } else {
+                            $("#edit_msg_out").css("display","block").html("保存成功");
+                            options.onSaveSuccess.call(this, data);
+                            setTimeout(function(){
+                                $("#edit_msg_out").hide();
+                            },2000)
+                        }
+                        if(options.editType=="edit"){
+                            //options.gridPlugin.gridPlugin("reLoad",options.queryData);
+                            jQuery("#rzRateModule .rzRateList").each(function(){
+                                _reLoad(this, viewModel.queryData);
+                            });
+                        }else{
+                            //options.gridPlugin.gridPlugin("load", {});
+                            jQuery("#rzRateModule .rzRateList").each(function(){
+                                _load(this, {});
+                            });
+                        }
+                    }
+
+                } else {
+                    //当saveErrorType为true的时候自己处理保存失败的业务逻辑
+                    if(!options.saveErrorType) {
+                        if(data.errorMessage != null || data.errorMessage!=undefined) {
+                            layer.alert(data.errorMessage);
+                        } else {
+                            layer.alert('保存记录失败！');
+                        }
+                    }
+                    //在用户完成保存并且保存失败的时候触发，
+                    options.onSaveError.call(this, data);
+                }
+            },
+            error: function(data) {
+                //当saveErrorType为true的时候自己处理保存失败的业务逻辑
+                if(!options.saveErrorType) {
+                    if(data.errorMessage != null || data.errorMessage!=undefined) {
+                        layer.alert(data.errorMessage);
+                    } else {
+                        layer.alert('保存记录失败！');
+                    }
+                }
+                //在用户完成保存并且保存失败的时候触发，
+                options.onSaveError.call(this, data);
+            }
+        });
+    }
+    
+    //保存提交
+    function _saveSubmit(target, param) {
+        var options = $.data(target, 'formPlugin').options;
+        //合并查询参数
+        $.extend(options, param);
+
+        jQuery.ajax({
+            type: 'post',
+            dataType: "json",
+            contentType:"application/json;charset=UTF-8",
+            data: JSON.stringify(options.formData),
+            url: options.url,
+            success: function(data) {
+                if(data.success) {
+                    //当saveSuccessType为true的时候自己处理保存成功的业务逻辑
+                    if(!options.saveSuccessType) {
+                        if(data.successMessage != null || data.successMessage!=undefined) {
+                            layer.alert(data.successMessage);
+                        } 
+                    }
+
+                } else {
+                    //当saveErrorType为true的时候自己处理保存失败的业务逻辑
+                    if(!options.saveErrorType) {
+                        if(data.errorMessage != null || data.errorMessage!=undefined) {
+                            layer.alert(data.errorMessage);
+                        } else {
+                            layer.alert('保存记录失败！');
+                        }
+                    }
+                    //在用户完成保存并且保存失败的时候触发，
+                    options.onSaveError.call(this, data);
+                }
+               // gridObj.updateValueAt(rowIndex,"pkRate",data.map.value.pkRate);
+               ko.mapping.fromJS(data.map.value,viewModel.editData);
+               
+               var datas = JSON.stringify(data.map.value);
+               BillWF.submit(datas,"${moduleValue}",function(result){
+                   if(result.success){
+                       var resultdata = result.map.datas;
+                       if(resultdata){
+                           //表格页面数据更新
+                           jQuery("#rzRateModule .rzRateList").each(function(){
+                               _reLoad(this,ko.mapping.toJS(viewModel.queryData));
+                           });
+                       }
+                       //更新按钮状态
+                       buttonManager.permission(resultdata.approvestatus);
+                           //成功提示
+                           $("#edit_msg_out").css("display","block").html("保存提交成功");
+                           setTimeout(function(){
+                               $("#edit_msg_out").hide();
+                           },2000);
+                       $("#rzRateModule").layoutMDI("back");
+                   }else{
+                       layer.alert(result.errorMessage);
+                   }
+               });
+               
+               
+            },
+            error: function(data) {
+                //当saveErrorType为true的时候自己处理保存失败的业务逻辑
+                if(!options.saveErrorType) {
+                    if(data.errorMessage != null || data.errorMessage!=undefined) {
+                        layer.alert(data.errorMessage);
+                    } else {
+                        layer.alert('保存记录失败！');
+                    }
+                }
+                //在用户完成保存并且保存失败的时候触发，
+                options.onSaveError.call(this, data);
+            }
+        });
+    }
+	
+	//查找功能
+	jQuery("#rzRateModule .searchToolsbar .search-btn").click(function(){
+		//jQuery("#rzRateModule .rzRateList").gridPlugin("load",ko.mapping.toJS(viewModel.queryData));
+        jQuery("#rzRateModule .rzRateList").each(function(){
+            _load(this,ko.mapping.toJS(viewModel.queryData));
+        });
+	});
+
+    function _load(target, param){
+        var options = $.data(target, 'gridPlugin').options;
+        //分页控件
+        var paaginationObj = options.paginationObj;
+        //分页控件参数
+        var popts = paaginationObj.pagination("options");
+        //设置分页参数为 1
+        popts.pageNumber = 1;
+        //如果参数为空
+        param = param || {}
+        //合并参数
+        $.extend(param, {rows:popts.pageSize,page:popts.pageNumber});
+        //调用查询方法
+        _query(options,param,"_load");
+    }
+
+    function _query(options,queryParam,fun){
+
+        //分页控件
+        var paaginationObj = options.paginationObj;
+        //分页控件参数
+        var popts = paaginationObj.pagination("options");
+
+        var param = {rows:popts.pageSize,page:popts.pageNumber};
+
+        //合并查询参数
+        $.extend(param,options.queryParam, queryParam);
+
+        var queryData = JSON.stringify(queryParam);
+
+        param.queryData = queryData;
+
+        jQuery.ajax({
+            type : 'post',
+            dataType : "json",
+            data: param,
+            url : options.url,
+            success:function(data){
+                var d = {} ;
+                $.each(data.rows,function(i, item){
+					//利率
+                    var rates = item.rzRateBList;
+					if(rates != null || rates != undefined){
+                        $.each(rates,function(j, rate){
+							//为前台添加属性
+                            var key = "prd_name" + rate.pkRateprd;
+                            item[key] = rate.rate;
+                        })
+					}
+					//去除rzRateBList属性
+                    item.rzRateBList = undefined;
+                });
+                d.values = data.rows;
+
+                options.gridObj.setDataSource(d);
+                //保存成功回掉事件
+                options.onDataSuccess.call(this,data,fun);
+                //分页控件对象
+                var paaginationObj = options.paginationObj;
+                //分页控件对象的参数
+                var popts = paaginationObj.pagination("options");
+                //刷新分页控件
+                paaginationObj.pagination('refresh',{pageSize:popts.pageSize,total:data.total});
+            },
+            error:function(data){
+                //保存失败回掉事件
+                options.onDataError.call(this,data,fun);
+                console.log(data);
+            }
+        });
+    }
+	
+	//重置查询条件功能
+	jQuery("#rzRateModule .searchToolsbar .reset-btn").click(function(){
+		//ko.mapping.fromJS(emptyData,viewModel.queryData);
+        reset(viewModel.queryData,['busyTypeList']);
+	});
+	
+	//编辑页返回
+	jQuery("#rzRateModule .back-btn").click(function(){
+		$("#rzRateModule").layoutMDI("back");
+	});
+
+    jQuery("#rzRateModule .cancel-btn").click(function(){
+        $("#rzRateModule").layoutMDI("back");
+    });
+
+	ko.applyBindings(viewModel);
+
+    $('.form_hhg_date').datetimepicker({
+        language: 'cn',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        autoclose: true,
+        todayHighlight: true
+    });
+
+    jQuery("#rzRateModule .toolPanelQuery .update-btn").click(function(){
+        //设置参照类型可使用
+        $("#rzRateModule .rzRateEditForm i").attr("data-imfbp-ref-use", true);
+        viewModel.editData.enableState(true);
+        $("#rzRateModule .toolPanelAdd").hide();
+        $("#rzRateModule .toolPanelEdit").show();
+        $("#rzRateModule .toolPanelQuery").hide();
+    });
+
+    //列表页面：提交
+    jQuery("#rzRateModule .submit-btn").click(function(){
+        submitFun();
+    });
+
+    //提交方法
+    var submitFun = function(myLoanAjax,callFunction){
+        debugger;
+        //当前选中行
+        var selectRow = gridObj.getSelectRows();
+        if(selectRow == null) {
+            if(myLoanAjax != null){
+                myLoanAjax.closeWaitDialog();
+                myLoanAjax = null;
+            }
+            layer.alert('请选择数据进行操作！');
+            return ;
+        }
+        var rzRate = selectRow[0];
+        if(selectRow.length == 0){
+            rzRate = ko.mapping.toJS(viewModel.editData);
+        }
+        for(var item in rzRate){
+            if(item.indexOf("prd") != -1){
+                if(rzRate[item] == null || rzRate[item] == ""){
+                    rzRate[item] = undefined;
+                }
+            }
+        }
+        var datas = JSON.stringify(rzRate);
+        delete datas.rzRateBList;
+        BillWF.submit(datas,"${moduleValue}",function(result){
+            if(result.success){
+                var resultdata = result.map.datas;
+                if(resultdata){
+                    //表格页面数据更新
+                    var index = gridObj.getRowIndexByValue("pkRate", selectRow[0].pkRate);
+                    debugger;
+                    gridObj.updateRow(index, resultdata);
+                    jQuery("#rzRateModule .rzRateList").each(function(){
+                        _reLoad(this,ko.mapping.toJS(viewModel.queryData));
+                    });
+                }
+                //更新按钮状态
+                buttonManager.permission(resultdata.approvestatus);
+                if(callFunction != undefined && callFunction != null && typeof callFunction === 'function'){
+                    callFunction();
+                }else{
+                    //成功提示
+                    $("#edit_msg_out").css("display","block").html("提交成功");
+                    setTimeout(function(){
+                        $("#edit_msg_out").hide();
+                    },2000);
+                }
+            }else{
+                layer.alert(result.errorMessage);
+            }
+        });
+    };
+
+    //列表页面:收回
+    jQuery("#rzRateModule .callback-btn").click(function(){
+        callbackFun();
+    });
+    //收回方法
+    var callbackFun = function(){
+        debugger;
+        //当前选中行
+        var selectRow = gridObj.getSelectRows();
+        if(selectRow == null) {
+            layer.alert('请选择数据进行操作！');
+            return ;
+        }
+        var rzRate = selectRow[0];
+        if(selectRow.length == 0){
+            rzRate = ko.mapping.toJS(viewModel.editData);
+        }
+        for(var item in rzRate){
+            if(item.indexOf("prd") != -1){
+                if(rzRate[item] == null || rzRate[item] == ""){
+                    rzRate[item] = undefined;
+                }
+            }
+        }
+        var datas = JSON.stringify(rzRate);
+        BillWF.callback(datas,"${moduleValue}",function(result){
+            if(result.success){
+                var resultdata = result.map.datas;
+                if(resultdata){
+                    //表格页面数据更新
+                    var index = gridObj.getRowIndexByValue("pkRate", selectRow[0].pkRate);
+                    gridObj.updateRow(index, resultdata);
+                    jQuery("#rzRateModule .rzRateList").each(function(){
+                        _load(this,ko.mapping.toJS(viewModel.queryData));
+                    });
+                }
+                //成功提示
+                $("#edit_msg_out").css("display","block").html("收回成功");
+                setTimeout(function(){
+                    $("#edit_msg_out").hide();
+                },2000);
+                //更新按钮状态
+                buttonManager.permission(resultdata.approvestatus);
+            }else{
+                layer.alert(result.errorMessage);
+            }
+        });
+    };
+    //卡片页面：保存提交
+    jQuery("#rzRateModule .approve-btn").click(function(){
+
+    })
+    //列表页面：审批
+    jQuery("#rzRateModule .approve-btn").click(function(){
+        debugger;
+        //当前选中行
+        var selectRow = gridObj.getSelectRows();
+        if(selectRow == null) {
+            layer.alert('请选择数据进行操作！');
+            return ;
+        }
+        var data = gridObj.getSelectRows()[0];
+        delete data.rzRateBList;
+        jQuery.ajax({
+            type: 'post',
+            dataType: "json",
+            url: checkPeriod,
+            async:false,
+            data: gridObj.getSelectRows()[0],
+            success: function (data) {
+                if(data.errorMessage != null && data.errorMessage != ""){
+                    layer.alert(data.errorMessage);
+                    return;
+                }
+                auditFun();
+            }
+        })
+    });
+
+    //审批方法
+    var auditFun = function(){
+        //当前选中行
+        var selectRow = gridObj.getSelectRows();
+        if(selectRow == null) {
+            layer.alert('请选择数据进行操作！');
+            return ;
+        }
+        var rzRate = selectRow[0];
+        if(selectRow.length == 0){
+            rzRate = ko.mapping.toJS(viewModel.editData);
+        }
+        for(var item in rzRate){
+            if(item.indexOf("prd") != -1){
+                if(rzRate[item] == null || rzRate[item] == ""){
+                    rzRate[item] = undefined;
+                }
+            }
+        }
+        var datas = JSON.stringify(rzRate);
+        delete datas.rzRateBList;
+        BillWF.approve(datas, "${moduleValue}",function(result){
+            debugger;
+            if(result.success){
+                var resultdata = result.map.datas;
+                if(resultdata){
+                    //表格页面数据更新
+                    var index = gridObj.getRowIndexByValue("pkRate", selectRow[0].pkRate);
+                    gridObj.updateRow(index, resultdata);
+                    //卡片数据更新
+                    if(viewModel.editData.pkRate() != null && viewModel.editData.pkRate() != ""){
+                        ko.mapping.fromJS(resultdata,viewModel.editData);
+                        //审批人
+                        var approveid = resultdata.approveid;
+                        //审批人参照翻译
+                        var approveI = $("#rzRateModule .rzRateEditForm").find("i[name='approveid']")[0];
+                        refManager.fillRefInputData(".rzRateEditForm", approveI, approveid, true);
+                    }
+                    jQuery("#rzRateModule .rzRateList").each(function(){
+                        _load(this,ko.mapping.toJS(viewModel.queryData));
+                    });
+                    //更新按钮状态
+                    buttonManager.permission(resultdata.approvestatus);
+                }
+                //成功提示
+                $("#edit_msg_out").css("display","block").html("审批成功");
+                setTimeout(function(){
+                    $("#edit_msg_out").hide();
+                },2000);
+            }else{
+                layer.alert(result.errorMessage);
+            }
+        });
+    }
+    //列表页面：弃审
+    jQuery("#rzRateModule .unapprove-btn").click(function(){
+        unapproveFun();
+    });
+    //弃审方法
+    var unapproveFun = function(){
+        //当前选中行
+        var selectRow = gridObj.getSelectRows();
+        if(selectRow == null) {
+            layer.alert('请选择数据进行操作！');
+            return ;
+        }
+        var rzRate = selectRow[0];
+        if(selectRow.length == 0){
+            rzRate = ko.mapping.toJS(viewModel.editData);
+        }
+        for(var item in rzRate){
+            if(item.indexOf("prd") != -1){
+                if(rzRate[item] == null || rzRate[item] == ""){
+                    rzRate[item] = undefined;
+                }
+            }
+        }
+        var datas = JSON.stringify(rzRate);
+        BillWF.unApprove(datas,"${moduleValue}",function(result){
+            if(result.success){
+                var resultdata = result.map.datas;
+                if(resultdata){
+                    //表格页面数据更新
+                    var index = gridObj.getRowIndexByValue("pkRate", selectRow[0].pkRate);
+                    gridObj.updateRow(index, resultdata);
+                    if(viewModel.editData.pkRate() != null && viewModel.editData.pkRate() != ""){
+                        ko.mapping.fromJS(resultdata,viewModel.editData);
+                        viewModel.editData.approveid("");
+                        //审批人清空
+                        var approveI = $("#rzRateModule .rzRateEditForm").find("i[name='approveid']")[0];
+                        refManager.fillRefInputData(".rzRateEditForm", approveI, "", true);
+                    }
+                    jQuery("#rzRateModule .rzRateList").each(function(){
+                        _load(this,ko.mapping.toJS(viewModel.queryData));
+                    });
+                    //更新按钮状态
+                    buttonManager.permission(resultdata.approvestatus);
+                }
+                //成功提示
+                $("#edit_msg_out").css("display","block").html("审批成功");
+                setTimeout(function(){
+                    $("#edit_msg_out").hide();
+                },2000);
+            }else{
+                layer.alert(result.errorMessage);
+            }
+        });
+    }
+
+})
+//编辑框校验
+function validatorReportForm() {
+    if($('.rzRateEditForm').data('bootstrapValidator') != null){
+        $(".rzRateEditForm").data('bootstrapValidator').destroy();
+    }
+    $('.rzRateEditForm').bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+//            valid: 'glyphicon glyphicon-ok',
+//            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            //币种
+            pkCurrency: {
+                message: 'The pkCurrency is not valid',
+                trigger:"blur",
+                validators: {
+                    notEmpty: {
+                        message: '不能为空！'
+                    }
+                }
+            },
+            startdate: {
+                message: 'The startdate is not valid',
+                trigger:"blur",
+                validators: {
+                    notEmpty: {
+                        message: '不能为空！'
+                    }
+                }
+            },
+        }
+    });
+}
+//查询区域参照回调函数
+function queryRefCallFunction(eleObj, data, name, id) {
+    var fun = viewModel.queryData[name];
+    if(typeof fun == 'function'){
+        fun(data[id]);
+    }
+//    ko.mapping.fromJS(data,viewModel.editData);
+}
+
+//外部参照回调函数
+function outerRefCallFunction(eleObj, data, name, id) {
+    var fun = viewModel.editData[name];
+    if(typeof fun == 'function'){
+        fun(data[id]);
+    }
+//    ko.mapping.fromJS(data,viewModel.editData);
+}
+
+function RzRateView(object){
+	//主键
+	this.pkRate="";
+	//币种主键
+	this.pkCurrency="";
+	//生效日期
+	this.startdate="";
+	//失效日期
+	this.enddate="";
+	//组织机构
+	this.pkOrg="";
+	//部门
+	this.pkDept="";
+	//制单人
+	this.billmaker="";
+	//制单日期
+	this.billdate="";
+	//审批人
+	this.approveid="";
+	//审批时间
+	this.approvedate="";
+	//审批状态(0 自由 1提交 2 审批中 3 审批通过 4 审批不通过)
+	this.approvestatus="";
+	//审批语
+	this.approvenote="";
+	//录入人
+	this.operator="";
+	//录入时间
+	this.operatordatetime="";
+	//修改人
+	this.modifor="";
+	//修改时间
+	this.modifydatetime="";
+	//流程实例ID
+	this.flowinstanceid="";
+	//
+	this.ts="";
+	//0 未删除 1已删除
+	this.dr="";
+	//
+	this.def1="";
+	//
+	this.def2="";
+	//
+	this.def3="";
+    //备注
+    this.remark = "";
+	//编辑页面状态
+	this.enableState=true;
+}
+
+function getParams(selector){
+	return {};
+}
+function onlyNumber(obj){
+//得到第一个字符是否为负号
+    var t = obj.value.charAt(0);
+//先把非数字的都替换掉，除了数字和.
+    obj.value = obj.value.replace(/[^\d\.]/g,'');
+//必须保证第一个为数字而不是.
+    obj.value = obj.value.replace(/^\./g,'');
+//保证只有出现一个.而没有多个.
+    obj.value = obj.value.replace(/\.{2,}/g,'.');
+//保证.只出现一次，而不能出现两次以上
+    obj.value = obj.value.replace('.','$#$').replace(/\./g,'').replace('$#$','.');
+//如果第一位是负号，则允许添加
+    if(t == '-'){
+        obj.value = '-'+obj.value;
+    }
+}
+
+Date.prototype.Format = function (fmt) { //author: meizz
+    var o = {
+        "M+": this.getMonth() + 1, //月份
+        "d+": this.getDate(), //日
+        "h+": this.getHours(), //小时
+        "m+": this.getMinutes(), //分
+        "s+": this.getSeconds(), //秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+        "S": this.getMilliseconds() //毫秒
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
+</script>
+
+	
+</body>

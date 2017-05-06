@@ -1,0 +1,97 @@
+<style>
+	.top{
+		height:60px;
+		background:#00A0E8;
+		line-height:60px;
+		padding:0 30px;
+		color:#fff;
+	}
+	.title-xd{
+	    margin-left: 20px;
+	    border-left: 1px solid #fff;
+	    font-size: 16px;
+	    color: #fff;
+	    display: inline-block;
+	    height: 20px;
+	    line-height: 20px;
+	    padding-left: 20px;
+	}
+	.login-info{
+		float:right;
+		padding:0px;
+	}
+	.login-info ul li{
+		border-left:1px solid #0495D6;
+	}
+	
+	.login-info ul li a{
+		display:inline-block;
+		padding:0 20px;
+		line-height: 49px;
+	}
+	/*一级滚动strat*/
+	.app-aside{
+		position:absolute;
+		top:60px;
+		bottom:0;
+		z-index:300;
+	}
+	.aside-wrap,.navi-wrap,.navi{
+		height:100%;
+	}
+	.navi>.nav{
+				max-height:100%;
+			}
+	/*一级滚动end*/
+</style>
+<header id="header" class="maxHeader" role="menu">
+  <title>互联网小微金融业务平台</title>
+  <div class="navleft">
+    <a href="#/" class="navbar-brand logoBox text-lt">
+      <img id="logoImage" src="$homeModule.getTarget('/misc/img/imfbp-logo.png')"/>
+      
+    </a>
+    <span class="topTitle">融资租赁业务系统</span>
+  </div>
+   <ul class="navright">
+      	<li class="dropLi manger"> 
+				<div class="btn-group">
+					  <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" style="">
+					     <span class="iconfont" style="position:relative;top:3px;">&#xe758;</span>
+					     <span style="font-size:15px;padding:0 2px;">${rname}(${user})</span>
+					     <span class="iconfont"style="font-size:8px;" >&#xe617;</span>
+					  </button>
+					  <ul class="dropdown-menu" role="menu">
+					    <li><a href="javascript:void(0)" onclick="modifyPassword()">修改密码</a></li>
+					    <li><a href="$homeModule.getTarget('/toIndex?systemLogout=systemLogout')">退出平台</a></li>
+					  </ul>
+				</div>
+        </li>
+          <li class="linkLi">
+          	 <a href="#" title="消息">
+          	    <div class="iconCountBox" style="position: relative">
+	              <span id="info-count" style="">0</span>
+	              <span class="topIco iconfont icon-liaotian"></span>
+	           </div>
+             	
+             </a>
+          </li>
+           <li class="linkLi">
+          	 <a href="#" title="关于我们">
+             	<span class="topIco iconfont">&#xe727;</span>
+             </a>
+          </li>
+            <li class="dropLi">
+             	<div class="btn-group">
+					  <button type="button" class=" btn dropdown-toggle" data-toggle="dropdown">
+					    <span class="iconfont icon-imfbp"></span>
+					  </button>
+					  <ul class="dropdown-menu dropdown-menu-right" role="menu">
+					    <li><a  href="javascript:void(0)" id="bossExplain" module_url="/bossExplain/toBossExplainPage" module_value="bossExplain"" title_name="基础服务介绍">基础服务介绍</a></li>
+					    <li><a  href="javascript:void(0)" id="bossHelp" module_url="/bossHelp/toBossHelpPage" module_value="bossHelp"" title_name="帮助中心">帮助中心</a></li>
+					  </ul>
+				</div>
+             
+          </li>
+    </ul>
+</header>

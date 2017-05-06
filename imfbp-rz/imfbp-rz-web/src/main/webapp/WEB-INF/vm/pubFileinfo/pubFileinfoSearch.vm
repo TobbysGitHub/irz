@@ -1,0 +1,136 @@
+<!-- search start  -->
+<div class="searchPanel padding-10">
+	<form class="form-horizontal">
+		<div class="searchContent" data-bind="with:queryData">
+						
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">文件主键</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="pkFile" class="form-control" data-bind="value:pkFile">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">节点号</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="funcode" class="form-control" data-bind="value:funcode">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">单据主键</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="pkBill" class="form-control" data-bind="value:pkBill">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">文件名称</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="filename" class="form-control" data-bind="value:filename">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--******更多条件放这里********-->
+			<div class="hideRule">
+				
+				<div class="row">
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">文件描述</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="description" class="form-control" data-bind="value:description">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">上传人</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="uploader" class="form-control" data-bind="value:uploader">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">上传时间</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="uploadtime" class="form-control" data-bind="value:uploadtime">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">文件类型</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="filetype" class="form-control" data-bind="value:filetype">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">文件长度</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="filelength" class="form-control" data-bind="value:filelength">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">fileFastdfsGroup</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="fileFastdfsGroup" class="form-control" data-bind="value:fileFastdfsGroup">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">fileFastdfsId</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="fileFastdfsId" class="form-control" data-bind="value:fileFastdfsId">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">文档类型</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="doctype" class="form-control" data-bind="value:doctype">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">文件来源</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="filesrc" class="form-control" data-bind="value:filesrc">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 展开更多的一行-->
+		<div class="searchToolsbar">
+			<div data-target=".hideRule" data-toggle="collapse" class="moreRule">
+				<span>展开更多查询条件</span>
+				<i class="glyphicon glyphicon-triangle-bottom"></i>
+			</div>
+			<div class="search-box">
+				<button type="button" class="btn btn-default btn-sm reset-btn">重置</button>
+				<button type="button" class="btn btn-default btn-sm search-btn">查询</button>
+			</div>
+		</div>
+	</form>
+</div>
+<!-- search end -->

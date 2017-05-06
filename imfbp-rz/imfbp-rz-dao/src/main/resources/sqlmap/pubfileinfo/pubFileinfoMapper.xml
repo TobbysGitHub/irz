@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pubFileinfo">
+
+	<!-- 結果集 -->
+	<resultMap id="pubFileinfoResult" type="com.imfbp.rz.domain.pubfileinfo.PubFileinfo">
+		<result property="pkFile" column="pk_file" />
+		<result property="funcode" column="funcode" />
+		<result property="pkBill" column="pk_bill" />
+		<result property="filename" column="filename" />
+		<result property="description" column="description" />
+		<result property="uploader" column="uploader" />
+		<result property="uploadtime" column="uploadtime" />
+		<result property="filetype" column="filetype" />
+		<result property="filelength" column="filelength" />
+		<result property="fileFastdfsGroup" column="file_fastdfs_group" />
+		<result property="fileFastdfsId" column="file_fastdfs_id" />
+		<result property="doctype" column="doctype" />
+		<result property="filesrc" column="filesrc" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="pubFileinfoField">
+		pk_file,funcode,pk_bill,filename,description,uploader,uploadtime,filetype,filelength,file_fastdfs_group,file_fastdfs_id,doctype,filesrc
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="condition">
+        <where>
+        	<if test="pkFile != null and pkFile != ''" >
+				and pk_file = #{pkFile}
+			</if>
+        	<if test="funcode != null and funcode != ''" >
+				and funcode = #{funcode}
+			</if>
+        	<if test="pkBill != null and pkBill != ''" >
+				and pk_bill = #{pkBill}
+			</if>
+        	<if test="filename != null and filename != ''" >
+				and filename = #{filename}
+			</if>
+        	<if test="description != null and description != ''" >
+				and description = #{description}
+			</if>
+        	<if test="uploader != null and uploader != ''" >
+				and uploader = #{uploader}
+			</if>
+        	<if test="uploadtime != null and uploadtime != ''" >
+				and uploadtime = #{uploadtime}
+			</if>
+        	<if test="filetype != null and filetype != ''" >
+				and filetype = #{filetype}
+			</if>
+        	<if test="filelength != null" >
+				and filelength = #{filelength}
+			</if>
+        	<if test="fileFastdfsGroup != null and fileFastdfsGroup != ''" >
+				and file_fastdfs_group = #{fileFastdfsGroup}
+			</if>
+        	<if test="fileFastdfsId != null and fileFastdfsId != ''" >
+				and file_fastdfs_id = #{fileFastdfsId}
+			</if>
+        	<if test="doctype != null and doctype != ''" >
+				and doctype = #{doctype}
+			</if>
+        	<if test="filesrc != null and filesrc != ''" >
+				and filesrc = #{filesrc}
+			</if>
+        </where>
+    </sql>
+    
+    <!-- 修改条件 -->
+	<sql id="updateByCondition">
+        <where>
+				<if test="parameter.pkFile != null and parameter.pkFile != ''" >
+					and pk_file = #{parameter.pkFile}
+				</if>
+				<if test="parameter.funcode != null and parameter.funcode != ''" >
+					and funcode = #{parameter.funcode}
+				</if>
+				<if test="parameter.pkBill != null and parameter.pkBill != ''" >
+					and pk_bill = #{parameter.pkBill}
+				</if>
+				<if test="parameter.filename != null and parameter.filename != ''" >
+					and filename = #{parameter.filename}
+				</if>
+				<if test="parameter.description != null and parameter.description != ''" >
+					and description = #{parameter.description}
+				</if>
+				<if test="parameter.uploader != null and parameter.uploader != ''" >
+					and uploader = #{parameter.uploader}
+				</if>
+				<if test="parameter.uploadtime != null and parameter.uploadtime != ''" >
+					and uploadtime = #{parameter.uploadtime}
+				</if>
+				<if test="parameter.filetype != null and parameter.filetype != ''" >
+					and filetype = #{parameter.filetype}
+				</if>
+		    	<if test="parameter.filelength != null" >
+					and filelength = #{parameter.filelength}
+				</if>
+				<if test="parameter.fileFastdfsGroup != null and parameter.fileFastdfsGroup != ''" >
+					and file_fastdfs_group = #{parameter.fileFastdfsGroup}
+				</if>
+				<if test="parameter.fileFastdfsId != null and parameter.fileFastdfsId != ''" >
+					and file_fastdfs_id = #{parameter.fileFastdfsId}
+				</if>
+				<if test="parameter.doctype != null and parameter.doctype != ''" >
+					and doctype = #{parameter.doctype}
+				</if>
+				<if test="parameter.filesrc != null and parameter.filesrc != ''" >
+					and filesrc = #{parameter.filesrc}
+				</if>
+        </where>
+    </sql>
+    
+    <!-- 新增 -->	
+	<insert id="insertPubFileinfo" parameterType="pubFileinfo">
+		insert into pub_fileinfo
+			(pk_file,funcode,pk_bill,filename,description,uploader,uploadtime,filetype,filelength,file_fastdfs_group,file_fastdfs_id,doctype,filesrc ) 
+		values 
+			(#{pkFile,jdbcType=CHAR},#{funcode,jdbcType=VARCHAR},#{pkBill,jdbcType=CHAR},#{filename,jdbcType=VARCHAR},#{description,jdbcType=VARCHAR},#{uploader,jdbcType=CHAR},#{uploadtime,jdbcType=CHAR},#{filetype,jdbcType=VARCHAR},#{filelength,jdbcType=DECIMAL},#{fileFastdfsGroup,jdbcType=CHAR},#{fileFastdfsId,jdbcType=CHAR},#{doctype,jdbcType=VARCHAR},#{filesrc,jdbcType=VARCHAR})
+    </insert>
+    
+    <!-- 批量新增 -->	
+	<insert id="insertBatchPubFileinfo" parameterType="java.util.List">
+       insert into pub_fileinfo
+			(pk_file,funcode,pk_bill,filename,description,uploader,uploadtime,filetype,filelength,file_fastdfs_group,file_fastdfs_id,doctype,filesrc ) 
+	   values
+	    <foreach collection="list" item="obj" index="index" separator="," >
+	    	(#{obj.pkFile},#{obj.funcode},#{obj.pkBill},#{obj.filename},#{obj.description},#{obj.uploader},#{obj.uploadtime},#{obj.filetype},#{obj.filelength},#{obj.fileFastdfsGroup},#{obj.fileFastdfsId},#{obj.doctype},#{obj.filesrc})
+	    </foreach>
+   </insert>
+    
+    
+    <!-- 根据id删除 (删除数据库数据)-->
+    <delete id="deletePubFileinfoById" parameterType="pubFileinfoQuery" >
+    	delete from pub_fileinfo  where pk_file = #{pkFile} 
+    </delete>
+    
+    <!-- 根据条件删除 (删除数据库数据)-->
+    <delete id="deletePubFileinfoByCondition" parameterType="pubFileinfoQuery" >
+    	delete from 
+    	pub_fileinfo<include refid="condition" /> 
+    </delete>
+    
+    <!-- 根据主键批量删除 (删除数据库数据)-->
+    <delete id="deletePubFileinfoByBatchId" parameterType="map" >
+    	delete from pub_fileinfo 
+    	where
+    	pk_file in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据id修改 -->
+    <update id="updatePubFileinfoById" parameterType="pubFileinfoQuery">
+		update  pub_fileinfo 
+		<set>
+			<if test="funcode != null and funcode != '' " >
+				funcode = #{funcode},
+			</if>
+			<if test="pkBill != null and pkBill != '' " >
+				pk_bill = #{pkBill},
+			</if>
+			<if test="filename != null and filename != '' " >
+				filename = #{filename},
+			</if>
+			<if test="description != null and description != '' " >
+				description = #{description},
+			</if>
+			<if test="uploader != null and uploader != '' " >
+				uploader = #{uploader},
+			</if>
+			<if test="uploadtime != null and uploadtime != '' " >
+				uploadtime = #{uploadtime},
+			</if>
+			<if test="filetype != null and filetype != '' " >
+				filetype = #{filetype},
+			</if>
+			<if test="filelength != null " >
+				filelength = #{filelength},
+			</if>
+			<if test="fileFastdfsGroup != null and fileFastdfsGroup != '' " >
+				file_fastdfs_group = #{fileFastdfsGroup},
+			</if>
+			<if test="fileFastdfsId != null and fileFastdfsId != '' " >
+				file_fastdfs_id = #{fileFastdfsId},
+			</if>
+			<if test="doctype != null and doctype != '' " >
+				doctype = #{doctype},
+			</if>
+			<if test="filesrc != null and filesrc != '' " >
+				filesrc = #{filesrc},
+			</if>
+		</set>
+		where
+			pk_file = #{pkFile} 
+    </update>
+    
+     <!-- 根据条件修改 -->
+    <update id="updatePubFileinfoByCondition" parameterType="map">
+		update  pub_fileinfo 
+		<set>
+				<if test="record.funcode != null and record.funcode != ''">
+					funcode = #{record.funcode},
+				</if>
+				<if test="record.pkBill != null and record.pkBill != ''">
+					pk_bill = #{record.pkBill},
+				</if>
+				<if test="record.filename != null and record.filename != ''">
+					filename = #{record.filename},
+				</if>
+				<if test="record.description != null and record.description != ''">
+					description = #{record.description},
+				</if>
+				<if test="record.uploader != null and record.uploader != ''">
+					uploader = #{record.uploader},
+				</if>
+				<if test="record.uploadtime != null and record.uploadtime != ''">
+					uploadtime = #{record.uploadtime},
+				</if>
+				<if test="record.filetype != null and record.filetype != ''">
+					filetype = #{record.filetype},
+				</if>
+		 		<if test="record.filelength != null">
+					filelength = #{record.filelength},
+				</if>
+				<if test="record.fileFastdfsGroup != null and record.fileFastdfsGroup != ''">
+					file_fastdfs_group = #{record.fileFastdfsGroup},
+				</if>
+				<if test="record.fileFastdfsId != null and record.fileFastdfsId != ''">
+					file_fastdfs_id = #{record.fileFastdfsId},
+				</if>
+				<if test="record.doctype != null and record.doctype != ''">
+					doctype = #{record.doctype},
+				</if>
+				<if test="record.filesrc != null and record.filesrc != ''">
+					filesrc = #{record.filesrc},
+				</if>
+		</set>
+		<include refid="updateByCondition" />
+    </update>
+    
+    <!-- 根据主键进行批量修改 -->
+    <update id="updatePubFileinfoByBatchId"  parameterType="java.util.List">
+    	<if test="list != null">
+	     <foreach collection="list" item='obj' separator=";" >
+	     update pub_fileinfo
+	     <set>
+				<if test="obj.funcode != null and obj.funcode != ''">
+					funcode = #{obj.funcode},
+				</if>
+				<if test="obj.pkBill != null and obj.pkBill != ''">
+					pk_bill = #{obj.pkBill},
+				</if>
+				<if test="obj.filename != null and obj.filename != ''">
+					filename = #{obj.filename},
+				</if>
+				<if test="obj.description != null and obj.description != ''">
+					description = #{obj.description},
+				</if>
+				<if test="obj.uploader != null and obj.uploader != ''">
+					uploader = #{obj.uploader},
+				</if>
+				<if test="obj.uploadtime != null and obj.uploadtime != ''">
+					uploadtime = #{obj.uploadtime},
+				</if>
+				<if test="obj.filetype != null and obj.filetype != ''">
+					filetype = #{obj.filetype},
+				</if>
+		 		<if test="obj.filelength != null">
+					filelength = #{obj.filelength},
+				</if>
+				<if test="obj.fileFastdfsGroup != null and obj.fileFastdfsGroup != ''">
+					file_fastdfs_group = #{obj.fileFastdfsGroup},
+				</if>
+				<if test="obj.fileFastdfsId != null and obj.fileFastdfsId != ''">
+					file_fastdfs_id = #{obj.fileFastdfsId},
+				</if>
+				<if test="obj.doctype != null and obj.doctype != ''">
+					doctype = #{obj.doctype},
+				</if>
+				<if test="obj.filesrc != null and obj.filesrc != ''">
+					filesrc = #{obj.filesrc},
+				</if>
+			</set>
+			where
+				pk_file = #{obj.pkFile} 
+	     </foreach>
+     	</if>
+    </update>
+    
+    <!-- 查询所有 -->
+    <select id="getPubFileinfoAll" parameterType="pubFileinfoQuery" resultMap="pubFileinfoResult">
+		SELECT 
+		<include refid="pubFileinfoField" />  
+		from  
+		pub_fileinfo<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询总数 -->
+	<select id="getPubFileinfoByPageCount" parameterType="pubFileinfoQuery" resultType="int">
+		SELECT count(*) from  pub_fileinfo
+		<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getPubFileinfoByPage" parameterType="pubFileinfoQuery" resultMap="pubFileinfoResult">
+		SELECT <include refid="pubFileinfoField" /> from pub_fileinfo
+		<include refid="condition" />
+		<if test="sort !=null">
+		    ORDER BY ${sort} ${order} 
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+	
+	<!-- 根据Id查询 -->
+	<select id="getPubFileinfoById" parameterType="pubFileinfoQuery" resultMap="pubFileinfoResult">
+		SELECT <include refid="pubFileinfoField" /> from  pub_fileinfo  where pk_file = #{pkFile} 
+		 
+	</select>
+	
+    <!--清空文档的文件相关信息-->
+	<update id="clearFile" parameterType="pubFileinfoQuery">
+		update pub_fileinfo info set info.filename=null,info.description=null ,info.uploader=null,info.uploadtime=null,
+		info.filetype=null ,info.filelength=null,info.file_fastdfs_id=null where info.pk_file=#{pkFile}
+	</update>
+</mapper>

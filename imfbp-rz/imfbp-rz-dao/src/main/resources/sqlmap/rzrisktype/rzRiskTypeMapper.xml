@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="rzRiskType">
+
+	<!-- 結果集 -->
+	<resultMap id="rzRiskTypeResult" type="com.imfbp.rz.domain.rzrisktype.RzRiskType">
+		<result property="pkRiskType" column="pk_risk_type" />
+		<result property="riskType" column="risk_type" />
+		<result property="overdueMin" column="overdue_min" />
+		<result property="overdueMax" column="overdue_max" />
+		<result property="remark" column="remark" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="rzRiskTypeField">
+		pk_risk_type,risk_type,overdue_min,overdue_max,remark
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="condition">
+        <where>
+        	<if test="pkRiskType != null and pkRiskType != ''" >
+				and pk_risk_type = #{pkRiskType}
+			</if>
+        	<if test="riskType != null" >
+				and risk_type = #{riskType}
+			</if>
+        	<if test="overdueMin != null" >
+				and overdue_min = #{overdueMin}
+			</if>
+        	<if test="overdueMax != null" >
+				and overdue_max = #{overdueMax}
+			</if>
+        	<if test="remark != null and remark != ''" >
+				and remark = #{remark}
+			</if>
+        </where>
+    </sql>
+    
+    <!-- 修改条件 -->
+	<sql id="updateByCondition">
+        <where>
+				<if test="parameter.pkRiskType != null and parameter.pkRiskType != ''" >
+					and pk_risk_type = #{parameter.pkRiskType}
+				</if>
+		    	<if test="parameter.riskType != null" >
+					and risk_type = #{parameter.riskType}
+				</if>
+		    	<if test="parameter.overdueMin != null" >
+					and overdue_min = #{parameter.overdueMin}
+				</if>
+		    	<if test="parameter.overdueMax != null" >
+					and overdue_max = #{parameter.overdueMax}
+				</if>
+				<if test="parameter.remark != null and parameter.remark != ''" >
+					and remark = #{parameter.remark}
+				</if>
+        </where>
+    </sql>
+    
+    <!-- 新增 -->	
+	<insert id="insertRzRiskType" parameterType="rzRiskType">
+		insert into rz_risk_type
+			(pk_risk_type,risk_type,overdue_min,overdue_max,remark ) 
+		values 
+			(#{pkRiskType,jdbcType=CHAR},#{riskType,jdbcType=SMALLINT},#{overdueMin,jdbcType=INTEGER},#{overdueMax,jdbcType=INTEGER},#{remark,jdbcType=VARCHAR})
+    </insert>
+    
+    <!-- 批量新增 -->	
+	<insert id="insertBatchRzRiskType" parameterType="java.util.List">
+       insert into rz_risk_type
+			(pk_risk_type,risk_type,overdue_min,overdue_max,remark ) 
+	   values
+	    <foreach collection="list" item="obj" index="index" separator="," >
+	    	(#{obj.pkRiskType},#{obj.riskType},#{obj.overdueMin},#{obj.overdueMax},#{obj.remark})
+	    </foreach>
+   </insert>
+    
+    
+    <!-- 根据id删除 (删除数据库数据)-->
+    <delete id="deleteRzRiskTypeById" parameterType="rzRiskTypeQuery" >
+    	delete from rz_risk_type  where pk_risk_type = #{pkRiskType} 
+    </delete>
+    
+    <!-- 根据条件删除 (删除数据库数据)-->
+    <delete id="deleteRzRiskTypeByCondition" parameterType="rzRiskTypeQuery" >
+    	delete from 
+    	rz_risk_type<include refid="condition" /> 
+    </delete>
+    
+    <!-- 根据主键批量删除 (删除数据库数据)-->
+    <delete id="deleteRzRiskTypeByBatchId" parameterType="rzRiskTypeQuery" >
+    	delete from rz_risk_type 
+    	where
+    	pk_risk_type in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据id修改 -->
+    <update id="updateRzRiskTypeById" parameterType="rzRiskTypeQuery">
+		update  rz_risk_type 
+		<set>
+			<if test="riskType != null " >
+				risk_type = #{riskType},
+			</if>
+			<if test="overdueMin != null " >
+				overdue_min = #{overdueMin},
+			</if>
+			<if test="overdueMax != null " >
+				overdue_max = #{overdueMax},
+			</if>
+			<if test="remark != null and remark != '' " >
+				remark = #{remark},
+			</if>
+		</set>
+		where
+			pk_risk_type = #{pkRiskType} 
+    </update>
+    
+     <!-- 根据条件修改 -->
+    <update id="updateRzRiskTypeByCondition" parameterType="map">
+		update  rz_risk_type 
+		<set>
+		 		<if test="record.riskType != null">
+					risk_type = #{record.riskType},
+				</if>
+		 		<if test="record.overdueMin != null">
+					overdue_min = #{record.overdueMin},
+				</if>
+		 		<if test="record.overdueMax != null">
+					overdue_max = #{record.overdueMax},
+				</if>
+				<if test="record.remark != null and record.remark != ''">
+					remark = #{record.remark},
+				</if>
+		</set>
+		<include refid="updateByCondition" />
+    </update>
+    
+    <!-- 根据主键进行批量修改 -->
+    <update id="updateRzRiskTypeByBatchId"  parameterType="java.util.List">
+    	<if test="list != null">
+	     <foreach collection="list" item='obj' separator=";" >
+	     update rz_risk_type
+	     <set>
+		 		<if test="obj.riskType != null">
+					risk_type = #{obj.riskType},
+				</if>
+		 		<if test="obj.overdueMin != null">
+					overdue_min = #{obj.overdueMin},
+				</if>
+		 		<if test="obj.overdueMax != null">
+					overdue_max = #{obj.overdueMax},
+				</if>
+				<if test="obj.remark != null and obj.remark != ''">
+					remark = #{obj.remark},
+				</if>
+			</set>
+			where
+				pk_risk_type = #{obj.pkRiskType} 
+	     </foreach>
+     	</if>
+    </update>
+    
+    <!-- 查询所有 -->
+    <select id="getRzRiskTypeAll" parameterType="rzRiskTypeQuery" resultMap="rzRiskTypeResult">
+		SELECT 
+		<include refid="rzRiskTypeField" />  
+		from  
+		rz_risk_type<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询总数 -->
+	<select id="getRzRiskTypeByPageCount" parameterType="rzRiskTypeQuery" resultType="int">
+		SELECT count(*) from  rz_risk_type
+		<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getRzRiskTypeByPage" parameterType="rzRiskTypeQuery" resultMap="rzRiskTypeResult">
+		SELECT <include refid="rzRiskTypeField" /> from rz_risk_type
+		<include refid="condition" />
+		<if test="sort !=null">
+		    ORDER BY ${sort} ${order} 
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+	
+	<!-- 根据Id查询 -->
+	<select id="getRzRiskTypeById" parameterType="rzRiskTypeQuery" resultMap="rzRiskTypeResult">
+		SELECT <include refid="rzRiskTypeField" /> from  rz_risk_type  where pk_risk_type = #{pkRiskType} 
+		 
+	</select>
+    
+</mapper>

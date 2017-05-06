@@ -1,0 +1,199 @@
+<div class="padding-5">
+	<div class="toolsbarPanel">
+		<div class="btn-group" role="group">
+			<button type="button" class="btn btn-default btn-sm check-btn" >
+				核销
+			</button>
+			<button type="button" class="btn btn-action btn-sm fullpage-btn" >
+				全屏
+			</button>
+		</div>
+	</div>
+	<div class="grid rzPmtPlanCfList"></div>
+	<ul id="pagination" class="pagination" style="display:none"></ul>
+</div>
+
+<!--弹框收款-->
+  <div class="u-container-fluid u-widget-bg" style="display:none">
+    <div class="u-row">
+      <div class="u-col-md-4">
+        <div class="u-widget">
+          <div class="u-widget-body">
+            <div id="edit_pmtcf" style="display:none">
+              <div class="u-msg-title">
+                <span style="font-size:14px;">
+                	  核销现金流计划表
+                  </span>
+              </div>
+              <div class="u-msg-content">
+                <div style="float:left;padding-right:10px;">
+                  <i class="iconfont icon-tishi" style="font-size:30px;padding-top:5px;color:red">
+                  </i>
+                </div>
+               <div class="row">
+					<div class="form-group">
+					<div class="col-md-4 col-sm-4">
+						<label class="col-md-5 col-sm-5  no-padding-right">应收本金</label>
+						<div class="col-md-7 col-sm-7">
+							<input type="text" name="receivableAmt" class="form-control" readonly>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-4">
+						<label class="col-md-5 col-sm-5  no-padding-right">应收利息</label>
+						<div class="col-md-7 col-sm-7">
+							<input type="text" name="receivableInt" class="form-control" readonly>
+						</div>
+					</div>
+				    <div class="col-md-4 col-sm-4">
+						<label class="col-md-5 col-sm-5  no-padding-right">应收租金</label>
+						<div class="col-md-7 col-sm-7">
+							<input type="text" name="receivableRent" class="form-control" readonly>
+						</div>
+					</div>
+					</div>
+					</div>
+					 <div class="row" style="margin-top:10px">
+					<div class="form-group">
+					   <div class="col-md-4 col-sm-4">
+						<label class="col-md-5 col-sm-5  no-padding-right">应收罚息</label>
+						<div class="col-md-7 col-sm-7">
+							<input type="text" name="receivablDefInt" class="form-control" readonly>
+						</div>
+					</div>
+					   <div class="col-md-4 col-sm-4">
+						<label class="col-md-5 col-sm-5  no-padding-right">应收手续费</label>
+						<div class="col-md-7 col-sm-7">
+							<input type="text" name="receivableFee" class="form-control" readonly>
+						</div>
+					</div>
+					   <div class="col-md-4 col-sm-4">
+						<label class="col-md-5 col-sm-5  no-padding-right">应收合计</label>
+						<div class="col-md-7 col-sm-7">
+							<input type="text" name="receivableTotal" class="form-control" readonly>
+						</div>
+					</div>
+					</div>
+				</div>
+				<hr/>
+               <div class="row">
+					<div class="form-group">
+					<div class="col-md-4 col-sm-4">
+						<label class="col-md-5 col-sm-5  no-padding-right">实收本金</label>
+						<div class="col-md-7 col-sm-7">
+							<input type="text" name="actAmt" class="form-control">
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-4">
+						<label class="col-md-5 col-sm-5  no-padding-right">实收利息</label>
+						<div class="col-md-7 col-sm-7">
+							<input type="text" name="actInt" class="form-control">
+						</div>
+					</div>
+				    <div class="col-md-4 col-sm-4">
+						<label class="col-md-5 col-sm-5  no-padding-right">实收租金</label>
+						<div class="col-md-7 col-sm-7">
+							<input type="text" name="actRent" class="form-control" readonly >
+						</div>
+					</div>
+					</div>
+					</div>
+				<div class="row" style="margin-top:10px">
+					<div class="form-group">
+					   <div class="col-md-4 col-sm-4">
+						<label class="col-md-5 col-sm-5  no-padding-right">实收罚息</label>
+						<div class="col-md-7 col-sm-7">
+							<input type="text" name="actDefInt" class="form-control">
+						</div>
+					</div>
+					   <div class="col-md-4 col-sm-4">
+						<label class="col-md-5 col-sm-5  no-padding-right">实收手续费</label>
+						<div class="col-md-7 col-sm-7">
+							<input type="text" name="actFee" class="form-control" >
+						</div>
+					</div>
+					   <div class="col-md-4 col-sm-4">
+						<label class="col-md-5 col-sm-5  no-padding-right">实收合计</label>
+						<div class="col-md-7 col-sm-7">
+							<input type="text" name="actTotal" class="form-control" readonly>
+						</div>
+					</div>
+				</div>
+               </div> 
+               </div>
+                <div class="u-msg-footer">
+                  <div style="text-align: right;padding-right:20px;">
+                    <button class="btn btn-out btn-py cancel-btn">
+                      	取消
+                      </button>
+                        <button class=" btn btn-action btn-py ok-btn" style="background-color:#00A0E8">
+                          	确定
+                        </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!--弹框付款-->
+  <div class="u-container-fluid u-widget-bg" style="display:none">
+    <div class="u-row">
+      <div class="u-col-md-4">
+        <div class="u-widget">
+          <div class="u-widget-body">
+            <div id="edit_pmtcfpay" style="display:none">
+              <div class="u-msg-title">
+                <span style="font-size:14px;">
+                	  核销现金流计划表
+                  </span>
+              </div>
+              <div class="u-msg-content">
+                 <div class="row">
+					<div class="form-group">
+				    <div class="col-md-12 col-sm-12">
+						<label class="col-md-5 col-sm-5  no-padding-right">收付类别:</label>
+						<div class="col-md-7 col-sm-7">
+							<span id="test"> </span>
+						</div>
+					</div>
+					</div>
+				</div>
+               <div class="row">
+					<div class="form-group">
+				    <div class="col-md-12 col-sm-12">
+						<label class="col-md-5 col-sm-5  no-padding-right">应付款项金额</label>
+						<div class="col-md-7 col-sm-7">
+							<input type="text" name="payableAmt" class="form-control" readonly>
+						</div>
+					</div>
+					</div>
+				</div>
+               <div class="row">
+					<div class="form-group">
+					   <div class="col-md-12 col-sm-12">
+						<label class="col-md-5 col-sm-5  no-padding-right">实付合计</label>
+						<div class="col-md-7 col-sm-7">
+							<input type="text" name="actAmtTotal" class="form-control">
+						</div>
+					</div>
+				</div>
+               </div> 
+               </div>
+                <div class="u-msg-footer">
+                  <div style="text-align: right;padding-right:20px;">
+                    <button class="btn btn-out btn-py cancel-btn">
+                      	取消
+                      </button>
+                        <button class=" btn btn-action btn-py ok-btn" style="background-color:#00A0E8">
+                          	确定
+                        </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

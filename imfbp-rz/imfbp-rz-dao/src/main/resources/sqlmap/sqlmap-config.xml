@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="true" />
+		<setting name="lazyLoadingEnabled" value="true" />
+		<setting name="multipleResultSetsEnabled" value="true" />
+		<setting name="useColumnLabel" value="true" />
+		<setting name="useGeneratedKeys" value="false" />
+		<setting name="autoMappingBehavior" value="PARTIAL" />
+		<setting name="defaultExecutorType" value="SIMPLE" />
+		<setting name="defaultStatementTimeout" value="25" />
+		<setting name="safeRowBoundsEnabled" value="false" />
+		<setting name="mapUnderscoreToCamelCase" value="false" />
+		<setting name="localCacheScope" value="SESSION" />
+		<setting name="jdbcTypeForNull" value="OTHER" />
+		<setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString" />
+	</settings>
+
+	<mappers>
+		<mapper resource="sqlmap/rzbaseparam/rzBaseParamMapper.xml" /> 
+		<mapper resource="sqlmap/rzrisktype/rzRiskTypeMapper.xml" /> 
+		
+		<mapper resource="sqlmap/rzeqpt/rzEqptMapper.xml" />
+		<mapper resource="sqlmap/rzrate/rzRateMapper.xml" />
+		<mapper resource="sqlmap/rzrateb/rzRateBMapper.xml" />
+		<mapper resource="sqlmap/rzrateprd/rzRateprdMapper.xml" />
+		<mapper resource="sqlmap/rzrecptpmt/rzRecptpmtMapper.xml" />
+		<!-- 报价测算 -->
+		<mapper resource="sqlmap/rzpricecal/rzPricecalMapper.xml" />
+		<mapper resource="sqlmap/rzpricecalcf/rzPricecalCfMapper.xml" />
+		<mapper resource="sqlmap/rzpricecaleqpt/rzPricecalEqptMapper.xml" />
+		<mapper resource="sqlmap/rzpricecallease/rzPricecalLeaseMapper.xml" />
+		<!-- 立项申请 -->
+		<mapper resource="sqlmap/rzprjapply/rzPrjapplyMapper.xml" />
+		<mapper resource="sqlmap/rzprjapplyeqpt/rzPrjapplyEqptMapper.xml" />
+		<!-- 项目评审 -->
+		<mapper resource="sqlmap/rzprjreview/rzPrjreviewMapper.xml" />
+		<mapper resource="sqlmap/rzprjrevieweqpt/rzPrjreviewEqptMapper.xml" />
+		<mapper resource="sqlmap/rzprjreviewguar/rzPrjreviewGuarMapper.xml" />
+		<mapper resource="sqlmap/rzprjreviewguarb/rzPrjreviewGuarBMapper.xml" />
+		<mapper resource="sqlmap/rzprjreviewlessee/rzPrjreviewLesseeMapper.xml" />
+		<mapper resource="sqlmap/rzprjreviewsupplier/rzPrjreviewSupplierMapper.xml" />
+		
+		<!-- 项目合同 -->						
+		<mapper resource="sqlmap/rzprjcontr/rzPrjcontrMapper.xml" />
+		<mapper resource="sqlmap/rzprjcontreqpt/rzPrjcontrEqptMapper.xml" />
+		<mapper resource="sqlmap/rzprjcontrlessee/rzPrjcontrLesseeMapper.xml" />
+		<mapper resource="sqlmap/rzprjcontrpur/rzPrjcontrPurMapper.xml" />
+		<mapper resource="sqlmap/rzprjcontrsupplier/rzPrjcontrSupplierMapper.xml" />
+		<mapper resource="sqlmap/rzprjcontrguar/rzPrjcontrGuarMapper.xml" />
+		<mapper resource="sqlmap/rzprjcontrguarb/rzPrjcontrGuarBMapper.xml" />
+		<mapper resource="sqlmap/rzprjcontrins/rzPrjcontrInsMapper.xml" />
+		<mapper resource="sqlmap/rzprjcontrinseqpt/rzPrjcontrInsEqptMapper.xml" />
+		<mapper resource="sqlmap/rzprjcontrcf/rzPrjcontrCfMapper.xml" />
+		<mapper resource="sqlmap/rzprjcontrlease/rzPrjcontrLeaseMapper.xml" />
+		
+		<!-- 项目合同变更 -->						
+		<mapper resource="sqlmap/rzprjcontrchg/rzPrjcontrChgMapper.xml" />
+		<mapper resource="sqlmap/rzprjcontrchgeqpt/rzPrjcontrChgEqptMapper.xml" />
+		<mapper resource="sqlmap/rzprjcontrchgguar/rzPrjcontrChgGuarMapper.xml" />
+		<mapper resource="sqlmap/rzprjcontrchgguarb/rzPrjcontrChgGuarBMapper.xml" />
+		<mapper resource="sqlmap/rzprjcontrchgins/rzPrjcontrChgInsMapper.xml" />
+		<mapper resource="sqlmap/rzprjcontrchginseqpt/rzPrjcontrChgInsEqptMapper.xml" />
+		<mapper resource="sqlmap/rzprjcontrchglessee/rzPrjcontrChgLesseeMapper.xml" />
+		<mapper resource="sqlmap/rzprjcontrchgpur/rzPrjcontrChgPurMapper.xml" />
+		<mapper resource="sqlmap/rzprjcontrchgsupplier/rzPrjcontrChgSupplierMapper.xml" />
+		
+		<!-- 收付计划 -->
+		<mapper resource="sqlmap/rzpmtplan/rzPmtPlanMapper.xml" />
+		<mapper resource="sqlmap/rzpmtplancf/rzPmtPlanCfMapper.xml" />
+		<mapper resource="sqlmap/rzpmtplanlease/rzPmtPlanLeaseMapper.xml" />
+
+		<!-- 利息调整 -->
+		<mapper resource="sqlmap/rzadjint/rzAdjIntMapper.xml" />
+		<mapper resource="sqlmap/rzadjintlease/rzAdjIntLeaseMapper.xml" />
+		<mapper resource="sqlmap/rzadjintleasenew/rzAdjIntLeaseNewMapper.xml" />
+
+		<!-- 计划变更 -->
+		<mapper resource="sqlmap/rzplanchange/rzPlanChangeMapper.xml" />
+		<mapper resource="sqlmap/rzplanchangelease/rzPlanChangeLeaseMapper.xml" />
+		<mapper resource="sqlmap/rzplanchangeleasenew/rzPlanChangeLeaseNewMapper.xml" />
+
+		<!--逾期罚息  -->
+		<mapper resource="sqlmap/rzdefinterest/rzDefInterestMapper.xml" />
+		<mapper resource="sqlmap/rzdefinterestplan/rzDefInterestPlanMapper.xml" />
+		
+		<!--逾期罚息减免  -->
+		<mapper resource="sqlmap/rzoverduederate/rzOverdueDerateMapper.xml" />
+		<mapper resource="sqlmap/rzoverduederateplan/rzOverdueDeratePlanMapper.xml" />
+		
+		<!-- 项目租赁物管理 -->
+		<mapper resource="sqlmap/rzprjcontreqptmngr/rzPrjcontrEqptmngrMapper.xml" />
+		
+		<!-- 风险管理  -->
+		<mapper resource="sqlmap/rzassetriskclass/rzAssetRiskclassMapper.xml" />
+		
+		<!--合同台账  -->
+		<mapper resource="sqlmap/rzcontrtally/rzContrTallyMapper.xml" />
+		<mapper resource="sqlmap/rzprjstate/rzPrjStateMapper.xml" />
+		
+		
+		<!-- 合同模板 -->
+		<mapper resource="sqlmap/rzdocfile/rzDocFileMapper.xml" />
+		<mapper resource="sqlmap/templatedef/templateDefMapper.xml" />
+		<mapper resource="sqlmap/templateinputdef/templateInputDefMapper.xml" />
+		<mapper resource="sqlmap/templaterulesdef/templateRulesDefMapper.xml" />
+		<mapper resource="sqlmap/templatenodedef/templateNodeDefMapper.xml" />
+
+		<!--公式模板  -->
+		<mapper resource="sqlmap/extends/tmplFormulaMapper.xml" />
+
+
+		<mapper resource="sqlmap/pubfileinfo/pubFileinfoMapper.xml" />
+		<mapper resource="sqlmap/pubfilestore/pubFilestoreMapper.xml" />
+		<mapper resource="sqlmap/pubnodevoinfo/pubNodevoinfoMapper.xml" />
+		<mapper resource="sqlmap/superbean/superBeanMapper.xml" />
+		<mapper resource="sqlmap/pubref/pubrefMapper.xml" />
+		<!-- 公共Sql查询begin -->
+		<mapper resource="sqlmap/pubquery/pubQueryMapper.xml" />
+		<!-- 公共Sql查询end -->
+		<!-- 定时扫描数据首付计划表，发送信息提醒 -->
+		<mapper resource="sqlmap/rzoverdatemsg/rzOverDateMsgVoMapper.xml" />
+	
+	
+	
+	</mappers>
+
+</configuration>

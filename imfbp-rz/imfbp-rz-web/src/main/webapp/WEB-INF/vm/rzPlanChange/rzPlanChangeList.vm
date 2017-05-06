@@ -1,0 +1,132 @@
+<style type="text/css">
+html,body,#rzPlanChangeModule,.rzPlanChangeEditTotal{height:100%;}
+.wrap{
+	position: absolute;
+	width: 100% !important;
+	height: 98%;
+	padding-top:20px !important;
+	padding-left:5px !important;
+	}
+	#content3 {
+		position: absolute;
+		top:66px;
+		width: 100%;
+		bottom: 0;
+	padding-right:20px;
+	}
+
+	.wrap ul,li{
+		margin: 0;padding: 0 ;
+	}		
+	.head_name {
+		height: 77px;
+		padding-left:16px;
+	}			
+	.head_name h2 {
+		font-size: 14px;
+		font-family: "PingFang-SC-Medium";
+		color: #333333;
+		height: 20px;
+		font-weight: bold;
+	}
+	
+	.head_name p {
+		font-size: 14px;
+		color: #666666;
+		height: 20px;
+		font-weight: bold;
+	}
+	.tabb3{
+		border-bottom: 2px solid #EEEEEE;
+	}
+	.tabb3 li {
+		font-size: 14px;
+		text-align: center;
+		margin-right:10px;
+		list-style: none;
+		float: left;
+		width: 90px;
+		height: 27px;
+		cursor: pointer;
+		border:1px solid #ccc;
+		border-bottom: none;
+	}
+	
+	 .tabb3 div {
+		width: 90px;
+		border-bottom: 2px solid #EEEEEE;
+		margin-top: 7px;
+		
+	}
+	.show-div{
+		display:none;
+	height:100%;
+	}
+	 .tabb3 span {
+		font-family: "PingFangSC-Regular";
+		font-size: 14px;
+		color: #999999;
+		font-weight: bold;
+	}
+	.tabb3 li:hover div {
+		border-color: #00A0E8;
+	}
+	.tabb3 ul{
+	padding-left:5px !important;
+	}
+	.tabb3 li:hover span {
+		color: #00A0E8;
+	}
+	
+	#content3 {
+		margin-top: 20px;
+	}
+	.tab-active span{
+		color: #00A0E8;
+	}
+	.tab-active div{
+		border-color: #00A0E8;
+	}
+	.div-active{
+		display:block;
+	}
+
+</style>
+<div class="padding-5">
+	<div class="toolsbarPanel">
+		<h4 style="float:left">收付计划主表信息</h4>
+		<div class="btn-group" role="group">
+			<button type="button" class="btn btn-action btn-sm add-btn" >新增</button>
+			<button type="button" class="btn btn-action btn-sm delete-btn">删除</button>
+			<button type="button" class="btn btn-action btn-sm update-btn">修改</button>
+			<button type="button" class="btn btn-default btn-sm refresh-btn">刷新</button>
+			<button type="button" class="btn btn-action btn-sm submit-btn">提交</button>
+			<button type="button" class="btn btn-action btn-sm callback-btn">收回</button>
+			<button type="button" class="btn btn-action btn-sm approve-btn">审批</button>
+			<button type="button" class="btn btn-action btn-sm unapprove-btn">取消审批</button>
+			<button type="button" class="btn btn-action btn-sm linkapprove-btn">联查</button>
+			<button type="button" class="btn btn-action btn-sm  export-btn" >导出</button>
+		</div>
+	</div>
+	<div class="grid rzPlanChangeList"></div>
+	<ul id="pagination" class="pagination"></ul>
+</div>
+<div class="wrap">
+	<nav class="tabb3">
+	<h4>租金计划子表信息</h4>
+		<ul class="clearfix" style="margin-bottom:1px;">
+			<li class="tab-active" data-router="" onClick="beforeChangeClick(this)" style="width:159px;">
+				<span>租金计划表(变更前)</span>
+				<div style="width:159px;"></div>
+			</li>
+			<li data-router="" onclick="afterChangeClick(this)" style="width:159px;">
+				<span>租金计划表(变更后)</span>
+				<div style="width:159px;"></div>
+			</li>
+		</ul>
+	</nav>
+	<div id="content3">
+		<div class="show-div div-active"></div>
+		<div class="show-div"></div>
+	</div> 
+</div> 

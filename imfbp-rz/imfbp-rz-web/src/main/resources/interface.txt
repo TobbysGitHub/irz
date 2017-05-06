@@ -1,0 +1,8 @@
+贷款申请单接口:XdPreLoanappController
+1 新增:xdPreLoanapp/insertOrUpdate
+2 修改:xdPreLoanapp/insertOrUpdate
+3 删除:deleteXdPreLoanappByIdBatch
+4 根据条件查询:xdPreLoanapp/getXdPreLoanappAll
+5 根据id查询:xdPreLoanapp/getXdPreLoanappById
+6 分页查询:xdPreLoanapp/getXdPreLoanappByPage
+7 联查客户信息:xdPreLoanapp/getXdCustById

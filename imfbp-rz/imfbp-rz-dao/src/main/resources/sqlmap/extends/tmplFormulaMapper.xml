@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="tmplFormula">
+
+	<!-- 結果集 -->
+	<resultMap id="tmplFormulaResult" type="com.imfbp.rz.domain.tmpl.TmplFormula">
+		<result property="id" column="id" />
+		<result property="itemCode" column="item_code" />
+		<result property="itemName" column="item_name" />
+		<result property="templateId" column="template_id" />
+		<result property="formula" column="formula" />
+		<result property="nodeCode" column="nodeCode" />
+		<result property="templateDefId" column="template_def_id" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="templateInputDefField">
+		id,item_code,item_name,template_id,formula,node_code,template_def_id
+	</sql>
+	
+	 <!-- 查询所有 -->
+    <select id="getTmplFormulaByNodeCode" parameterType="Map" resultMap="tmplFormulaResult">
+		SELECT c.*,d.formula,d.item_type ,a.id  AS template_def_id  
+		FROM  template_node_def a ,template_def b,template_input_def c,template_rules_def d 
+		WHERE  a.node_code =#{nodeCode}
+			AND a.template_id = b.id AND b.id = c.template_id AND c.id = d.input_item_id
+	</select>
+    
+</mapper>

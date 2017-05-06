@@ -1,0 +1,64 @@
+<div class="panel panel-default">
+	<div class="panel-heading ">
+		<button type="button" class="btn btn-default btn-sm save-btn">保存</button>
+		<button type="button" class="btn btn-default btn-sm back-btn">取消</button>
+	</div>
+	<div class="panel-body" data-bind="with:editData">
+		<form class="rzRateprdEditForm form-horizontal">
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkRateprd" class="form-control" data-bind="value:pkRateprd,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">期限名称</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="prdName" class="form-control" data-bind="value:prdName,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">期限类型 1</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="prdType" class="form-control" data-bind="value:prdType,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">期限范围(开始)天数</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="startTerm" class="form-control" data-bind="value:startTerm,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">期限终止天数</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="endTerm" class="form-control" data-bind="value:endTerm,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">期限注释</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="remark" class="form-control" data-bind="value:remark,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+

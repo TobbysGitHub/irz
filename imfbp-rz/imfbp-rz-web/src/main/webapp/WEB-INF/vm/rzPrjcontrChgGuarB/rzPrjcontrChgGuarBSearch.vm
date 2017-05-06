@@ -1,0 +1,118 @@
+<!-- search start  -->
+<div class="searchPanel padding-10">
+	<form class="form-horizontal">
+		<div class="searchContent" data-bind="with:queryData">
+						
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">主键</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="pkPrjcontrChgGuarB" class="form-control" data-bind="value:pkPrjcontrChgGuarB">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">担保方信息主表主键</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="pkPrjcontrChgGua" class="form-control" data-bind="value:pkPrjcontrChgGua">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">项目合同主键</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="pkPrjcontrChg" class="form-control" data-bind="value:pkPrjcontrChg">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">抵质押物数量</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="mortgageNum" class="form-control" data-bind="value:mortgageNum">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--******更多条件放这里********-->
+			<div class="hideRule">
+				
+				<div class="row">
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">抵质押物质量</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="mortgageQuality" class="form-control" data-bind="value:mortgageQuality">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">抵质押物状态：0 未抵押、 1 已抵押</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="mortgageState" class="form-control" data-bind="value:mortgageState">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">状况</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="situation" class="form-control" data-bind="value:situation">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">当前估值</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="currVal" class="form-control" data-bind="value:currVal">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">所在地</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="address" class="form-control" data-bind="value:address">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">抵质押物名称</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="mortgageName" class="form-control" data-bind="value:mortgageName">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">出厂日期</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="prodDate" class="form-control" data-bind="value:prodDate">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 展开更多的一行-->
+		<div class="searchToolsbar">
+			<div data-target=".hideRule" data-toggle="collapse" class="moreRule">
+				<span>展开更多查询条件</span>
+				<i class="glyphicon glyphicon-triangle-bottom"></i>
+			</div>
+			<div class="search-box">
+				<button type="button" class="btn btn-default btn-sm reset-btn">重置</button>
+				<button type="button" class="btn btn-default btn-sm search-btn">查询</button>
+			</div>
+		</div>
+	</form>
+</div>
+<!-- search end -->

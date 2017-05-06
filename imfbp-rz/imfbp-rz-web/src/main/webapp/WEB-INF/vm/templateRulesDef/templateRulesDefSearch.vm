@@ -1,0 +1,102 @@
+<!-- search start  -->
+<div class="searchPanel padding-10">
+	<form class="form-horizontal">
+		<div class="searchContent" data-bind="with:queryData">
+						
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">主键</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="id" class="form-control" data-bind="value:id">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">节点模板分配id</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="templateNodeId" class="form-control" data-bind="value:templateNodeId">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">输入项id</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="inputItemId" class="form-control" data-bind="value:inputItemId">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">字段类型</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="itemType" class="form-control" data-bind="value:itemType">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--******更多条件放这里********-->
+			<div class="hideRule">
+				
+				<div class="row">
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">VO限定名</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="voName" class="form-control" data-bind="value:voName">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">取数表名</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="tableName" class="form-control" data-bind="value:tableName">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">字段名称</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="itemName" class="form-control" data-bind="value:itemName">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">时间戳</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="ts" class="form-control" data-bind="value:ts">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">删除标识</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="dr" class="form-control" data-bind="value:dr">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 展开更多的一行-->
+		<div class="searchToolsbar">
+			<div data-target=".hideRule" data-toggle="collapse" class="moreRule">
+				<span>展开更多查询条件</span>
+				<i class="glyphicon glyphicon-triangle-bottom"></i>
+			</div>
+			<div class="search-box">
+				<button type="button" class="btn btn-default btn-sm reset-btn">重置</button>
+				<button type="button" class="btn btn-default btn-sm search-btn">查询</button>
+			</div>
+		</div>
+	</form>
+</div>
+<!-- search end -->

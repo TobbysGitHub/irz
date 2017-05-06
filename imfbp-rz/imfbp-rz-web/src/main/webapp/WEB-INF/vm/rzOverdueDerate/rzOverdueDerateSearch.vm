@@ -1,0 +1,75 @@
+<!-- search start  -->
+<div class="searchPanel padding-10">
+	<form class="form-horizontal">
+		<div class="searchContent" data-bind="with:queryData">
+			<div class="row">
+				<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:196px;">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">合同主键</label>
+						<div class="col-md-8 col-sm-8" style="width:140px;">
+							<input type="text" name="pkPrjcontr" class="form-control header-w130-input"
+								data-bind="value:pkPrjcontr">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:224px;">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right" style="width:84px;">合同起租日期</label>
+						<div class="col-md-8 col-sm-8" style="width:140px;">
+							<input type="text" name="startLeaseDate" class="form-control header-w130-input"
+								data-bind="value:startLeaseDate">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:196px;">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right" >项目状态</label>
+						<div class="col-md-8 col-sm-8" style="width:140px;">
+							<input type="text" name="prjState" class="form-control header-w130-input"
+								data-bind="value:prjState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:196px;">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">业务类型</label>
+						<div class="col-md-8 col-sm-8"style="width:140px;">
+							<select name="busitype" class="form-control header-w130-input"
+								data-bind="options:busyTypeList,optionsText:function(item){return item.text;},optionsValue:function(item){return item.value},value:busitype,enable:enableState">
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--******更多条件放这里********-->
+			<div class="hideRule">
+				<div class="row">
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:224px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right" style="width:84px;">合同结束日期</label>
+							<div class="col-md-8 col-sm-8" style="width:140px;">
+								<input type="text" name="endLeaseDate" class="form-control header-w130-input"
+									data-bind="value:endLeaseDate">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+		
+		<!-- 展开更多的一行-->
+			<div class="searchToolsbar">
+				<div data-target=".hideRule" data-toggle="collapse" class="moreRule">
+					<span>展开更多查询条件</span> <i
+						class="glyphicon glyphicon-triangle-bottom"></i>
+				</div>
+				<div class="search-box">
+					<button type="button" class="btn btn-default btn-sm reset-btn">重置</button>
+					<button type="button" class="btn btn-default btn-sm search-btn">查询</button>
+				</div>
+			</div>
+	</form>
+</div>
+<!-- search end -->

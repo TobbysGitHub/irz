@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html>
+#parse("/WEB-INF/vm/common/head.vm")
+<body>
+$screen_content
+#parse("/WEB-INF/vm/common/bottom.vm")
+</body>
+</html>

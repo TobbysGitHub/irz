@@ -1,0 +1,1375 @@
+<title>templateNodeDef</title>
+<style type="text/css">
+ .form-group .control-label{
+   width:70px;
+ }
+ .panel-body form{
+   padding-top:15px;
+ }
+ .panel-body>div {
+    margin-top:0px; 
+}
+ .select-tree{
+    width: 100%;
+    border-radius: 2px;
+    border: 1px solid silver;
+    height: 30px;
+    padding-left: 5px;
+  }
+  
+ font:hover{
+     color:red;
+     cursor: pointer;
+ }
+ 
+ .toolsbarPanel{
+  border-top: none;
+ }
+ .template-assign{
+    background: #00A5E3;
+    border: 1px solid #0084C4;
+    border-radius: 4px 0 0 4px !important;
+    width: 70px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    padding: 0;
+    margin-right: 0 !important;
+    font-family: PingFangSC-Regular;
+    font-size: 12px;
+    color: #FFFFFF;
+ }
+ .template-cancle{
+   width:70px;
+ }
+ 
+ .btn.btn-default.disable{
+   width:50px;
+ }
+ /*table checkbox 按钮隐藏*/
+ #case-g1_header_multi_input{
+	display:none !important;
+ }
+ 
+ .left-tree{
+    display:inline-block;
+    width: 200px;
+    overflow: auto;
+ }
+ .right-grid{
+    display:inline-block;
+    overflow: auto;
+ }
+ 
+ .u-msg-content{
+   padding-left:15px !important;
+   padding-top:15px !important;
+   padding-bottom:15px !important;
+   padding-right:0 !important;
+ }
+ /*取数公式配置样式*/
+ .font-title {
+		display: inline-block;
+		width: 20px;
+		line-height: 20px;
+		height: 20px;
+		text-align: center;
+		background-color: #71787E;
+		color: #ffffff;
+		border-radius: 10px;
+		font-size: 12px;
+	}
+			
+textarea{
+	border: 1px solid #CED0DA;
+	width: 250px;
+	height: 110px;
+	padding: 5px;
+	overflow: auto;
+} 					
+			
+.edit-div {
+    float: left;
+    border: 1px solid #CED0DA;
+    width: 250px;
+    height: 110px;
+    padding: 5px;
+    overflow: auto;
+    margin: 0;
+    border-radius: 3px;
+}
+
+/*页签*/
+.wrap{
+//	position: absolute;
+	width: 98%;
+	height: 98%;
+    padding-top:10px;
+  //  padding-left:15px;
+  //  padding-right:15px;
+    padding-bottom:10px;
+	}
+	#content {
+	  padding-top:15px;
+	}
+
+	.wrap ul,li{
+		margin: 0;padding: 0 ;
+	}		
+	.head_name {
+		height: 77px;
+		padding-left:16px;
+	}			
+	.head_name h2 {
+		font-size: 14px;
+		font-family: "PingFang-SC-Medium";
+		color: #333333;
+		height: 20px;
+		font-weight: bold;
+	}
+	
+	.head_name p {
+		font-size: 14px;
+		color: #666666;
+		height: 20px;
+		font-weight: bold;
+	}
+	.tabb{
+		border-bottom: 2px solid #EEEEEE;
+	}
+	.tabb li {
+		font-size: 14px;
+		text-align: center;
+		margin-right:10px;
+		list-style: none;
+		float: left;
+		width: 90px;
+		height: 27px;
+		cursor: pointer;
+	}
+	
+	 .tabb div {
+		width: 90px;
+		border-bottom: 2px solid #EEEEEE;
+		margin-top: 5px;
+		
+	}
+	.show-div{
+		display:none;
+	height:100%;
+	}
+	 .tabb span {
+		font-family: "PingFangSC-Regular";
+		font-size: 14px;
+		color: #999999;
+		font-weight: bold;
+	}
+	.tabb li:hover div {
+	//	border-color: #00A0E8;
+	}
+	
+	.tabb li:hover span {
+	//	color: #00A0E8;
+	}
+	
+	#content {
+	//	margin-top: 20px;
+	}
+	.tab-active span{
+	//	color: #00A0E8;
+	}
+	.tab-active div{
+		border-color: #00A0E8;
+	}
+	.div-active{
+		display:block;
+	}
+ /*页签*/
+ 
+ .metadata-content .content{
+   cursor: pointer;
+ }
+ #business-document .content:hover{
+  background-color:#0000CD;
+  color:#ffffff;
+ }	
+ #business-document .select{
+   background-color:#0000CD;
+   color:#ffffff;
+ }
+ .footer-saveOrCancel {
+    position: fixed;
+    bottom: 10px;
+}
+</style>
+<body>
+<div id="templateNodeDefModule" >
+	
+	<!-- list page start -->
+	<div class="listPage startPage" style="min-height:700px;">
+	    <!-- 左侧树部分 -->				
+		<div class="left-detail">
+			<div style="text-align:right;width:100%;">
+				<select class="select-tree" disabled>
+			   	   <option>融资租赁系统</option>
+			    </select>
+			</div>
+			<div id="rulesTree">
+			</div>
+		</div>
+		<!-- 右侧表部分 -->
+		<div class="right-detail">
+		  #parse("/WEB-INF/vm/templateNodeDef/templateNodeDefList.vm")	
+		</div>	
+	</div>
+	<!-- list page end -->
+	
+	<!--模板生成规则 -->
+	<div class="templateNodeDefCreatRlue" style="display:none;">
+		#parse("/WEB-INF/vm/templateNodeDef/templateNodeDefCreateRule.vm")
+	</div>
+	<!-- 模板生成规则 -->
+	
+	<!--模板分配Dialog -->
+	 <div class="templateAssignDialog" style="display:none;">
+	  #parse("/WEB-INF/vm/templateNodeDef/templateAssignDialog.vm")
+	 </div>
+	<!--模板分配Dialog -->
+	
+	<!--取数公式配置Dialog -->
+	 <div class="templateFormulaConfigureDialog" style="display:none;">
+	  #parse("/WEB-INF/vm/templateNodeDef/templateFormulaConfigureDialog.vm")
+	 </div>
+	<!--取数公式配置Dialog -->
+</div>
+
+
+<script>
+    //树节点nodeCode
+	var nodeCode = null;
+	var childNode = null;
+  
+ /**
+	 * 表头
+	 */
+	var col = [{
+	    field:"templateName",
+	    title:"模板名称"
+	},
+	{
+	    field:"templateCode",
+	    title:"模板编码"
+	},
+	{
+	    field:"templateVersion",
+	    title:"模板版本号"
+	},
+	{
+	    field:"createdate",
+	    title:"分配日期"
+	},
+	{
+	    field:"useStatus",
+	    title:"启用状态",
+	    renderType:function(obj){
+	    	var html = "<span>"
+	    	//获取状态： 模板状态 0：已停用 1：已启用 2：已分配
+	    	var a = obj.row.value.useStatus;
+	  
+	    	if (a == 0){
+	    		html += "<i class='iconfont icon-yuandian' style='color:#CD853F;font-size:18px;'></i><span>已停用</span>";
+	    		
+	    	}else if(a == 1){
+	    		html += "<i class='iconfont icon-yuandian' style='color:#00A5E3;font-size:18px;' ></i><span>已启用</span>";
+	    		
+	    	}else if(a == 2){
+	    	    html += "<i class='iconfont icon-yuandian' style='color:#00A5E3;font-size:18px;' ></i><span>已分配</span>";
+	    	}
+	    	html += "</span>";
+	   	 var innerDom = u.makeDOM(html);
+	   	 obj.element.appendChild(innerDom);
+	   	}
+	},
+	{
+	 field:"operate",
+	 title:"操作",
+	 renderType:function(obj){
+	     var id = obj.row.value.id;
+	     var rowIndex = obj.rowIndex;
+	     var html = "<span><font id='"+id+"' rowIndex='"+rowIndex+"' onClick='createRule(this);'>生成规则配置</font>"+
+	                "<font style='margin-left:10px;' id='"+id+"' rowIndex='"+rowIndex+"'  onClick='readSpecRule(this)'>查看配置结果</font></span>";
+	    
+	   	 var innerDom = u.makeDOM(html);
+	   	 obj.element.appendChild(innerDom);
+	   	}
+	}];	
+	
+	
+	/**
+     * 创建一个表格，但是没有赋值dataSource数据，这是表格将没有数据
+	 */
+	var gridObj = $("#templateNodeDefModule .templateNodeDefList").grid({
+		dataSource:'',
+    	id: 'case-g1',
+   		keyField: 'id',
+   		parentKeyField: 'pid',
+    	multiSelect: true,
+    	showNumCol:false,
+    	height: 500,
+    	columns: col,
+    	onRowSelected:function(obj){
+    		for(var i=0;i<obj.gridObj.dataSourceObj.rows.length;i++){
+				if (i == obj.rowIndex) continue;
+				gridObj.setRowUnselect(i);
+			}
+		},
+		onBeforeClickFun:function(obj){
+		 		 		
+    		gridObj.setRowSelect(obj.rowIndex);
+    		for(var i=0;i<obj.gridObj.dataSourceObj.rows.length;i++){
+				if (i == obj.rowIndex) continue;
+				gridObj.setRowUnselect(i);
+			}
+    		
+       }
+		
+    	
+    	
+    });
+    
+  
+ /**
+	 * 生成规则配置表头
+	 */
+	var colRule = [{
+	    field:"fechIndex",
+	    title:"取数指标",
+	    headerLevel:2
+	},
+	{
+	    field:"itemBpaCode",
+	    title:"指标编码",
+	    parentHeader:"fechIndex",
+	    sumCol:true,
+       
+	   
+	},
+	{
+	    field:"itemBpaName",
+	    title:"指标名称",
+	    parentHeader:"fechIndex",
+	    sumCol:true,
+       
+	   
+	},
+	{
+	    field:"fechRule",
+	    title:"取数规则",
+	    headerLevel:2
+	},
+	{
+	    field:"formula",
+	    title:"取数公式",
+	    parentHeader:"fechRule",
+	    sumCol:true,
+	    width:'500',
+        renderType:function(obj){
+           
+            var formula =  obj.row.value.formula;
+            if(formula == null) formula ='';
+                    
+	    	var html = "<span>";
+	    	html += "<span>"+formula+"</span><i onclick='ruleDialog(this);' class='iconfont icon-fabu' style='color:#393C3E;font-size:18px;cursor: pointer;'></i>";    	
+	    	html += "</span>";
+	    	
+	   	   var innerDom = u.makeDOM(html);
+	   	   obj.element.appendChild(innerDom);
+	   	}
+	   
+	},
+	{
+	 field:"formulaDetail",
+	 title:"取数说明",
+	 parentHeader:"fechRule",
+	 sumCol:true,
+    
+	 
+	}];	
+	
+	/**
+     * 创建一个表格，但是没有赋值dataSource数据，这是表格将没有数据
+	 */
+	var gridObj2 = $("#templateNodeDefModule #editeTemplateRuleGrid").grid({
+		dataSource:'',
+    	id: 'case-g2',
+   		keyField: 'id',
+   		parentKeyField: 'pid',
+    	multiSelect: false,
+    	showNumCol:true,
+    	height: 500,
+    	columns: colRule,
+    	maxHeaderLevel:2 	
+    });
+    
+//查看规则配置结果
+function readSpecRule(ele){
+   var id = $(ele).attr('id');
+   
+   var rowIndex = $(ele).attr('rowIndex');
+   var rowObj = gridObj.getRowByIndex(rowIndex).value;
+   var systemName = $('.select-tree').val();
+  
+   var templateName = rowObj.templateName;
+
+   var templateCode = rowObj.templateCode;
+
+   var templateVersion = rowObj.templateVersion;
+   
+   $('.form-horizontal #input1').val(systemName);
+
+   $('.form-horizontal #input2').val(templateName);
+	
+   $('.form-horizontal #input3').val(templateCode);
+	
+   $('.form-horizontal #input4').val(templateVersion);
+   
+   $.post("$homeModule.getTarget('/template/getRulesDataByTemplateNodeId')",{id:id},function(data){
+       
+       if(data.success){
+          var d = {};
+          d.values =  data.map.list;
+          gridObj2.setDataSource(d);
+          //隐藏取数公式配置 -标签
+          $('.icon-fabu').css('display','none');
+          //隐藏按钮
+          $('.templateNodeDefCreatRlue #panel-heading').css('display','none');
+          $('.templateNodeDefCreatRlue #panel-heading-back').css('display','block');
+          //跳转到编辑页
+          $("#templateNodeDefModule").layoutMDI("go", ".templateNodeDefCreatRlue");
+                
+       }else{
+         layer.alert("查询失败");
+       }
+   
+   });
+ 
+
+}    
+
+//生成规则配置 调用方法
+function createRule(ele){
+
+   var id = $(ele).attr('id');
+   var systemName = $('.select-tree').val();
+   
+   var rowIndex = $(ele).attr('rowIndex');
+   var rowObj = gridObj.getRowByIndex(rowIndex).value;
+   var systemName = $('.select-tree').val();
+  
+   var templateName = rowObj.templateName;
+
+   var templateCode = rowObj.templateCode;
+
+   var templateVersion = rowObj.templateVersion;
+   
+   $('.form-horizontal #input1').val(systemName);
+
+   $('.form-horizontal #input2').val(templateName);
+	
+   $('.form-horizontal #input3').val(templateCode);
+	
+   $('.form-horizontal #input4').val(templateVersion);
+  
+   $.post("$homeModule.getTarget('/template/getRulesDataByTemplateNodeId')",{id:id},function(data){
+       
+       if(data.success){
+          var d = {};
+          d.values =  data.map.list;
+          gridObj2.setDataSource(d);
+           //显示取数公式配置 -标签
+          $('.icon-fabu').css('display','block');
+          //隐藏按钮
+          $('.templateNodeDefCreatRlue #panel-heading').css('display','block');
+          $('.templateNodeDefCreatRlue #panel-heading-back').css('display','none');
+          //跳转到编辑页
+          $("#templateNodeDefModule").layoutMDI("go", ".templateNodeDefCreatRlue");
+                
+       }else{
+         layer.alert("查询失败");
+       }
+   
+   });
+ 
+
+}
+
+//生成规则配置保存
+$('.templateNodeDefCreatRlue .save-btn').click(function(){
+   var rows = gridObj2.getAllRows();
+    $.ajax({
+		  type: 'POST',
+		  url:"$homeModule.getTarget('/template/saveTemplateRulesForBatch')",
+		  data: JSON.stringify(rows),
+		  headers : {  
+             'Content-Type' : 'application/json;charset=utf-8'  
+           },
+		  dataType: "json",
+		  success: function(data) {
+			 if(data.success){
+			   layer.alert('保存成功');
+			   //跳转到编辑页
+               $("#templateNodeDefModule").layoutMDI("go", ".listPage");
+			 }else{
+			   layer.alert('保存失败');
+			 }
+	 	 }
+	});
+	
+
+});
+
+
+  var businessDocumentColumsData = null;
+  //取数公式配置-dialog
+  function ruleDialog(ele){
+      //先清空dialog
+       $("#templateFormulaConfigureContent #select").html('');
+       
+       $('#textarea1').val('');
+       $('#textarea2').val('');
+        
+	   $('#business-document-table').html('');
+	   
+	   $('#business-document-table-colum').html('');
+	   
+	   $('#public-service-table').html('');
+	   $('#public-service-colum').html('');
+      
+      //查询-组装下拉内容
+       $.post("$homeModule.getTarget('/template/getFormulaList')",null,function(data){
+         
+         var options = optionOfselectStr(data.map.list);
+         $("#templateFormulaConfigureContent #select").append(options);
+         
+         //查询业务单据表
+         $.ajax({  
+		   type: "POST",  
+		   url: "$homeModule.getTarget('/template/getMetadata')",  
+		   data:{nodeCode:nodeCode},  
+		   success: function(msg){  
+		     
+		     if(msg.success){
+		       if(!$.isEmptyObject(msg.map)){
+			     
+			       var tables = msg.map.tableData;
+		           businessDocumentColumsData =  msg.map.tableColumnsData;
+		       
+		          var ulO = createTableList(tables);
+				  //填充ul列表
+		          $('#business-document-table').append(ulO);
+		       
+		      
+			   }
+
+		         //dialog
+                 window.mdFormula = u.dialog({id: 'templateFormulaDialog', content: "#templateFormulaConfigureContent",width:"570px",height:"556px",hasCloseMenu: true}); 
+		     }
+		     
+		   }
+		});  
+       
+        
+    });
+    
+  }
+  //取数公式配置-确定按钮
+  $("#templateFormulaConfigureContent #confirm-formula").click(function(){
+     //更新grid选中行中的-取数公式-和-取数说明
+     var index = gridObj2.selectRowsIndex;
+     gridObj2.updateValueAt(index,'formula',$('#textarea1').val());
+
+     gridObj2.updateValueAt(index,'formulaDetail',$('#textarea2').val());
+     mdFormula.close();
+  });
+  //取数公式配置-取消按钮
+   $("#templateFormulaConfigureContent #cancel-formula").click(function(){
+      mdFormula.close();   
+   });
+  
+ //取数公式配置-选择元数据-创建table列表
+  function createTableList(listObj){
+	var ulStr = "<ul>";
+	for(var i=0;i<listObj.length;i++){
+		
+		var liStr = "<li><span>"+listObj[i].tableName+"</span>&lt;<span ondblclick='selectMetadataTale(this)' onClick='createTableColumList(this)' tableCode='"+listObj[i].tableCode+"' class=\"content\">"+listObj[i].tableCode+"</span>&gt;</li>"; 
+		
+		ulStr+= liStr;
+		
+	}
+	
+	return (ulStr+"</ul>");
+}
+//取数公式配置-选择元数据-创建table-colum列表
+function createTableColumList(ele){
+ if(businessDocumentColumsData == null)return;
+  //改变背景色
+  $(ele).closest('ul').find('.content').removeClass('select');
+  $(ele).addClass('select');
+
+    
+  var tableCode = $(ele).attr('tableCode');
+  var cols = businessDocumentColumsData[tableCode];
+  var ulStr = "<ul>";
+	for(var i=0;i<cols.length;i++){
+		
+		var liStr = "<li><span>"+cols[i].colName+"</span>&lt;<span tableCode='"+tableCode+"'  ondblclick='selectMetadataField(this)'  class=\"content\">"+cols[i].colCode+"</span>&gt;</li>"; 
+		
+		ulStr+= liStr;
+		
+	}
+	
+	var parentId = $(ele).closest('div').attr('id');
+	if(parentId == "business-document-table"){
+	  //填充清空元数据字段 内容区
+	 $('#business-document-table-colum').html('');
+	 $('#business-document-table-colum').append(ulStr+"</ul>");
+	 
+	}else if(parentId == "public-service-table"){
+	  //填充清空元数据字段 内容区
+	  $('#public-service-colum').html('');
+	  $('#public-service-colum').append(ulStr+"</ul>");
+	
+	}
+	
+	
+}  
+  
+  //取数公式配置 -页签
+jQuery(".tabb li").on("click", function() {
+		
+		jQuery(".tabb li").removeClass();
+		jQuery(this).addClass("tab-active");
+		
+		$("#content").children().css("display","none");
+		var hrefId = $(this).attr("href");
+		
+		if(hrefId == "business-document"){
+		  //清空
+		  $('#business-document-table').html('');
+		  $('#business-document-table-colum').html('');
+	  
+		    //查询业务单据表
+	         $.ajax({  
+			   type: "POST",  
+			   url: "$homeModule.getTarget('/template/getMetadata')",  
+			   data:{nodeCode:nodeCode},  
+			   success: function(msg){  
+			     
+			     if(msg.success){
+			       
+			       var tables = msg.map.tableData;
+			       businessDocumentColumsData =  msg.map.tableColumnsData;
+			       
+			       var ulO = createTableList(tables);
+			      
+			       //填充ul列表		       
+			       $('#business-document-table').append(ulO);
+			      
+			     }
+			     
+			   }
+			});  
+		
+		}else if(hrefId == "public-service"){
+		  //清空
+		   $('#public-service-table').html('');
+	       $('#public-service-colum').html('');
+		
+		  $.post("$homeModule.getTarget('/template/getPublicMetadata')",null,function(msg){
+		     
+		       var tables = msg.map.tableData;
+		       businessDocumentColumsData =  msg.map.tableColumnsData;
+		       
+		       var ulO = createTableList(tables);
+		      
+		       //先清空填充ul列表
+		       $('#public-service-table').append(ulO);
+		  
+		  })
+		
+		}
+		
+		
+		$("#"+hrefId).css("display","block");
+		
+	})	
+  
+  //组装select的option
+  function optionOfselectStr(list){
+     var option = '<option value="0">无公式</option>';
+     for(var i=0; i<list.length;i++){
+       option+="<option explanation='"+list[i].formulaName+"'  value='"+list[i].formulaText+"'>"+list[i].formulaCode+"</option>";
+     }
+     
+     return option;
+  }	
+  
+  
+   $("#templateFormulaConfigureContent #select").change(function(){
+     
+     var val = $(this).val();
+     //公式释义
+     var ex = $('#select option:selected').attr('explanation');
+     
+     if(val == '0'){
+       val='';
+       ex ='';
+     }
+     
+     $('#textarea1').val(val);
+     $('#textarea2').val(ex);
+     
+   });
+   
+   /**
+     * 获取当前光标位置
+     * @param ctrl
+     * @returns {number}
+     */
+    function getCursortPosition(element) {
+        var CaretPos = 0;
+        if (document.selection) {//支持IE
+            element.focus();
+            var Sel = document.selection.createRange();
+            Sel.moveStart('character', -element.value.length);
+            CaretPos = Sel.text.length;
+        }
+          //支持firefox
+        else if (element.selectionStart || element.selectionStart == '0'){
+        	 CaretPos = element.selectionStart;
+        }
+           
+        return (CaretPos);
+    } 
+   
+  var cursorPosition = null; 
+  //取数公式blur事件，获取光标位置
+  function getCursorPosition(ele){
+     cursorPosition = getCursortPosition(ele);
+    
+  }  
+ 
+  //选中元数据字段 -双击事件-执行函数
+  function selectMetadataField(ele){
+   
+    if(cursorPosition == null)return;
+    
+    var html = $(ele).html();
+    var tableCode = $(ele).attr('tableCode');
+    var col = tableCode +'.'+ html;
+    var formulaStr = $("#textarea1").val();
+    var start = formulaStr.substr(0,cursorPosition);
+    var end = formulaStr.substring(cursorPosition);
+    var newVal = start + col +end;
+    
+    $("#textarea1").val(newVal);
+    //光标位置-置空
+    cursorPosition = null;
+  }
+  
+  //选中元数据 -双击事件-执行函数
+  function selectMetadataTale(ele){
+    if(cursorPosition == null)return;
+    
+    var html = $(ele).html();
+    var formulaStr = $("#textarea1").val();
+    var start = formulaStr.substr(0,cursorPosition);
+    var end = formulaStr.substring(cursorPosition);
+    var newVal = start + html +end;
+    
+    $("#textarea1").val(newVal);
+    //光标位置-置空
+    cursorPosition = null;
+  }
+  
+jQuery(function(){
+
+	
+	//查询对象
+	var queryData = new TemplateNodeDefView();
+	//编辑对象
+	var editData = new TemplateNodeDefView();
+	//空对象用来清空编辑和查询对象
+	var emptyData = new TemplateNodeDefView();
+	
+	var viewModel={
+		queryData:ko.mapping.fromJS(queryData),
+		editData:ko.mapping.fromJS(editData),
+		pageState:ko.observable("")
+	}
+
+     /**
+     * 初始化layoutMDI
+     */
+	$("#templateNodeDefModule").layoutMDI({
+		//当页面后退时候触发的事件
+		onBackPage: function(target, options) {
+			ko.mapping.fromJS(emptyData,viewModel.editData);
+		} 
+	});
+	
+    /**
+	 * 初始化分页
+	 */
+//	var paginationObj = $("#templateNodeDefModule #pagination").pagination({
+//		pageSize:5,
+//		styleMode:2,
+//		onSelectPage:function(pageNumber, pageSize){
+//			var queryData = $.extend(ko.mapping.toJS(viewModel.queryData),{pageNumber:pageNumber,pageSize:pageSize});
+//			jQuery("#templateNodeDefModule .right-detail").gridPlugin("reLoad",queryData);
+//		}
+//	});
+	
+	
+	
+	/**
+	 * 初始化表格插件
+	 */
+//	var gridPluginObj = jQuery("#templateNodeDefModule .right-detail").gridPlugin({
+//		url: "$homeModule.getTarget('/template/getNodeTemplateData')",
+//		gridObj:gridObj,
+//		queryParam:{nodeCode:nodeCode},
+//		pagination:true,//是否分页默认为否
+//		paginationObj:paginationObj,//分页控件对象
+//		initData:false,//初始化时候是否加载数据(true时候加载，false时候不加载)
+//		onDataSuccess:function(data){
+			//当列表加载成功之后调用
+//		},
+//		onDataError:function(data){
+			//当列表加载失败之后调用
+//		},
+//	})
+	
+	
+	
+    //左侧树初始化
+	$('#rulesTree').jstree({
+	'core' : {
+	 	"multiple" : false,
+		'data' : {
+			'url' : "$homeModule.getTarget('/template/getFunMenuTree')",
+			'dataType' : 'json',
+		    'data' : function (node) {
+		      return { 'id' : node.id };
+		    }
+		}
+	},
+	"types" : {
+		"corpNode" : { "icon" : "iconfont icon-gongsi"}
+	},
+	"plugins" : [ "wholerow","search","types"]
+	}).on('select_node.jstree', function (e, data) {
+	
+	       //置空grid
+	       gridObj.setDataSource({values:[]});
+	
+	        nodeCode = data.node.original.code;
+	           
+	        childNode = data.node.children.length;
+	        if(childNode > 0 ){
+	          $("#case-g1_noRowsShow").html("<span><span><i class='iconfont icon-guanyu'></i></span>&nbsp;&nbsp;父节点不需要模块分配~</span>").css("top","200px");
+	          return;
+	        }
+	
+	        
+	        if(nodeCode && nodeCode != null){
+	           $.post("$homeModule.getTarget('/template/getNodeTemplateData')",{nodeCode:nodeCode},function(result){
+	              
+	              if(result.success){
+	                  var map = result.map;
+		              if($.isEmptyObject(result.map) || result.map.list == null){
+		                //无模板时，提示
+		                 $("#case-g1_noRowsShow").html("<span><span><i class='iconfont icon-guanyu'></i></span>&nbsp;&nbsp;请选择内容，进行模块分配吧~</span>").css("top","200px");
+	                
+		              }else{
+		                var d = {};
+		                d.values = result.map.list;
+		                //给表格塞数据
+		                gridObj.setDataSource(d);
+		                
+		              }
+	              
+	              }else{
+	                 layer.alert("模块查询失败");
+	              }
+	             
+	           
+	           })
+	        }
+		
+	  		
+	  }).on('refresh.jstree', function(e, data){  
+	  	//    var inst = data.instance;  
+	  	//    var obj = inst.get_node(e.target.firstChild.firstChild);  
+	  	//    inst.select_node(obj);  
+	  });
+	  
+	
+	
+	
+	/**
+	 * 新增功能
+	 */			
+    jQuery("#templateNodeDefModule .toolsbarPanel .add-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为添加状态
+		viewModel.pageState(pageState.add);
+        $("#templateNodeDefModule").layoutMDI("go", ".templateNodeDefEdit");
+    });
+
+	/**
+	 * 修改功能
+	 */		    
+    jQuery("#templateNodeDefModule .toolsbarPanel .update-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为修改状态
+		viewModel.pageState(pageState.edit);
+    	//当前选中行
+    	var selectRow = gridObj.getSelectRows();
+    	//将数据绑定到表单上面
+    	ko.mapping.fromJS(selectRow[0], viewModel.editData);
+    	//跳转到编辑页面
+        $("#templateNodeDefModule").layoutMDI("go", ".templateNodeDefEdit");
+    });
+
+	/**
+	 * 删除功能
+	 */	    
+    jQuery("#templateNodeDefModule .toolsbarPanel .remove-btn").click(function(){
+    	//要删除的id用","隔开
+		var batchId = "";
+		//当前选中行
+		var selectRow = gridObj.getSelectRows();
+		//判断是否选中要删除的数据
+		if(selectRow.length == 0) {
+			alert("请选择您要修改的数据");
+			return;
+		}
+	
+		for(var i = 0; i < selectRow.length; i++) {
+			var row = selectRow[i];
+			if(i == 0) {
+				batchId = row["id"] + batchId;
+			} else {
+				batchId = row["id"] + "," + batchId;
+			}
+		}
+		//删除数据
+		jQuery("#templateNodeDefModule .templateNodeDefEditForm").formPlugin("remove",{batchId:batchId,url:url_del});
+    });
+    
+    /**
+	 * 刷新功能(只是刷新当前页，如果要刷新所有页面使用 load 方法)
+	 */	 
+    jQuery("#templateNodeDefModule .toolsbarPanel .refresh-btn").click(function(){
+		jQuery("#templateNodeDefModule .templateNodeDefList").gridPlugin("reLoad",viewModel.queryData);
+    });
+    
+    //保存功能
+	jQuery("#templateNodeDefModule .templateNodeDefEdit .save-btn").click(function(){
+		if(viewModel.pageState()=="add"){
+			ko.mapping.fromJS(emptyData,viewModel.queryData);
+		}
+		var param = {
+			formData:ko.mapping.toJS(viewModel.editData),//要提交的数据
+			queryData:ko.mapping.toJS(viewModel.queryData),//修改完毕刷新表格的参数
+			editType:viewModel.pageState()//页面的状态(add：添加，edit:编辑)
+		}
+		jQuery("#templateNodeDefModule .templateNodeDefEditForm").formPlugin("save",param);
+	});
+	
+	//查找功能
+	jQuery("#templateNodeDefModule .searchToolsbar .search-btn").click(function(){
+		jQuery("#templateNodeDefModule .templateNodeDefList").gridPlugin("load",ko.mapping.toJS(viewModel.queryData));
+	});
+	
+	//重置查询条件功能
+	jQuery("#templateNodeDefModule .searchToolsbar .reset-btn").click(function(){
+		ko.mapping.fromJS(emptyData,viewModel.queryData);
+	});
+	
+	//编辑页返回
+	jQuery("#templateNodeDefModule .templateNodeDefCreatRlue .back-btn").click(function(){
+		$("#templateNodeDefModule").layoutMDI("back");
+	});
+
+	ko.applyBindings(viewModel);
+	
+	
+	
+	function TemplateNodeDefView(){
+	//主键
+	this.id="";
+	//节点编码
+	this.nodeCode="";
+	//模板id
+	this.templateId="";
+	//是否启用
+	this.isUse="";
+	//租户id
+	this.tenantId="";
+	//创建人
+	this.creator="";
+	//创建时间
+	this.createdtime="";
+	//操作者
+	this.operator="";
+	//操作时间
+	this.operationtime="";
+	//修改人
+	this.modifier="";
+	//修改时间
+	this.modifiedtime="";
+	//时间戳
+	this.ts="";
+	//删除标识
+	this.dr="";
+	//编辑页面状态
+	this.enableState=true;
+}
+
+function getParams(selector){
+	return {};
+}
+
+
+ /**
+	 *模板分配 表头
+	 */
+	var templateAssignCol = [{
+	    field:"templateName",
+	    title:"模板名称"
+	},
+	{
+	    field:"templateCode",
+	    title:"模板编码"
+	},
+	{
+	    field:"templateType",
+	    title:"模板类型"
+	},
+	{
+	    field:"templateFileName",
+	    title:"模板文档名称"
+	},
+	{
+	    field:"templateVersion",
+	    title:"模板版本号"
+	}
+  ];	
+	
+	
+	/**
+     * 创建一个表格，但是没有赋值dataSource数据，这是表格将没有数据
+	 */
+	var templateAssigngridObj = $("#templateNodeDefModule #templateAssignGrid").grid({
+		dataSource:'',
+    	id: 'case-g3',
+   		keyField: 'id',
+   		parentKeyField: 'pid',
+    	multiSelect: true,
+    	showNumCol:false,
+    	height: 190,
+    	columns: templateAssignCol,
+    	onDblClickFun:function(gridObj,rowObj,rowIndex){
+			//设置页面的输入框为不可修改
+			viewModel.editData.enableState(false);
+			//得到点击行
+    		var dbClickRow = gridObj.rowObj;
+    		//赋值
+    		ko.mapping.fromJS(dbClickRow.value, viewModel.editData);
+    		//跳转到编辑页
+        	$("#templateNodeDefModule").layoutMDI("go", ".templateNodeDefEdit");
+    	}
+    	
+    	
+    });
+        
+    /**
+	 * 初始化分页
+	 */
+	var paginationObj2 = $("#templateAssignPagination").pagination({
+		pageSize:5,
+		styleMode:2,
+		onSelectPage:function(pageNumber, pageSize){
+			var queryData = $.extend(ko.mapping.toJS(viewModel.queryData),{pageNumber:pageNumber,pageSize:pageSize});
+			jQuery("#templateAssignContent").gridPlugin("reLoad",{nodeCode:nodeCode});
+		}
+	});
+	
+	
+	/**
+	 * 初始化表格插件
+	 */
+	var gridPluginObj2 = jQuery("#templateNodeDefModule #templateAssignContent").gridPlugin({
+		url: "$homeModule.getTarget('/template/getNoDisTemplateDefByPage')",
+		gridObj:templateAssigngridObj,
+		queryParam:{nodeCode:nodeCode},
+		pagination:true,//是否分页默认为否
+		paginationObj:paginationObj2,//分页控件对象
+		initData:false,//初始化时候是否加载数据(true时候加载，false时候不加载)
+		onDataSuccess:function(data){
+			//当列表加载成功之后调用
+		},
+		onDataError:function(data){
+			//当列表加载失败之后调用
+		},
+	})
+	
+	//模板分配dialog-确认按钮事件
+	$("#templateAssignContent .save-btn").click(function(){
+	   
+	   var rows = templateAssigngridObj.selectRows;
+	   var idsArr = [];
+	   for(var i=0;i<rows.length;i++){
+	         idsArr.push(rows[i].id);
+	   }
+	 
+	   var jsonData = {'addTemplateIds':idsArr,'nodeCode':nodeCode};
+	   //清空grid标题栏checkbox勾选
+	   templateAssigngridObj.setAllRowUnSelect();
+	   
+	    $.ajax({
+		  type: 'POST',
+	 	  url: "$homeModule.getTarget('/template/saveNodeTemplateData')",
+	 	  data: JSON.stringify(jsonData),
+		  headers : {  
+               'Content-Type' : 'application/json;charset=utf-8'  
+          },
+		  dataType: "json",
+		  success: function(data) {
+		      if(data.success){
+		         
+		         gridObj.setDataSource({values:data.map.list});
+		         
+		      }else{
+		        layer.alert("保存失败");
+		      }
+			},
+		  error:function(){
+		  	layer.alert("保存失败");
+	 	   }
+	     });
+	   md.close();
+	});
+	
+	//模板分配dialog-取消按钮事件
+	$("#templateAssignContent .back-btn").click(function(){
+	   md.close();
+	});
+	
+
+//模板分配
+$("#templateNodeDefModule .template-assign").click(function(){
+  
+  
+  if(nodeCode == null){
+    layer.alert("请选择节点！");
+    return;
+  } 
+  
+  if(childNode > 0 ){
+    layer.alert("请选择子节点！");
+    return;
+  }
+   
+ templateAssigngridObj.setDataSource({values:[]});
+ jQuery("#templateNodeDefModule #templateAssignContent").gridPlugin("load",{nodeCode:nodeCode});
+	
+ //dialog
+ window.md = u.dialog({id: 'templateAssignDialog', content: "#templateAssignContent",width:"570px",height:"426px", hasCloseMenu: true});
+});
+
+//取消分配
+$('.right-detail .template-cancle').click(function(){
+  if(nodeCode == null){
+    layer.alert("请选择节点");
+    return;
+  }
+  
+  if(gridObj.getAllRows().length == 0){
+   layer.alert("节点未分配模板");
+   return;
+  }
+
+  if(gridObj.selectRows.length == 0){
+    layer.alert("请选择要取消的模板");
+    return;
+  }
+  var selectIndexArr = gridObj.selectRowsIndex;
+  var selectId = gridObj.selectRows[0].id;
+  var arr = [];
+  arr.push(selectId);
+  
+  $.ajax({
+		  type: 'POST',
+		  url:"$homeModule.getTarget('/template/delNodeTemplateData')",
+		  data: JSON.stringify(arr),
+		  headers : {  
+             'Content-Type' : 'application/json;charset=utf-8'  
+           },
+		  dataType: "json",
+		  success: function(data) {
+			 if(data.success){
+			   gridObj.deleteRows(selectIndexArr);
+			   layer.alert('取消分配成功');
+			   
+			 }else{
+			   layer.alert('取消分配失败');
+			 }
+	 	 }
+	});
+  
+});
+
+
+//启用
+$('.right-detail .enable-btn').click(function(){
+  if(nodeCode == null){
+    layer.alert("请选择节点");
+    return;
+  }
+  
+  if(gridObj.getAllRows().length == 0){
+   layer.alert("节点未分配模板,无法启用");
+   return;
+  }
+
+  if(gridObj.selectRows.length == 0){
+    layer.alert("请选择要启用的模板");
+    return;
+  }
+  
+  var id = gridObj.selectRows[0].id;
+  var useStatus = gridObj.selectRows[0].useStatus;
+  var selectIndex = gridObj.selectRowsIndex[0];
+  //获取状态： 模板状态 0：已停用 1：已启用 2：已分配
+  if(useStatus == '2'){
+    layer.alert('模板已分配');
+    return;
+  }
+  
+  if(useStatus == '1'){
+    layer.alert('模板已启用');
+    return;
+  }
+  
+  $.post("$homeModule.getTarget('/template/updateNodeTemplateStatus')",{nodeTemplateId:id,useStatus:1},function(data){
+    
+    if(data.success){
+      gridObj.updateValueAt(selectIndex,"useStatus",1,true);
+    }else{
+     layer.alert('启用失败');
+    }
+  });
+
+});
+
+
+//停用
+$('.right-detail .disable-btn').click(function(){
+  if(nodeCode == null){
+    layer.alert("请选择节点");
+    return;
+  }
+  
+  if(gridObj.getAllRows().length == 0){
+   layer.alert("节点未分配模板,无法停用");
+   return;
+  }
+
+  if(gridObj.selectRows.length == 0){
+    layer.alert("请选择要停用的模板");
+    return;
+  }
+  
+  var id = gridObj.selectRows[0].id;
+  var useStatus = gridObj.selectRows[0].useStatus;
+  var selectIndex = gridObj.selectRowsIndex[0];
+  //获取状态： 模板状态 0：已停用 1：已启用 2：已分配
+   if(useStatus == '2'){
+    layer.alert('模板已分配');
+    return;
+  }
+  if(useStatus == '0'){
+    layer.alert('模板已停用');
+    return;
+  }
+  
+  $.post("$homeModule.getTarget('/template/updateNodeTemplateStatus')",{nodeTemplateId:id,useStatus:0},function(data){
+    
+    if(data.success){
+      gridObj.updateValueAt(selectIndex,"useStatus",0,true);
+    }else{
+     layer.alert('停用失败');
+    }
+  });
+  
+
+
+});
+
+//刷新
+$('.right-detail .refresh-btn-new').click(function(){
+  if(nodeCode == null){
+    layer.alert("请选择节点后刷新");
+    return;
+  }
+  
+  if(childNode > 0 ){
+    layer.alert("请选择子节点后刷新");
+    return;
+  }
+  
+   $.post("$homeModule.getTarget('/template/getNodeTemplateData')",{nodeCode:nodeCode},function(result){
+	              
+      if(result.success){
+          var map = result.map;
+          if($.isEmptyObject(result.map) || result.map.list == null){
+            //无模板时，提示
+             $("#case-g1_noRowsShow").html("<span><span><i class='iconfont icon-guanyu'></i></span>&nbsp;&nbsp;请选择内容，进行模块分配吧~</span>").css("top","200px");
+        
+          }else{
+            var d = {};
+            d.values = result.map.list;
+            //给表格塞数据
+            gridObj.setDataSource(d);
+            layer.alert('刷新成功');
+          }
+      
+      }else{
+         layer.alert("模块查询失败");
+      }
+     
+   
+   })
+
+});
+ 
+
+
+
+
+
+
+});
+
+
+
+
+
+</script>
+	
+</body>

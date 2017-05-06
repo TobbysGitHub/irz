@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RzOverDateMsg">
+
+	<!-- 結果集 -->
+	<resultMap id="Result" type="com.imfbp.rz.domain.msgvo.RzOverDateMsgVo">
+		<result property="rptdate" column="rpt_date" />
+		<result property="prjcode" column="prj_code" />
+		<result property="prjname" column="prj_name" />
+		<result property="contrcode" column="contr_code" />
+		<result property="contrName" column="contr_name" />
+		<result property="pkUserManager" column="pk_user_manager" />
+		<result property="num" column="num" />
+	</resultMap>
+	
+    <!-- 查询所有 -->
+    <select id="getRzOverDateMsg" resultMap="Result">
+		SELECT
+	 	GROUP_CONCAT(DISTINCT(rz_prjcontr.contr_name)) as contr_name,
+	 	GROUP_CONCAT(DISTINCT(rz_prjcontr.contr_code)) as contr_code,
+	 	GROUP_CONCAT(DISTINCT(rz_prjcontr.prj_code)) as prj_code,
+	 	GROUP_CONCAT(DISTINCT(rz_prjcontr.prj_name)) as prj_name,
+	 	GROUP_CONCAT(DISTINCT(rz_prjcontr.pk_user_manager)) as pk_user_manager,
+		min(rz_pmt_plan_lease.rpt_date) as rpt_date,
+		min(rz_pmt_plan_lease.num) as num
+	FROM
+	 	rz_pmt_plan_lease
+	 
+	LEFT JOIN rz_pmt_plan ON rz_pmt_plan_lease.pk_pmt_plan = rz_pmt_plan.pk_pmt_plan
+	LEFT JOIN rz_prjcontr ON rz_pmt_plan.pk_prjcontr = rz_prjcontr.pk_prjcontr
+	WHERE
+	 		ifnull(rz_pmt_plan_lease.is_check,'N') = "N"
+	 		and
+	 		ver =  (SELECT max(ver) from rz_pmt_plan_lease as  lease where lease.pk_pmt_plan=rz_pmt_plan.pk_pmt_plan GROUP BY rz_pmt_plan_lease.pk_pmt_plan) 	GROUP BY
+	rz_pmt_plan_lease.pk_pmt_plan
+	</select>
+	
+</mapper>

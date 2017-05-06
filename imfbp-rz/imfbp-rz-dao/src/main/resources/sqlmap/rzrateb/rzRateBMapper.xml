@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="rzRateB">
+
+	<!-- 結果集 -->
+	<resultMap id="rzRateBResult" type="com.imfbp.rz.domain.rzrateb.RzRateB">
+		<result property="pkRateB" column="pk_rate_b" />
+		<result property="pkRate" column="pk_rate" />
+		<result property="pkRateprd" column="pk_rateprd" />
+		<result property="rate" column="rate" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="rzRateBField">
+		pk_rate_b,pk_rate,pk_rateprd,rate
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="condition">
+        <where>
+        	<if test="pkRateB != null and pkRateB != ''" >
+				and pk_rate_b = #{pkRateB}
+			</if>
+        	<if test="pkRate != null and pkRate != ''" >
+				and pk_rate = #{pkRate}
+			</if>
+        	<if test="pkRateprd != null and pkRateprd != ''" >
+				and pk_rateprd = #{pkRateprd}
+			</if>
+        	<if test="rate != null" >
+				and rate = #{rate}
+			</if>
+        </where>
+    </sql>
+    
+    <!-- 修改条件 -->
+	<sql id="updateByCondition">
+        <where>
+				<if test="parameter.pkRateB != null and parameter.pkRateB != ''" >
+					and pk_rate_b = #{parameter.pkRateB}
+				</if>
+				<if test="parameter.pkRate != null and parameter.pkRate != ''" >
+					and pk_rate = #{parameter.pkRate}
+				</if>
+				<if test="parameter.pkRateprd != null and parameter.pkRateprd != ''" >
+					and pk_rateprd = #{parameter.pkRateprd}
+				</if>
+		    	<if test="parameter.rate != null" >
+					and rate = #{parameter.rate}
+				</if>
+        </where>
+    </sql>
+    
+    <!-- 新增 -->	
+	<insert id="insertRzRateB" parameterType="rzRateB">
+		insert into rz_rate_b
+			(pk_rate_b,pk_rate,pk_rateprd,rate ) 
+		values 
+			(#{pkRateB,jdbcType=CHAR},#{pkRate,jdbcType=CHAR},#{pkRateprd,jdbcType=CHAR},#{rate,jdbcType=DECIMAL})
+    </insert>
+    
+    <!-- 批量新增 -->	
+	<insert id="insertBatchRzRateB" parameterType="java.util.List">
+       insert into rz_rate_b
+			(pk_rate_b,pk_rate,pk_rateprd,rate ) 
+	   values
+	    <foreach collection="list" item="obj" index="index" separator="," >
+	    	(#{obj.pkRateB},#{obj.pkRate},#{obj.pkRateprd},#{obj.rate})
+	    </foreach>
+   </insert>
+    
+    
+    <!-- 根据id删除 (删除数据库数据)-->
+    <delete id="deleteRzRateBById" parameterType="rzRateBQuery" >
+    	delete from rz_rate_b  where pk_rate_b = #{pkRateB} 
+    </delete>
+    
+    <!-- 根据条件删除 (删除数据库数据)-->
+    <delete id="deleteRzRateBByCondition" parameterType="rzRateBQuery" >
+    	delete from 
+    	rz_rate_b<include refid="condition" /> 
+    </delete>
+    
+    <!-- 根据主键批量删除 (删除数据库数据)-->
+    <delete id="deleteRzRateBByBatchId" parameterType="rzRateBQuery" >
+    	delete from rz_rate_b 
+    	where
+    	pk_rate_b in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据id修改 -->
+    <update id="updateRzRateBById" parameterType="rzRateBQuery">
+		update  rz_rate_b 
+		<set>
+			<if test="pkRate != null and pkRate != '' " >
+				pk_rate = #{pkRate},
+			</if>
+			<if test="pkRateprd != null and pkRateprd != '' " >
+				pk_rateprd = #{pkRateprd},
+			</if>
+			<if test="rate != null " >
+				rate = #{rate},
+			</if>
+		</set>
+		where
+			pk_rate_b = #{pkRateB} 
+    </update>
+    
+     <!-- 根据条件修改 -->
+    <update id="updateRzRateBByCondition" parameterType="map">
+		update  rz_rate_b 
+		<set>
+				<if test="record.pkRate != null and record.pkRate != ''">
+					pk_rate = #{record.pkRate},
+				</if>
+				<if test="record.pkRateprd != null and record.pkRateprd != ''">
+					pk_rateprd = #{record.pkRateprd},
+				</if>
+		 		<if test="record.rate != null">
+					rate = #{record.rate},
+				</if>
+		</set>
+		<include refid="updateByCondition" />
+    </update>
+    
+    <!-- 查询所有 -->
+    <select id="getRzRateBAll" parameterType="rzRateBQuery" resultMap="rzRateBResult">
+		SELECT 
+		<include refid="rzRateBField" />  
+		from  
+		rz_rate_b<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询总数 -->
+	<select id="getRzRateBByPageCount" parameterType="rzRateBQuery" resultType="int">
+		SELECT count(*) from  rz_rate_b
+		<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getRzRateBByPage" parameterType="rzRateBQuery" resultMap="rzRateBResult">
+		SELECT <include refid="rzRateBField" /> from rz_rate_b
+		<include refid="condition" />
+		<if test="sort !=null">
+		    ORDER BY ${sort} ${order} 
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+	
+	<!-- 根据Id查询 -->
+	<select id="getRzRateBById" parameterType="rzRateBQuery" resultMap="rzRateBResult">
+		SELECT <include refid="rzRateBField" /> from  rz_rate_b  where pk_rate_b = #{pkRateB} 
+		 
+	</select>
+    
+</mapper>

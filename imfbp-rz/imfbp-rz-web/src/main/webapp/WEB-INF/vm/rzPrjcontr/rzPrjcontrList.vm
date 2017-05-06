@@ -1,0 +1,22 @@
+<div class="padding-5">
+	<div class="toolsbarPanel">
+		<div class="btn-group" role="group">
+			<button type="button" class="btn btn-default btn-sm add-btn" >新增</button>
+			<button type="button" class="btn btn-action btn-sm remove-btn">删除</button>
+			<button type="button" class="btn btn-action btn-sm edit-btn">修改</button>
+            <button type="button" class="btn btn-action btn-sm submit-btn">提交</button>
+            <button type="button" class="btn btn-action btn-sm callback-btn">收回</button>
+            <button type="button" class="btn btn-action btn-sm approve-btn">审批</button>
+            <button type="button" class="btn btn-action btn-sm unapprove-btn">取消审批</button>
+            <button type="button" class="btn btn-default btn-sm create-btn">生成合同</button>
+            <button type="button" class="btn btn-action btn-sm effective-btn">合同生效</button>
+            <button type="button" class="btn btn-action btn-sm revoke-btn">合同撤销</button>
+            <button type="button" class="btn btn-default btn-sm link-btn">联查</button>
+            <button type="button" class="btn btn-default btn-sm history-btn">历史版本</button>
+            <button type="button" class="btn btn-default btn-sm export-btn" >导出</button>
+			<!--<button type="button" class="btn btn-default btn-sm refresh-btn">刷新</button>-->
+		</div>
+	</div>
+	<div class="grid rzPrjcontrList"></div>
+	<ul id="pagination" class="pagination"></ul>
+</div>

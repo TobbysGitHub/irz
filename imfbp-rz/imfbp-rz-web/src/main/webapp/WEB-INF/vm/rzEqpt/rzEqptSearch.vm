@@ -1,0 +1,65 @@
+<!-- search start  -->
+<div class="searchPanel padding-10">
+	<form class="form-horizontal">
+		<div class="searchContent" data-bind="with:queryData">
+			<div class="row">
+				<div class="col-md-3 col-sm-6 label-and-input-outdiv"style="width:216px;">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">设备编码</label>
+						<div class="col-md-8 col-sm-8" style="width:160px;">
+							<input type="text" name="eqptCode" class="form-control header-w150-input" data-bind="value:eqptCode">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">设备名称</label>
+						<div class="col-md-8 col-sm-8" style="width:160px;">
+							<input type="text" name="eqptName" class="form-control header-w150-input" data-bind="value:eqptName">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:202px;">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right" style="width:42px;">供应商</label>
+						<div class="col-md-8 col-sm-8" style="width:160px;">
+							<!-- <input type="text" name="pkCustomer" class="form-control header-w150-input" data-bind="value:pkCustomer"> -->
+							<input type="text" name="pkCustomer" class="form-control header-w150-input"
+                                    data-bind="enable:false"
+                                    data-imfbp-ref-bind="pkCustomer"
+                                    data-imfbp-ref-bind-field="userName" data-imfbp-ref-value="">
+                             <div class="icon-wrap " style="height:34px;">
+                                 <i class="glyphicon glyphicon-th-list icon" id="icon"
+                                    name="pkCustomer"
+                                    data-imfbp-ref-name='customerref'
+                                    data-imfbp-ref-use = 'true'
+                                    data-imfbp-ref-fun="headerRefCallFunction" data-imfbp-ref="ref"></i>
+                             </div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">设备分类</label>
+						<div class="col-md-8 col-sm-8" style="width:160px;">
+							<select name="eqptType" class="form-control header-w130-input"
+								data-bind="options:eqptTypeList,optionsText:function(item){return item.text;},optionsValue:function(item){return item.value},value:eqptType,enable:enableState,DepartmentSelected,optionsCaption:'请选择'">
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--******更多条件放这里********-->
+			<div class="hideRule">
+			</div>
+		</div>
+		<!-- 展开更多的一行-->
+		<div class="searchToolsbar">
+			<div class="search-box">
+				<button type="reset" class="btn btn-default btn-sm reset-btn">重置</button>
+				<button type="button" class="btn btn-default btn-sm search-btn">查询</button>
+			</div>
+		</div>
+	</form>
+</div>
+<!-- search end -->

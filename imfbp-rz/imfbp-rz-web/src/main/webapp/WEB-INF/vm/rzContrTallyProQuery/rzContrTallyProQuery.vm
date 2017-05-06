@@ -1,0 +1,345 @@
+<title>项目进度查询</title>
+<body>
+<div id="rzContrTallyModule" >
+	
+	<!-- list page start -->
+	<div class="listPage startPage">
+		#parse("/WEB-INF/vm/rzContrTallyProQuery/rzContrTallyProQuerySearch.vm")
+		#parse("/WEB-INF/vm/rzContrTallyProQuery/rzContrTallyProQueryList.vm")
+	</div>
+	<!-- list page end -->
+	
+	<!-- edit page end -->
+	<div class="rzContrTallyEdit" style="display:none;">
+	</div>
+	<!-- edit page end -->
+	
+</div>
+
+
+<script>
+/* 
+function tableHeight() {
+            return $(window).height() - 150;
+} */
+jQuery(function(){
+
+	//获取全部列表地址
+	var url_getAll = '$homeModule.getTarget('/rzContrTallyProQuery/getRzContrTallyProQueryAll')';
+	//列表后台访问地址
+	var url_page = '$homeModule.getTarget('/rzContrTallyProQuery/getRzContrTallyProQueryByPage')';
+	//添加修改后台访问地址
+	var url_condition = '$homeModule.getTarget('/rzContrTallyProQuery/getRzContrTallyProQueryByCondition')';
+	
+	//查询对象
+	var queryData = new RzContrTallyView();
+	//空对象用来清空编辑和查询对象
+	var emptyData = new RzContrTallyView();
+	
+	window.viewModel={
+		queryData:ko.mapping.fromJS(queryData),
+		pageState:ko.observable(""),
+	}
+	
+	setTraslateFunction();
+	
+
+	/**
+     * 初始化layoutMDI
+     */
+	$("#rzContrTallyModule").layoutMDI({
+		//当页面后退时候触发的事件
+		onBackPage: function(target, options) {
+			ko.mapping.fromJS(emptyData,viewModel.editData);
+		} 
+	});
+	
+	 var date=new Date();
+		var yy=date.getFullYear();
+		var MM=date.getMonth()+1;
+		var DD=date.getDate();
+		if(DD<10){
+			DD="0"+DD;
+		}
+		if(MM<10){
+			MM="0"+MM;
+		}
+	var nowdate=yy+"-"+MM+"-"+DD;
+	viewModel.queryData.applyStartdate(nowdate)
+	
+	var colums=[{
+    			field:"prjCode",
+    			title:"项目编号"
+    		},{
+    			field:"prjName",
+    			title:"项目名称",
+    			
+    		},{
+    			field:"contrCode",
+    			title:"合同编号",
+    			
+    		},{
+    			field:"applydate",
+    			title:"立项日期"
+    		},{
+    			field:"customerName",
+    			title:"客户名称",
+    		},{
+    			field:"custtype",
+    			title:"客户类型"
+    		},{
+    			field:"busitypeName",
+    			title:"业务类型",
+    		},{
+    			field:"leasewayName",
+    			title:"租赁方式"
+    		},{
+    			field:"startLeaseDate",
+    			title:"合同起租日期"
+    		},{
+    			field:"endLeaseDate",
+    			title:"合同结束日期"
+    		},{
+    			field:"leaseprd",
+    			title:"租赁期限(月)"
+    		},{
+    			field:"itemamt",
+    			title:"项目金额(元)",
+    		},{
+    			field:"firstpmtamt",
+    			title:"首付款(元)",
+    		},{
+    			field:"financeamt",
+    			title:"融资金额(元)",
+    		},{
+    			field:"pricerate",
+    			title:"租赁利率(%)",
+    		},{
+    			field:"prjStateName",
+    			title:"项目状态"
+    		},{
+    			field:"contrStatusName",
+    			title:"合同状态"
+    		},{
+    			field:"operatorName",
+    			title:"当前处理人",
+    			
+    		},{
+    			field:"optamt",
+    			title:"经营性每期租金",
+    		},{
+    			field:"depositamt",
+    			title:"客户保证金金额(元)",
+    		},{
+    			field:"feeamt",
+    			title:"手续费收入总额(元)",
+    		},{
+    			field:"scamt",
+    			title:"服务费支出总额(元)",
+    		},{
+    			field:"rentTotalAmt",
+    			title:"总租金(元)",
+    		},{
+    			field:"intTotalAmt",
+    			title:"总利息(元)",
+    		},{
+    			field:"putAmt",
+    			title:"已投放资金(元)",
+    		},{
+    			field:"curPrinBal",
+    			title:"本金余额(元)",
+    		},{
+    			field:"curRentBal",
+    			title:"租金余额(元)",
+    		},{
+    			field:"reptcycle",
+    			title:"还款周期(月)"
+    		},{
+    			field:"irr",          
+    			title:"合同计划IRR(%)",
+    		},{
+    			field:"curIrr",           
+    			title:"合同实际IRR(%)",
+    		},{
+    			field:"manageName",
+    			title:"项目经理"
+    		},]
+    /**
+     *使用bootstrap创建一个表格
+     */
+      $('#rzContrTallyModule #rzContrTallyProQueryList').bootstrapTable({
+    	    url: url_condition,
+    	    height: 550,
+    	    //每页的记录行数（*）   
+    	    columns:colums,
+    	    queryParams:queryParams
+    	}); 
+    
+     $(function () {
+   	  debugger;
+        $('#rzContrTallyProQueryList').bootstrapTable(); // init via javascript
+        $(window).resize(function () {
+            $('#rzContrTallyProQueryList').bootstrapTable('resetView');
+        });
+    });	  		 
+
+    /**
+	 * 刷新功能(只是刷新当前页，如果要刷新所有页面使用 load 方法)
+	 */	 
+    jQuery("#rzContrTallyModule .toolsbarPanel .refresh-btn").click(function(){
+		  $('#rzContrTallyProQueryList').bootstrapTable('refresh'); 
+    });
+     /**
+	 * 导出功能
+	 */	 
+    jQuery("#rzContrTallyModule .toolsbarPanel .export-btn").click(function(){
+   		debugger
+		var obj= ko.mapping.toJS(viewModel.queryData)
+		viewModel.queryData.busitypeList("")
+		var data=JSON.stringify(obj);
+		var url='$homeModule.getTarget('/rzContrTallyProQuery/export')'
+		openPostWindow(url,data,'项目进度查询')
+    });
+   
+	//查找功能
+	jQuery("#rzContrTallyModule .searchToolsbar .search-btn").click(function(){
+		  $('#rzContrTallyProQueryList').bootstrapTable('refresh'); 
+	});
+	
+	//重置查询条件功能
+	jQuery("#rzContrTallyModule .searchToolsbar .reset-btn").click(function(){
+		ko.mapping.fromJS(emptyData,viewModel.queryData);
+		$(".searchContent input[name='pkCustomer']").val("")
+		$(".searchContent input[name='pkPrjapply']").val("")
+		$(".searchContent input[name='pkPrjcontr']").val("")
+		$(".searchContent input[name='pkUserManager']").val("")
+	});
+	
+     function initDatas(){
+    $.when($.getJSON('$homeModule.getTarget("/rzPmtPlan/getAllBusyType")')).done(function(data){
+		debugger;
+		var busitypeList=data.map.busyTypeList
+		viewModel.queryData.busitypeList(busitypeList)
+		//viewModel.queryData.busitype("")
+		//viewModel.queryData.pmtrival("")
+		}).fail(function(data){
+		layer.alert("加载数据字典出错");
+		});
+    }
+    initDatas()
+	ko.applyBindings(viewModel);
+	
+});
+
+function queryParams(pageReqeust) {  
+    pageReqeust=ko.mapping.toJS(viewModel.queryData)
+    return pageReqeust;  
+}  
+
+ 
+    function openPostWindow(url, data, name)     
+     {     
+     var tempForm = document.createElement("form");     
+     tempForm.id="tempForm1";     
+     tempForm.method="post";     
+     tempForm.action=url;     
+     tempForm.target=name;     
+     var hideInput = document.createElement("input");     
+     hideInput.type="hidden";     
+     hideInput.name= "queryCondition"  
+     hideInput.value=data;   
+     tempForm.appendChild(hideInput);      
+     $(tempForm).on("submit",function(){ openWindow(name); });   
+     document.body.appendChild(tempForm);     
+     tempForm.submit();   
+     document.body.removeChild(tempForm);   
+    }
+
+	function openWindow(name)     
+	   { 
+     window.open('about:blank',name,'height=400, width=400, top=0, left=0, toolbar=yes, menubar=yes, scrollbars=yes, resizable=yes,location=yes, status=yes');      
+	}        
+
+
+function RzContrTallyView(){
+	//客户名称主键
+	this.pkCustomer="";
+	//项目名称
+	this.pkPrjapply="";
+	this.applyStartdate="";
+	
+	this.applyEnddate="";
+	//立项日期
+	this.applydate="";
+	//合同编号
+	this.pkPrjcontr="";
+	//项目状态
+	this.prjState="";
+	//合同状态
+	this.contrStatus="";
+	//合同起租日期
+	this.startLeaseDate="";
+	//合同结束日期
+	this.endLeaseDate="";
+	//项目经理
+	this.pkUserManager="";
+	//业务类型
+	this.busitype="";
+	this.leaseprd=""
+	this.enableState=true;
+	this.busitypeList=""
+}
+
+function getParams(selector){
+	return {};
+}
+//回调函数
+function outRpcCallFunction(eleObj, data, name, id) {
+	  debugger;
+	  var fun = viewModel.queryData[name];
+	    if(typeof fun == 'function'){
+			fun(data[id]);
+	    }
+}
+function setTraslateFunction(){
+debugger
+    refManager.setRefArea(".searchContent");
+    refManager.initAreaLoadData(".searchContent", function(name){
+        var fun = viewModel.queryData[name];
+        if(typeof fun == 'function'){
+            return fun();
+        }
+    });
+};
+</script>
+<script>
+
+$('.form_hhg_date').datetimepicker({
+    language: 'cn',
+    weekStart: 1,
+    todayBtn:  1,
+	autoclose: 1,
+	todayHighlight: 1,
+	startView: 2,
+	minView: 2,
+	forceParse: 0,
+	autoclose: true,
+	todayHighlight: true,
+});
+    Date.prototype.Format = function (fmt) { //author: meizz
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+</script>	
+</body>

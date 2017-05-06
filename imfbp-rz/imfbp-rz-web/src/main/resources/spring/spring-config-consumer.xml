@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+    http://www.springframework.org/schema/beans/spring-beans.xsd  
+    http://code.alibabatech.com/schema/dubbo  
+    http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+
+	<!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
+	<dubbo:application name="rpc-client-invoke-user" />
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<!-- 注册中心地址 -->
+	<dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}" />
+	<!-- <dubbo:registry protocol="zookeeper" address="zookeeper://10.1.37.46:2181" 
+		/> -->
+
+	<!-- 用户服务接口 -->
+	<dubbo:reference
+		interface="com.ifbp.boss.rpc.smalluser.service.BossUserRpcService" id="userRpcClient"
+		timeout="50000" />
+	<!-- 机构服务接口 -->
+	<dubbo:reference interface="com.ifbp.boss.rpc.smallorg.service.BossOrgRpcService"
+		id="orgRpcClient" timeout="50000" />
+	<!-- 部门服务接口 -->
+	<dubbo:reference
+		interface="com.ifbp.boss.rpc.smalldeptinfo.service.BossDeptInfoRpcService"
+		id="bossDeptInfoRpcService" timeout="50000" />
+
+	<!-- 字典服务接口 -->
+	<dubbo:reference interface="com.ifbp.boss.rpc.dic.service.DicItemRpcService"
+		id="dicItemRpcClient" timeout="50000" />
+	<!-- 客户参照接口 -->
+	<dubbo:reference
+		interface="com.imfbp.brefdata.rpc.reference.service.ReferenceRpcService"
+		id="referenceRpcService" timeout="50000" />
+
+	<!-- 业务规则服务接口 -->
+	<dubbo:reference
+		interface="com.ifbp.boss.rpc.rpcruleelement.service.BossRuleRpcService"
+		id="bossRuleRpcClient" timeout="50000" />
+
+
+	<!-- 权限接口 -->
+	<dubbo:reference interface="com.platform.common.permit.PermitInfo"
+		id="permitInfo" timeout="50000" />
+
+
+	<!-- 元数据服务接口 -->
+	<dubbo:reference
+		interface="com.ifbp.boss.rpc.smallconditionItem.service.BossConditionItemRpcService"
+		id="conditionItemRpcClient" timeout="50000" />
+
+	<!--消息读写接口 -->
+	<dubbo:reference
+		interface="com.ifbp.message.rpc.smallmessage.service.SmallMessageRpcService"
+		id="smallMessageRpcClient" timeout="50000" />
+
+	<!-- 参数接口 -->
+	<dubbo:reference
+		interface="com.ifbp.boss.rpc.smallparameter.service.BossParameterRpcService"
+		id="bossParameterRpcClient" timeout="50000" />
+
+	<!-- 机构银行账号接口 -->
+	<dubbo:reference
+		interface="com.ifbp.boss.rpc.smallorgbankacc.service.BossOrgBankAccRpcService"
+		id="bossOrgBankAccRpcClient" timeout="50000" />
+
+	<!--币种接口 -->
+	<dubbo:reference
+		interface="com.ifbp.boss.rpc.currency.service.BossCurrencyRpcService"
+		id="currencyRpcClient" timeout="50000" />
+
+	<!--登入登出日志接口 -->
+	<dubbo:reference
+		interface="com.platform.common.permit.log.LoginLogRpcService" id="loginLogRpcService"
+		timeout="50000" />
+
+	<!-- 分布式文件服务接口 -->
+	<dubbo:reference
+		interface="com.imfbp.fastdfs.rpc.api.fastdfs.service.IImfbpFastDFSRpcService"
+		id="fastDFSRpcClient" timeout="50000" />
+
+	<!-- 人员信息接口 -->
+	<dubbo:reference
+		interface="com.ifbp.boss.rpc.smallpersonnelinformation.service.BossPersonnelInformationRpcService"
+		id="bossPersonService" timeout="50000" />
+
+	<!-- 元数据接口 -->
+	<dubbo:reference
+		interface="com.ifbp.boss.rpc.metadata.service.BossMetadataRpcService"
+		id="bossMetadataRpcService" timeout="50000"></dubbo:reference>
+		
+	<!-- 租户信息接口  -->
+	<dubbo:reference interface="com.ifbp.boss.rpc.smalltenantinformation.service.BossTenantInformationRpcService"
+		id="tenantInfoService" timeout="50000" />
+</beans> 

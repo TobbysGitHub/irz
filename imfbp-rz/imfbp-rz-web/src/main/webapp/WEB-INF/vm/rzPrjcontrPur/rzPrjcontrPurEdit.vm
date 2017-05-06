@@ -1,0 +1,96 @@
+<div class="panel panel-default">
+	<div class="panel-heading ">
+		<button type="button" class="btn btn-default btn-sm save-btn">保存</button>
+		<button type="button" class="btn btn-default btn-sm back-btn">取消</button>
+	</div>
+	<div class="panel-body" data-bind="with:editData">
+		<form class="rzPrjcontrPurEditForm form-horizontal">
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkPrjcontrPur" class="form-control" data-bind="value:pkPrjcontrPur,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">合同主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkPrjcontr" class="form-control" data-bind="value:pkPrjcontr,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">合同编码</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="purContrCode" class="form-control" data-bind="value:purContrCode,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">合同名称</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="purContrName" class="form-control" data-bind="value:purContrName,enable:enableState">
+						</div>
+					</div>
+				</div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="form-group">
+                        <label class="col-md-3 col-sm-4 control-label no-padding-right">合同类型 ：0 融资租赁合同、1 担保合同、2买卖合同、3抵质押合同、4转让合同、5 保险合同</label>
+                        <div class="col-md-9 col-sm-8">
+                            <input type="text" name="purContrType" class="form-control" data-bind="value:purContrType,enable:enableState">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="form-group">
+                        <label class="col-md-3 col-sm-4 control-label no-padding-right">设备金额(元)</label>
+                        <div class="col-md-9 col-sm-8">
+                            <input type="text" name="eqptAmt" class="form-control" data-bind="value:eqptAmt,enable:enableState">
+                        </div>
+                    </div>
+                </div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">租赁物折让比例(%)</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="discountPer" class="form-control" data-bind="value:discountPer,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">折让金额</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="discountAmt" class="form-control" data-bind="value:discountAmt,enable:enableState">
+						</div>
+					</div>
+				</div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="form-group">
+                        <label class="col-md-3 col-sm-4 control-label no-padding-right">合同预计签订日期</label>
+                        <div class="col-md-9 col-sm-8">
+                            <input type="text" name="planSignedDate" class="form-control" data-bind="value:planSignedDate,enable:enableState">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="form-group">
+                        <label class="col-md-3 col-sm-4 control-label no-padding-right">合同签订日期</label>
+                        <div class="col-md-9 col-sm-8">
+                            <input type="text" name="signedDate" class="form-control" data-bind="value:signedDate,enable:enableState">
+                        </div>
+                    </div>
+                </div>
+			</div>
+		</form>
+	</div>
+</div>
+
+

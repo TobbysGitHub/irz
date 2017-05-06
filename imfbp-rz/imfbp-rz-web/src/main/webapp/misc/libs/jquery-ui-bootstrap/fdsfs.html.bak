@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <title>jQuery UI Bootstrap</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="description" content="A preview of the jQuery UI Bootstrap theme">
+            <meta name="author" content="Addy Osmani">
+
+            <!-- Le styles -->
+            <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+            <link type="text/css" href="css/custom-theme/jquery-ui-1.10.0.custom.css" rel="stylesheet" />
+            <link type="text/css" href="assets/css/font-awesome.min.css" rel="stylesheet" />
+            <!--[if IE 7]>
+            <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css">
+            <![endif]-->
+            <!--[if lt IE 9]>
+            <link rel="stylesheet" type="text/css" href="css/custom-theme/jquery.ui.1.10.0.ie.css"/>
+            <![endif]-->
+            <link href="assets/css/docs.css" rel="stylesheet">
+            <link href="assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+
+            <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+            <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+            <![endif]-->
+
+            <!-- Le fav and touch icons -->
+            <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+            <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+            <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+            <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+            <link rel="shortcut icon" href="assets/ico/favicon.png">
+
+        </head>
+
+        <body data-spy="scroll" data-target=".bs-docs-sidebar" data-twttr-rendered="true">
+
+       
+
+
+
+<div class="app app-header-fixed app-aside-fixed ">
+  
+	<!-- header -->
+	#parse("/WEB-INF/vm/top.vm")
+	<!-- / header -->
+	
+	<!-- aside -->
+	#parse("/WEB-INF/vm/left.vm")
+	<!-- / aside -->
+	<!-- content -->
+	<div id="content" class="app-content" role="main">
+		<div class="app-content-full" style="overflow-y: hidden;">
+			<!-- hbox layout -->
+			<div class="hbox hbox-auto-xs bg-light " >
+			  <!-- column -->
+			  <div class="col">
+			    <div class="vbox">
+			      <div class="row-row">
+			        <div class="cell">
+			          <div class="cell-inner">
+			            <div class="wrapper-md" style="width:100%;height:100%;padding:0">
+				
+				
+				
+				<div id="dialog2" title="Tab data">
+                    <form>
+                        <fieldset class="ui-helper-reset">
+                            <label for="tab_title">Title</label>
+                            <input type="text" name="tab_title" id="tab_title" value="" class="ui-widget-content ui-corner-all" />
+                            <label for="tab_content">Content</label>
+                            <textarea name="tab_content" id="tab_content" class="ui-widget-content ui-corner-all"></textarea>
+                        </fieldset>
+                    </form>
+                </div>
+
+
+	                <div id="tabs2" style="margin:0">
+	                    <ul style="padding:0">
+	                        <li><a href="#tabs-1">Nunc tincidunt</a></li>
+	                    </ul>
+	                    <div id="tabs-1">
+	                        <button id="add_tab" class="ui-button-primary">Add Tab</button>
+	                        <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+	                    </div>
+	                </div>
+				
+				
+				
+				
+				
+			            </div>
+			          </div>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+			  <!-- /column -->
+			</div>
+			<!-- /hbox layout -->
+		</div>
+	</div>
+	<!-- / content -->
+
+  <!-- footer -->
+  <footer id="footer" class="app-footer" role="footer">
+        <div class="wrapper b-t bg-light">
+      <span class="pull-right">2.0.1 <a href ui-scroll="app" class="m-l-sm text-muted"><i class="fa fa-long-arrow-up"></i></a></span>
+    	&copy; 2015 Copyright.
+    </div>
+  </footer>
+  <!-- / footer -->
+  
+  
+  <script>
+  
+  
+  $('#tabs2').tabs();
+ 
+// Dynamic tabs
+var tabTitle = $( "#tab_title" ),
+    tabContent = $( "#tab_content" ),
+    tabTemplate = "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close'>Remove Tab</span></li>",
+    tabCounter = 2;
+ 
+var tabs = $( "#tabs2" ).tabs();
+ 
+// modal dialog init: custom buttons and a "close" callback reseting the form inside
+var dialog = $( "#dialog2" ).dialog({
+    autoOpen: false,
+    modal: true,
+    buttons: {
+        Add: function() {
+            addTab();
+            $( this ).dialog( "close" );
+        },
+        Cancel: function() {
+            $( this ).dialog( "close" );
+        }
+    },
+    close: function() {
+        form[ 0 ].reset();
+    }
+});
+ 
+// addTab form: calls addTab function on submit and closes the dialog
+var form = dialog.find( "form" ).submit(function( event ) {
+    addTab();
+    dialog.dialog( "close" );
+    event.preventDefault();
+});
+ 
+// actual addTab function: adds new tab using the input from the form above
+function addTab() {
+    var label = tabTitle.val() || "Tab " + tabCounter,
+        id = "tabs-" + tabCounter,
+        li = $( tabTemplate.replace( /#\{href\}/g, "#" + id ).replace( /#\{label\}/g, label ) ),
+        tabContentHtml = tabContent.val() || "Tab " + tabCounter + " content.";
+ 
+    tabs.find( ".ui-tabs-nav" ).append( li );
+    tabs.append( "<div id='" + id + "></div><p>" + tabContentHtml + "</p></div>" );
+    tabs.tabs( "refresh" );
+    tabCounter++;
+}
+ 
+// addTab button: just opens the dialog
+$( "#add_tab" )
+    .button()
+    .click(function() {
+        dialog.dialog( "open" );
+    });
+ 
+// close icon: removing the tab on click
+$( "#tabs2" ).on( "click",'span.ui-icon-close', function() {
+ 
+    var panelId = $( this ).closest( "li" ).remove().attr( "aria-controls" );
+    $( "#" + panelId ).remove();
+    tabs.tabs( "refresh" );
+});
+  
+  
+  </script>
+  
+</div>
+
+
+
+
+
+
+<script src="assets/js/jquery-1.9.0.min.js" type="text/javascript"></script>
+<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="assets/js/jquery-ui-1.10.0.custom.min.js" type="text/javascript"></script>
+<script src="assets/js/google-code-prettify/prettify.js" type="text/javascript"></script>
+<script src="assets/js/docs.js" type="text/javascript"></script>
+<script src="assets/js/demo.js" type="text/javascript"></script>
+</body>
+</html>

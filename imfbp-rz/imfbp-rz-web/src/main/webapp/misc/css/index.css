@@ -1,0 +1,433 @@
+/*
+	time8.31
+	content:�޸�ui
+	author:�⺣��
+	*/
+	body{
+		font-family:"PingFangSC-Regular"!important;
+	}
+/*-------------------------------------form��ʽ----------------------------*/
+   .searchPanel{
+   		border-bottom: 1px solid #EEEEEE;
+   		margin-bottom:20px;
+   }
+/*-------------------------------------��ť��ʽ----------------------------*/
+	body .btn-py{/*----------中框----------*/
+		width:auto!important;
+		height:auto!important;
+		padding:7px 19px!important;
+	}
+	body .btn-big{/*----------大框ʽ----------*/
+		width:auto!important;
+		height:auto!important;
+		padding:11px 19px!important;
+	}
+	body .btn-small{/*----------小框ʽ----------*/
+		width:auto!important;
+		height:auto!important;
+		padding:5px 21px!important;
+		font-size:12px!important;
+	}
+	body .btn-out{/*----------次要----------*/
+		border:1px solid #CCCCCC;
+		 background:#ffffff;
+		 box-sizing:border-box;
+		 color:#666666!important;
+	}
+	body .btn-out:hover{/*----------��Ҫ�򻮹���ʽ----------*/
+		border:1px solid #999999;
+		color:#333333!important;
+	}
+	body .btn[disabled]{/*------------禁用框----------*/
+		background: #F7F7F7;
+		border: 1px solid #CCCCCC;
+		color:#CCCCCC!important;
+	}
+	body .btn[disabled]:hover{/*------------���ÿ���ʽ----------*/
+		background: #F7F7F7;
+		border: 1px solid #CCCCCC;
+		color:#CCCCCC!important;
+	}
+	body .btn-action{/*----------重要框----------*/
+		color:#ffffff!important;
+		background: #00A0E8;
+		border:0!important;
+	}
+	body .btn-action:hover{/*----------��Ҫ�򻮹���ʽ----------*/
+		background: #1D80D3;
+		color:#ffffff!important;
+		border:0!important;
+	}
+	
+	.search-row{
+		position:relative;
+		height:32px;
+		margin-bottom:15px;
+	}
+	.search-box{
+		position:absolute;
+		top:0;
+		left:0;
+		right:0;
+		margin:0 auto;
+		width:160px;
+	}
+	 .moreRule{
+		width:130px;
+		height:32px;
+		line-height:20px;
+		color:#00A0E8;
+		cursor:pointer;
+	}
+	.moreRule span{
+		text-decoration:underline;
+	}
+	.hideRule{
+		display:none;
+	}
+	.hideRule:after {
+	clear:both;
+	content:'.';
+	display:block;width: 0;
+	height: 0;
+	visibility:hidden;
+	}
+	
+/*------------------------------搜索框------------------------------------------*/
+	.searchRow{
+		min-width:680px;
+	}
+	.searchRow .search-lable,.searchRow .control-label{
+		padding-right:6px;
+	}
+	 .searchRow .search-inp,.searchRow .form-control{
+		display:inline-block!important;
+		width:59%;
+		padding-left:0px!important;
+	}
+/*-----------------------------���İ�ť---------------------------------------*/
+	.toolsbarPanel{
+		float:right;
+		padding-bottom:0px;
+		height:33px;
+		//margin-top:20px;
+	}
+	.toolsbarPanel button{
+		margin-left:10px!important;
+		border-radius:3px!important;
+	}
+	.dropdown-toggle{
+	    box-shadow:none!important;
+		z-index:1100!important;
+		
+	}
+	.open .dropdown-toggle{
+		border-bottom-left-radius:0;
+		border-bottom:1px solid #ffffff!important;
+		height:30px!important;
+		
+	}
+	.open .dropdown-menu{
+		border-top-right-radius:0px;
+	}
+	.dropdown-menu{
+		top:28px!important;
+		margin:0!important;
+		width:100px!important;
+		min-width:100px!important;
+	}
+	.dropdown-menu li{
+		width:98px!important;
+		text-align:center!important;
+		
+	}
+	.dropdown-menu li button{
+		width:100%!important;
+		outline:none!important;
+		border:0!important;
+		margin-left:0!important;
+		display:inline-block!important;
+		background:none!important;
+		color:#666666!important;
+		font-size:12px!important;
+		line-height:28px!important;
+		padding:2px 0!important;
+	}
+	.dropdown-menu li button[disabled]{
+		color:#CCCCCC!important;
+	}
+	.dropdown-menu li button[disabled]:hover{
+		background:none!important;
+	}
+	.dropdown-menu li button:hover{
+		background:#00A0E8!important;
+	}
+/*------------------------------��ҳ��ť---------------------------------------*/
+	.u-pagination{
+		line-height:32px!important;
+		text-align:center!important;
+	}
+	.u-pagination li,.u-pagination div{
+		border:0;
+		height:32px!important;
+	}
+	.u-pagination li a{
+		height:30px!important;
+	}
+	.u-pagination select{
+		height:32px!important;
+		width:56px!important;
+	}
+	.u-pagination input{
+		width:56px!important;
+		padding:0!important;
+		height:32px!important;
+	}
+.u-grid-header-columnmenu{
+	line-height:33px;
+	height:35px;
+	background:#f7f7f7;
+}
+/*------------------编辑页面-------------------------------*/
+.panel-heading+.sidebar-nav-content[style]{
+	top:0!important;
+	bottom:70px!important;
+	position:fixed;
+}
+.fu-sidebar-nav-content{
+	width:100%;
+	top:0!important;
+	bottom:70px!important;
+	position:fixed;
+}
+.panel-heading{
+			width:100%;
+			position:fixed;
+			bottom:16px;
+			z-index:200;
+			box-sizing:border-box;
+			text-align:center;
+			background:white!important;
+			padding:20px 0px!important;
+			border-top:1px solid #CCCCCC;
+		}
+		.panel-heading button{
+			display:inline-block;
+		}
+		
+	#HForm .validator{
+		float:left;
+		width:50%;
+	}
+	#HForm .validator label{
+		width:28%;
+		margin-right:2%;
+	}
+	#HForm .validator>div{
+		width:64%;
+	}
+	#HForm .validator:only-of-type{
+		width:100%;
+	}
+	#HForm .validator:only-of-type label{
+		width:14%;
+		margin-right:1%;
+	}
+	#HForm .validator:only-of-type>div{
+		width:82%;
+	}
+	
+	#HForm .form-group>label{
+		width:14%;
+		margin-right:1%;
+	}
+	#HForm .form-group>div:not(.validator){
+		width:82%;
+	}
+	#HForm .form-group .twoDiv{
+		float:left;
+	}
+	#HForm .form-group .twoDiv div:nth-type-of(2){
+		float:right;
+	}
+/*-------------------------------滚动条-------------------------------------*/
+::-webkit-scrollbar{
+		width: 20px;
+		height: 20px;
+	}
+::-webkit-scrollbar-thumb{
+	background-color: #999999;
+	border-radius: 18px;
+	border:7px solid #eeeeee;
+}
+::-webkit-scrollbar-track
+{
+background:#eeeeee;
+}
+
+::-moz-scrollbar{
+		width: 20px;
+		height: 20px;
+	}
+::-moz-scrollbar-thumb{
+	background-color: #999999;
+	border-radius: 18px;
+	border:7px solid #eeeeee;
+}
+::-moz-scrollbar-track
+{
+background:#eeeeee;
+}
+
+::-ms-scrollbar{
+		width: 20px;
+		height: 20px;
+	}
+::-ms-scrollbar-thumb{
+	background-color: #999999;
+	border-radius: 18px;
+	border:7px solid #eeeeee;
+}
+::-ms-scrollbar-track
+{
+background:#eeeeee;
+}
+
+::-o-scrollbar{
+		width: 20px;
+		height: 20px;
+	}
+::-o-scrollbar-thumb{
+	background-color: #999999;
+	border-radius: 18px;
+	border:7px solid #eeeeee;
+}
+::-o-scrollbar-track
+{
+background:#eeeeee;
+}
+
+/*------------------------------------模态框-----------------------------------------*/
+.modal-body{
+	max-height:350px;
+	overflow:auto;
+}
+/*------------------------------------信息提示框-----------------------------------------*/
+.modal-dialog .modal-footer,.modal-dialog .modal-header{
+		background-color: #F7F7F7!important;
+		border: 1px solid #EEEEEE;
+		box-sizing:border-box;
+	}
+	.modal-dialog .modal-footer{
+		padding:9px 15px!important;
+	}
+	.modal-dialog .modal-footer div,.modal-dialog .modal-header div{
+		color: #333333!important;
+	}
+	.modal-dialog .modal-body .jstree{
+		margin:-30px;
+		}
+	.modal-dialog .modal-body{
+		padding:40px 10%!important;
+		max-height:350px;
+		overflow:hidden;
+	}
+
+	.modal-dialog .bootstrap-dialog-footer-buttons button{
+		width:auto!important;
+		height:auto!important;
+		padding:5px 21px!important;
+		font-size:12px!important;
+	}
+
+	.modal-dialog .bootstrap-dialog-footer-buttons button{
+		border:1px solid #CCCCCC!important;
+		 background:#ffffff!important;
+		 box-sizing:border-box;
+		 color:#666666!important;
+	}
+	.modal-dialog .bootstrap-dialog-footer-buttons button:hover{
+		border:1px solid #999999!important;
+		color:#333333!important;
+	}
+			.modal-dialog .bootstrap-dialog-footer-buttons button:last-of-type{
+		color:#ffffff!important;
+		background: #00A0E8!important;
+		border:0!important;
+	margin-left:10px;
+	}
+	.modal-dialog .bootstrap-dialog-footer-buttons button:last-of-type:hover{
+		background: #1D80D3!important;
+		color:#ffffff!important;
+		border:0!important;
+		
+	}
+/*--------------------------------操作完成提示框------------------------------------------------*/
+.alert-success{
+			opacity: 0.8;
+			background: #000000;
+			box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.44);
+			border-radius: 3px;
+			border: 0;
+			color: white;
+			text-align: center;
+			width: 20%;
+		}
+		.alert-success span{
+			opacity: 0.8;
+		}
+/*----------------------------------模态框---------------------------------------------*/
+.bossPermitTree{
+	width:100%!important;
+}
+/*-------------------------左侧导航栏----------------------*/
+#header div{
+		height:70px!important;
+		line-height:70px!important;
+	}
+	#header .navRight{
+		padding-left:0px!important;
+	}
+	#header .logoBox{
+		line-height:70px!important;
+	}
+	#header .logoBox img{
+		width:77px!important;
+		height:35px!important;
+		max-height:35px!important;
+	}
+	#header li a{
+		height:70px!important;
+		line-height:40px!important;
+	}
+	.hidden-folded{
+		display:none!important;
+	}
+	#tabs2>ul a{
+		line-height:38px!important;
+	}
+	#tabs2>ul li{
+		margin-top:10px;
+	}
+	#tabs2 .ui-tabs-nav{
+		border:none!important;
+		margin-left:20px!important;
+	}
+	#tabs2 #tabs-1{
+		padding-left:5px!important;
+	}
+	#aside span{
+		font-size:12px!important;
+	}
+	#aside li ul span:nth-of-type(2){
+		padding-left:24px!important;
+	}
+	#aside li li ul span:last-of-type{
+		padding-left:48px!important;
+	}
+	.nav li li>ul{
+		background:red;
+		max-height:200px;
+		position:relative;
+		overflow:hidden!important;
+	}

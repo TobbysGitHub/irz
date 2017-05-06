@@ -1,0 +1,413 @@
+<title>rzPrjcontrChgSupplier</title>
+<body>
+<div id="rzPrjcontrChgSupplierModule" >
+	
+	<!-- list page start -->
+	<div class="listPage startPage">
+		#parse("/WEB-INF/vm/rzPrjcontrChgSupplier/rzPrjcontrChgSupplierList.vm")
+	</div>
+	<!-- list page end -->
+	
+	<!-- edit page end -->
+	<div class="rzPrjcontrChgSupplierEdit" style="display:none;">
+		#parse("/WEB-INF/vm/rzPrjcontrChgSupplier/rzPrjcontrChgSupplierEdit.vm")
+	</div>
+	<!-- edit page end -->
+	
+</div>
+
+
+<script>
+
+jQuery(function(){
+
+	
+	//列表后台访问地址
+	var url_page = '$homeModule.getTarget('/rzPrjcontrChgSupplier/getRzPrjcontrChgSupplierByPage')';
+	//添加修改后台访问地址
+	var url_add = '$homeModule.getTarget('/rzPrjcontrChgSupplier/insertOrUpdate')';
+	//删除后台访问地址
+	var url_del = '$homeModule.getTarget('/rzPrjcontrChgSupplier/deleteRzPrjcontrChgSupplierByBatchId')';
+	
+	//查询对象
+	var queryData = new RzPrjcontrChgSupplierView();
+	//编辑对象
+	var editData = new RzPrjcontrChgSupplierView();
+	//空对象用来清空编辑和查询对象
+	var emptyData = new RzPrjcontrChgSupplierView();
+    //采购合同对象
+    var purData = new RzPrjcontrChgPurView();
+	window.viewModel={
+		queryData:ko.mapping.fromJS(queryData),
+		editData:ko.mapping.fromJS(editData),
+        purData:ko.mapping.fromJS(purData),
+		pageState:ko.observable("")
+	}
+	
+	/**
+	 * 表头
+	 */
+	var col = [{  
+		field:"pkPrjcontrChgSupplier",
+		title:"主键",
+        visible : false
+	},{
+		field:"pkPrjcontrChg",
+		title:"项目评审主键",
+        visible : false
+	},{
+		field:"pkCustomer",
+		title:"供应商",
+        imfbpRefType: "customerref",
+        renderType:"imfbpRefTransform"
+	},{
+        field:"enterpriseName",
+        title:"供应商名称",
+		visible:false
+    },{
+        field:"enterpriseLegalPerson",
+        title:"法人代表"
+    },{
+        field:"enterprisePersonIdentificationNo",
+        title:"组织机构代码证"
+    },{
+        field:"enterpriseAddr",
+        title:"通信地址 "
+    },{
+        field:"enterprisePostcode",
+        title:"邮编"
+    },{
+        field:"enterpriseContacts",
+        title:"联系人"
+    },{
+        field:"enterpriseTelphone",
+        title:"联系人电话"
+    },{
+        field:"enterpriseFax",
+        title:"传真"
+    },{
+        field:"enterpriseMobilephone",
+        title:"联系人手机"
+    },{
+        field:"enterpriseMail",
+        title:"联系人邮箱"
+    },{
+		field:"remark",
+		title:"备注"
+ 	}];
+    
+	
+	/**
+     * 初始化layoutMDI
+     */
+	$("#rzPrjcontrChgSupplierModule").layoutMDI({
+		//当页面后退时候触发的事件
+		onBackPage: function(target, options) {
+			ko.mapping.fromJS(emptyData,viewModel.editData);
+		} 
+	});
+	
+	/**
+     * 创建一个表格，但是没有赋值dataSource数据，这是表格将没有数据
+	 */
+	var gridObj = $("#rzPrjcontrChgSupplierModule .rzPrjcontrChgSupplierList").grid({
+		dataSource:'',
+    	id: 'case-g1',
+   		keyField: 'id',
+   		parentKeyField: 'pid',
+    	multiSelect: true,
+    	showNumCol:true,
+    	height: 350,
+    	columns: col,
+    	onDblClickFun:function(gridObj,rowObj,rowIndex){
+			//设置页面的输入框为不可修改
+			viewModel.editData.enableState(false);
+			//得到点击行
+    		var dbClickRow = gridObj.rowObj;
+    		//赋值
+    		ko.mapping.fromJS(dbClickRow.value, viewModel.editData);
+            //获取供应商主键
+            var pkPrjcontrChgSupplier = dbClickRow.value.pkPrjcontrChgSupplier;
+            jQuery.ajax({
+                type : 'post',
+                dataType : "json",
+                data: {pkPrjcontrChgSupplier:pkPrjcontrChgSupplier},
+                url : '$homeModule.getTarget('/rzPrjcontrChgPur/getRzPrjcontrChgPurAll')',
+                success:function(purData){
+                    //采购合同赋值
+                    ko.mapping.fromJS(purData[0], viewModel.purData);
+                    //供应商赋值
+                    ko.mapping.fromJS(dbClickRow.value, viewModel.editData);
+                    refManager.setRefArea(".rzPrjcontrChgSupplierEditForm");
+                    refManager.initAreaLoadData(".rzPrjcontrChgSupplierEditForm", function(name){
+                        var fun = viewModel.editData[name];
+                        if(typeof fun == 'function'){
+                            return fun();
+                        }
+                    });
+                    //设置页面的输入框为不可修改
+                    viewModel.purData.enableState(false);
+                    //跳转到编辑页
+                    $("#rzPrjcontrChgSupplierModule").layoutMDI("go", ".rzPrjcontrChgSupplierEdit");
+                },
+                error:function(purData){
+                    //保存失败回掉事件
+
+                }
+            });
+    	}
+    });
+	
+	/**
+	 * 初始化分页
+	 */
+	var paginationObj = $("#rzPrjcontrChgSupplierModule .pagination").pagination({
+		pageSize:10,
+		styleMode:2,
+		onSelectPage:function(pageNumber, pageSize){
+			var queryData = $.extend(ko.mapping.toJS(viewModel.queryData),{pageNumber:pageNumber,pageSize:pageSize});
+			jQuery("#rzPrjcontrChgSupplierModule .rzPrjcontrChgSupplierList").gridPlugin("reLoad",queryData);
+		}
+	});
+	
+	/**
+	 * 初始化表格插件
+	 */
+	var gridPluginObj = jQuery("#rzPrjcontrChgSupplierModule .rzPrjcontrChgSupplierList").gridPlugin({
+		url: url_page,
+		gridObj:gridObj,
+		queryParam:getParams(),
+		pagination:true,//是否分页默认为否
+		paginationObj:paginationObj,//分页控件对象
+		initData:true,//初始化时候是否加载数据(true时候加载，false时候不加载)
+		onDataSuccess:function(data){
+			//当列表加载成功之后调用
+            imfbpDataTableTranform(gridObj, data.rows,function(){
+                debugger;
+                var d = {};
+                d.values = data.rows;
+                gridObj.setDataSource(d);
+            });
+		},
+		onDataError:function(data){
+			//当列表加载失败之后调用
+		},
+	})
+	
+	/**
+	 * form表单插件
+	 */
+	jQuery("#rzPrjcontrChgSupplierModule .rzPrjcontrChgSupplierEditForm").formPlugin({
+		url: url_add,//添加修改的地址
+		gridPlugin:gridPluginObj,//表格插件对象
+		onSaveSuccess:function(data){
+			//合同变更供应商主键
+            viewModel.purData.pkPrjcontrChgSupplier(data.map.value.pkPrjcontrChgSupplier);
+            jQuery.ajax({
+                type : 'post',
+                dataType : "json",
+                data: ko.mapping.toJS(viewModel.purData),
+                url : '$homeModule.getTarget('/rzPrjcontrChgPur/insertOrUpdate')',
+                success:function(purData){
+                    //保存成功后退出编辑页面
+                    $("#rzPrjcontrChgSupplierModule").layoutMDI("back");
+                },
+                error:function(purData){
+                    //保存失败回掉事件
+
+                }
+            });
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+			jQuery("#rzPrjcontrChgSupplierModule .rzPrjcontrChgSupplierList").gridPlugin("load", {});
+		},
+		onDeleteSuccess:function(data){
+			
+		}
+	})
+	
+	/**
+	 * 新增功能
+	 */			
+    jQuery("#rzPrjcontrChgSupplierModule .toolsbarPanel .add-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为添加状态
+		viewModel.pageState(pageState.add);
+        var defaultData = [];
+        imfbpDataTableTranform(gridObj, defaultData, function(){
+            refManager.initAreaLoadData(".rzPrjcontrChgSupplierEditForm", function(name){
+                var fun = viewModel.editData[name];
+                if(typeof fun == 'function'){
+                    return fun();
+                }
+            });
+        });
+        refManager.setRefArea(".rzPrjcontrChgSupplierEditForm");
+        $("#rzPrjcontrChgSupplierModule").layoutMDI("go", ".rzPrjcontrChgSupplierEdit");
+    });
+
+	/**
+	 * 修改功能
+	 */		    
+    jQuery("#rzPrjcontrChgSupplierModule .toolsbarPanel .update-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+        //设置采购合同页面的输入框为可以输入
+        viewModel.purData.enableState(true);
+		//设置页面为修改状态
+		viewModel.pageState(pageState.edit);
+    	//当前选中行
+    	var selectRow = gridObj.getSelectRows();
+    	//将数据绑定到表单上面
+    	ko.mapping.fromJS(selectRow[0], viewModel.editData);
+    	//跳转到编辑页面
+        $("#rzPrjcontrChgSupplierModule").layoutMDI("go", ".rzPrjcontrChgSupplierEdit");
+    });
+
+	/**
+	 * 删除功能
+	 */	    
+    jQuery("#rzPrjcontrChgSupplierModule .toolsbarPanel .remove-btn").click(function(){
+    	//要删除的id用","隔开
+		var batchId = "";
+		//当前选中行
+		var selectRow = gridObj.getSelectRows();
+		//判断是否选中要删除的数据
+		if(selectRow.length == 0) {
+			alert("请选择您要修改的数据");
+			return;
+		}
+	
+		for(var i = 0; i < selectRow.length; i++) {
+			var row = selectRow[i];
+			if(i == 0) {
+				batchId = row["pkPrjcontrChgSupplier"] + batchId;
+			} else {
+				batchId = row["pkPrjcontrChgSupplier"] + "," + batchId;
+			}
+		}
+		//删除数据
+		jQuery("#rzPrjcontrChgSupplierModule .rzPrjcontrChgSupplierEditForm").formPlugin("remove",{batchId:batchId,url:url_del});
+    });
+    
+    /**
+	 * 刷新功能(只是刷新当前页，如果要刷新所有页面使用 load 方法)
+	 */	 
+    jQuery("#rzPrjcontrChgSupplierModule .toolsbarPanel .refresh-btn").click(function(){
+		jQuery("#rzPrjcontrChgSupplierModule .rzPrjcontrChgSupplierList").gridPlugin("reLoad",viewModel.queryData);
+    });
+    
+    //保存功能
+	jQuery("#rzPrjcontrChgSupplierModule .rzPrjcontrChgSupplierEdit .save-btn").click(function(){
+		if(viewModel.pageState()=="add"){
+			ko.mapping.fromJS(emptyData,viewModel.queryData);
+		}
+		var param = {
+			formData:ko.mapping.toJS(viewModel.editData),//要提交的数据
+			queryData:ko.mapping.toJS(viewModel.queryData),//修改完毕刷新表格的参数
+			editType:viewModel.pageState()//页面的状态(add：添加，edit:编辑)
+		}
+		jQuery("#rzPrjcontrChgSupplierModule .rzPrjcontrChgSupplierEditForm").formPlugin("save",param);
+	});
+	
+	//查找功能
+	jQuery("#rzPrjcontrChgSupplierModule .searchToolsbar .search-btn").click(function(){
+		jQuery("#rzPrjcontrChgSupplierModule .rzPrjcontrChgSupplierList").gridPlugin("load",ko.mapping.toJS(viewModel.queryData));
+	});
+	
+	//重置查询条件功能
+	jQuery("#rzPrjcontrChgSupplierModule .searchToolsbar .reset-btn").click(function(){
+		ko.mapping.fromJS(emptyData,viewModel.queryData);
+	});
+	
+	//编辑页返回
+	jQuery("#rzPrjcontrChgSupplierModule .rzPrjcontrChgSupplierEdit .back-btn").click(function(){
+		$("#rzPrjcontrChgSupplierModule").layoutMDI("back");
+	});
+
+	ko.applyBindings(viewModel);
+
+    $('.form_hhg_date').datetimepicker({
+        language: 'cn',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        autoclose: true,
+        todayHighlight: true
+    });
+});
+
+function customerRefCallFunction(eleObj, data, name, id) {
+    var fun = viewModel.editData[name];
+    if(typeof fun == 'function'){
+        fun(data[id]);
+    }
+//    ko.mapping.fromJS(data,viewModel.editData);
+}
+function RzPrjcontrChgSupplierView(){
+	//主键
+	this.pkPrjcontrChgSupplier="";
+	//项目评审主键  
+	this.pkPrjcontrChg="${pkPrjcontrChg}";
+	//供应商（客户主键）
+	this.pkCustomer="";
+    this.enterpriseName="";
+    this.enterpriseLegalPerson="";
+    this.enterprisePersonIdentificationNo="";
+    this.enterpriseAddr="";
+    this.enterprisePostcode="";
+    this.enterpriseContacts="";
+    this.enterpriseTelphone="";
+    this.enterpriseFax="";
+    this.enterpriseMobilephone="";
+    this.enterpriseMail="";
+	//备注
+	this.remark="";
+	//编辑页面状态
+	this.enableState=true;
+}
+
+//供应商采购合同
+function RzPrjcontrChgPurView(){
+    //主键
+    this.pkPrjcontrChgPur="";
+    //供应商外键
+    this.pkPrjcontrChgSupplier="";
+    //项目评审主键
+    this.pkPrjcontrChg="${pkPrjcontrChg}";
+    //采购合同编号
+    this.purContrCode="";
+    //采购合同名称
+    this.purContrName="";
+    //合同类型 ：0 融资租赁合同、1 担保合同、2买卖合同、3抵质押合同、4转让合同、5 保险合同
+    this.purContrType="";
+    //设备金额(元)
+    this.eqptAmt="";
+    //租赁物折让比例(%)
+    this.discountPer="";
+    //折让金额
+    this.discountAmt="";
+    //合同预计签订日期
+    this.planSignedDate="";
+    //合同签订日期
+    this.signedDate="";
+    //编辑页面状态
+    this.enableState=true;
+}
+
+function getParams(selector){
+	return {pkPrjcontrChg:"${pkPrjcontrChg}"};
+}
+
+</script>
+	
+</body>

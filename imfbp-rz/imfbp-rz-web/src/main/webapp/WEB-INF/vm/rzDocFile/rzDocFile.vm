@@ -1,0 +1,336 @@
+<title>rzDocFile</title>
+<body>
+<div id="rzDocFileModule" >
+	
+	<!-- list page start -->
+	<div class="listPage startPage">
+		#parse("/WEB-INF/vm/rzDocFile/rzDocFileSearch.vm")
+		#parse("/WEB-INF/vm/rzDocFile/rzDocFileList.vm")
+	</div>
+	<!-- list page end -->
+	
+	<!-- edit page end -->
+	<div class="rzDocFileEdit" style="display:none;">
+		#parse("/WEB-INF/vm/rzDocFile/rzDocFileEdit.vm")
+	</div>
+	<!-- edit page end -->
+	
+</div>
+
+
+<script>
+
+jQuery(function(){
+
+	
+	//列表后台访问地址
+	var url_page = '$homeModule.getTarget('/rzDocFile/getRzDocFileByPage')';
+	//添加修改后台访问地址
+	var url_add = '$homeModule.getTarget('/rzDocFile/insertOrUpdate')';
+	//删除后台访问地址
+	var url_del = '$homeModule.getTarget('/rzDocFile/deleteRzDocFileByBatchId')';
+	
+	//查询对象
+	var queryData = new RzDocFileView();
+	//编辑对象
+	var editData = new RzDocFileView();
+	//空对象用来清空编辑和查询对象
+	var emptyData = new RzDocFileView();
+	
+	var viewModel={
+		queryData:ko.mapping.fromJS(queryData),
+		editData:ko.mapping.fromJS(editData),
+		pageState:ko.observable("")
+	}
+	
+	/**
+	 * 表头
+	 */
+	var col = [{  
+		field:"id",
+		title:"主键"
+	},{
+		field:"nodeCode",
+		title:"节点编码"
+	},{
+		field:"billId",
+		title:"单据id"
+	},{
+		field:"tenantId",
+		title:"租户id"
+	},{
+		field:"creator",
+		title:"创建人"
+	},{
+		field:"createdtime",
+		title:"创建时间"
+	},{
+		field:"operator",
+		title:"操作者"
+	},{
+		field:"operationtime",
+		title:"操作时间"
+	},{
+		field:"modifier",
+		title:"修改人"
+	},{
+		field:"modifiedtime",
+		title:"修改时间"
+	},{
+		field:"ts",
+		title:"时间戳"
+	},{
+		field:"dr",
+		title:"删除标识"
+	},{
+		field:"filename",
+		title:"文件名称"
+	},{
+		field:"description",
+		title:"文件描述"
+	},{
+		field:"uploader",
+		title:"上传人"
+	},{
+		field:"uploadtime",
+		title:"上传时间"
+	},{
+		field:"filetype",
+		title:"文件类型"
+	},{
+		field:"filelength",
+		title:"文件长度"
+	},{
+		field:"fileFastdfsId",
+		title:"文件id"
+ 	}];
+    
+	
+	/**
+     * 初始化layoutMDI
+     */
+	$("#rzDocFileModule").layoutMDI({
+		//当页面后退时候触发的事件
+		onBackPage: function(target, options) {
+			ko.mapping.fromJS(emptyData,viewModel.editData);
+		} 
+	});
+	
+	/**
+     * 创建一个表格，但是没有赋值dataSource数据，这是表格将没有数据
+	 */
+	var gridObj = $("#rzDocFileModule .rzDocFileList").grid({
+		dataSource:'',
+    	id: 'case-g1',
+   		keyField: 'id',
+   		parentKeyField: 'pid',
+    	multiSelect: true,
+    	showNumCol:true,
+    	height: 500,
+    	columns: col,
+    	onDblClickFun:function(gridObj,rowObj,rowIndex){
+			//设置页面的输入框为不可修改
+			viewModel.editData.enableState(false);
+			//得到点击行
+    		var dbClickRow = gridObj.rowObj;
+    		//赋值
+    		ko.mapping.fromJS(dbClickRow.value, viewModel.editData);
+    		//跳转到编辑页
+        	$("#rzDocFileModule").layoutMDI("go", ".rzDocFileEdit");
+    	}
+    });
+	
+	/**
+	 * 初始化分页
+	 */
+	var paginationObj = $("#rzDocFileModule .pagination").pagination({
+		pageSize:5,
+		styleMode:2,
+		onSelectPage:function(pageNumber, pageSize){
+			var queryData = $.extend(ko.mapping.toJS(viewModel.queryData),{pageNumber:pageNumber,pageSize:pageSize});
+			jQuery("#rzDocFileModule .rzDocFileList").gridPlugin("reLoad",queryData);
+		}
+	});
+	
+	/**
+	 * 初始化表格插件
+	 */
+	var gridPluginObj = jQuery("#rzDocFileModule .rzDocFileList").gridPlugin({
+		url: url_page,
+		gridObj:gridObj,
+		queryParam:getParams(),
+		pagination:true,//是否分页默认为否
+		paginationObj:paginationObj,//分页控件对象
+		initData:false,//初始化时候是否加载数据(true时候加载，false时候不加载)
+		onDataSuccess:function(data){
+			//当列表加载成功之后调用
+		},
+		onDataError:function(data){
+			//当列表加载失败之后调用
+		},
+	})
+	
+	/**
+	 * form表单插件
+	 */
+	jQuery("#rzDocFileModule .rzDocFileEditForm").formPlugin({
+		url: url_add,//添加修改的地址
+		gridPlugin:gridPluginObj,//表格插件对象
+		onSaveSuccess:function(data){
+			//保存成功后退出编辑页面
+			$("#rzDocFileModule").layoutMDI("back");
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+			jQuery("#rzDocFileModule .rzDocFileList").gridPlugin("load", {});
+		},
+		onDeleteSuccess:function(data){
+			
+		}
+	})
+	
+	/**
+	 * 新增功能
+	 */			
+    jQuery("#rzDocFileModule .toolsbarPanel .add-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为添加状态
+		viewModel.pageState(pageState.add);
+        $("#rzDocFileModule").layoutMDI("go", ".rzDocFileEdit");
+    });
+
+	/**
+	 * 修改功能
+	 */		    
+    jQuery("#rzDocFileModule .toolsbarPanel .update-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为修改状态
+		viewModel.pageState(pageState.edit);
+    	//当前选中行
+    	var selectRow = gridObj.getSelectRows();
+    	//将数据绑定到表单上面
+    	ko.mapping.fromJS(selectRow[0], viewModel.editData);
+    	//跳转到编辑页面
+        $("#rzDocFileModule").layoutMDI("go", ".rzDocFileEdit");
+    });
+
+	/**
+	 * 删除功能
+	 */	    
+    jQuery("#rzDocFileModule .toolsbarPanel .remove-btn").click(function(){
+    	//要删除的id用","隔开
+		var batchId = "";
+		//当前选中行
+		var selectRow = gridObj.getSelectRows();
+		//判断是否选中要删除的数据
+		if(selectRow.length == 0) {
+			alert("请选择您要修改的数据");
+			return;
+		}
+	
+		for(var i = 0; i < selectRow.length; i++) {
+			var row = selectRow[i];
+			if(i == 0) {
+				batchId = row["id"] + batchId;
+			} else {
+				batchId = row["id"] + "," + batchId;
+			}
+		}
+		//删除数据
+		jQuery("#rzDocFileModule .rzDocFileEditForm").formPlugin("remove",{batchId:batchId,url:url_del});
+    });
+    
+    /**
+	 * 刷新功能(只是刷新当前页，如果要刷新所有页面使用 load 方法)
+	 */	 
+    jQuery("#rzDocFileModule .toolsbarPanel .refresh-btn").click(function(){
+		jQuery("#rzDocFileModule .rzDocFileList").gridPlugin("reLoad",viewModel.queryData);
+    });
+    
+    //保存功能
+	jQuery("#rzDocFileModule .rzDocFileEdit .save-btn").click(function(){
+		if(viewModel.pageState()=="add"){
+			ko.mapping.fromJS(emptyData,viewModel.queryData);
+		}
+		var param = {
+			formData:ko.mapping.toJS(viewModel.editData),//要提交的数据
+			queryData:ko.mapping.toJS(viewModel.queryData),//修改完毕刷新表格的参数
+			editType:viewModel.pageState()//页面的状态(add：添加，edit:编辑)
+		}
+		jQuery("#rzDocFileModule .rzDocFileEditForm").formPlugin("save",param);
+	});
+	
+	//查找功能
+	jQuery("#rzDocFileModule .searchToolsbar .search-btn").click(function(){
+		jQuery("#rzDocFileModule .rzDocFileList").gridPlugin("load",ko.mapping.toJS(viewModel.queryData));
+	});
+	
+	//重置查询条件功能
+	jQuery("#rzDocFileModule .searchToolsbar .reset-btn").click(function(){
+		ko.mapping.fromJS(emptyData,viewModel.queryData);
+	});
+	
+	//编辑页返回
+	jQuery("#rzDocFileModule .rzDocFileEdit .back-btn").click(function(){
+		$("#rzDocFileModule").layoutMDI("back");
+	});
+
+	ko.applyBindings(viewModel);
+
+});
+
+function RzDocFileView(){
+	//主键
+	this.id="";
+	//节点编码
+	this.nodeCode="";
+	//单据id
+	this.billId="";
+	//租户id
+	this.tenantId="";
+	//创建人
+	this.creator="";
+	//创建时间
+	this.createdtime="";
+	//操作者
+	this.operator="";
+	//操作时间
+	this.operationtime="";
+	//修改人
+	this.modifier="";
+	//修改时间
+	this.modifiedtime="";
+	//时间戳
+	this.ts="";
+	//删除标识
+	this.dr="";
+	//文件名称
+	this.filename="";
+	//文件描述
+	this.description="";
+	//上传人
+	this.uploader="";
+	//上传时间
+	this.uploadtime="";
+	//文件类型
+	this.filetype="";
+	//文件长度
+	this.filelength="";
+	//文件id
+	this.fileFastdfsId="";
+	//编辑页面状态
+	this.enableState=true;
+}
+
+function getParams(selector){
+	return {};
+}
+
+</script>
+	
+</body>

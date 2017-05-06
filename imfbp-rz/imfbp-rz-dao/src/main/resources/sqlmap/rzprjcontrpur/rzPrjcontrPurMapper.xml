@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="rzPrjcontrPur">
+
+	<!-- 結果集 -->
+	<resultMap id="rzPrjcontrPurResult" type="com.imfbp.rz.domain.rzprjcontrpur.RzPrjcontrPur">
+		<result property="pkPrjcontrPur" column="pk_prjcontr_pur" />
+		<result property="pkPrjcontrSupplier" column="pk_prjcontr_supplier" />
+		<result property="pkPrjcontr" column="pk_prjcontr" />
+		<result property="purContrCode" column="pur_contr_code" />
+		<result property="purContrName" column="pur_contr_name" />
+		<result property="purContrType" column="pur_contr_type" />
+		<result property="eqptAmt" column="eqpt_amt" />
+		<result property="discountPer" column="discount_per" />
+		<result property="discountAmt" column="discount_amt" />
+		<result property="planSignedDate" column="plan_signed_date" />
+		<result property="signedDate" column="signed_date" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="rzPrjcontrPurField">
+		pk_prjcontr_pur,pk_prjcontr_supplier,pk_prjcontr,pur_contr_code,pur_contr_name,pur_contr_type,eqpt_amt,discount_per,discount_amt,plan_signed_date,signed_date
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="condition">
+        <where>
+        	<if test="pkPrjcontrPur != null and pkPrjcontrPur != ''" >
+				and pk_prjcontr_pur = #{pkPrjcontrPur}
+			</if>
+        	<if test="pkPrjcontrSupplier != null and pkPrjcontrSupplier != ''" >
+				and pk_prjcontr_supplier = #{pkPrjcontrSupplier}
+			</if>
+        	<if test="pkPrjcontr != null and pkPrjcontr != ''" >
+				and pk_prjcontr = #{pkPrjcontr}
+			</if>
+        	<if test="purContrCode != null and purContrCode != ''" >
+				and pur_contr_code = #{purContrCode}
+			</if>
+        	<if test="purContrName != null and purContrName != ''" >
+				and pur_contr_name = #{purContrName}
+			</if>
+        	<if test="purContrType != null" >
+				and pur_contr_type = #{purContrType}
+			</if>
+        	<if test="eqptAmt != null" >
+				and eqpt_amt = #{eqptAmt}
+			</if>
+        	<if test="discountPer != null" >
+				and discount_per = #{discountPer}
+			</if>
+        	<if test="discountAmt != null" >
+				and discount_amt = #{discountAmt}
+			</if>
+        	<if test="planSignedDate != null and planSignedDate != ''" >
+				and plan_signed_date = #{planSignedDate}
+			</if>
+        	<if test="signedDate != null and signedDate != ''" >
+				and signed_date = #{signedDate}
+			</if>
+        </where>
+    </sql>
+    
+    <!-- 修改条件 -->
+	<sql id="updateByCondition">
+        <where>
+				<if test="parameter.pkPrjcontrPur != null and parameter.pkPrjcontrPur != ''" >
+					and pk_prjcontr_pur = #{parameter.pkPrjcontrPur}
+				</if>
+				<if test="parameter.pkPrjcontrSupplier != null and parameter.pkPrjcontrSupplier != ''" >
+					and pk_prjcontr_supplier = #{parameter.pkPrjcontrSupplier}
+				</if>
+				<if test="parameter.pkPrjcontr != null and parameter.pkPrjcontr != ''" >
+					and pk_prjcontr = #{parameter.pkPrjcontr}
+				</if>
+				<if test="parameter.purContrCode != null and parameter.purContrCode != ''" >
+					and pur_contr_code = #{parameter.purContrCode}
+				</if>
+				<if test="parameter.purContrName != null and parameter.purContrName != ''" >
+					and pur_contr_name = #{parameter.purContrName}
+				</if>
+		    	<if test="parameter.purContrType != null" >
+					and pur_contr_type = #{parameter.purContrType}
+				</if>
+		    	<if test="parameter.eqptAmt != null" >
+					and eqpt_amt = #{parameter.eqptAmt}
+				</if>
+		    	<if test="parameter.discountPer != null" >
+					and discount_per = #{parameter.discountPer}
+				</if>
+		    	<if test="parameter.discountAmt != null" >
+					and discount_amt = #{parameter.discountAmt}
+				</if>
+				<if test="parameter.planSignedDate != null and parameter.planSignedDate != ''" >
+					and plan_signed_date = #{parameter.planSignedDate}
+				</if>
+				<if test="parameter.signedDate != null and parameter.signedDate != ''" >
+					and signed_date = #{parameter.signedDate}
+				</if>
+        </where>
+    </sql>
+    
+    <!-- 新增 -->	
+	<insert id="insertRzPrjcontrPur" parameterType="rzPrjcontrPur">
+		insert into rz_prjcontr_pur
+			(pk_prjcontr_pur,pk_prjcontr_supplier,pk_prjcontr,pur_contr_code,pur_contr_name,pur_contr_type,eqpt_amt,discount_per,discount_amt,plan_signed_date,signed_date ) 
+		values 
+			(#{pkPrjcontrPur,jdbcType=CHAR},#{pkPrjcontrSupplier,jdbcType=CHAR},#{pkPrjcontr,jdbcType=CHAR},#{purContrCode,jdbcType=CHAR},#{purContrName,jdbcType=VARCHAR},#{purContrType,jdbcType=SMALLINT},#{eqptAmt,jdbcType=DECIMAL},#{discountPer,jdbcType=DECIMAL},#{discountAmt,jdbcType=DECIMAL},#{planSignedDate,jdbcType=CHAR},#{signedDate,jdbcType=CHAR})
+    </insert>
+    
+    <!-- 批量新增 -->	
+	<insert id="insertBatchRzPrjcontrPur" parameterType="java.util.List">
+       insert into rz_prjcontr_pur
+			(pk_prjcontr_pur,pk_prjcontr_supplier,pk_prjcontr,pur_contr_code,pur_contr_name,pur_contr_type,eqpt_amt,discount_per,discount_amt,plan_signed_date,signed_date ) 
+	   values
+	    <foreach collection="list" item="obj" index="index" separator="," >
+	    	(#{obj.pkPrjcontrPur},#{obj.pkPrjcontrSupplier},#{obj.pkPrjcontr},#{obj.purContrCode},#{obj.purContrName},#{obj.purContrType},#{obj.eqptAmt},#{obj.discountPer},#{obj.discountAmt},#{obj.planSignedDate},#{obj.signedDate})
+	    </foreach>
+   </insert>
+    
+    
+    <!-- 根据id删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjcontrPurById" parameterType="rzPrjcontrPurQuery" >
+    	delete from rz_prjcontr_pur  where pk_prjcontr_pur = #{pkPrjcontrPur} 
+    </delete>
+    
+    <!-- 根据条件删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjcontrPurByCondition" parameterType="rzPrjcontrPurQuery" >
+    	delete from 
+    	rz_prjcontr_pur<include refid="condition" /> 
+    </delete>
+    
+    <!-- 根据主键批量删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjcontrPurByBatchId" parameterType="rzPrjcontrPurQuery" >
+    	delete from rz_prjcontr_pur 
+    	where
+    	pk_prjcontr_pur in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据id修改 -->
+    <update id="updateRzPrjcontrPurById" parameterType="rzPrjcontrPurQuery">
+		update  rz_prjcontr_pur 
+		<set>
+			<if test="pkPrjcontrSupplier != null and pkPrjcontrSupplier != '' " >
+				pk_prjcontr_supplier = #{pkPrjcontrSupplier},
+			</if>
+			<if test="pkPrjcontr != null and pkPrjcontr != '' " >
+				pk_prjcontr = #{pkPrjcontr},
+			</if>
+			<if test="purContrCode != null and purContrCode != '' " >
+				pur_contr_code = #{purContrCode},
+			</if>
+			<if test="purContrName != null and purContrName != '' " >
+				pur_contr_name = #{purContrName},
+			</if>
+			<if test="purContrType != null " >
+				pur_contr_type = #{purContrType},
+			</if>
+			<if test="eqptAmt != null " >
+				eqpt_amt = #{eqptAmt},
+			</if>
+			<if test="discountPer != null " >
+				discount_per = #{discountPer},
+			</if>
+			<if test="discountAmt != null " >
+				discount_amt = #{discountAmt},
+			</if>
+			<if test="planSignedDate != null and planSignedDate != '' " >
+				plan_signed_date = #{planSignedDate},
+			</if>
+			<if test="signedDate != null and signedDate != '' " >
+				signed_date = #{signedDate},
+			</if>
+		</set>
+		where
+			pk_prjcontr_pur = #{pkPrjcontrPur} 
+    </update>
+    
+     <!-- 根据条件修改 -->
+    <update id="updateRzPrjcontrPurByCondition" parameterType="map">
+		update  rz_prjcontr_pur 
+		<set>
+				<if test="record.pkPrjcontrSupplier != null and record.pkPrjcontrSupplier != ''">
+					pk_prjcontr_supplier = #{record.pkPrjcontrSupplier},
+				</if>
+				<if test="record.pkPrjcontr != null and record.pkPrjcontr != ''">
+					pk_prjcontr = #{record.pkPrjcontr},
+				</if>
+				<if test="record.purContrCode != null and record.purContrCode != ''">
+					pur_contr_code = #{record.purContrCode},
+				</if>
+				<if test="record.purContrName != null and record.purContrName != ''">
+					pur_contr_name = #{record.purContrName},
+				</if>
+		 		<if test="record.purContrType != null">
+					pur_contr_type = #{record.purContrType},
+				</if>
+		 		<if test="record.eqptAmt != null">
+					eqpt_amt = #{record.eqptAmt},
+				</if>
+		 		<if test="record.discountPer != null">
+					discount_per = #{record.discountPer},
+				</if>
+		 		<if test="record.discountAmt != null">
+					discount_amt = #{record.discountAmt},
+				</if>
+				<if test="record.planSignedDate != null and record.planSignedDate != ''">
+					plan_signed_date = #{record.planSignedDate},
+				</if>
+				<if test="record.signedDate != null and record.signedDate != ''">
+					signed_date = #{record.signedDate},
+				</if>
+		</set>
+		<include refid="updateByCondition" />
+    </update>
+    
+    <!-- 根据主键进行批量修改 -->
+    <update id="updateRzPrjcontrPurByBatchId"  parameterType="java.util.List">
+    	<if test="list != null">
+	     <foreach collection="list" item='obj' separator=";" >
+	     update rz_prjcontr_pur
+	     <set>
+				<if test="obj.pkPrjcontrSupplier != null and obj.pkPrjcontrSupplier != ''">
+					pk_prjcontr_supplier = #{obj.pkPrjcontrSupplier},
+				</if>
+				<if test="obj.pkPrjcontr != null and obj.pkPrjcontr != ''">
+					pk_prjcontr = #{obj.pkPrjcontr},
+				</if>
+				<if test="obj.purContrCode != null and obj.purContrCode != ''">
+					pur_contr_code = #{obj.purContrCode},
+				</if>
+				<if test="obj.purContrName != null and obj.purContrName != ''">
+					pur_contr_name = #{obj.purContrName},
+				</if>
+		 		<if test="obj.purContrType != null">
+					pur_contr_type = #{obj.purContrType},
+				</if>
+		 		<if test="obj.eqptAmt != null">
+					eqpt_amt = #{obj.eqptAmt},
+				</if>
+		 		<if test="obj.discountPer != null">
+					discount_per = #{obj.discountPer},
+				</if>
+		 		<if test="obj.discountAmt != null">
+					discount_amt = #{obj.discountAmt},
+				</if>
+				<if test="obj.planSignedDate != null and obj.planSignedDate != ''">
+					plan_signed_date = #{obj.planSignedDate},
+				</if>
+				<if test="obj.signedDate != null and obj.signedDate != ''">
+					signed_date = #{obj.signedDate},
+				</if>
+			</set>
+			where
+				pk_prjcontr_pur = #{obj.pkPrjcontrPur} 
+	     </foreach>
+     	</if>
+    </update>
+    
+    <!-- 查询所有 -->
+    <select id="getRzPrjcontrPurAll" parameterType="rzPrjcontrPurQuery" resultMap="rzPrjcontrPurResult">
+		SELECT 
+		<include refid="rzPrjcontrPurField" />  
+		from  
+		rz_prjcontr_pur<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询总数 -->
+	<select id="getRzPrjcontrPurByPageCount" parameterType="rzPrjcontrPurQuery" resultType="int">
+		SELECT count(*) from  rz_prjcontr_pur
+		<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getRzPrjcontrPurByPage" parameterType="rzPrjcontrPurQuery" resultMap="rzPrjcontrPurResult">
+		SELECT <include refid="rzPrjcontrPurField" /> from rz_prjcontr_pur
+		<include refid="condition" />
+		<if test="sort !=null">
+		    ORDER BY ${sort} ${order} 
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+	
+	<!-- 根据Id查询 -->
+	<select id="getRzPrjcontrPurById" parameterType="rzPrjcontrPurQuery" resultMap="rzPrjcontrPurResult">
+		SELECT <include refid="rzPrjcontrPurField" /> from  rz_prjcontr_pur  where pk_prjcontr_pur = #{pkPrjcontrPur} 
+		 
+	</select>
+    
+</mapper>

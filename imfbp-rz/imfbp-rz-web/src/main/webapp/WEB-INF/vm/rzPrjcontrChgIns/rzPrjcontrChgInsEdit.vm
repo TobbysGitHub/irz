@@ -1,0 +1,157 @@
+<div class="panel panel-default">
+	<div class="panel-heading footer-saveOrCancel">
+		<button type="button" class="btn btn-default btn-sm save-btn" id="saveMain">保存</button>
+		<button type="button" class="btn btn-default btn-sm back-btn">取消</button>
+	</div>
+	<div class="panel-body form-parent" data-bind="with:editData">
+		<form class="rzPrjcontrChgInsEditForm form-horizontal">
+            <div class="insBaseInfo row panel slideParent">
+                <div class="col-xs-12 panel-heading" data-toggle="collapse" data-target="#insBaseInfo">
+                    <h5>保险基本信息</h5><span class="glyphicon glyphicon-chevron-up"></span>
+                </div>
+                <div class="col-xs-12 panel-body collapse in" id="insBaseInfo">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6" style="display:none;">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">主键</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="pkPrjcontrChgIns" class="form-control" data-bind="value:pkPrjcontrChgIns,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6" style="display:none;">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">合同变更主键</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="pkPrjcontrChg" class="form-control" data-bind="value:pkPrjcontrChg,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">保单号</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="insNo" class="form-control" data-bind="value:insNo,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">合同类型</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="insContrType" class="form-control" data-bind="value:insContrType,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">保险公司</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="insCorp" class="form-control" data-bind="value:insCorp,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">险种</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="insType" class="form-control" data-bind="value:insType,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                   
+
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">支付方</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <!--<input type="text" name="pkCustomerPay" class="form-control" data-bind="value:pkCustomerPay,enable:enableState">-->
+                                    <input type="text" name="pkCustomerPay" class="form-control content-w210-input"
+                                           data-bind="enable:false"
+                                           data-imfbp-ref-bind="pkCustomerPay"
+                                           data-imfbp-ref-bind-field="" data-imfbp-ref-value>
+                                    <div class="icon-wrap ">
+                                        <i class="glyphicon glyphicon-th-list icon" id="icon"
+                                           data-imfbp-ref-name='customerref' name="pkCustomerPay"
+                                           data-imfbp-ref-use = 'true'
+                                           data-imfbp-ref-fun="insRefCallFunction" data-imfbp-ref="ref"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">支付金额(元)</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="payAmt" class="form-control" data-bind="value:payAmt,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">保额(元)</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="insAmt" class="form-control" data-bind="value:insAmt,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">受益人</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <!--<input type="text" name="pkUserBen" class="form-control" data-bind="value:pkUserBen,enable:enableState">-->
+                                    <input type="text" name="pkUserBen" class="form-control content-w210-input"
+                                           data-bind="enable:false"
+                                           data-imfbp-ref-bind="pkUserBen"
+                                           data-imfbp-ref-bind-field="" data-imfbp-ref-value>
+                                    <div class="icon-wrap ">
+                                        <i class="glyphicon glyphicon-th-list icon" id="icon"
+                                           data-imfbp-ref-name='customerref' name="pkUserBen"
+                                           data-imfbp-ref-use = 'true'
+                                           data-imfbp-ref-fun="insRefCallFunction" data-imfbp-ref="ref"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                  
+
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">制造商</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="startDate" class="form-control" data-bind="value:startDate,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">保险期限(月)</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="insPrd" class="form-control" data-bind="value:insPrd,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">保险结束日期</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="endDate" class="form-control" data-bind="value:endDate,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">备注</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="remark" class="form-control" data-bind="value:remark,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+

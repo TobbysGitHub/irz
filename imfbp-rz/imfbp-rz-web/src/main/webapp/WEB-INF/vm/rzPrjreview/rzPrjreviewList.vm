@@ -1,0 +1,18 @@
+<div class="padding-5">
+	<div class="toolsbarPanel">
+		<div class="btn-group" role="group">
+			<button type="button" class="btn btn-action btn-sm add-btn" >新增</button>
+			<button type="button" class="btn btn-action btn-sm remove-btn">删除</button>
+			<button type="button" class="btn btn-action btn-sm edit-btn">修改</button>
+			<button type="button" class="btn btn-default btn-sm refresh-btn">刷新</button>
+			<button type="button" class="btn btn-action btn-sm submit-btn">提交</button>
+			<button type="button" class="btn btn-action btn-sm callback-btn">收回</button>
+			<button type="button" class="btn btn-action btn-sm approve-btn">审批</button>
+			<button type="button" class="btn btn-action btn-sm unapprove-btn">取消审批</button>
+			<button type="button" class="btn btn-action btn-sm linkapprove-btn">联查</button>
+			<button type="button" class="btn btn-action btn-sm  export-btn" >导出</button>
+		</div>
+	</div>
+	<div class="grid rzPrjreviewList"></div>
+	<ul id="pagination" class="pagination"></ul>
+</div>

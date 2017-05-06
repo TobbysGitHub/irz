@@ -1,0 +1,114 @@
+<div class="panel panel-default">
+	<div class="panel-heading ">
+		<button type="button" class="btn btn-default btn-sm save-btn">保存</button>
+		<button type="button" class="btn btn-default btn-sm back-btn">取消</button>
+	</div>
+	<div class="panel-body" data-bind="with:editData">
+		<form class="rzDefInterestPlanEditForm form-horizontal">
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkDefInterestPlan" class="form-control" data-bind="value:pkDefInterestPlan,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">主表主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkDefInterest" class="form-control" data-bind="value:pkDefInterest,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">期数</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="num" class="form-control" data-bind="value:num,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">应还款日期</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="rptDate" class="form-control" data-bind="value:rptDate,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">应收款合计(元)</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="receivableTotal" class="form-control" data-bind="value:receivableTotal,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">实收款合计(元)</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="realTotal" class="form-control" data-bind="value:realTotal,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">应收未收合计(元)</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="receivableNrcyTotal" class="form-control" data-bind="value:receivableNrcyTotal,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">逾期天数</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="overdueDays" class="form-control" data-bind="value:overdueDays,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">逾期利率(%)</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="overdueRate" class="form-control" data-bind="value:overdueRate,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">应罚息金额(元)</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="defIntAmt" class="form-control" data-bind="value:defIntAmt,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">逾期类型：0 本金逾期、1 利息逾期、2 本息逾期</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="overType" class="form-control" data-bind="value:overType,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">序号</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="seqno" class="form-control" data-bind="value:seqno,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+

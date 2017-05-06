@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="rzPrjreviewLessee">
+
+	<!-- 結果集 -->
+	<resultMap id="rzPrjreviewLesseeResult" type="com.imfbp.rz.domain.rzprjreviewlessee.RzPrjreviewLessee">
+		<result property="pkPrjreviewLessee" column="pk_prjreview_lessee" />
+		<result property="pkPrjreview" column="pk_prjreview" />
+		<result property="pkCustomer" column="pk_customer" />
+		<result property="isMainLessee" column="is_main_lessee" />
+		<result property="remark" column="remark" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="rzPrjreviewLesseeField">
+		pk_prjreview_lessee,pk_prjreview,pk_customer,is_main_lessee,remark
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="condition">
+        <where>
+        	<if test="pkPrjreviewLessee != null and pkPrjreviewLessee != ''" >
+				and pk_prjreview_lessee = #{pkPrjreviewLessee}
+			</if>
+        	<if test="pkPrjreview != null and pkPrjreview != ''" >
+				and pk_prjreview = #{pkPrjreview}
+			</if>
+        	<if test="pkCustomer != null and pkCustomer != ''" >
+				and pk_customer = #{pkCustomer}
+			</if>
+        	<if test="isMainLessee != null and isMainLessee != ''" >
+				and is_main_lessee = #{isMainLessee}
+			</if>
+        	<if test="remark != null and remark != ''" >
+				and remark = #{remark}
+			</if>
+        </where>
+    </sql>
+    
+    <!-- 修改条件 -->
+	<sql id="updateByCondition">
+        <where>
+				<if test="parameter.pkPrjreviewLessee != null and parameter.pkPrjreviewLessee != ''" >
+					and pk_prjreview_lessee = #{parameter.pkPrjreviewLessee}
+				</if>
+				<if test="parameter.pkPrjreview != null and parameter.pkPrjreview != ''" >
+					and pk_prjreview = #{parameter.pkPrjreview}
+				</if>
+				<if test="parameter.pkCustomer != null and parameter.pkCustomer != ''" >
+					and pk_customer = #{parameter.pkCustomer}
+				</if>
+				<if test="parameter.isMainLessee != null and parameter.isMainLessee != ''" >
+					and is_main_lessee = #{parameter.isMainLessee}
+				</if>
+				<if test="parameter.remark != null and parameter.remark != ''" >
+					and remark = #{parameter.remark}
+				</if>
+        </where>
+    </sql>
+    
+    <!-- 新增 -->	
+	<insert id="insertRzPrjreviewLessee" parameterType="rzPrjreviewLessee">
+		insert into rz_prjreview_lessee
+			(pk_prjreview_lessee,pk_prjreview,pk_customer,is_main_lessee,remark ) 
+		values 
+			(#{pkPrjreviewLessee,jdbcType=CHAR},#{pkPrjreview,jdbcType=CHAR},#{pkCustomer,jdbcType=CHAR},#{isMainLessee,jdbcType=CHAR},#{remark,jdbcType=VARCHAR})
+    </insert>
+    
+    <!-- 批量新增 -->	
+	<insert id="insertBatchRzPrjreviewLessee" parameterType="java.util.List">
+       insert into rz_prjreview_lessee
+			(pk_prjreview_lessee,pk_prjreview,pk_customer,is_main_lessee,remark ) 
+	   values
+	    <foreach collection="list" item="obj" index="index" separator="," >
+	    	(#{obj.pkPrjreviewLessee},#{obj.pkPrjreview},#{obj.pkCustomer},#{obj.isMainLessee},#{obj.remark})
+	    </foreach>
+   </insert>
+    
+    
+    <!-- 根据id删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjreviewLesseeById" parameterType="rzPrjreviewLesseeQuery" >
+    	delete from rz_prjreview_lessee  where pk_prjreview_lessee = #{pkPrjreviewLessee} 
+    </delete>
+    
+    <!-- 根据条件删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjreviewLesseeByCondition" parameterType="rzPrjreviewLesseeQuery" >
+    	delete from 
+    	rz_prjreview_lessee<include refid="condition" /> 
+    </delete>
+    
+    <!-- 根据主键批量删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjreviewLesseeByBatchId" parameterType="rzPrjreviewLesseeQuery" >
+    	delete from rz_prjreview_lessee 
+    	where
+    	pk_prjreview_lessee in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据id修改 -->
+    <update id="updateRzPrjreviewLesseeById" parameterType="rzPrjreviewLesseeQuery">
+		update  rz_prjreview_lessee 
+		<set>
+			<if test="pkPrjreview != null and pkPrjreview != '' " >
+				pk_prjreview = #{pkPrjreview},
+			</if>
+			<if test="pkCustomer != null and pkCustomer != '' " >
+				pk_customer = #{pkCustomer},
+			</if>
+			<if test="isMainLessee != null and isMainLessee != '' " >
+				is_main_lessee = #{isMainLessee},
+			</if>
+			<if test="remark != null and remark != '' " >
+				remark = #{remark},
+			</if>
+		</set>
+		where
+			pk_prjreview_lessee = #{pkPrjreviewLessee} 
+    </update>
+    
+     <!-- 根据条件修改 -->
+    <update id="updateRzPrjreviewLesseeByCondition" parameterType="map">
+		update  rz_prjreview_lessee 
+		<set>
+				<if test="record.pkPrjreview != null and record.pkPrjreview != ''">
+					pk_prjreview = #{record.pkPrjreview},
+				</if>
+				<if test="record.pkCustomer != null and record.pkCustomer != ''">
+					pk_customer = #{record.pkCustomer},
+				</if>
+				<if test="record.isMainLessee != null and record.isMainLessee != ''">
+					is_main_lessee = #{record.isMainLessee},
+				</if>
+				<if test="record.remark != null and record.remark != ''">
+					remark = #{record.remark},
+				</if>
+		</set>
+		<include refid="updateByCondition" />
+    </update>
+    
+    <!-- 查询所有 -->
+    <select id="getRzPrjreviewLesseeAll" parameterType="rzPrjreviewLesseeQuery" resultMap="rzPrjreviewLesseeResult">
+		SELECT 
+		<include refid="rzPrjreviewLesseeField" />  
+		from  
+		rz_prjreview_lessee<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询总数 -->
+	<select id="getRzPrjreviewLesseeByPageCount" parameterType="rzPrjreviewLesseeQuery" resultType="int">
+		SELECT count(*) from  rz_prjreview_lessee
+		<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getRzPrjreviewLesseeByPage" parameterType="rzPrjreviewLesseeQuery" resultMap="rzPrjreviewLesseeResult">
+		SELECT <include refid="rzPrjreviewLesseeField" /> from rz_prjreview_lessee
+		<include refid="condition" />
+		<if test="sort !=null">
+		    ORDER BY ${sort} ${order} 
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+	
+	<!-- 根据Id查询 -->
+	<select id="getRzPrjreviewLesseeById" parameterType="rzPrjreviewLesseeQuery" resultMap="rzPrjreviewLesseeResult">
+		SELECT <include refid="rzPrjreviewLesseeField" /> from  rz_prjreview_lessee  where pk_prjreview_lessee = #{pkPrjreviewLessee} 
+		 
+	</select>
+    
+</mapper>

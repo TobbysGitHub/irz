@@ -1,0 +1,53 @@
+<div class="panel panel-default">
+	<div class="panel-heading footer-saveOrCancel browerShow" style="padding-bottom: 32px;bottom:0;">
+		<button type="button" class="btn btn-default btn-big btn-action defExport-btn">模板导出</button>
+		<button type="button" class="btn btn-default btn-big btn-action toEditStep1">在线编辑</button>
+		<button type="button" class="btn btn-default btn-sm back-btn">取消</button>
+	</div>
+	<div class="panel-heading footer-saveOrCancel editShow" style="padding-bottom: 32px;bottom:0;">
+		<button type="button" class="btn btn-default btn-big save-btn toEditStep2">下一步</button>
+		<button type="button" class="btn btn-default btn-sm back-btn">取消</button>
+	</div>
+	<!-- <div class="browerShow">
+		<div class="col-md-7">
+		</div>
+		<div class="col-md-5">
+			<div class="form-group">
+				<div class="col-md-3 col-sm-8" style="float:right;">
+					<div class="input-group col-md-5">
+						<input type="button" class="form-control btn btn-default"  value="预览业务模板" id="previewBtn" style="height: 32px;"/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> -->
+	<div class="slideParent">
+		<div class="col-md-7">
+			<div class="form-group">
+				<label class="col-md-3 col-sm-4 control-label no-padding-right">模板文件名称</label>
+				<div class="col-md-9 col-sm-8">
+					<div class="input-group col-md-5">
+						<input type="text" name="templateFileName" class="form-control content-w210-input" style="width: 550px;" disabled>
+						<input type="file" name="path" style="display:none" id="path"/>
+						<!-- <span class="input-group-addon" id="importBtn" style="cursor: pointer;">浏览</span> -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="form-group">
+				<label class="col-md-3 col-sm-4 control-label no-padding-right">
+					<i class="glyphicon iconfont icon-guanyu icon" style="margin-right: 5px;"></i>
+					模板版本号: V1.0</label>
+				<div class="col-md-3 col-sm-8" style="float:right;">
+					<div class="input-group col-md-5">
+						<input type="button" name="browerPreview" class="form-control btn btn-default"  value="预览业务模板" style="height: 32px;"/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row col-md-12" style="margin-top:10px;">
+		<textarea name="borwerEditor" style="width: 100%; height: 400px; visibility: hidden;"></textarea>
+	</div>
+</div>

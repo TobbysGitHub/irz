@@ -1,0 +1,170 @@
+<!-- search start  -->
+<div class="searchPanel padding-10">
+	<form class="form-horizontal clearfix">
+		<div class="searchContent" data-bind="with:queryData">
+		<div class="row">
+				<div class="col-md-3 col-sm-6" style="display:none">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkRecptpmt" class="form-control" data-bind="value:pkRecptpmt">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6" style="width:226px;">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">类别编码</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="code" class="form-control header-w130-input" data-bind="value:code">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6" style="width:226px;">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">类别名称</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="name" class="form-control header-w130-input" data-bind="value:name">
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-md-3 col-sm-6" style="width:226px;">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right" >收付类型</label>
+						<div class="col-md-9 col-sm-8">
+							<select  name="pmttype" class="form-control header-w130-input" data-bind="value:pmttype">
+							<option value='' selected>全部</option>
+							<option value='0'>收款</option>
+							<option value='1'>付款</option>
+							<option value='2'>其他</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6" style="width:226px;">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-5 control-label no-padding-right" style="line-height:17px">现金流方向</label>
+						<div class="col-md-8 col-sm-7">
+							<select name="cashflowdir" class="form-control header-w130-input" data-bind="value:cashflowdir">
+							<option value='' selected>全部</option>
+							<option value='1'>流入</option>
+							<option value='2'>流出</option>
+							<option value='3' >无</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">ts</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="ts" class="form-control" data-bind="value:ts">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">0 未删除 1已删除</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="dr" class="form-control" data-bind="value:dr">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">def1</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="def1" class="form-control" data-bind="value:def1">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">def2</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="def2" class="form-control" data-bind="value:def2">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">def3</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="def3" class="form-control" data-bind="value:def3">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">def4</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="def4" class="form-control" data-bind="value:def4">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">def5</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="def5" class="form-control" data-bind="value:def5">
+						</div>
+					</div>
+				</div>
+			</div>-->
+			<div class="hideRule" style="display:none">
+			<div class="row">
+				<div class="col-md-3 col-sm-6" style="width:226px;">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">收付对手</label>
+						<div class="col-md-9 col-sm-8">
+							<select  name="pmtrival" class="form-control header-w130-input" data-bind="options:pmtrivalList,optionsText:function(item){return item.text;},optionsValue:function(item){return item.value},optionsCaption:'请选择',value:pmtrival">
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6" style="width:226px;">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">业务类型</label>
+						<div class="col-md-9 col-sm-8">
+							<select  name="busitype" class="form-control header-w130-input" data-bind="options:busitypeList,optionsText:function(item){return item.text;},optionsValue:function(item){return item.value},optionsCaption:'请选择',value:busitype">
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6" style="width:226px;">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">启用状态</label>
+						<div class="col-md-9 col-sm-8">
+							<select name="enablestate" class="form-control header-w130-input" data-bind="value:enablestate" >
+							<option value='' selected>请选择</option>
+							<option value='1'>启用</option>
+							<option value='0'>未启用</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			 <div class="">
+				
+			</div>
+			</div>
+		</div>
+		<!-- 展开更多的一行-->
+		<div class="searchToolsbar">
+			<div class="moreRule">
+				<span>展开更多查询条件</span>
+				<i class="glyphicon glyphicon-triangle-bottom"></i>
+			</div>
+			<div class="search-box">
+				<button type="button" class="btn btn-default btn-sm reset-btn">重置</button>
+				<button type="button" class="btn btn-default btn-sm search-btn">查询</button>
+			</div>
+		</div>
+	</form>
+</div>
+<!-- search end -->

@@ -1,0 +1,574 @@
+<title>rzRecptpmt</title>
+<style>
+
+#rzRecptpmtModule{
+	height:100vh;
+	overflow:hidden;
+}
+
+   
+</style>
+<body>
+<div id="rzRecptpmtModule" >
+	
+	<!-- list page start -->
+	<div class="listPage startPage">
+		#parse("/WEB-INF/vm/rzRecptpmt/rzRecptpmtSearch.vm")
+		#parse("/WEB-INF/vm/rzRecptpmt/rzRecptpmtList.vm")
+	</div>
+	<!-- list page end -->
+	
+	<!-- edit page end -->
+	<div class="rzRecptpmtEdit" style="display:none;">
+		#parse("/WEB-INF/vm/rzRecptpmt/rzRecptpmtEdit.vm")
+	</div>
+	<!-- edit page end -->
+	
+</div>
+
+
+<script>
+
+jQuery(function(){
+
+	
+	//列表后台访问地址
+	var url_page = '$homeModule.getTarget('/rzRecptpmt/getRzRecptpmtByPage')';
+	//添加修改后台访问地址
+	var url_add = '$homeModule.getTarget('/rzRecptpmt/insertOrUpdate')';
+	//删除后台访问地址
+	var url_del = '$homeModule.getTarget('/rzRecptpmt/logicDeleteRzRecptpmtByBatchId')';
+	//查询对象
+	var queryData = new RzRecptpmtView();
+	//编辑对象
+	var editData = new RzRecptpmtView();
+	//空对象用来清空编辑和查询对象
+	var emptyData = new RzRecptpmtView();
+	
+	var viewModel={
+		queryData:ko.mapping.fromJS(queryData),
+		editData:ko.mapping.fromJS(editData),
+		pageState:ko.observable("")
+	}
+	
+	/**
+	 * 表头
+	 */
+	var col = [
+	{
+		field:"busitype",
+		title:"业务类型",
+		imfbpRefType: "busytypeRecref",
+         renderType: "imfbpRefTransform"
+	},{
+		field:"code",
+		title:"收付类别编码"
+	},{
+		field:"name",
+		title:"收付类别名称"
+	},{
+		field:"pmttype",
+		title:"收付类型",
+		 renderType: function(obj) {
+                    var pmttype = obj.row.value.pmttype;
+                    var html = "";
+                    if (pmttype == 0 || pmttype == "0") {
+                        html += "<span><span >收款</span></span>";
+                    }else if(pmttype == 1 || pmttype == "1"){
+                     html += "<span><span >付款</span></span>";
+                    }else{
+                      html += "<span><span >其他</span></span>";
+                    }
+                    var innerDom = u.makeDOM(html);
+                    obj.element.appendChild(innerDom);
+
+                }
+         
+	},{
+		field:"cashflowdir",
+		title:"现金流方向",
+		 renderType: function(obj) {
+                    var cashflowdir = obj.row.value.cashflowdir;
+                    var html = "";
+                    if (cashflowdir == 1 || cashflowdir == "1") {
+                        html += "<span><span >流入</span></span>";
+                    }else if(cashflowdir == 2 || cashflowdir == "2"){
+                     html += "<span><span >流出</span></span>";
+                    }else{
+                     html += "<span><span >无</span></span>";
+                    }
+                    var innerDom = u.makeDOM(html);
+                    obj.element.appendChild(innerDom);
+
+                }
+	},{
+		field:"pmtrival",
+		title:"收付对手",
+		imfbpRefType: "pmtrivalref",
+         renderType: "imfbpRefTransform"
+	},{
+		field:"enablestate",
+		title:"启用标志",
+		renderType: function(obj) {
+                    var enablestate = obj.row.value.enablestate;
+                    var html = "";
+                    if (enablestate == 1 || enablestate == "1") {
+                        html += "<span><span >启用</span></span>";
+                    }else{
+                     html += "<span><span >未启用</span></span>";
+                    }
+                    var innerDom = u.makeDOM(html);
+                    obj.element.appendChild(innerDom);
+
+                }
+		
+	}];
+    
+	
+	/**
+     * 初始化layoutMDI
+     */
+	$("#rzRecptpmtModule").layoutMDI({
+		//当页面后退时候触发的事件
+		onBackPage: function(target, options) {
+			ko.mapping.fromJS(emptyData,viewModel.editData);
+		} 
+	});
+	
+	/**
+     * 创建一个表格，但是没有赋值dataSource数据，这是表格将没有数据
+	 */
+	var gridObj = $("#rzRecptpmtModule .rzRecptpmtList").grid({
+		dataSource:'',
+    	id: 'case-g1',
+   		keyField: 'id',
+   		parentKeyField: 'pid',
+    	multiSelect:true,
+    	showNumCol:false,
+    	height: 350,
+    	columns: col,
+    	onDblClickFun:function(gridObj,rowObj,rowIndex){
+    	    $(".rzRecptpmtEdit .panel-heading .edit-btn").show();
+    	    $(".rzRecptpmtEdit .panel-heading .save-btn").hide();
+    	     var button={button:".edit-btn",permission:['0']}
+    	     buttonManager.setDisabled(button,false)
+			//设置页面的输入框为不可修改
+			viewModel.editData.enableState(false);
+			$(".rzRecptpmtEditForm *").css("background-color","#fff");
+			//得到点击行
+    		var dbClickRow = gridObj.rowObj;
+    		$(".rzRecptpmtEditForm").find("h5").html("查看收付类别")
+    		$.when($.getJSON('$homeModule.getTarget("/rzRecptpmt/getAllBusyTypeAndPmt")')).done(function(data){
+			var busitypeList=data.map.busyTypeList
+			var pmtrivalList=data.map.pmtrivalList
+			viewModel.editData.busitypeList(busitypeList)
+			viewModel.editData.pmtrivalList(pmtrivalList)
+			//赋值
+    		ko.mapping.fromJS(dbClickRow.value, viewModel.editData);
+			$(".rzRecptpmtEditForm select[name='pmttype']").val(dbClickRow.value.pmttype).trigger("change")
+			//跳转到编辑页
+        	$("#rzRecptpmtModule").layoutMDI("go", ".rzRecptpmtEdit");
+			}).fail(function(data){
+			layer.alert("加载数据字典出错");
+			});
+    	},
+    	onRowSelected:function(e){
+    	debugger
+    	buttonManager.permission('0');
+    	},
+    });
+	
+	/**
+	 * 初始化分页
+	 */
+	var paginationObj = $("#rzRecptpmtModule .pagination").pagination({
+		pageSize:10,
+		styleMode:2,
+		onSelectPage:function(pageNumber, pageSize){
+			var queryData = $.extend(ko.mapping.toJS(viewModel.queryData),{pageNumber:pageNumber,pageSize:pageSize});
+			jQuery("#rzRecptpmtModule .rzRecptpmtList").gridPlugin("reLoad",queryData);
+		}
+	});
+	
+	/**
+	 * 初始化表格插件
+	 */
+	var gridPluginObj = jQuery("#rzRecptpmtModule .rzRecptpmtList").gridPlugin({
+		url: url_page,
+		gridObj:gridObj,
+		queryParam:getParams(),
+		pagination:true,//是否分页默认为否
+		paginationObj:paginationObj,//分页控件对象
+		initData:true,//初始化时候是否加载数据(true时候加载，false时候不加载)
+		onDataSuccess:function(data){
+			var d = {};
+            d.values = data.rows;
+			imfbpDataTableTranform(gridObj, d.values, function () {
+                        $("#rzRecptpmtModule .rzRecptpmtList").grid().setDataSource(d);
+                    });
+		},
+		onDataError:function(data){
+			//当列表加载失败之后调用
+		},
+	})
+	
+	/**
+	 * form表单插件
+	 */
+	jQuery("#rzRecptpmtModule .rzRecptpmtEditForm").formPlugin({
+		url: url_add,//添加修改的地址
+		gridPlugin:gridPluginObj,//表格插件对象
+		//saveSuccessType:true,
+		//saveErrorType:true,
+		//deleteSuccessType:true,
+		//deleteErrorType:true,
+		onSaveSuccess:function(data){
+			//保存成功后退出编辑页面
+			$("#rzRecptpmtModule").layoutMDI("back");
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+			jQuery("#rzRecptpmtModule .rzRecptpmtList").gridPlugin("load", {});
+		},
+		onDeleteSuccess:function(data){
+			layer.msg('删除成功');
+		},
+		onDeleteError:function(data){
+		layer.alert('删除失败!!!');
+		},
+	})
+	//初始化表格数据
+	
+	/*$.when($.getJSON('$homeModule.getTarget('/rzRecptpmt/getRzRecptpmtAll')')).done(function(data){
+	debugger;
+	  				var d = {};
+                    d.values = data.map.rzRecptpmtList;
+                    if(d.values == null || d.values.length==0){
+                    	gridObj.transMap.ml_no_rows="<span><span><i class='iconfont icon-tishi' ></i></span><span >&nbsp;&nbsp;&nbsp;&nbsp;没有查询到符合条件的数据，请尝试更改关键词或其他选项</span></span>";
+                    	} 
+                    $("#rzRecptpmtModule .rzRecptpmtList").grid().setDataSource(d);
+	}).fail(function(data){
+	    alert("加载出错啦");
+	})*/
+	
+	/**
+	 * 新增功能
+	 */			
+    jQuery("#rzRecptpmtModule .toolsbarPanel .add-btn").click(function(){
+        $(".rzRecptpmtEdit .panel-heading .edit-btn").hide();
+    	//设置页面的输入框可以输入
+    	validatorForm();
+		viewModel.editData.enableState(true);
+		//设置页面为添加状态
+		viewModel.pageState(pageState.add);
+		$(".rzRecptpmtEditForm").find("h5").html("新增收付类别")
+		$("#rzRecptpmtModule .rzRecptpmtEdit select[name='enablestate']").attr("disabled",true).css("background-color","#fff");
+		$.when($.getJSON('$homeModule.getTarget("/rzRecptpmt/getAllBusyTypeAndPmt")')).done(function(data){
+		debugger;
+		var busitypeList=data.map.busyTypeList
+		var pmtrivalList=data.map.pmtrivalList
+		viewModel.editData.busitypeList(busitypeList)
+		viewModel.editData.pmtrivalList(pmtrivalList)
+		 $("#rzRecptpmtModule").layoutMDI("go", ".rzRecptpmtEdit");
+		}).fail(function(data){
+		layer.alert("加载数据字典出错");
+		});
+    });
+
+	/**
+	 * 修改功能
+	 */		    
+    jQuery("#rzRecptpmtModule .toolsbarPanel .edit-btn").click(function(){
+        $(".rzRecptpmtEdit .panel-heading .edit-btn").hide();
+    	validatorForm();
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		debugger
+		//设置页面为修改状态
+		viewModel.pageState(pageState.edit);
+    	//当前选中行
+    	var selectRow = gridObj.getSelectRows();
+    	$(".rzRecptpmtEditForm").find("h5").html("修改收付类别")
+    	$("#rzRecptpmtModule .rzRecptpmtEdit select[name='enablestate']").attr("disabled",true).css("background-color","#fff");
+    	$("#rzRecptpmtModule .rzRecptpmtEdit select[name='enablestate']").attr("disabled",true).css("background-color","#fff");
+		$.when($.getJSON('$homeModule.getTarget("/rzRecptpmt/getAllBusyTypeAndPmt")')).done(function(data){
+		var busitypeList=data.map.busyTypeList
+		var pmtrivalList=data.map.pmtrivalList
+		viewModel.editData.busitypeList(busitypeList)
+		viewModel.editData.pmtrivalList(pmtrivalList)
+		//将数据绑定到表单上面
+    	ko.mapping.fromJS(selectRow[0], viewModel.editData)
+    	$(".rzRecptpmtEditForm select[name='pmttype']").val(selectRow[0].pmttype).trigger("change")
+    	//跳转到编辑页面
+        $("#rzRecptpmtModule").layoutMDI("go", ".rzRecptpmtEdit");
+		}).fail(function(data){
+		layer.alert("加载数据字典出错");
+		});
+    });
+   
+   
+   
+     /**
+	 * 编辑页面修改功能
+	 */		    
+    jQuery("#rzRecptpmtModule .rzRecptpmtEdit .edit-btn").click(function(){
+    	debugger
+    	validatorForm();
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为修改状态
+		viewModel.pageState(pageState.edit);
+		$("#rzRecptpmtModule .rzRecptpmtEdit .save-btn").show();
+		$("#rzRecptpmtModule .rzRecptpmtEdit .edit-btn").hide();
+    });
+    
+    
+    
+	/**
+	 * 删除功能
+	 */	    
+    jQuery("#rzRecptpmtModule .toolsbarPanel .remove-btn").click(function(){
+    
+    	//要删除的id用","隔开
+		var batchId = "";
+		//当前选中行
+		var selectRow = gridObj.getSelectRows();
+		//判断是否选中要删除的数据
+		if(selectRow.length == 0) {
+			layer.alert("请选择您要修改的数据");
+			return;
+		}
+	
+		for(var i = 0; i < selectRow.length; i++) {
+			var row = selectRow[i];
+			if(i == 0) {
+				batchId = row["pkRecptpmt"] + batchId;
+			} else {
+				batchId = row["pkRecptpmt"] + "," + batchId;
+			}
+		}
+		
+  			jQuery("#rzRecptpmtModule .rzRecptpmtEditForm").formPlugin("remove",{batchId:batchId,url:url_del});
+		
+    });
+    
+    /**
+	 * 刷新功能(只是刷新当前页，如果要刷新所有页面使用 load 方法)
+	 */	 
+    jQuery("#rzRecptpmtModule .toolsbarPanel .refresh-btn").click(function(){
+		jQuery("#rzRecptpmtModule .rzRecptpmtList").gridPlugin("reLoad",viewModel.queryData);
+    });
+    
+    //保存功能
+	jQuery("#rzRecptpmtModule .rzRecptpmtEdit .save-btn").click(function(){
+		 $('.rzRecptpmtEditForm').data('bootstrapValidator').validate();
+		 if(!$('.rzRecptpmtEditForm').data('bootstrapValidator').isValid()){ 
+		 	return;
+		 } 
+		if(viewModel.pageState()=="add"){
+			ko.mapping.fromJS(emptyData,viewModel.queryData);
+		}
+		debugger
+		var param = {
+			formData:ko.mapping.toJS(viewModel.editData),//要提交的数据
+			queryData:ko.mapping.toJS(viewModel.queryData),//修改完毕刷新表格的参数
+			editType:viewModel.pageState()//页面的状态(add：添加，edit:编辑)
+		}
+		jQuery("#rzRecptpmtModule .rzRecptpmtEditForm").formPlugin("save",param);
+	});
+	
+	//查找功能
+	jQuery("#rzRecptpmtModule .searchToolsbar .search-btn").click(function(){
+		jQuery("#rzRecptpmtModule .rzRecptpmtList").gridPlugin("load",ko.mapping.toJS(viewModel.queryData));
+	});
+	
+	//重置查询条件功能
+	jQuery("#rzRecptpmtModule .searchToolsbar .reset-btn").click(function(){
+		ko.mapping.fromJS(emptyData,viewModel.queryData);
+		initDatas()
+	});
+	
+	//编辑页返回
+	jQuery("#rzRecptpmtModule .rzRecptpmtEdit .back-btn").click(function(){
+		$("#rzRecptpmtModule").layoutMDI("back");
+	});
+    
+    $("#rzRecptpmtModule .toolsbarPanel").on("click","button",function(e){
+    debugger;
+    var ele=$(e.target);
+    var selectrows=gridObj.getSelectRows();
+    if(selectrows){
+     var index=0,temp="";
+     if (selectrows.length > 0) {
+             $.each(selectrows,function(i,data) {
+                if (index == 0) temp += data.pkRecptpmt;
+                else temp = temp + "," + data.pkRecptpmt;
+                index++;
+            });
+         }
+    //启用
+    var str="启用";
+    var str1="停用";
+    if(e.target && ele.html().indexOf(str)> -1){
+       $.getJSON("$homeModule.getTarget('/rzRecptpmt/updateByBatchId')",{batchId:temp,enablestate:1}).done(function(data){
+        jQuery("#rzRecptpmtModule .toolsbarPanel .refresh-btn").trigger("click");
+       }).fail(function(data){});
+    }
+    //停用
+    else if(e.target && ele.html().indexOf(str1) >-1){
+        $.ajax({url:"$homeModule.getTarget('/rzRecptpmt/updateByBatchId')",data:{batchId:temp,enablestate:0},method:"get"}).done(function(data){
+          jQuery("#rzRecptpmtModule .toolsbarPanel .refresh-btn").trigger("click");
+        }).fail(function(data){}); 
+    }
+    }else{
+    		layer.alert("请至少选择一条数据");
+    }
+    });
+    $(".rzRecptpmtEditForm select[name='pmttype']").on("change",function(){
+       debugger
+       var valtemp=$(this).val();
+       if(valtemp == '0') viewModel.editData.cashflowdir('1');
+       else if(valtemp == '1')viewModel.editData.cashflowdir('2');
+       else  viewModel.editData.cashflowdir('3')
+    });
+     $(".searchContent select[name='pmttype']").on("change",function(){
+       debugger
+       var valtemp=$(this).val();
+       if(valtemp == '0') viewModel.queryData.cashflowdir('1');
+       else if(valtemp == '1')viewModel.queryData.cashflowdir('2');
+       else if(valtemp == '2') viewModel.queryData.cashflowdir('3')
+       else viewModel.queryData.cashflowdir('')
+    });
+    $(".searchToolsbar").on("click","span,i",function(e){
+    
+    $(".hideRule").css("display")=="block"? $(".hideRule").css("display","none"):$(".hideRule").css("display","block");
+    $(".searchToolsbar span").text()=='展开更多查询条件'?  $(".searchToolsbar span").text('收起更多查询条件'): $(".searchToolsbar span").text('展开更多查询条件');
+    var itag= $(".searchToolsbar i");
+    itag.attr("class")=="glyphicon glyphicon-triangle-bottom"? itag.attr("class","glyphicon glyphicon-triangle-top"): itag.attr("class","glyphicon glyphicon-triangle-bottom")
+    });
+	ko.applyBindings(viewModel);
+    $(".toolsbarPanel").css("padding","10px");
+    function initDatas(){
+    $.when($.getJSON('$homeModule.getTarget("/rzRecptpmt/getAllBusyTypeAndPmt")')).done(function(data){
+		debugger;
+		var busitypeList=data.map.busyTypeList
+		var pmtrivalList=data.map.pmtrivalList
+		viewModel.queryData.busitypeList(busitypeList)
+		viewModel.queryData.pmtrivalList(pmtrivalList)
+		viewModel.queryData.busitype("")
+		viewModel.queryData.pmtrival("")
+		}).fail(function(data){
+		layer.alert("加载数据字典出错");
+		});
+    }
+    initDatas()
+});
+
+function RzRecptpmtView(){
+	//主键
+	this.pkRecptpmt="";
+	//编码
+	this.code="";
+	//名称
+	this.name="";
+	//1 租赁业务 2融资业务 3 资金业务
+	this.busitype="";
+	//1 流入 2 流出 3 无
+	this.pmttype="";
+	//收付类型  0为收款，1为付款
+	this.cashflowdir="";
+	//1 供应商 2保险人 3承租人 4推荐商 5 担保人
+	this.pmtrival="";
+	//备注
+	this.remark="";
+	//启用时间
+	this.enabledate="";
+	//0 未启用 1 已启用
+	this.enablestate="";
+	//
+	this.ts="";
+	//0 未删除 1已删除
+	this.dr="";
+	//
+	this.def1="";
+	//
+	this.def2="";
+	//
+	this.def3="";
+	//
+	this.def4="";
+	//
+	this.def5="";
+	//编辑页面状态
+	this.enableState=true;
+	
+	this.busitypeList="";
+	
+	this.pmtrivalList="";
+}
+ <!--校验输入框-->
+    function validatorForm() {
+     if($('.rzRecptpmtEditForm').data('bootstrapValidator')!=null)  $(".rzRecptpmtEditForm").data('bootstrapValidator').destroy();
+        $('.rzRecptpmtEditForm').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                code: {
+                    message: 'The code is not valid',
+                     trigger:"blur",
+                    validators: {
+                        notEmpty: {
+                            message: '收付类别编码不能为空'
+                        },
+                       remote: {
+                            url:'$homeModule.getTarget('/rzRecptpmt/getRzRecMessage')',
+                            message: '该收付类别编码已存在',
+                            type: 'POST',
+                            data: function (validator) {
+                                return {
+                                    code: $(".rzRecptpmtEditForm input[name='code']").val(),
+                                    pkRecptpmt: $(".rzRecptpmtEditForm input[name='pkRecptpmt']").val()
+                                };
+                            }
+                        },
+                        regexp: {
+                            regexp: /^[0-9]*$/,
+                            message: '收付类别编码只能由数字组成'
+                        }
+
+                    }
+                },
+                name: {
+                    message: '类别名称无效',
+                    trigger:"blur",
+                    validators: {
+                        notEmpty: {
+                            message: '收付类别名称不能为空'
+                        },
+                        remote: {
+                            url: '$homeModule.getTarget('/rzRecptpmt/getRzRecMessage')',
+                            message: '该收付类别名称已存在',
+                            type: 'POST',
+                            data: function (validator) {
+                                return {
+                                    name: $(".rzRecptpmtEditForm input[name='name']").val(),
+                                    pkRecptpmt: $(".rzRecptpmtEditForm input[name='pkRecptpmt']").val()
+                                };
+                            }
+                        },
+
+                    }
+                },
+            }
+        });
+    }
+
+function getParams(selector){
+	return {};
+}
+
+</script>
+	
+</body>

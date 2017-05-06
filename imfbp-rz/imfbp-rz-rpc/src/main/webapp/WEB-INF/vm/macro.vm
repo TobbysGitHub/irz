@@ -1,0 +1,17 @@
+##列表页面的工具条 btnPrefix 按钮id的前缀 用来解决同一个页面有相同的按钮，但是执行不同的业务
+#macro (showListToolbar $btnPrefix)
+	#foreach($toolBar in $listToolbar)
+		<a href="javascript:void(0)" id="${btnPrefix}_${toolBar.btnCode}" class="easyui-linkbutton $toolBar.btnCode" data-options="iconCls:'$toolBar.btnCls',plain:true">$toolBar.btnName</a> 
+	#end
+#end
+
+##编辑页面的工具条 btnPrefix 按钮id的前缀 用来解决同一个页面有相同的按钮，但是执行不同的业务
+#macro (showEditToolbar $btnPrefix)
+	#foreach($toolBar in $editToolbar)
+		<a href="javascript:void(0)" id="${btnPrefix}_${toolBar.btnCode}" class="easyui-linkbutton $toolBar.btnCode" data-options="iconCls:'$toolBar.btnCls',plain:true">$toolBar.btnName</a> 
+	#end
+	<a href="javascript:void(0)" id="${btnPrefix}_close-btn" class="easyui-linkbutton close-btn" data-options="iconCls:'icon-no',plain:true">关闭</a>
+#end
+
+
+

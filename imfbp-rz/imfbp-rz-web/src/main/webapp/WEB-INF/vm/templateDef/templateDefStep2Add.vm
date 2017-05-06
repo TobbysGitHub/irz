@@ -1,0 +1,54 @@
+<div class="panel panel-default" style="border: none;">
+	<div class="panel-heading footer-saveOrCancel" >
+		<button type="button" class="btn btn-default btn-sm btn-im backToStep1-btn">上一步</button>
+		<button type="button" class="btn btn-default btn-sm back-btn margin-right-10">取消</button>
+		<button type="button" class="btn btn-default btn-sm btn-im toStep3-btn">下一步</button>
+	</div>
+	<div class="panel-body form-parent" data-bind="with:editData">
+		<form class="rzRateEditForm form-horizontal">
+            <div class="row panel slideParent">
+                <div class="col-xs-12 panel-heading" data-toggle="collapse" data-target="#step2Info">
+                    <h5>新增模板</h5><span class="glyphicon glyphicon-chevron-up"></span>
+                </div>
+                <div class="col-xs-12 panel-body collapse in" id="step2Info">
+	                <div class="steps">
+	                	<div class="stepsContent">
+							<label class="circleImg circleCorrect"></label><span class="step stepActive">模板基本定义</span><span class="stepLine stepLineActive"></span>
+							<label class="circleImg step2ImgActive"></label><span class="step stepActive">模板样式设计</span><span class="stepLine"></span>
+							<label class="circleImg step3Img"></label><span class="step">模板取数指标定义</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-7">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">模板文件名称</label>
+								<div class="col-md-9 col-sm-8">
+									<div class="input-group col-md-5">
+										<input type="text" name="templateFileName" class="form-control content-w210-input" data-bind="value:templateFileName,enable:enableState" style="width: 550px;">
+										<input type="file" name="path" style="display:none" id="path"/>
+										<!-- <span class="input-group-addon" id="importBtn" style="cursor: pointer;">浏览</span> -->
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-5">
+							<div class="form-group">
+								<label class="col-md-3 col-sm-4 control-label no-padding-right">
+									<i class="glyphicon iconfont icon-guanyu icon" style="margin-right: 5px;"></i>
+									模板版本号: V1.0</label>
+								<div class="col-md-3 col-sm-8" style="float:right;">
+									<div class="input-group col-md-5">
+										<input type="button" name="addPreview" class="form-control btn btn-default"  value="预览业务模板" style="height: 32px;"/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row col-md-12">
+						<textarea name="addEditor" style="width: 100%; height: 500px; visibility: hidden;"></textarea>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

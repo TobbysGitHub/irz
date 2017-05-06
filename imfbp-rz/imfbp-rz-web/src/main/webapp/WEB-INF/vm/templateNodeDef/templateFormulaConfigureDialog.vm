@@ -1,0 +1,96 @@
+<div id="templateFormulaConfigureContent">
+			<div class="u-msg-title">
+				<span>
+		           	   取数公式配置
+		            </span>
+			</div>
+			<div class="u-msg-content">
+				<div class="formula-content">
+					<div>
+						<span class="font-title">1</span><span>选取公式</span>
+					</div>
+					<div>
+						<label>请选择取数公式</label>
+
+						<select id="select">
+							
+						</select>
+
+					<!--	<button style="height: 28px;line-height: 28px;width: 48px;" type="button" class="btn btn-action btn-default btn-sm  save-btn">确定</button> -->
+
+					</div>
+					<div>
+						<span>取数公式</span>
+						<span style="margin-left: 209px;">取数公式释义</span>
+						<i class="iconfont icon-guanyu" style="margin-left: 26px;"></i>
+					</div>
+
+					<div>
+                        <textarea id="textarea1" onblur="getCursorPosition(this)" ></textarea>
+                        <textarea id="textarea2" style="margin-left: 15px;" ></textarea>
+					</div>
+
+				</div>
+
+				<div class="metadata-content" style="position: relative;">
+					<div>
+						<span class="font-title">2</span><span>选择元数据</span>
+					</div>
+					<!--页签 -->
+					<div class="wrap">
+						<nav class="tabb">
+							<ul class="clearfix">
+								<li class="tab-active" href="business-document">
+									<span>业务单据表</span>
+									<div></div>
+								</li>
+								<li href="public-service">
+									<span>公共服务表</span>
+									<div></div>
+								</li>
+							</ul>
+						</nav>
+						<div id="content">
+							<div id="business-document">
+								<div>
+									<span>1:选择元数据</span>
+									<span style="margin-left: 183px;">2:选择元数据字段</span>
+								</div>
+
+								<div>
+
+									<div  class="edit-div" id="business-document-table">1</div>
+
+									<div  class="edit-div metadata-field" id="business-document-table-colum" style="margin-left: 25px;">
+									    
+									</div>
+								</div>
+							</div>
+							
+								<div id="public-service" style="display:none;">
+									<div>
+										<span>1:选择元数据</span>
+										<span style="margin-left: 183px;">2:选择元数据字段</span>
+									</div>
+		
+									<div>
+		
+										<div  class="edit-div" id="public-service-table" >2</div>
+		
+										<div  class="edit-div metadata-field" id="public-service-colum" style="margin-left: 25px;"></div>
+									</div>
+		
+								</div>
+						</div>                     
+					</div>
+				</div>
+			</div>
+			<div class="u-msg-footer">
+				<button id="cancel-formula"  class="btn btn-out btn-py back-btn" type="button">
+                    	取消
+                  </button>
+				<button id="confirm-formula" class="btn btn-action btn-py save-btn" type="button">
+                   	 确定
+                  </button>
+			</div>
+		</div>

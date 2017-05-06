@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="rzPrjcontrSupplier">
+
+	<!-- 結果集 -->
+	<resultMap id="rzPrjcontrSupplierResult" type="com.imfbp.rz.domain.rzprjcontrsupplier.RzPrjcontrSupplier">
+		<result property="pkPrjcontrSupplier" column="pk_prjcontr_supplier" />
+		<result property="pkPrjcontr" column="pk_prjcontr" />
+		<result property="pkCustomer" column="pk_customer" />
+		<result property="remark" column="remark" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="rzPrjcontrSupplierField">
+		pk_prjcontr_supplier,pk_prjcontr,pk_customer,remark
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="condition">
+        <where>
+        	<if test="pkPrjcontrSupplier != null and pkPrjcontrSupplier != ''" >
+				and pk_prjcontr_supplier = #{pkPrjcontrSupplier}
+			</if>
+        	<if test="pkPrjcontr != null and pkPrjcontr != ''" >
+				and pk_prjcontr = #{pkPrjcontr}
+			</if>
+        	<if test="pkCustomer != null and pkCustomer != ''" >
+				and pk_customer = #{pkCustomer}
+			</if>
+        	<if test="remark != null and remark != ''" >
+				and remark = #{remark}
+			</if>
+        </where>
+    </sql>
+    
+    <!-- 修改条件 -->
+	<sql id="updateByCondition">
+        <where>
+				<if test="parameter.pkPrjcontrSupplier != null and parameter.pkPrjcontrSupplier != ''" >
+					and pk_prjcontr_supplier = #{parameter.pkPrjcontrSupplier}
+				</if>
+				<if test="parameter.pkPrjcontr != null and parameter.pkPrjcontr != ''" >
+					and pk_prjcontr = #{parameter.pkPrjcontr}
+				</if>
+				<if test="parameter.pkCustomer != null and parameter.pkCustomer != ''" >
+					and pk_customer = #{parameter.pkCustomer}
+				</if>
+				<if test="parameter.remark != null and parameter.remark != ''" >
+					and remark = #{parameter.remark}
+				</if>
+        </where>
+    </sql>
+    
+    <!-- 新增 -->	
+	<insert id="insertRzPrjcontrSupplier" parameterType="rzPrjcontrSupplier">
+		insert into rz_prjcontr_supplier
+			(pk_prjcontr_supplier,pk_prjcontr,pk_customer,remark ) 
+		values 
+			(#{pkPrjcontrSupplier,jdbcType=CHAR},#{pkPrjcontr,jdbcType=CHAR},#{pkCustomer,jdbcType=CHAR},#{remark,jdbcType=VARCHAR})
+    </insert>
+    
+    <!-- 批量新增 -->	
+	<insert id="insertBatchRzPrjcontrSupplier" parameterType="java.util.List">
+       insert into rz_prjcontr_supplier
+			(pk_prjcontr_supplier,pk_prjcontr,pk_customer,remark ) 
+	   values
+	    <foreach collection="list" item="obj" index="index" separator="," >
+	    	(#{obj.pkPrjcontrSupplier},#{obj.pkPrjcontr},#{obj.pkCustomer},#{obj.remark})
+	    </foreach>
+   </insert>
+    
+    
+    <!-- 根据id删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjcontrSupplierById" parameterType="rzPrjcontrSupplierQuery" >
+    	delete from rz_prjcontr_supplier  where pk_prjcontr_supplier = #{pkPrjcontrSupplier} 
+    </delete>
+    
+    <!-- 根据条件删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjcontrSupplierByCondition" parameterType="rzPrjcontrSupplierQuery" >
+    	delete from 
+    	rz_prjcontr_supplier<include refid="condition" /> 
+    </delete>
+    
+    <!-- 根据主键批量删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjcontrSupplierByBatchId" parameterType="rzPrjcontrSupplierQuery" >
+    	delete from rz_prjcontr_supplier 
+    	where
+    	pk_prjcontr_supplier in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据id修改 -->
+    <update id="updateRzPrjcontrSupplierById" parameterType="rzPrjcontrSupplierQuery">
+		update  rz_prjcontr_supplier 
+		<set>
+			<if test="pkPrjcontr != null and pkPrjcontr != '' " >
+				pk_prjcontr = #{pkPrjcontr},
+			</if>
+			<if test="pkCustomer != null and pkCustomer != '' " >
+				pk_customer = #{pkCustomer},
+			</if>
+			<if test="remark != null and remark != '' " >
+				remark = #{remark},
+			</if>
+		</set>
+		where
+			pk_prjcontr_supplier = #{pkPrjcontrSupplier} 
+    </update>
+    
+     <!-- 根据条件修改 -->
+    <update id="updateRzPrjcontrSupplierByCondition" parameterType="map">
+		update  rz_prjcontr_supplier 
+		<set>
+				<if test="record.pkPrjcontr != null and record.pkPrjcontr != ''">
+					pk_prjcontr = #{record.pkPrjcontr},
+				</if>
+				<if test="record.pkCustomer != null and record.pkCustomer != ''">
+					pk_customer = #{record.pkCustomer},
+				</if>
+				<if test="record.remark != null and record.remark != ''">
+					remark = #{record.remark},
+				</if>
+		</set>
+		<include refid="updateByCondition" />
+    </update>
+    
+    <!-- 根据主键进行批量修改 -->
+    <update id="updateRzPrjcontrSupplierByBatchId"  parameterType="java.util.List">
+    	<if test="list != null">
+	     <foreach collection="list" item='obj' separator=";" >
+	     update rz_prjcontr_supplier
+	     <set>
+				<if test="obj.pkPrjcontr != null and obj.pkPrjcontr != ''">
+					pk_prjcontr = #{obj.pkPrjcontr},
+				</if>
+				<if test="obj.pkCustomer != null and obj.pkCustomer != ''">
+					pk_customer = #{obj.pkCustomer},
+				</if>
+				<if test="obj.remark != null and obj.remark != ''">
+					remark = #{obj.remark},
+				</if>
+			</set>
+			where
+				pk_prjcontr_supplier = #{obj.pkPrjcontrSupplier} 
+	     </foreach>
+     	</if>
+    </update>
+    
+    <!-- 查询所有 -->
+    <select id="getRzPrjcontrSupplierAll" parameterType="rzPrjcontrSupplierQuery" resultMap="rzPrjcontrSupplierResult">
+		SELECT 
+		<include refid="rzPrjcontrSupplierField" />  
+		from  
+		rz_prjcontr_supplier<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询总数 -->
+	<select id="getRzPrjcontrSupplierByPageCount" parameterType="rzPrjcontrSupplierQuery" resultType="int">
+		SELECT count(*) from  rz_prjcontr_supplier
+		<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getRzPrjcontrSupplierByPage" parameterType="rzPrjcontrSupplierQuery" resultMap="rzPrjcontrSupplierResult">
+		SELECT <include refid="rzPrjcontrSupplierField" /> from rz_prjcontr_supplier
+		<include refid="condition" />
+		<if test="sort !=null">
+		    ORDER BY ${sort} ${order} 
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+	
+	<!-- 根据Id查询 -->
+	<select id="getRzPrjcontrSupplierById" parameterType="rzPrjcontrSupplierQuery" resultMap="rzPrjcontrSupplierResult">
+		SELECT <include refid="rzPrjcontrSupplierField" /> from  rz_prjcontr_supplier  where pk_prjcontr_supplier = #{pkPrjcontrSupplier} 
+		 
+	</select>
+    
+</mapper>

@@ -1,0 +1,27 @@
+<div class="panel panel-default" style="border: none;">
+	<div class="panel-heading footer-saveOrCancel" >
+		<button type="button" class="btn btn-default btn-sm btn-im backToStep2-btn">上一步</button>
+		<button type="button" class="btn btn-default btn-sm save-btn">保存</button>
+		<button type="button" class="btn btn-default btn-sm back-btn">取消</button>
+	</div>
+	<div class="panel-body form-parent">
+		<form class="rzRateEditForm form-horizontal">
+            <div class="row panel slideParent">
+                <div class="col-xs-12 panel-heading" data-toggle="collapse" data-target="#step3Info">
+                    <h5>模板取数指数信息</h5><span class="glyphicon glyphicon-chevron-up"></span>
+                </div>
+                <div class="col-xs-12 panel-body collapse in" id="step3Info">
+	                <div class="steps">
+	                	<div class="stepsContent">
+							<label class="circleImg circleCorrect"></label><span class="step stepActive">模板基本定义</span><span class="stepLine stepLineActive"></span>
+							<label class="circleImg circleCorrect"></label><span class="step stepActive">模板样式设计</span><span class="stepLine stepLineActive"></span>
+							<label class="circleImg step3ImgActive"></label><span class="step stepActive">模板取数指标定义</span>
+						</div>
+					</div>
+					<div class="row" id="addTable">
+					</div>
+                </div>
+			</div>
+		</form>
+	</div>
+</div>

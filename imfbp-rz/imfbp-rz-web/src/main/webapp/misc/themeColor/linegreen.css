@@ -1,0 +1,21 @@
+#header{
+	border-bottom:2px solid #72C11C;
+}
+
+#tabs-1   #uploadImgFrom>div:nth-of-type(1){
+ 	border-top-color:#72C11C;
+ }
+ #aside .navi>.nav>li:hover ,.tuijieHead div{
+ border-left-color:#72C11C;
+ }
+
+#tabs-1  .main-first{
+ 	border-top-color:#72C11C
+ }
+ /*--------多表格导航u-tabs__tab-bar选中导航border-bttom和动画颜色--------u.css-------*/	
+	.u-tabs.is-upgraded .u-tabs__tab.is-active:after{
+		background-color:#72C11C;
+}
+	.u-tabs__tab .u-tabs__ripple-container .u-ripple{
+		background-color:#72C11C;
+}

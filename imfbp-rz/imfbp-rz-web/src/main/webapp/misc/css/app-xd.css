@@ -1,0 +1,350 @@
+body,input,td,tr,button{
+	font-family : ΢���ź� !important;
+}
+body{
+	font-size : 12px;
+}
+input{
+	font-weight:500;
+}
+/*----------��ҳһ���˵���ʽ----------*/
+.app-aside-folded .navi > ul > li:nth-child(8) > ul,.app-aside-folded .navi > ul > li:nth-child(9) > ul{
+	top:-80px !important 
+}
+/*-------------------------------------��ť��ʽ----------------------------*/
+.btn-py{/*----------�п���ʽ----------*/
+	height:32px;
+	line-height:32px;
+	padding:0 20px;
+}
+.btn-big{/*----------�����ʽ----------*/
+	height:40px;
+	line-height:40px;
+	padding:0 25px;
+}
+.btn-small{/*----------С����ʽ----------*/
+	height:28px;
+	line-height:28px;
+	font-size:12px;
+	padding:0 15px;
+	margin-left:5px;
+}
+.btn-out{/*----------��Ҫ����ʽ----------*/
+	border:1px solid #cccccc;
+	background:#ffffff;
+	box-sizing:border-box;
+	color:#666666!important;
+}
+.btn-out:hover{/*----------��Ҫ�򻮹���ʽ----------*/
+	border:1px solid #999999;
+	color:#333333!important;
+}
+.btn-action{/*----------��Ҫ����ʽ----------*/
+	color:#ffffff!important;
+	background: #00A0E8;
+}
+.btn-action:hover{/*----------��Ҫ�򻮹���ʽ----------*/
+	background: #1D80D3;
+	color:#ffffff!important;
+}
+.btn-action[disabled]{/*------------���ÿ���ʽ----------*/
+	background: #F7F7F7;
+	border: 1px solid #CCCCCC;
+	color:#CCCCCC!important;
+}
+.btn-action[disabled]:hover{/*------------���ÿ���ʽ----------*/
+	background: #F7F7F7 !important;
+	border: 1px solid #CCCCCC;
+	color:#CCCCCC!important;
+}
+/*--------------------------�б�ҳ��----------------------------------*/
+.left-detail{/*--------�����----------*/
+	width:200px;
+	top:0px;
+	left:0px;
+	position:absolute;
+	bottom:0px;
+	overflow:auto;
+}
+.right-detail{/*---------�Ҳ��----------*/
+	position:absolute;
+	left:220px;
+	top:20px;
+	right:30px;
+	bottom:0px;
+	overflow:auto;
+}
+.searchPanel{
+	padding-bottom:15px;
+	border-bottom:1px dotted #eeeeee;
+}
+.searchRow{/*---------��ѯ����div----------*/
+	min-width:680px;
+	margin-bottom: 5px;
+}
+
+.searchCell{
+	margin-bottom: 10px;
+}
+.search-lable{
+	padding-right:10px;
+}
+.search-inp{
+	display:inline-block!important;
+	width:59%;
+}
+.searchCell label,.searchCell input{
+	float: left;
+}
+.searchCell label{
+	width: 45%;
+	text-align: right;
+}
+.searchCell input{
+	width: 55%;
+}
+.queryRefSpan{
+	margin-right:10px;
+}
+.hideRule{/*---------���صĲ�ѯ����div----------*/
+    overflow:hidden;
+}
+.search-row{/*---------�߼���ѯ��ť�����ð�ť����ѯ��ť����div----------*/
+	position:relative;
+	height:32px;
+}
+.moreRule{/*---------�߼���ѯ��ťdiv----------*/
+    cursor: pointer;
+	width:130px;
+	height:32px;
+	line-height:20px;
+	color:#00A0E8;
+}
+.moreRule span{
+	text-decoration:underline;
+}
+
+
+
+
+
+
+
+
+
+/*-----------------------��Ƭҳ��------------------------------------*/
+.editPage .panel-heading,.detailPage .panel-heading {
+	position:fixed;
+	bottom:0px;
+	border-top:1px solid #EEEEEE;
+	padding:20px 0;
+	text-align:center;
+	width:100%;
+}
+.innerContent{
+	padding: 20px 30px 20px 20px;
+	overflow: auto;
+}
+#HForm .valCell-1{
+	width: 25%;
+	margin-bottom: 15px;
+	float: left;
+}
+#HForm .valCell-1 label{
+	width: 48%;
+	float: left;
+	display: block;
+	box-sizing:border-box;
+}
+#HForm .valCell-1>div{
+	position: relative;
+	width: 52%;
+	float: left;
+}
+#HForm .valCell-2{
+	width:50%;
+	margin-bottom: 15px;
+	float:left;
+}
+#HForm .valCell-2 label{
+	width:24%;
+	float:left;
+}
+#HForm .valCell-2>div{
+	width:76%;
+	float:left;
+}
+#HForm .valCell-3{
+	width:75%;
+	margin-bottom: 15px;
+	float:left;
+}
+#HForm .valCell-3 label{
+	width:16%;
+	float:left;
+}
+#HForm .valCell-3>div{
+	width:84%;
+	float:left;
+}
+#HForm .valCell-4{
+	width:100%;
+	margin-bottom: 15px;
+	float:left;
+}
+#HForm .valCell-4 label{
+	width:12%;
+	float:left;
+}
+#HForm .valCell-4>div{
+	width:88%;
+	float:left;
+}
+#HForm .valCellBox{
+	margin:0;
+	padding:0px;
+	background: #F7F7F7;;
+}
+#HForm label{
+	padding-right: 10px;
+}
+#HForm label span{
+	color: red;
+}
+.cellContent{
+	padding:20px;
+	overflow:auto;
+	position: absolute;
+	top: 0px;
+	bottom: 70px;
+	width: 100%;
+}
+.valCellBox{
+	padding:20px 76px 10px 10px!important;
+}
+.selectBox{
+	position:relative;
+}
+.valCellTitle{
+	font-family: ΢���ź�;
+    cursor: pointer;
+	font-size: 14px;
+	color: #333333;
+	line-height: 40px;
+	padding: 0 14px;
+	background: #EEEEEE;
+	font-weight: 900;
+}
+.tableEditTitle{/*------����title----------*/
+	width:99%;
+	display: inline-block;
+}
+.tableEditBtnGroup{/*------���������ť��----------*/
+	position:absolute;
+	right:20px;
+	padding: 5px 0px;
+}
+.tableEditSaveBtn{/*------����༭ҳ�汣�水ť----------*/
+	height: 34px;
+    margin-left: 20px;
+}
+/*--------------------չʾ����ҳ��-----------------------*/
+.showDetailTable{
+	width:100%;
+    font-family: ΢���ź�;
+}
+.showDetailTable td, .showDetailTable th{
+	border: 1px solid #ddd;
+}
+.showDetailTable td:nth-child(odd){
+    padding-right: 4px;
+	font-size: 14px;
+    width: 100px;
+    height: 34px;
+    background-color: #f7f7f7;
+    text-align: right;	
+}
+.showDetailTable td:nth-child(even) input{
+    color: #333;
+    font-size: 13px !important;
+    background-color: #fff;
+    border: 0px;	
+}
+
+/*************С����ҳ��ʽ����***��ʼ************************/
+.bg-primary {
+    background-color: #00A0E8 !important;
+}
+.app-aside-folded .app-aside, .app-aside-folded .navbar-header{
+	width:70px !important;
+}
+.app-aside-folded .navi > ul > li > a span {
+    display: block;
+}
+/* һ���˵�����ʽ */
+.aside-wrap nav > ul > li{
+	height: 70px;
+}
+/* һ���˵�hover��ʽ */
+.navi ul.nav li:hover{
+	border-left:4px solid #00A0E8;
+}
+/* �����˵�����ʽ */
+.navi ul.nav-sub li {
+    height: 40px;
+}
+/* �����˵�hover��ʽ */
+.navi ul.nav-sub li:hover{
+    border-left:0px;
+} 
+
+.app-aside-folded .navi > ul > li > a i {
+    font-size: 20px;
+}
+/* ��ҳ����ɫ���� */
+#tab-content{
+	background:#fff;
+}
+/* ��ҳҳǩչʾλ�� */
+#tabNav #tabs2 .tab-ul{
+	margin-left:12px;
+}
+/* ��ҳҳǩ���� */
+#tabNav #tabs2 .tab-ul li{
+	height: 40px;
+    margin-top: 10px;
+    z-index: 2;
+}
+/* ��ҳҳǩ������ʽ���� */
+#tabNav #tabs2 .tab-ul li a{
+	color: #333;
+    font-size: 14px;
+    line-height: 40px;
+    height:40px;
+}
+.ui-tabs .ui-tabs-nav li:hover{
+	border-bottom:0px;
+	background: transparent;
+}
+/*************С����ҳ��ʽ����***����************************/
+/*************��ʾ����ʽ***��ʼ*************/
+.alert-danger{
+	opacity: 0.8;
+	background: #000000;
+	box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.44);
+	border-radius: 3px;
+	border: 0;
+	color: white;
+	text-align: center;
+	width: 20%;
+}
+.alert-danger span{
+	opacity: 0.8;
+}
+
+/*��ͷ�Ӵ�*/
+.u-grid-header-th {
+	font-weight: bold;
+}
+
+/*************��ʾ����ʽ***����************/

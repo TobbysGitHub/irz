@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="rzPrjreviewSupplier">
+
+	<!-- 結果集 -->
+	<resultMap id="rzPrjreviewSupplierResult" type="com.imfbp.rz.domain.rzprjreviewsupplier.RzPrjreviewSupplier">
+		<result property="pkPrjreviewSupplier" column="pk_prjreview_supplier" />
+		<result property="pkPrjreview" column="pk_prjreview" />
+		<result property="pkCustomer" column="pk_customer" />
+		<result property="remark" column="remark" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="rzPrjreviewSupplierField">
+		pk_prjreview_supplier,pk_prjreview,pk_customer,remark
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="condition">
+        <where>
+        	<if test="pkPrjreviewSupplier != null and pkPrjreviewSupplier != ''" >
+				and pk_prjreview_supplier = #{pkPrjreviewSupplier}
+			</if>
+        	<if test="pkPrjreview != null and pkPrjreview != ''" >
+				and pk_prjreview = #{pkPrjreview}
+			</if>
+        	<if test="pkCustomer != null and pkCustomer != ''" >
+				and pk_customer = #{pkCustomer}
+			</if>
+        	<if test="remark != null and remark != ''" >
+				and remark = #{remark}
+			</if>
+        </where>
+    </sql>
+    
+    <!-- 修改条件 -->
+	<sql id="updateByCondition">
+        <where>
+				<if test="parameter.pkPrjreviewSupplier != null and parameter.pkPrjreviewSupplier != ''" >
+					and pk_prjreview_supplier = #{parameter.pkPrjreviewSupplier}
+				</if>
+				<if test="parameter.pkPrjreview != null and parameter.pkPrjreview != ''" >
+					and pk_prjreview = #{parameter.pkPrjreview}
+				</if>
+				<if test="parameter.pkCustomer != null and parameter.pkCustomer != ''" >
+					and pk_customer = #{parameter.pkCustomer}
+				</if>
+				<if test="parameter.remark != null and parameter.remark != ''" >
+					and remark = #{parameter.remark}
+				</if>
+        </where>
+    </sql>
+    
+    <!-- 新增 -->	
+	<insert id="insertRzPrjreviewSupplier" parameterType="rzPrjreviewSupplier">
+		insert into rz_prjreview_supplier
+			(pk_prjreview_supplier,pk_prjreview,pk_customer,remark ) 
+		values 
+			(#{pkPrjreviewSupplier,jdbcType=CHAR},#{pkPrjreview,jdbcType=CHAR},#{pkCustomer,jdbcType=CHAR},#{remark,jdbcType=VARCHAR})
+    </insert>
+    
+    <!-- 批量新增 -->	
+	<insert id="insertBatchRzPrjreviewSupplier" parameterType="java.util.List">
+       insert into rz_prjreview_supplier
+			(pk_prjreview_supplier,pk_prjreview,pk_customer,remark ) 
+	   values
+	    <foreach collection="list" item="obj" index="index" separator="," >
+	    	(#{obj.pkPrjreviewSupplier},#{obj.pkPrjreview},#{obj.pkCustomer},#{obj.remark})
+	    </foreach>
+   </insert>
+    
+    
+    <!-- 根据id删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjreviewSupplierById" parameterType="rzPrjreviewSupplierQuery" >
+    	delete from rz_prjreview_supplier  where pk_prjreview_supplier = #{pkPrjreviewSupplier} 
+    </delete>
+    
+    <!-- 根据条件删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjreviewSupplierByCondition" parameterType="rzPrjreviewSupplierQuery" >
+    	delete from 
+    	rz_prjreview_supplier<include refid="condition" /> 
+    </delete>
+    
+    <!-- 根据主键批量删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjreviewSupplierByBatchId" parameterType="rzPrjreviewSupplierQuery" >
+    	delete from rz_prjreview_supplier 
+    	where
+    	pk_prjreview_supplier in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据id修改 -->
+    <update id="updateRzPrjreviewSupplierById" parameterType="rzPrjreviewSupplierQuery">
+		update  rz_prjreview_supplier 
+		<set>
+			<if test="pkPrjreview != null and pkPrjreview != '' " >
+				pk_prjreview = #{pkPrjreview},
+			</if>
+			<if test="pkCustomer != null and pkCustomer != '' " >
+				pk_customer = #{pkCustomer},
+			</if>
+			<if test="remark != null and remark != '' " >
+				remark = #{remark},
+			</if>
+		</set>
+		where
+			pk_prjreview_supplier = #{pkPrjreviewSupplier} 
+    </update>
+    
+     <!-- 根据条件修改 -->
+    <update id="updateRzPrjreviewSupplierByCondition" parameterType="map">
+		update  rz_prjreview_supplier 
+		<set>
+				<if test="record.pkPrjreview != null and record.pkPrjreview != ''">
+					pk_prjreview = #{record.pkPrjreview},
+				</if>
+				<if test="record.pkCustomer != null and record.pkCustomer != ''">
+					pk_customer = #{record.pkCustomer},
+				</if>
+				<if test="record.remark != null and record.remark != ''">
+					remark = #{record.remark},
+				</if>
+		</set>
+		<include refid="updateByCondition" />
+    </update>
+    
+    <!-- 查询所有 -->
+    <select id="getRzPrjreviewSupplierAll" parameterType="rzPrjreviewSupplierQuery" resultMap="rzPrjreviewSupplierResult">
+		SELECT 
+		<include refid="rzPrjreviewSupplierField" />  
+		from  
+		rz_prjreview_supplier<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询总数 -->
+	<select id="getRzPrjreviewSupplierByPageCount" parameterType="rzPrjreviewSupplierQuery" resultType="int">
+		SELECT count(*) from  rz_prjreview_supplier
+		<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getRzPrjreviewSupplierByPage" parameterType="rzPrjreviewSupplierQuery" resultMap="rzPrjreviewSupplierResult">
+		SELECT <include refid="rzPrjreviewSupplierField" /> from rz_prjreview_supplier
+		<include refid="condition" />
+		<if test="sort !=null">
+		    ORDER BY ${sort} ${order} 
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+	
+	<!-- 根据Id查询 -->
+	<select id="getRzPrjreviewSupplierById" parameterType="rzPrjreviewSupplierQuery" resultMap="rzPrjreviewSupplierResult">
+		SELECT <include refid="rzPrjreviewSupplierField" /> from  rz_prjreview_supplier  where pk_prjreview_supplier = #{pkPrjreviewSupplier} 
+		 
+	</select>
+    
+</mapper>

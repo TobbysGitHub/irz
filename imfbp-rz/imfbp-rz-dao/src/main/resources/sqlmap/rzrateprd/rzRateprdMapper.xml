@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="rzRateprd">
+
+	<!-- 結果集 -->
+	<resultMap id="rzRateprdResult" type="com.imfbp.rz.domain.rzrateprd.RzRateprd">
+		<result property="pkRateprd" column="pk_rateprd" />
+		<result property="prdName" column="prd_name" />
+		<result property="prdType" column="prd_type" />
+		<result property="startTerm" column="start_term" />
+		<result property="endTerm" column="end_term" />
+		<result property="remark" column="remark" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="rzRateprdField">
+		pk_rateprd,prd_name,prd_type,start_term,end_term,remark
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="condition">
+        <where>
+        	<if test="pkRateprd != null and pkRateprd != ''" >
+				and pk_rateprd = #{pkRateprd}
+			</if>
+        	<if test="prdName != null and prdName != ''" >
+				and prd_name = #{prdName}
+			</if>
+        	<if test="prdType != null" >
+				and prd_type = #{prdType}
+			</if>
+        	<if test="startTerm != null" >
+				and start_term = #{startTerm}
+			</if>
+        	<if test="endTerm != null" >
+				and end_term = #{endTerm}
+			</if>
+        	<if test="remark != null and remark != ''" >
+				and remark = #{remark}
+			</if>
+        </where>
+    </sql>
+    
+    <!-- 修改条件 -->
+	<sql id="updateByCondition">
+        <where>
+				<if test="parameter.pkRateprd != null and parameter.pkRateprd != ''" >
+					and pk_rateprd = #{parameter.pkRateprd}
+				</if>
+				<if test="parameter.prdName != null and parameter.prdName != ''" >
+					and prd_name = #{parameter.prdName}
+				</if>
+		    	<if test="parameter.prdType != null" >
+					and prd_type = #{parameter.prdType}
+				</if>
+		    	<if test="parameter.startTerm != null" >
+					and start_term = #{parameter.startTerm}
+				</if>
+		    	<if test="parameter.endTerm != null" >
+					and end_term = #{parameter.endTerm}
+				</if>
+				<if test="parameter.remark != null and parameter.remark != ''" >
+					and remark = #{parameter.remark}
+				</if>
+        </where>
+    </sql>
+    
+    <!-- 新增 -->	
+	<insert id="insertRzRateprd" parameterType="rzRateprd">
+		insert into rz_rateprd
+			(pk_rateprd,prd_name,prd_type,start_term,end_term,remark ) 
+		values 
+			(#{pkRateprd,jdbcType=CHAR},#{prdName,jdbcType=VARCHAR},#{prdType,jdbcType=INTEGER},#{startTerm,jdbcType=INTEGER},#{endTerm,jdbcType=INTEGER},#{remark,jdbcType=VARCHAR})
+    </insert>
+    
+    <!-- 批量新增 -->	
+	<insert id="insertBatchRzRateprd" parameterType="java.util.List">
+       insert into rz_rateprd
+			(pk_rateprd,prd_name,prd_type,start_term,end_term,remark ) 
+	   values
+	    <foreach collection="list" item="obj" index="index" separator="," >
+	    	(#{obj.pkRateprd},#{obj.prdName},#{obj.prdType},#{obj.startTerm},#{obj.endTerm},#{obj.remark})
+	    </foreach>
+   </insert>
+    
+    
+    <!-- 根据id删除 (删除数据库数据)-->
+    <delete id="deleteRzRateprdById" parameterType="rzRateprdQuery" >
+    	delete from rz_rateprd  where pk_rateprd = #{pkRateprd} 
+    </delete>
+    
+    <!-- 根据条件删除 (删除数据库数据)-->
+    <delete id="deleteRzRateprdByCondition" parameterType="rzRateprdQuery" >
+    	delete from 
+    	rz_rateprd<include refid="condition" /> 
+    </delete>
+    
+    <!-- 根据主键批量删除 (删除数据库数据)-->
+    <delete id="deleteRzRateprdByBatchId" parameterType="rzRateprdQuery" >
+    	delete from rz_rateprd 
+    	where
+    	pk_rateprd in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据id修改 -->
+    <update id="updateRzRateprdById" parameterType="rzRateprdQuery">
+		update  rz_rateprd 
+		<set>
+			<if test="prdName != null and prdName != '' " >
+				prd_name = #{prdName},
+			</if>
+			<if test="prdType != null " >
+				prd_type = #{prdType},
+			</if>
+			<if test="startTerm != null " >
+				start_term = #{startTerm},
+			</if>
+			<if test="endTerm != null " >
+				end_term = #{endTerm},
+			</if>
+			<if test="remark != null and remark != '' " >
+				remark = #{remark},
+			</if>
+		</set>
+		where
+			pk_rateprd = #{pkRateprd} 
+    </update>
+    
+     <!-- 根据条件修改 -->
+    <update id="updateRzRateprdByCondition" parameterType="map">
+		update  rz_rateprd 
+		<set>
+				<if test="record.prdName != null and record.prdName != ''">
+					prd_name = #{record.prdName},
+				</if>
+		 		<if test="record.prdType != null">
+					prd_type = #{record.prdType},
+				</if>
+		 		<if test="record.startTerm != null">
+					start_term = #{record.startTerm},
+				</if>
+		 		<if test="record.endTerm != null">
+					end_term = #{record.endTerm},
+				</if>
+				<if test="record.remark != null and record.remark != ''">
+					remark = #{record.remark},
+				</if>
+		</set>
+		<include refid="updateByCondition" />
+    </update>
+    
+    <!-- 查询所有 -->
+    <select id="getRzRateprdAll" parameterType="rzRateprdQuery" resultMap="rzRateprdResult">
+		SELECT 
+		<include refid="rzRateprdField" />  
+		from  
+		rz_rateprd<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询总数 -->
+	<select id="getRzRateprdByPageCount" parameterType="rzRateprdQuery" resultType="int">
+		SELECT count(*) from  rz_rateprd
+		<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getRzRateprdByPage" parameterType="rzRateprdQuery" resultMap="rzRateprdResult">
+		SELECT <include refid="rzRateprdField" /> from rz_rateprd
+		<include refid="condition" />
+		<if test="sort !=null">
+		    ORDER BY ${sort} ${order} 
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+	
+	
+	<select id="getRzRateprdByDays" parameterType="rzRateprdQuery" resultMap="rzRateprdResult">
+		SELECT <include refid="rzRateprdField" /> from rz_rateprd
+		where 1=1
+		<if test="startTerm != null" >
+				<![CDATA[ and start_term < #{startTerm}]]>
+			</if>
+        	<if test="endTerm != null" >
+				<![CDATA[ and end_term >= #{endTerm}]]>
+			</if>
+	</select>
+	
+	<!-- 根据Id查询 -->
+	<select id="getRzRateprdById" parameterType="rzRateprdQuery" resultMap="rzRateprdResult">
+		SELECT <include refid="rzRateprdField" /> from  rz_rateprd  where pk_rateprd = #{pkRateprd} 
+		 
+	</select>
+    
+</mapper>

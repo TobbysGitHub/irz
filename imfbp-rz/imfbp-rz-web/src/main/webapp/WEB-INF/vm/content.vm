@@ -1,0 +1,222 @@
+<style>
+	.main-first{
+		border-top:2px solid #00A0E8;
+		border-right:1px solid #eee;	
+		border-left:1px solid #eee;	
+		border-bottom:1px solid #eee;
+		height:112px;
+	}
+	#userHeader{
+		height:80px;
+	   	width: 80px;
+	    min-width: 60px;
+	    border-radius: 50%;
+	}
+	.border-left{
+		border-left: 1px dotted #ddd;
+	}
+	.main-first img{
+    	margin: 15px 25px;
+	}
+	.main-first p{
+		margin-top:24px;
+	}
+	.main-cust{
+		color:#666 !important;
+		font-size:14px !important;
+	} 
+	.main-cust strong a{
+		font-weight: 400;
+    	color: #00A0E8;
+    	font-size: 50px;
+	}
+	.main-cust strong a:hover{
+		text-decoration:underline;
+	}
+	.main-cust span{
+    	font-size: 12px;
+	}
+	.main-second-content{
+		text-align: center;
+    	padding: 16px 0px;
+	}
+	.main-second-content p{
+		margin: 0px;
+		font-size: 12px;
+	    border-right: 2px solid #eee;
+	    color: #666;
+	}
+	.main-second-content strong,.main-second-content strong a{
+		color: #666;
+	    font-weight: normal;
+	    font-size: 30px;
+	}
+	.main-second-content strong a:hover{
+		text-decoration:underline;
+		color: #00A0E8;
+	}
+	.main-second-content span{
+		font-size: 14px;
+	}
+	.main-third-right a{
+		color:#00A0E8;
+	    padding: 0 15px;
+	    line-height: 48px;
+	    font-size: 14px;
+	}
+	.u-grid-header-columnmenu fa fa-bars{
+		display:none;
+	}
+	#main-second-admin{
+		border-top:2px solid #00A0E8;
+		border-right:1px solid #eee;	
+		border-left:1px solid #eee;	
+		border-bottom:1px solid #eee;
+		margin:20px 0px;
+		line-height:50px;
+	}
+	#main-second-admin div{
+		text-align:center;
+	}
+	#main-second-admin div:nth-child(2){
+		border-left:1px solid #eee;
+		border-right:1px solid #eee;
+	}
+	#main-second-admin span{
+		font-weight: 400;
+    	color: #00A0E8;
+    	font-size: 25px;
+   	    cursor: pointer;
+	}
+	#main-second-admin span:hover{
+		text-decoration:underline;
+	}
+</style>
+<div class="container-fluid" style="height:100%;">
+	<div class="row">
+	  	<div class="col-xs-12">
+	  	
+	  		<!-- main-first start -->
+			<div class="row main-first" id="main-first">
+				<div class="col-xs-4">
+					<div class="col-xs-5">
+						<!-- <img id="userHeader"src="$homeModule.getTarget('/misc/img/user-header.png')" alt="user-header"/> -->
+						<img id="userHeader"src="" alt="user-header"/>
+					</div>
+					<div class="col-xs-7">
+						<p>Hi,${rname},欢迎回来<br/>${org}</br><span style="color:#666;font-size:14px;">${today}</span></p>
+					</div>
+      			</div>
+				<div class="col-xs-4">
+					<div class="col-xs-5 border-left">
+						<img src="$homeModule.getTarget('/misc/img/percust.jpg')" alt="percust"/>
+					</div>
+					<div class="col-xs-7">
+						<p class="main-cust">当前个人客户<br/>
+							<strong>
+								<a href="#" id="percust" flag="all" module_url="$homeModule.getTarget('/bdPercust/toBdPercustPage')" module_value="percust" title_name ="个人客户管理">2</a>
+							</strong>
+							<span>个</span>
+						</p>
+					</div>
+      			</div>
+				<div class="col-xs-4">
+					<div class="col-xs-5">
+						<img src="$homeModule.getTarget('/misc/img/entcust.jpg')" alt="entcust"/>
+					</div>
+					<div class="col-xs-7">
+						<p class="main-cust">当前企业客户<br/>
+							<strong>
+								<a href="#" id="entcust1" flag="all" module_url="$homeModule.getTarget('/bdEntcust/toBdEntcustPage')" module_value="entcust" title_name ="企业客户管理">3</a>
+							</strong><span>个</span>
+						</p>
+					</div>
+      			</div>
+			</div>
+			<!-- main-first end -->
+			
+			<!-- main-second start -->
+			<div class="row main-second-content" id="main-second">
+				<div class="u-tabs" id="bodyTabs">
+				    <!--表体多页签-->
+				    <div class="u-tabs__tab-bar" >
+				        <a href="#days" class="u-tabs__tab is-active" value="yesterday">昨天</a>
+				        <a href="#days" class="u-tabs__tab" value="thisweek">本周</a>
+				        <a href="#days" class="u-tabs__tab" value="thismonth">本月</a>
+				    </div>
+				    
+				    <div class="u-tabs__panel is-active " id="days">
+				    	<div class="container-fluid" style="border-left: 1px solid #d8d8d8;border-bottom: 1px solid #d8d8d8;border-right: 1px solid #d8d8d8;">
+					    	<div class="col-xs-2 main-second-content">
+								<p><strong id="custNum" style="color: #00A0E8;">2</strong>个<br/><span>新增客户</span></p>
+			      			</div>
+					    	<div class="col-xs-2 main-second-content">
+								<p><strong style="color: #00A0E8;"><a href="#" id="pricecalCount" module_url="$homeModule.getTarget('/rzPricecal/toRzPricecalPage')" module_value="proposalform" title_name ="报价测算单"></a></strong>笔<br/><span>新增报价测算单</span></p>
+			      			</div>
+					    	<div class="col-xs-2 main-second-content">
+								<p><strong style="color: #00A0E8;"><a href="#" id="prjapplyCount" module_url="$homeModule.getTarget('/rzPrjapply/toRzPrjapplyPage')" module_value="policy" title_name ="立项申请单"></a></strong>笔<br/><span>新增立项申请单</span></p>
+			      			</div>
+							
+							<div class="col-xs-3 main-second-content">
+								<p><strong style="color: #00A0E8;"><a href="#" id="contrCount" module_url="$homeModule.getTarget('/rzPrjcontr/toRzPrjcontrPage')" module_value="policy" title_name ="项目合同"></a></strong>笔 <strong id="contrAmt"style="color: #00A0E8;"></strong>元<br/><span>新增项目合同</span></p>
+			      			</div>
+							
+					    	<div class="col-xs-3 main-second-content" style="text-align: left;padding-left: 35px;">
+								<p style="border:0px;"><strong id="totalAmt"style="color: #00A0E8;"></strong>元<br/><span>待收回本金</span></p>
+			      			</div>
+		      			</div>
+				    </div>
+		
+		    	</div>
+		    	
+			</div>
+			<div class="row" id="main-second-admin" style="display:none;">
+		    	<div class="col-xs-4">
+					<span module_url="$homeModule.getTarget('/bdBaseproduct/toBdBaseproductPage')" module_value="baseproduce" title_name ="产品">产品</span>
+      			</div>
+				<div class="col-xs-4">
+					<span module_url="$homeModule.getTarget('/bdBasecorp/toBdBasecorpPage')" module_value="basecorp" title_name ="保险公司">保险公司</span>
+      			</div>
+				<div class="col-xs-4">
+		    		<span module_url="$homeModule.getTarget('/bdBaseorg/toBdBaseorgPage')" module_value="baseorg" title_name ="保险机构">保险机构</span>
+      			</div>
+			</div>
+			<!-- main-second end -->
+				
+			<!-- main-third start -->
+			<div class="row" id="main-third">
+				<div class="u-tabs" id="bodyTabs_info">
+				    <!--表体多页签-->
+				    <div class="u-tabs__tab-bar" >
+				        <a href="#messageCenter" module_url="$homeModule.getTarget('/toMoreinfo')" module_value="moreinfo" title_name ="消息中心" class="u-tabs__tab is-active" value="2">待办消息</a>
+				        <a href="#messageCenter" module_url="$homeModule.getTarget('/toMoreinfo')" module_value="moreinfo" title_name ="消息中心" class="u-tabs__tab" value="3">预警消息</a>
+				        <a href="#messageCenter" module_url="$homeModule.getTarget('/toMoreinfo')" module_value="moreinfo" title_name ="消息中心" class="u-tabs__tab" value="1">通知消息</a>
+				        <div class="main-third-right"style="position:absolute; right:0px;">
+						    <a href="#" id="messageRefresh"><i class="glyphicon glyphicon-repeat"></i></a>
+						    <a href="#" id="moreinfo" style="padding-right:0px;text-decoration:underline;font-size:12px;color:#666;">更多</a>
+					    </div>
+				    </div>
+				    
+				    <div class="u-tabs__panel is-active " id="messageCenter">
+				    	<div class="container-fluid" style="padding:0px;">
+					    	
+					    	<div u-meta='{"height":"170","id":"grid1","type":"grid","data":"listData","onDblClickFun":"rowDblClick"}' style="margin: 15px 0px;" >
+								<div options='{"field":"readMark","title":"状态", "renderType":"pictureRender"}'></div>
+								<div options='{"field":"title","dataType":"string","title":"主题","renderType":"boldRender"}'></div>
+								<div options='{"field":"content","dataType":"string","title":"任务内容","renderType":"boldRender"}'></div>
+								<div options='{"field":"creator","dataType":"string","title":"提交人","renderType":"boldRender"}'></div>
+								<div options='{"field":"created","dataType":"string","title":"提交时间","renderType":"boldRender"}'></div>
+								<div options='{"field":"typeText","dataType":"string","title":"任务类型","renderType":"boldRender"}'></div>
+							</div>
+					    	
+		      			</div>
+				    </div>
+		
+		    	</div>
+		    	
+			</div>
+			<!-- main-third end -->
+			
+		</div>
+	</div>
+</div> 	

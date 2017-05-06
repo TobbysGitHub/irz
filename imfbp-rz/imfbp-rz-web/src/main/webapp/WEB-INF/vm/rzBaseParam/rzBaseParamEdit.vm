@@ -1,0 +1,171 @@
+﻿<div class="panel panel-default">
+	
+<div class="panel-heading  footer-saveOrCancel">
+		
+<button type="button" id="save-btn" class="btn btn-default btn-sm save-btn">保存</button>
+<button type="button" class="btn btn-default btn-sm back-btn">取消</button>
+	
+</div>
+	
+<div class="panel-body form-parent" data-bind="with:editData">
+		
+<form id="form-horizontal" class="rzBaseParamEditForm form-horizontal">
+
+			
+<div class="row">
+				
+<div class="col-xs-12" style="display: none;">
+					
+<div class="form-group">
+						
+<label class="col-md-3 col-sm-4 control-label no-padding-right">主键</label>
+						
+<div class="col-sm-3 col-xs-6">
+							
+<input type="text" name="pkBaseParam" class="form-control"
+ data-bind="value:pkBaseParam,enable:enableState">
+						
+</div>
+					
+</div>
+				
+</div>
+				
+<div style="margin-top: 5px; margin-bottom: 5px"
+ class="col-xs-12">
+					
+<div class="form-group">
+						
+<label class="col-md-6 col-sm-4 control-label no-padding-right"
+	style="width: 225px; text-align: left">1.&nbsp;<p style="color: red; display: inline-block">*</p> 收款提醒通知提前天数（天）</label>
+						
+<div class="col-sm-3 col-xs-6">
+							
+<input type="text" name="advNoticeDays" class="form-control"
+ data-bind="value:advNoticeDays,enable:enableState">
+						
+</div>
+					
+</div>
+				
+</div>
+
+				
+<div style="margin-top: 5px; margin-bottom: 5px"
+class="col-xs-12">
+					
+<div class="form-group">
+						
+<label class="col-md-6 col-sm-4 control-label no-padding-right"
+	 style="width: 225px; text-align: left">2.&nbsp;<p style="color: red; display: inline-block">*</p> 客户还款期限（天）
+						
+</label>
+						
+<div class="col-sm-3 col-xs-6">
+							
+<input type="text" name="rpmtTerm" class="form-control"
+	data-bind="value:rpmtTerm,enable:enableState">
+
+						
+</div>
+					
+</div>
+				
+</div>
+				
+<div style="margin-top: 5px; margin-bottom: 5px"
+					class="col-xs-12">
+					
+<div class="form-group">
+						
+<label class="col-md-12 col-sm-4 control-label no-padding-right"
+							style="width: 225px; text-align: left">3.&nbsp;<p style="color: red; display: inline-block">*</p> 是否启用客户经理数据权限
+						
+</label>
+						
+<div class="col-md-3 col-sm-8" style="padding-top:8px">
+							
+<!-- <input type="text" name="isEnableAuth" class="form-control" data-bind="value:isEnableAuth,enable:enableState"> -->
+	
+<input type="radio" name="isEnableAuth"
+	data-bind="value:isEnableAuth,enable:enableState" /> <label>是</label>&nbsp;&nbsp;
+	
+<input type="radio" name="isEnableAuth"
+data-bind="value:isEnableAuth,enable:enableState" /> <label>否</label>
+
+					
+	</div>
+					
+</div>
+				
+</div>
+				
+<div style="margin-top: 5px; margin-bottom: 5px"
+					class="col-xs-12">
+					
+<div class="form-group">
+						
+<label class="col-md-6 col-sm-4 control-label no-padding-right"
+							style="width: 225px; text-align: left">4.&nbsp;<p style="color: red; display: inline-block">*</p> 资产风险分类规则
+						</label>
+						<div class="col-md-8 col-sm-8 systemList"></div>
+						<ul style="display: none" id="pagination" class="pagination"></ul>
+					</div>
+				</div>
+				<div style="margin-top: 5px; margin-bottom: 5px"
+					class="col-xs-12">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right"
+							style="width: 225px; text-align: left">5.&nbsp;<p style="color: red; display: inline-block">*</p> 收付款财务角色
+						</label>
+						
+						<!-- 通过前台，去过虑租户 -->
+						<i hidden="true" class="glyphicon glyphicon-th-list icon" id="icon"
+									name="tenant_id" data-imfbp-ref-condition="${tenant_id}"
+									data-imfbp-ref-query="tenant_id"
+									data-imfbp-ref="ref"></i>
+						<div class="col-sm-3 col-xs-6">
+							<input
+								type="text" name="finApprovalRole" class="form-control"
+								target-key="finApprovalRole" selectcol="finApprovalRole"
+								data-bind="enable:false" data-imfbp-ref-bind='finApprovalRole'
+								data-imfbp-ref-bind-field='role_name' />
+							<div class="icon-wrap">
+								<i class="glyphicon glyphicon-th-list icon" id="icon"
+									data-imfbp-ref-name='roleref' ref-input-name="finApprovalRole"
+									name="finApprovalRole" data-imfbp-ref-fun="outRpcCallFunction"
+									data-imfbp-ref-query="tenant_id"
+									data-imfbp-ref="ref"></i>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div style="margin-top: 5px; margin-bottom: 5px"
+					class="col-xs-12">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right"
+							style="width: 225px; text-align: left">6.&nbsp;<p style="color: red; display: inline-block">*</p> 逾期罚息日利率(%)
+						</label>
+						<div class="col-sm-3 col-xs-6">
+							
+<input type="text" name="overdueRate" class="form-control"
+data-bind="value:overdueRate,enable:enableState">
+						
+</div>
+					
+</div>
+				
+</div>
+			
+</div>
+
+</form>
+
+	</div>
+
+</div>
+
+
+
+

@@ -1,0 +1,216 @@
+<div class="panel panel-default">
+	<div class="panel-heading ">
+		<button type="button" class="btn btn-action btn-py save-btn">保存</button>
+		<button type="button" class="btn btn-out btn-py back-btn">取消</button>
+	</div>
+	<div class="panel-body" data-bind="with:editData">
+		<form class="rzPmtPlanEditForm form-horizontal">
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">收付计划主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkPmtPlan" class="form-control" data-bind="value:pkPmtPlan,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">项目合同主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkPrjcontr" class="form-control" data-bind="value:pkPrjcontr,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">项目申请主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkPrjapply" class="form-control" data-bind="value:pkPrjapply,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">项目评审主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkPrjreview" class="form-control" data-bind="value:pkPrjreview,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">机构外键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkOrg" class="form-control" data-bind="value:pkOrg,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">部门外键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkDept" class="form-control" data-bind="value:pkDept,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">制单人</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="billmaker" class="form-control" data-bind="value:billmaker,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">制单日期</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="billdate" class="form-control" data-bind="value:billdate,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">审批人</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="approveid" class="form-control" data-bind="value:approveid,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">审批时间</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="approvedate" class="form-control" data-bind="value:approvedate,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">审批状态(0 自由 1提交 2 审批中 3 审批通过 4 审批不通过)</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="approvestatus" class="form-control" data-bind="value:approvestatus,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">审批语</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="approvenote" class="form-control" data-bind="value:approvenote,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">录入人</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="operator" class="form-control" data-bind="value:operator,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">录入时间</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="operatordatetime" class="form-control" data-bind="value:operatordatetime,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">修改人</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="modifor" class="form-control" data-bind="value:modifor,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">修改时间</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="modifydatetime" class="form-control" data-bind="value:modifydatetime,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">流程实例ID</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="flowinstanceid" class="form-control" data-bind="value:flowinstanceid,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">ts</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="ts" class="form-control" data-bind="value:ts,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">0 未删除 1已删除</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="dr" class="form-control" data-bind="value:dr,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">def1</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="def1" class="form-control" data-bind="value:def1,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">def2</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="def2" class="form-control" data-bind="value:def2,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">def3</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="def3" class="form-control" data-bind="value:def3,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">def4</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="def4" class="form-control" data-bind="value:def4,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">def5</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="def5" class="form-control" data-bind="value:def5,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+

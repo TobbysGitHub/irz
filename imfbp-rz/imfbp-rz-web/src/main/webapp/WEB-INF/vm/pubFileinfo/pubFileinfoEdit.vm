@@ -1,0 +1,126 @@
+<div class="panel panel-default">
+    <div class="panel-heading footer-saveOrCancel">
+        <button type="button" class="btn btn-default btn-sm save-btn">保存</button>
+        <button type="button" class="btn btn-default btn-sm  upload-btn" style="display:none">上传</button>
+        <button type="button" class="btn btn-default btn-sm update-btn" style="display:none">修改</button>
+        <button type="button" class="btn btn-default btn-sm delete-btn" style="display:none">删除</button>
+        <button type="button" class="btn btn-default btn-sm back-btn">取消</button>
+    </div>
+    <div class="panel-body form-parent" data-bind="with:editData">
+        <form class="pubFileinfoEditForm form-horizontal">
+            <!--<div class="row panel slideParent">-->
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="form-group">
+                        <label class="col-md-3 col-sm-4 control-label no-padding-right">文件分类</label>
+                        <div class="col-md-9 col-sm-8">
+                            <select name="filetype" class="form-control"
+                                    data-bind="value:filetype,enable:enableState">
+                                <option value="1">模板</option>
+                                <option value="2">原件</option>
+                                <option value="3">扫描件</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="form-group">
+                        <label class="col-md-3 col-sm-4 control-label no-padding-right">文档名称</label>
+                        <div class="col-md-9 col-sm-8">
+                            <input type="text" name="filename" class="form-control"
+                                   data-bind="value:filename,enable:enableState" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="form-group">
+                        <label class="col-md-3 col-sm-4 control-label no-padding-right">文档类型</label>
+                        <div class="col-md-9 col-sm-8">
+                            <input type="text" name="doctype" class="form-control"
+                                   data-bind="value:doctype,enable:enableState" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <div class="form-group">
+                        <label class="col-md-3 col-sm-4 control-label no-padding-right">上传人</label>
+                        <div class="col-md-9 col-sm-8" id="uploader">
+                            <input type="text" name="uploader" class="form-control content-w210-input"
+                                   readOnly="true"
+                                   data-imfbp-ref-bind='uploader' data-imfbp-ref-bind-field='userRealName'
+                                   style="background-color:#fff" data-bind="value:uploader,enable:enableState">
+                            <span class="input-group-addon" data-imfbp-ref-name='userref' name="uploader"
+                                  data-imfbp-ref-fun="" data-imfbp-ref="ref" style="display:none">
+                        </span>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="form-group">
+                        <label class="col-md-3 col-sm-4 control-label no-padding-right">上传时间</label>
+                        <div class="col-md-9 col-sm-8">
+                            <input type="text" name="uploadtime" class="form-control"
+                                   data-bind="value:uploadtime,enable:enableState" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="form-group">
+                        <label class="col-md-3 col-sm-4 control-label no-padding-right">附件来源</label>
+                        <div class="col-md-9 col-sm-8">
+                            <select name="filesrc" class="form-control"
+                                    data-bind="value:filesrc,enable:enableState">
+                                <option value="1" selected>手工上传</option>
+                                <option value="2">自动生成</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+ <div class="col-md-3 col-sm-6">
+                    <div class="form-group" style="display:none">
+                        <label class="col-md-3 col-sm-4 control-label no-padding-right">文件主键</label>
+                        <div class="col-md-9 col-sm-8">
+                            <input type="text" name="pkFile" class="form-control"
+                                   data-bind="value:pkFile,enable:enableState">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6" style="display:none">
+                    <div class="form-group">
+                        <label class="col-md-3 col-sm-4 control-label no-padding-right">单据主键</label>
+                        <div class="col-md-9 col-sm-8">
+                            <input type="text" name="pkBill" class="form-control"
+                                   data-bind="value:pkBill,enable:enableState">
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+    </form>
+</div>
+<div class="upload">
+    <div class="addOuterdiv" style="display:none">
+	   <span class="btn btn-success fileinput-button">
+        <i class="glyphicon glyphicon-plus"></i>
+        <span>点击此处添加文件,附件支持word、excel、ppt、pdf,单个文件大小不得超过5M</span>
+        <input id="imgfileupload" type="file" name="files" multiple>
+    </span>
+    </div>
+    </br>
+    <div class="outerdiv">
+        <h4>附件(上传多个附件以最后为准)</h4>
+
+        <div id="attachprogress" class="progress" style="display:none;">
+            <div class="progress-bar progress-bar-success"></div>
+        </div>
+        <div id="attachfiles" class="files"></div>
+    </div>
+</div>
+</div>
+
+
+

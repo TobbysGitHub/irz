@@ -1,0 +1,941 @@
+<title>rzPmtPlanCf</title>
+<style>
+#testDialg{width:1000px !important;}
+body{overflow:auto}
+#testDialgPay{
+width:500px !important;}
+}
+</style>
+<body>
+<div id="rzPmtPlanCfModule" >
+	
+	<!-- list page start -->
+	<div class="listPage startPage">
+		#parse("/WEB-INF/vm/rzPmtPlanCf/rzPmtPlanCfList.vm")
+	</div>
+	<!-- list page end -->
+	
+	<!-- edit page end -->
+	<div class="rzPmtPlanCfEdit" style="display:none;">
+	</div>
+	<!-- edit page end -->
+	
+</div>
+
+
+<script>
+
+jQuery(function(){
+
+	
+	//列表后台访问地址
+	var url_page = '$homeModule.getTarget('/rzPmtPlanCf/getRzPmtPlanCfByPage')';
+	//添加修改后台访问地址
+	var url_add = '$homeModule.getTarget('/rzPmtPlanCf/insertOrUpdate')';
+	//删除后台访问地址
+	var url_del = '$homeModule.getTarget('/rzPmtPlanCf/deleteRzPmtPlanCfByBatchId')';
+	
+	//查询对象
+	var queryData = new RzPmtPlanCfView();
+	//编辑对象
+	var editData = new RzPmtPlanCfView();
+	//空对象用来清空编辑和查询对象
+	var emptyData = new RzPmtPlanCfView();
+	
+	var viewModel={
+		queryData:ko.mapping.fromJS(queryData),
+		editData:ko.mapping.fromJS(editData),
+		pageState:ko.observable("")
+	}
+	
+	/**
+	 * 表头
+	 */
+	var col = [{
+		field:"prd",
+		title:"收付计划期次"
+	},{
+		field:"planpmtdate",
+		title:"计划收支日期"
+	},{
+		field:"planpmttype",
+		title:"计划收付类型",
+		renderType: function (obj) {
+                    var html = "<span>"
+                    //计划收付类别：( 1、收款 0.付款)
+                    var state = obj.row.value.planpmttype;
+                    if (0 == state ) {
+                        html += "付款";
+                    } else if(1 == state){
+                       html += "收款";
+                    } 
+                    html += "</span>";
+                    var innerDom = u.makeDOM(html);
+                    obj.element.appendChild(innerDom);
+                }
+		
+	},{
+		field:"planpmtcategory",
+		title:"计划收付类别",
+        renderType: function (obj) {
+                    var html = "<span>"
+                    //0、融资金额投放 1、服务费支出 2、收取保证金 3、手续费收取 4、首付款收取 5、租金收取 6、退还保证金
+                    var state = obj.row.value.planpmtcategory;
+                    if (0 == state ) {
+                        html += "融资金额投放";
+                    } else if(1 == state){
+                       html += "服务费支出";
+                    } else if(2 == state){
+                       html += "收取保证金";
+                    } else if(3 == state){
+                       html += "手续费收取";
+                    }else if(4 == state){
+                       html += "首付款收取";
+                    } else if(5 == state){
+                       html += "租金收取";
+                    } else if(6 == state){
+                       html += "退还保证金";
+                    }
+                     
+                    html += "</span>";
+                    var innerDom = u.makeDOM(html);
+                    obj.element.appendChild(innerDom);
+                }
+	},{
+		field:"pmtdur",
+		title:"收付期间"
+	},{
+		field:"durdays",
+		title:"期间天数"
+	},{
+		field:"leaseRate",
+		title:"租赁利率(%)",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(4);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+	},{
+		field:"receivableAmt",
+		title:"应收本金",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(2);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+	},{
+		field:"receivableInt",
+		title:"应收利息",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(2);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+	},{
+		field:"receivableRent",
+		title:"应收租金",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(2);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+	},{
+		field:"receivablDefInt",
+		title:"应收罚息",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(2);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+	},{
+		field:"receivableFee",
+		title:"应收手续费",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(2);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+	},{
+		field:"receivableTotal",
+		title:"应收款合计",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(2);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+	},{
+		field:"payableFa",
+		title:"应付融资金额",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(2);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+	},{
+		field:"payableSc",
+		title:"应付服务费",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(2);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+	},{
+		field:"payableAmt",
+		title:"应付款项金额",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(2);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+ 	},{
+		field:"actPmtDate",
+		title:"实际收款日期",
+	},{
+		field:"actPmtTotal",
+		title:"实际收付合计",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(2);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+	},{
+		field:"actAmt",
+		title:"实收本金",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(2);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+	},{
+		field:"actInt",
+		title:"实收利息",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(2);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+ 	},{
+		field:"actRent",
+		title:"实收租金",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(2);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+	},{
+		field:"actDefInt",
+		title:"实收罚息",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(2);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+	},{
+		field:"actFee",
+		title:"实收手续费",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(2);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+	},{
+		field:"actTotal",
+		title:"实收合计",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(2);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+	},{
+		field:"actFa",
+		title:"实付融资金额",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(2);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+	},{
+		field:"actSc",
+		title:"实付服务费",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(2);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+	},{
+		field:"actAmtTotal",
+		title:"实付合计",
+		 renderType: function (obj) {
+                if (obj.value == 0) {
+                    var html = "<span></span>";
+                } else {
+                    var formater = new u.NumberFormater(2);
+                    var masker = new u.NumberMasker(null);
+                    var svalue = masker.format(formater.format(obj.value)).value
+                    var html = "<span>" + svalue + "</span>";
+                }
+                var innerDom = u.makeDOM(html);
+                obj.element.appendChild(innerDom);
+            }
+	},{
+		field:"isCheck",
+		title:"是否核销",
+		renderType: function (obj) {
+                    var html = "<span>"
+                    //是否核销:Y是N否,M核销中
+                    var state = obj.row.value.isCheck;
+                    if ('Y' == state ) {
+                        html += "已核销";
+                    }else if('M' == state){
+                     html += "核销中";
+                    } else{
+                       html += "未核销";
+                    }
+                    html += "</span>";
+                    var innerDom = u.makeDOM(html);
+                    obj.element.appendChild(innerDom);
+                }
+ 	}];
+    
+	
+	/**
+     * 初始化layoutMDI
+     */
+	$("#rzPmtPlanCfModule").layoutMDI({
+		//当页面后退时候触发的事件
+		onBackPage: function(target, options) {
+			ko.mapping.fromJS(emptyData,viewModel.editData);
+		} 
+	});
+	
+	/**
+     * 创建一个表格，但是没有赋值dataSource数据，这是表格将没有数据
+	 */
+	var gridObj = $("#rzPmtPlanCfModule .rzPmtPlanCfList").grid({
+		dataSource:'',
+    	id: 'case-g1',
+   		keyField: 'id',
+   		parentKeyField: 'pid',
+    	multiSelect: true,
+    	showNumCol:false,
+    	height:300,
+    	columns: col,
+    	/*onDblClickFun:function(gridObj,rowObj,rowIndex){
+			//设置页面的输入框为不可修改
+			viewModel.editData.enableState(false);
+			//得到点击行
+    		var dbClickRow = gridObj.rowObj;
+    		//赋值
+    		ko.mapping.fromJS(dbClickRow.value, viewModel.editData);
+    		//跳转到编辑页
+        	$("#rzPmtPlanCfModule").layoutMDI("go", ".rzPmtPlanCfEdit");
+    	}*/
+    });
+	
+	/**
+	 * 初始化分页
+	 */
+	var paginationObj = $("#rzPmtPlanCfModule .pagination").pagination({
+		pageSize:10000,
+		styleMode:2,
+		onSelectPage:function(pageNumber, pageSize){
+			var queryData = $.extend(ko.mapping.toJS(viewModel.queryData),{pageNumber:pageNumber,pageSize:pageSize});
+			jQuery("#rzPmtPlanCfModule .rzPmtPlanCfList").gridPlugin("reLoad",queryData);
+		}
+	});
+	
+	/**
+	 * 初始化表格插件
+	 */
+	var gridPluginObj = jQuery("#rzPmtPlanCfModule .rzPmtPlanCfList").gridPlugin({
+		url: url_page,
+		gridObj:gridObj,
+		queryParam:getParams(),
+		pagination:true,//是否分页默认为否
+		paginationObj:paginationObj,//分页控件对象
+		initData:false,//初始化时候是否加载数据(true时候加载，false时候不加载)
+		onDataSuccess:function(data){
+			//当列表加载成功之后调用
+		},
+		onDataError:function(data){
+			//当列表加载失败之后调用
+		},
+	})
+	
+	/**
+	 * form表单插件
+	 */
+	jQuery("#rzPmtPlanCfModule .rzPmtPlanCfEditForm").formPlugin({
+		url: url_add,//添加修改的地址
+		gridPlugin:gridPluginObj,//表格插件对象
+		onSaveSuccess:function(data){
+			//保存成功后退出编辑页面
+			$("#rzPmtPlanCfModule").layoutMDI("back");
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+			jQuery("#rzPmtPlanCfModule .rzPmtPlanCfList").gridPlugin("load", {});
+		},
+		onDeleteSuccess:function(data){
+			
+		}
+	})
+	//初始化数据
+	function init(){
+		debugger
+	    var  pkPmtPlan="${pkPmtPlan}"
+	    var ver=Number(${ver})
+	    viewModel.queryData.pkPmtPlan(pkPmtPlan)
+	   viewModel.queryData.ver(ver)
+	   jQuery("#rzPmtPlanCfModule .rzPmtPlanCfList").gridPlugin("load",ko.mapping.toJS(viewModel.queryData));
+	}
+	/**
+	 * 新增功能
+	 */			
+   /* jQuery("#rzPmtPlanCfModule .toolsbarPanel .add-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为添加状态
+		viewModel.pageState(pageState.add);
+        $("#rzPmtPlanCfModule").layoutMDI("go", ".rzPmtPlanCfEdit");
+    });*/
+
+	/**
+	 * 修改功能
+	 */		    
+    /*jQuery("#rzPmtPlanCfModule .toolsbarPanel .update-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为修改状态
+		viewModel.pageState(pageState.edit);
+    	//当前选中行
+    	var selectRow = gridObj.getSelectRows();
+    	//将数据绑定到表单上面
+    	ko.mapping.fromJS(selectRow[0], viewModel.editData);
+    	//跳转到编辑页面
+        $("#rzPmtPlanCfModule").layoutMDI("go", ".rzPmtPlanCfEdit");
+    });*/
+
+	/**
+	 * 删除功能
+	 */	    
+    /*jQuery("#rzPmtPlanCfModule .toolsbarPanel .remove-btn").click(function(){
+    	//要删除的id用","隔开
+		var batchId = "";
+		//当前选中行
+		var selectRow = gridObj.getSelectRows();
+		//判断是否选中要删除的数据
+		if(selectRow.length == 0) {
+			alert("请选择您要修改的数据");
+			return;
+		}
+	
+		for(var i = 0; i < selectRow.length; i++) {
+			var row = selectRow[i];
+			if(i == 0) {
+				batchId = row["pkPmtPlanCf"] + batchId;
+			} else {
+				batchId = row["pkPmtPlanCf"] + "," + batchId;
+			}
+		}
+		//删除数据
+		jQuery("#rzPmtPlanCfModule .rzPmtPlanCfEditForm").formPlugin("remove",{batchId:batchId,url:url_del});
+    });*/
+    
+    /**
+	 * 刷新功能(只是刷新当前页，如果要刷新所有页面使用 load 方法)
+	 */	 
+    jQuery("#rzPmtPlanCfModule .toolsbarPanel .refresh-btn").click(function(){
+		jQuery("#rzPmtPlanCfModule .rzPmtPlanCfList").gridPlugin("reLoad",viewModel.queryData);
+    });
+    
+    //保存功能
+	/*jQuery("#rzPmtPlanCfModule .rzPmtPlanCfEdit .save-btn").click(function(){
+		if(viewModel.pageState()=="add"){
+			ko.mapping.fromJS(emptyData,viewModel.queryData);
+		}
+		var param = {
+			formData:ko.mapping.toJS(viewModel.editData),//要提交的数据
+			queryData:ko.mapping.toJS(viewModel.queryData),//修改完毕刷新表格的参数
+			editType:viewModel.pageState()//页面的状态(add：添加，edit:编辑)
+		}
+		jQuery("#rzPmtPlanCfModule .rzPmtPlanCfEditForm").formPlugin("save",param);
+	});*/
+	
+	//查找功能
+	/**jQuery("#rzPmtPlanCfModule .searchToolsbar .search-btn").click(function(){
+		jQuery("#rzPmtPlanCfModule .rzPmtPlanCfList").gridPlugin("load",ko.mapping.toJS(viewModel.queryData));
+	});*/
+	
+	//重置查询条件功能
+	/**jQuery("#rzPmtPlanCfModule .searchToolsbar .reset-btn").click(function(){
+		ko.mapping.fromJS(emptyData,viewModel.queryData);
+	});*/
+	
+	//编辑页返回
+	/**jQuery("#rzPmtPlanCfModule .rzPmtPlanCfEdit .back-btn").click(function(){
+		$("#rzPmtPlanCfModule").layoutMDI("back");
+	});*/
+//核销功能开始
+$("#rzPmtPlanCfModule .toolsbarPanel .check-btn").on("click",function(e) {
+    debugger
+    var selectrows = gridObj.getSelectRows();
+    if (selectrows.length > 0) {
+        if(selectrows.length > 1) {
+            layer.alert("只能选择一条记录")
+        }else{
+           //对表格中的所有数据进行过滤保证不能夸期间核销
+            var maxNum=0
+            $.each(gridObj.getAllRows(),function(index,item){
+            if((item.isCheck == 'Y' || item.isCheck == 'M')) maxNum=item.prd
+            else return
+            })
+            if(Number(selectrows[0].prd)-Number(maxNum) >1){
+            layer.alert("上一期次还没核销，请先核销上一期")
+            return
+            }
+            var isCheck = selectrows[0].isCheck
+            if (isCheck == 'Y') {
+                layer.alert("只能对未核销的进行核销");
+                return
+            }
+           // $(document).data("select",select[0]);
+           if(selectrows[0].planpmttype ==1) receive(selectrows[0])
+           else pay(selectrows[0])
+        }
+    } else {
+        layer.alert("请至少选择一条记录");
+    }
+})
+//收款
+function receive(select){
+ 			debugger
+ 			 $("#edit_pmtcf input").css("background-color","#fff")
+ 			//收付计划类型
+ 		    var planpmtcategory=select.planpmtcategory
+            $("#edit_pmtcf input[name='receivableTotal']").val(select.receivableTotal)
+            $("#edit_pmtcf input[name='actTotal']").val(select.receivableTotal) 
+            $("#edit_pmtcf input[name='receivableAmt']").val(select.receivableAmt)
+            $("#edit_pmtcf input[name='receivableInt']").val(select.receivableInt) 
+            $("#edit_pmtcf input[name='receivableRent']").val(select.receivableRent)
+            $("#edit_pmtcf input[name='receivablDefInt']").val(select.receivablDefInt) 
+            $("#edit_pmtcf input[name='receivableFee']").val(select.receivableFee)
+            $("#edit_pmtcf input[name='actAmt']").val(select.receivableAmt) 
+            $("#edit_pmtcf input[name='actInt']").val(select.receivableInt)
+            $("#edit_pmtcf input[name='actRent']").val(select.receivableRent)
+            $("#edit_pmtcf input[name='actDefInt']").val(select.receivablDefInt)
+            $("#edit_pmtcf input[name='actFee']").val(select.receivableFee) 
+            $(document).data("option",select) 
+            window.md = u.dialog({id: 'testDialg',content: "#edit_pmtcf",hasCloseMenu: true});
+            $("#edit_pmtcf .ok-btn").off("click")
+            $("#edit_pmtcf .ok-btn").on("click",function(){
+            md.close()
+            layer.confirm('确认核销？', {
+  			btn: ['确认','取消'] //按钮
+			}, function(index){
+			        layer.close(index);
+			        var option= $(document).data("option")
+  			 		var pkPmtPlanCf = option.pkPmtPlanCf
+  			 		var seqNo = option.seqNo
+  			 		var pkPmtPlan=option.pkPmtPlan
+  			 		var planpmtdate=option.planpmtdate
+                    var receivableTotal = $("#edit_pmtcf input[name='receivableTotal']").val() 
+                    var actTotal = $("#edit_pmtcf input[name='actTotal']").val()
+                    var actAmt = $("#edit_pmtcf input[name='actAmt']").val()
+                    var actInt = $("#edit_pmtcf input[name='actInt']").val()
+                    var actRent = $("#edit_pmtcf input[name='actRent']").val()
+                    var actDefInt = $("#edit_pmtcf input[name='actDefInt']").val()
+                    var actFee = $("#edit_pmtcf input[name='actFee']").val()
+                    var date= getData()
+                    var state=''
+                    if(Number(receivableTotal) <= Number(actTotal)) state='Y'
+                    else if(Number(rptTotal) > Number(actTotal)) state='M'
+                    var sentData={actPmtDate:date,actTotal:actTotal,actAmt:actAmt,actInt:actInt,actRent:actRent,actDefInt:actDefInt,actFee:actFee,isCheck:state,pkPmtPlanCf:pkPmtPlanCf}
+                    var obj1={actAmt:actAmt,actInt:actInt,actRent:actRent,actDefInt:actDefInt,actPayFee:actFee,actTotal:actTotal,isCheck:state}
+                    var obj2={seqNo:seqNo,pkPmtPlan:pkPmtPlan}
+                     var array=new Array()
+                    array.push(obj1)
+                    array.push(obj2)
+                    var data=JSON.stringify(array);
+                    var updateData={data:data}
+                    if(state == 'Y'){
+                       //核销后还得往台账表中插入数据
+                        $.getJSON("$homeModule.getTarget('/rzPmtPlanCf/insertToTally')",option)
+                     }
+                    if(planpmtcategory == '0' || planpmtcategory == 0){
+                    ajax4=$.getJSON("$homeModule.getTarget('/rzPmtPlanCf/updateContr')",{'pkPmtPlan':pkPmtPlan,'state':"2"})
+                    }
+                     $.when($.getJSON("$homeModule.getTarget('/rzPmtPlanCf/insertOrUpdate')",sentData),$.getJSON("$homeModule.getTarget('/rzPmtPlanLease/updateRzPmtPlanLeaseByCondition')",updateData)).done(function(data1,data2) {
+                         $("#edit_msg_out").html("现金流计划表核销成功").show() 
+                        setTimeout(function() {
+                            $("#edit_msg_out").hide()
+                            init()
+                        },
+                        3000);
+                    }).fail(function(data) {
+                        layer.alert("核销失败");
+                    });
+			}, function(){
+			});
+		  })
+		   $("#edit_pmtcf .cancel-btn").on("click",function(){
+                md.close()
+            })
+}
+//付款
+function pay(select){
+			debugger
+			$("#edit_pmtcfpay input").css("background-color","#fff")
+			//收付计划类型
+ 		    var planpmtcategory=select.planpmtcategory
+ 		    var html=""
+ 		     if (0 == planpmtcategory ) {
+                        html += "融资金额投放";
+             } else if(1 == planpmtcategory){
+                       html += "服务费支出";
+           } else if(2 == planpmtcategory){
+                       html += "收取保证金";
+           } else if(3 == planpmtcategory){
+                       html += "手续费收取";
+           }else if(4 == planpmtcategory){
+                       html += "首付款收取";
+           } else if(5 == planpmtcategory){
+                       html += "租金收取";
+           } else if(6 == planpmtcategory){
+                       html += "退还保证金";
+           }
+ 		    $("#edit_pmtcfpay #test").html(html)
+            $("#edit_pmtcfpay input[name='payableAmt']").val(select.payableAmt)
+            $("#edit_pmtcfpay input[name='actAmtTotal']").val(select.payableAmt) 
+              $(document).data("option",select) 
+            window.md = u.dialog({id: 'testDialgPay',content: "#edit_pmtcfpay",hasCloseMenu: true});
+            $("#edit_pmtcfpay .ok-btn").off("click")
+            $("#edit_pmtcfpay .ok-btn").on("click",function(){
+            md.close()
+            layer.confirm('确认核销？', {
+  			btn: ['确认','取消'] //按钮
+			}, function(index){
+			        layer.close(index)
+			        var option= $(document).data("option")
+  			 		var pkPmtPlan = option.pkPmtPlan
+  			 		var pkPmtPlanCf=option.pkPmtPlanCf
+                    var payableAmt = $("#edit_pmtcfpay input[name='payableAmt']").val() 
+                    var actAmtTotal=$("#edit_pmtcfpay input[name='actAmtTotal']").val()
+                    var state=''
+                    if(Number(payableAmt) <= Number(actAmtTotal)) state='Y'
+                    else if(Number(payableAmt) > Number(actAmtTotal)) state='M'
+                    var date= getData()
+                    var sentData={actPmtDate:date,actAmtTotal:actAmtTotal,isCheck:state,pkPmtPlanCf:pkPmtPlanCf}
+                    //核销后还得往台账表中插入数据
+                    if(state == 'Y'){
+                    $.getJSON("$homeModule.getTarget('/rzPmtPlanCf/insertToTally')",option)
+                    }
+                    if(planpmtcategory == '0' || planpmtcategory == 0){
+                    $.getJSON("$homeModule.getTarget('/rzPmtPlanCf/updateContr')",{'pkPmtPlan':pkPmtPlan,'state':"2"})
+                    }
+                    $.when($.getJSON("$homeModule.getTarget('/rzPmtPlanCf/insertOrUpdate')",sentData)).done(function(data) {
+                        $("#edit_msg_out").html("现金流计划表核销成功").show() 
+                        setTimeout(function() {
+                            $("#edit_msg_out").hide()
+                            init()
+                        },
+                        3000);
+                    }).fail(function(data) {
+                        layer.alert("核销失败");
+                    });
+			}, function(){
+			});
+		  })
+		   $("#edit_pmtcfpay .cancel-btn").on("click",function(){
+                md.close()
+            })
+
+}
+ /** 核销功能结束*/
+	ko.applyBindings(viewModel);
+    init()
+     //表格全屏查看
+   function fullPageView(){
+	   $(".fullpage-btn").click(function(){
+		   $("#case-g1").addClass("fullpage-table");
+		   $(".listPage  .padding-5").addClass("fullpage-table-parent");
+	   })
+	   $(".exit-fullpage-btn").click(function(){
+		   $("#case-g1").removeClass("fullpage-table");
+		   $(".listPage  .padding-5").removeClass("fullpage-table-parent");
+	   })
+   }   
+   fullPageView();
+});
+   	$("#edit_pmtcf input[name='actAmt'],#edit_pmtcf input[name='actInt'],#edit_pmtcf input[name='actRent'],#edit_pmtcf input[name='actDefInt'],#edit_pmtcf input[name='actFee']").on("change",function(e){
+      var actAmt = $("#edit_pmtcf input[name='actAmt']").val()
+      var actInt = $("#edit_pmtcf input[name='actInt']").val()
+      if(e.target && ($(this).attr("name")=="actAmt" || $(this).attr("name")=="actInt")){
+      $("#edit_pmtcf input[name='actRent']").val(Number(actAmt)+Number(actInt))
+      }
+      var actRent = $("#edit_pmtcf input[name='actRent']").val()
+      var actDefInt = $("#edit_pmtcf input[name='actDefInt']").val()
+      var actFee = $("#edit_pmtcf input[name='actFee']").val()
+      var total=Number(actAmt)+Number(actInt)+Number(actDefInt)+Number(actFee)
+      $("#edit_pmtcf input[name='actTotal']").val((Number(total)).toFixed(2))
+      })
+      
+function RzPmtPlanCfView(){
+	//主键
+	this.pkPmtPlanCf="";
+	//主键
+	this.pkPmtPlan="";
+	//计划收支日期
+	this.planpmtdate="";
+	//收付计划期次
+	this.prd="";
+	//计划收付类型
+	this.planpmttype="";
+	//计划收付类别
+	this.planpmtcategory="";
+	//偿还期间
+	this.pmtdur="";
+	//期间天数
+	this.durdays="";
+	//租赁利率(%)
+	this.leaseRate="";
+	//应收本金
+	this.receivableAmt="";
+	//应收利息
+	this.receivableInt="";
+	//应收租金
+	this.receivableRent="";
+	//应收罚息
+	this.receivablDefInt="";
+	//应收手续费
+	this.receivableFee="";
+	//应收款合计
+	this.receivableTotal="";
+	//应付融资金额
+	this.payableFa="";
+	//应付服务费
+	this.payableSc="";
+	//应付款项金额
+	this.payableAmt="";
+	//实收本金
+	this.actAmt="";
+	//实收利息
+	this.actInt="";
+	//实收租金
+	this.actRent="";
+	//实收罚息
+	this.actDefInt="";
+	//实收手续费
+	this.actFee="";
+	//实付融资金额
+	this.actFa="";
+	//实付服务费
+	this.actSc="";
+	//是否核销:Y是N否
+	this.isCheck="";
+	//编辑页面状态
+	this.enableState=true;
+	//实收合计
+	this.actTotal=""
+	//实付合计
+	this.actAmtTotal=""
+	//版本号
+	this.ver=""
+}
+
+function getParams(selector){
+	return {};
+}
+function getData(){
+  var date=new Date();
+var yy=date.getFullYear();
+var MM=date.getMonth()+1;
+var DD=date.getDate();
+if(DD<10){
+DD="0"+DD;
+}
+if(MM<10){
+MM="0"+MM;
+		}
+var nowdate=yy+"-"+MM+"-"+DD;
+return nowdate
+}
+
+
+
+//表格全屏查看
+function fullScreenSonScript(){
+         // 开启全屏
+ function launchFullScreen(element) {
+     if(element.requestFullScreen) {
+         element.requestFullScreen();
+     }else if(element.mozRequestFullScreen) { //兼容moz
+         element.mozRequestFullScreen();
+     }else if(element.webkitRequestFullScreen) { //兼容webkit
+         element.webkitRequestFullScreen();
+     }
+ }
+     //退出全屏
+ function exitFullscreen() {
+     if(document.exitFullscreen) {
+         document.exitFullscreen();
+     }else if(document.mozCancelFullScreen) { //兼容moz
+         document.mozCancelFullScreen();
+     }else if(document.webkitExitFullscreen) { //兼容webkit
+         document.webkitExitFullscreen();
+     }
+ }
+
+ document.querySelector(".fullpage-btn").addEventListener("click", function(){
+ 	
+     var cloneDiv2=document.querySelector("#case-g1").cloneNode(true);
+  
+     window.parent.parent.document.body.appendChild(cloneDiv2);
+     $(window.parent.parent.document.querySelector("#case-g1")).addClass("fullpage-table");
+     $(window.parent.parent.document.querySelector("#case-g1 #case-g1_content")).addClass("fullpage-table");
+     $(window.parent.parent.document.querySelector("#case-g1 #case-g1_content_div")).addClass("fullpage-table");
+     launchFullScreen(window.parent.parent.document.querySelector("#case-g1"));      
+ })
+}
+
+fullScreenSonScript()
+ 
+</script>
+	
+</body>

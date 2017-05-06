@@ -1,0 +1,119 @@
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+	
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/libs/bootstrap/css/bootstrap.css')" type="text/css" />
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/libs/bootstrapvalidator/css/bootstrapValidator.css')" type="text/css" />
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/libs/bootstrap-treeview/css/bootstrap-treeview.min.css')" type="text/css" />
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/libs/bootstrap-icheck/css/all.css')" type="text/css" />
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/libs/font-awesome/css/font-awesome.min.css')" type="text/css" />
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/libs/simple-line-icons/css/simple-line-icons.css')" type="text/css" />
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/libs/animate/animate.css')" type="text/css" />
+		
+	<link rel="stylesheet" href="$miscModule.getTarget('/misc/libs/jstree/dist/themes/default/style.css')" type="text/css" />
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/libs/select2/dist/css/select2.css')" type="text/css" />
+	
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/css/f.css')" type="text/css" />
+	
+	<!-- long-index end-->
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/css/fu.css')" type="text/css" />
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/css/grid.css')" type="text/css" />
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/css/u.css')" type="text/css" />
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/css/u2.css')" type="text/css" />
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/fonts/iconfont.css')" type="text/css" />
+	
+	<!-- bootstrap-table css start-->
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/libs/bootstrap-table/css/bootstrap-table.min.css')" type="text/css" />
+	<link rel="stylesheet" href="$miscModule.getTarget('/misc/libs/bootstrap-dialog/css/bootstrap-dialog.min.css')" type="text/css" />
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/libs/bootstrap/css/bootstrap.min.css')" type="text/css" />
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/libs/bootstrap/css/bootstrap-datetimepicker.min.css')" type="text/css" />
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/libs/jquery-ui-bootstrap/css/custom-theme/jquery-ui-1.10.0.custom.css')" type="text/css" />
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/css/app.css" type="text/css')" />
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/css/tab.css" type="text/css')" />
+	<link rel="stylesheet" href="$homeModule.getTarget('/misc/css/app-xd.css" type="text/css')" />
+	<!-- 在线编辑默认css样式 -->
+	<link rel="stylesheet" href="$homeModule.getTarget('/themes/default/default.css')"  type="text/css"/>
+	
+	<!-- libs -->
+	<script src="$miscModule.getTarget('/misc/libs/jquery/dist/jquery.js')"></script>
+	<script src="$homeModule.getTarget('/misc/libs/bootstrap/js/bootstrap.js')"></script>
+	<script src="$homeModule.getTarget('/misc/libs/bootstrap/js/bootstrap-notify.min.js')"></script>
+	<script src="$homeModule.getTarget('/misc/libs/bootstrap/js/bootstrapValidator.js')"></script>
+	<script src="$homeModule.getTarget('/misc/libs/bootstrap-icheck/js/icheck.min.js')"></script>
+	<script src="$homeModule.getTarget('/misc/libs/bootstrap-treeview/js/bootstrap-treeview.min.js')"></script>
+	<script src="$miscModule.getTarget('/misc/libs/bootstrap-dialog/js/bootstrap-dialog.js')"></script>
+	<script src="$homeModule.getTarget('/misc/libs/select2/dist/js/select2.js')"></script>
+	<script src="$homeModule.getTarget('/misc/libs/jstree/dist/jstree.js')"></script>
+	<script src="$miscModule.getTarget('/misc/libs/knockout/knockout-3.2.0.debug.js')"></script>
+	<script src="$homeModule.getTarget('/misc/libs/knockout-mapping/knockout.mapping-latest.debug.js')"></script>
+	<script src="$homeModule.getTarget('/misc/libs/layer/layer.js')"></script>
+	
+	<!-- libs -->
+	
+	<!-- iuap -->
+	<script src="$homeModule.getTarget('/misc/libs/iuap-design/js/u-grid.js')"></script>
+	<script src="$homeModule.getTarget('/misc/libs/iuap-design/js/u-polyfill.js')"></script>
+	<script src="$homeModule.getTarget('/misc/js/u.js')"></script>
+	<!-- iuap -->
+	
+	<script src="$homeModule.getTarget('/misc/js/src/fu-form-plugin.js')"></script>
+	<script src="$homeModule.getTarget('/misc/js/src/fu-grid-plugin.js')"></script>
+	<script src="$homeModule.getTarget('/misc/js/src/fu-layoutMDI.js')"></script>
+	<script src="$homeModule.getTarget('/misc/js/src/fu-pagination.js')"></script>
+	
+	
+	
+	<script src="$homeModule.getTarget('/misc/js/validator.js')"></script>
+	<script src="$homeModule.getTarget('/misc/js/uitemplate.js')"></script>
+	<!-- 参照 -->
+	<script src="$homeModule.getTarget('/misc/js/imfbpref.js')"></script>
+	<script src="$homeModule.getTarget('/misc/libs/bootstrap-table/js/bootstrap-table.min.js')"></script>
+	<script src="$homeModule.getTarget('/misc/libs/bootstrap-table/js/bootstrap-table-zh-CN.min.js')"></script>
+	<!--导入控件-->
+	<script src="$homeModule.getTarget('/misc/js/fileupload.js')"></script>
+	<script src="$homeModule.getTarget('/misc/js/ajaxfileupload.js')"></script>
+	<script src="$homeModule.getTarget('/misc/js/dateprototype.js')"></script>
+	<script src="$homeModule.getTarget('/misc/js/rzajaxcheck.js')"></script>
+	<script src="$homeModule.getTarget('/misc/js/resetcommon.js')"></script>
+	<script src="$homeModule.getTarget('/misc/js/billwffunction.js')"></script>
+	
+
+	<script src="$homeModule.getTarget('/misc/libs/bootstrap/js/bootstrap-datetimepicker.js')"></script>
+	
+	<!-- bootstrapmenu start -->
+	<script src="$homeModule.getTarget('/misc/libs/bootstrapmenu/bootstrap-contextmenu.js')"></script>
+	<script src="$homeModule.getTarget('/misc/libs/bootstrapmenu/BootstrapMenu.js')"></script>
+	<script src="$homeModule.getTarget('/misc/libs/bootstrapmenu/BootstrapMenu.min.js')"></script>
+	<!-- bootstrapmenu end-->
+	
+	<!--菜单和top导航-->
+	<script src="$homeModule.getTarget('/misc/libs/jquery-ui/ui/jquery-ui.js')"></script>
+	<script src="$homeModule.getTarget('/misc/js/ui-tab.js')"></script>
+	<!--菜单和top导航-->
+	
+	<!-- 在线编辑模板js文件 -->
+	<script charset="utf-8" src="$homeModule.getTarget('/misc/kindeditor/kindeditor-all.js')"></script>
+	<script charset="utf-8" src="$homeModule.getTarget('/misc/kindeditor/lang/zh_CN.js')"></script>
+	
+	<script src="$homeModule.getTarget('/misc/js/billwf.js')"></script>
+	
+	<!-- skin start-->
+	<script src="$homeModule.getTarget('/misc/themeColor/initskin1.js')"></script>
+	<!-- skin end-->
+	
+    <script  type="text/javascript">
+    	var miscModuleUrl = "$miscModule";
+    	var homeModuleUrl = "$homeModule";
+    	var sess = '$session.getId()';
+      	//获取当前登录用户id
+        window.loginuser = "${loginuser}";
+        //获取组织机构id
+        window.loginorg = "${loginorg}";
+        //获取部门id
+        window.logindept = "${logindept}";
+    	var pageState={
+    		add:"add",
+    		edit:"edit"
+    	}
+    </script>
+
+</head>

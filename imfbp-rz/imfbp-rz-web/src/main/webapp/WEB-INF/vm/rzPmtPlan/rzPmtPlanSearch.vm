@@ -1,0 +1,113 @@
+<!-- search start  -->
+<div class="searchPanel padding-10">
+	<form class="form-horizontal">
+		<div class="searchContent col-xs-8" data-bind="with:queryData">
+			<div class="row">
+				<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:270px;">  
+					<div class="form-group">
+                        <label class="col-md-4 col-sm-4 control-label no-padding-right" style="width:84px">客户名称</label>
+                        <div class="col-md-8 col-sm-8">
+                            <input type="text" name="pkCustomer" class="form-control header-w130-input"
+                                   target-key="pkCustomer" selectcol="pkCustomer"
+                                   data-bind="enable:false" data-imfbp-ref-bind='pkCustomer'
+                                   data-imfbp-ref-bind-field='' style="width:169px !important;" />
+                            <div class="icon-wrap">
+                                <i class="glyphicon glyphicon-th-list icon" id="icon"
+                                   data-imfbp-ref-name='customerref' ref-input-name="pkCustomer"
+                                   name="pkCustomer" data-imfbp-ref-fun="outRpcCallFunction"
+                                   data-imfbp-ref="ref"></i>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+				  <div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:270px;">
+                        <div class="form-group" id="pkPrjcontr">
+                            <label class="col-md-3 col-sm-4 control-label no-padding-right" style="width:84px">合同编号</label>
+                             <div class="col-md-8 col-sm-8">
+                            <input type="text" name="pkPrjcontr"
+                                   class="form-control header-w130-input"
+                                   data-imfbp-ref-bind="pkPrjcontr"
+                                   data-imfbp-ref-bind-field="contrName" data-imfbp-ref-value="" style="width:169px !important;"
+                            >
+                            <div class="icon-wrap ">
+                                <i class="glyphicon glyphicon-th-list icon" id="icon"
+                                   name="pkPrjcontr" data-imfbp-ref-name='prjcontrref'
+                                   data-imfbp-ref-use='true'
+                                   data-imfbp-ref-fun="outRpcCallFunction"
+                                   data-imfbp-ref="ref"
+                                ></i>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+				<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:270px;">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right" style="width:84px;">合同起租日期</label>
+						<div class="input-group date form_datetime col-md-8 col-sm-8"
+									data-date="" data-date-format="yyyy-MM-dd"
+									data-link-field="visitDate" data-link-format="yyyy-mm-dd">
+									<input class="form-control header-w130-input" size="16" name="startLeaseDate" type="text" data-bind="value:startLeaseDate,enable:enableState"
+										readonly style="border-right:none !important;border-radius:4px 0 0 4px !important;"> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--******更多条件放这里********-->
+			<div class="hideRule">
+				
+				<div class="row">
+				    <div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:270px;">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right" style="width:84px;">合同结束日期</label>
+						<div class="input-group date form_datetime col-md-8 col-sm-8"
+									data-date="" data-date-format="yyyy-MM-dd"
+									data-link-field="visitDate" data-link-format="yyyy-mm-dd">
+									<input class="form-control header-w130-input" size="16" name="endLeaseDate" type="text" data-bind="value:endLeaseDate,enable:enableState"
+										readonly style="border-right:none !important;border-radius:4px 0 0 4px !important;"> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+						</div>
+					</div>
+				   </div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv"  style="width:270px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right" style="width:84px">项目状态</label>
+							<div class="col-md-8 col-sm-8">
+								<select name="prjState" class="form-control header-w130-input" style="width:169px !important" data-bind="value:prjState,">
+								<option value="">请选择</option>
+								<option value="0">报价单生成</option>
+								<option value="1">立项中</option>
+								<option value="2">项目评审中</option>
+								<option value="3">合同签订中</option>
+								<option value="4">项目已起租</option>
+								<option value="5">项目租后管理中</option>
+								<option value="6">项目结清</option>
+								<option value="7">项目合同作废</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:270px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right" style="width:84px">业务类型</label>
+							<div class="col-md-8 col-sm-8">
+								<select name="busitype" class="form-control header-w130-input" style="width:169px !important" data-bind="options:busyTypeList,optionsText:function(item){return item.text;},optionsValue:function(item){return item.value},optionsCaption:'请选择',value:busitype">
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>	
+			</div>
+		</div>
+		<!-- 展开更多的一行-->
+		<div class="searchToolsbar">
+			<div data-target=".hideRule" data-toggle="collapse" class="moreRule">
+				<span>展开更多查询条件</span>
+				<i class="glyphicon glyphicon-triangle-bottom"></i>
+			</div>
+			<div class="search-box">
+				<button type="button" class="btn btn-default btn-sm reset-btn">重置</button>
+				<button type="button" class="btn btn-default btn-sm search-btn">查询</button>
+			</div>
+		</div>
+	</form>
+</div>
+<!-- search end -->

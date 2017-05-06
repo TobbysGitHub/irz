@@ -1,0 +1,781 @@
+<title>rzPrjcontrIns</title>
+<body>
+<div id="rzPrjcontrInsModule" >
+	
+	<!-- list page start -->
+	<div class="listPage startPage">
+		#parse("/WEB-INF/vm/rzPrjcontrIns/rzPrjcontrInsList.vm")
+	</div>
+	<!-- list page end -->
+	
+	<!-- edit page end -->
+	<div class="rzPrjcontrInsEdit" style="display:none;">
+		#parse("/WEB-INF/vm/rzPrjcontrIns/rzPrjcontrInsEdit.vm")
+	</div>
+    <div class="rzPrjcontrInsEqptEdit" style="display:none;">
+		#parse("/WEB-INF/vm/rzPrjcontrIns/rzPrjcontrInsEqptEdit.vm")
+    </div>
+	<!-- edit page end -->
+	
+</div>
+
+
+<script>
+
+jQuery(function(){
+
+	
+	//列表后台访问地址
+	var url_page = '$homeModule.getTarget('/rzPrjcontrIns/getRzPrjcontrInsByPage')';
+	//添加修改后台访问地址
+	var url_add = '$homeModule.getTarget('/rzPrjcontrIns/insertOrUpdate')';
+	//删除后台访问地址
+	var url_del = '$homeModule.getTarget('/rzPrjcontrIns/deleteRzPrjcontrInsByBatchId')';
+
+    //列表后台访问地址
+    var url_pageEqpt = '$homeModule.getTarget('/rzPrjcontrInsEqpt/getRzPrjcontrInsEqptByPage')';
+    //添加修改后台访问地址
+    var url_addEqpt = '$homeModule.getTarget('/rzPrjcontrInsEqpt/insertOrUpdate')';
+    //删除后台访问地址
+    var url_delEqpt = '$homeModule.getTarget('/rzPrjcontrInsEqpt/deleteRzPrjcontrInsEqptByBatchId')';
+
+
+	
+	//查询对象
+	var queryData = new RzPrjcontrInsView();
+	//编辑对象
+	var editData = new RzPrjcontrInsView();
+	//空对象用来清空编辑和查询对象
+	var emptyData = new RzPrjcontrInsView();
+
+    //查询对象
+    var queryDataEqpt = new RzPrjcontrInsEqptView();
+    //编辑对象
+    var editDataEqpt = new RzPrjcontrInsEqptView();
+    //空对象用来清空编辑和查询对象
+    var emptyDataEqpt = new RzPrjcontrInsEqptView();
+	
+	window.viewModel={
+		queryData:ko.mapping.fromJS(queryData),
+		editData:ko.mapping.fromJS(editData),
+		pageState:ko.observable(""),
+		queryDataEqpt:ko.mapping.fromJS(queryDataEqpt),
+        editDataEqpt:ko.mapping.fromJS(editDataEqpt),
+        pageStateEqpt:ko.observable("")
+	}
+    getEqpttypeInit();
+	/**
+	 * 表头
+	 */
+	var col = [{
+		field:"insNo",
+		title:"保单号"
+	},{
+		field:"insContrType",
+		title:"合同类型"
+	},{
+		field:"insCorp",
+		title:"保险公司"
+	},{
+		field:"insType",
+		title:"险种"
+	},{
+		field:"pkCustomerPay",
+		title:"支付方",
+        imfbpRefType: "customerref",
+        renderType:"imfbpRefTransform"
+	},{
+		field:"payAmt",
+		title:"支付金额(元)"
+	},{
+		field:"insAmt",
+		title:"保额(元)"
+	},{
+		field:"pkUserBen",
+		title:"受益人",
+        imfbpRefType: "customerref",
+        renderType:"imfbpRefTransform"
+	},{
+		field:"startDate",
+		title:"合同开始日期"
+	},{
+		field:"insPrd",
+		title:"保险期限(月)"
+	},{
+		field:"endDate",
+		title:"保险结束日期"
+	},{
+		field:"remark",
+		title:"备注"
+ 	}];
+
+    /**
+     * 保险租赁物表头
+     */
+    var colEqpt = [{
+        field:"pkPrjcontrInsEqpt",
+        title:"主键",
+        visible:false
+    },{
+        field:"pkPrjcontrIns",
+        title:"项目合同保险信息主键",
+        visible:false
+    },{
+        field:"pkPrjcontr",
+        title:"项目合同主键",
+        visible:false
+    },{
+        field:"pkCustomer",
+        title:"客户",
+        imfbpRefType: "customerref",
+        renderType:"imfbpRefTransform",
+        visible:false
+    },{
+        field:"pkEqpt",
+        title:"租赁设备",
+        imfbpRefType: "eqptref",
+        renderType:"imfbpRefTransform"
+    },{
+        field:"eqptType",
+        title:"设备分类",
+        imfbpRefType: "eqpttyperef",
+        renderType:"imfbpRefTransform"
+    },{
+        field:"eqptPrice",
+        title:"设备价格"
+    },{
+        field:"eqptNum",
+        title:"设备数量"
+    },{
+        field:"eqptPriceTotal",
+        title:"设备总价"
+    },{
+        field:"deliveryDate",
+        title:"交货日期"
+    }];
+
+    //计算合同结束日期
+    ko.computed(function(){
+        //合同开始日期
+        var startDate = viewModel.editData.startDate();
+        //租赁期限(月)
+        var insPrd = viewModel.editData.insPrd();
+        if((startDate != null && startDate.length > 0) && (insPrd != null && insPrd != "")){
+            var endDate = new Date(startDate.replace(/-/g,"/"));
+            var newDate = DateAdd( "m ", parseInt(insPrd), endDate);
+            var year = newDate.getFullYear();
+            var month = newDate.getMonth() + 1;
+            var day = newDate.getDate()
+            if(newDate.getDate() < 10){
+                day = "0" + day;
+            }
+            if(month < 10){
+                month = "0" + month;
+            }
+            viewModel.editData.endDate(year + "-" + month + "-" + day);
+        }
+    }, this);
+	/**
+     * 初始化layoutMDI
+     */
+	$("#rzPrjcontrInsModule").layoutMDI({
+		//当页面后退时候触发的事件
+		onBackPage: function(target, options) {
+			ko.mapping.fromJS(emptyData,viewModel.editData);
+		} 
+	});
+	
+	/**
+     * 创建一个表格，但是没有赋值dataSource数据，这是表格将没有数据
+	 */
+	var gridObj = $("#rzPrjcontrInsModule .rzPrjcontrInsList").grid({
+		dataSource:'',
+    	id: 'case-g1',
+   		keyField: 'id',
+   		parentKeyField: 'pid',
+    	multiSelect: false,
+    	showNumCol:true,
+    	height: 200,
+    	columns: col,
+    	onDblClickFun:function(gridObj,rowObj,rowIndex){
+			//设置页面的输入框为不可修改
+			viewModel.editData.enableState(false);
+			//得到点击行
+    		var dbClickRow = gridObj.rowObj;
+    		//赋值
+    		ko.mapping.fromJS(dbClickRow.value, viewModel.editData);
+            refManager.setRefArea(".rzPrjcontrInsEditForm");
+            refManager.initAreaLoadData(".rzPrjcontrInsEditForm", function(name){
+                var fun = viewModel.editData[name];
+                if(typeof fun == 'function'){
+                    return fun();
+                }
+            });
+    		//跳转到编辑页
+        	$("#rzPrjcontrInsModule").layoutMDI("go", ".rzPrjcontrInsEdit");
+    	},
+        onRowSelected:onSelectOneRow
+    });
+	
+	/**
+	 * 初始化分页
+	 */
+	var paginationObj = $("#rzPrjcontrInsModule .pagination").pagination({
+		pageSize:5,
+		styleMode:2,
+		onSelectPage:function(pageNumber, pageSize){
+			var queryData = $.extend(ko.mapping.toJS(viewModel.queryData),{pageNumber:pageNumber,pageSize:pageSize});
+			jQuery("#rzPrjcontrInsModule .rzPrjcontrInsList").gridPlugin("reLoad",queryData);
+		}
+	});
+	
+	/**
+	 * 初始化表格插件
+	 */
+	var gridPluginObj = jQuery("#rzPrjcontrInsModule .rzPrjcontrInsList").gridPlugin({
+		url: url_page,
+		gridObj:gridObj,
+		queryParam:getParams(),
+		pagination:true,//是否分页默认为否
+		paginationObj:paginationObj,//分页控件对象
+		initData:true,//初始化时候是否加载数据(true时候加载，false时候不加载)
+		onDataSuccess:function(data){
+			//当列表加载成功之后调用
+			//默认选中第一行
+            imfbpDataTableTranform(gridObj, data.rows,function(){
+                debugger;
+                var d = {};
+                d.values = data.rows;
+                gridObj.setDataSource(d);
+                gridObj.setRowFocus(0);
+            });
+            //当列表加载成功之后调用
+            if(data.rows.length > 0){
+                gridObj.setRowFocus(0);
+            }
+		},
+		onDataError:function(data){
+			//当列表加载失败之后调用
+		},
+	})
+	
+	/**
+	 * form表单插件
+	 */
+	jQuery("#rzPrjcontrInsModule .rzPrjcontrInsEditForm").formPlugin({
+		url: url_add,//添加修改的地址
+		gridPlugin:gridPluginObj,//表格插件对象
+		onSaveSuccess:function(data){
+			//保存成功后退出编辑页面
+			$("#rzPrjcontrInsModule").layoutMDI("back");
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+			jQuery("#rzPrjcontrInsModule .rzPrjcontrInsList").gridPlugin("load", {});
+		},
+		onDeleteSuccess:function(data){
+			
+		}
+	})
+
+    /**
+	 * 保险租赁物
+     * 创建一个表格，但是没有赋值dataSource数据，这是表格将没有数据
+     */
+    var gridObjEqpt = $("#rzPrjcontrInsModule .rzPrjcontrInsEqptList").grid({
+        dataSource:'',
+        id: 'case-g2',
+        keyField: 'id',
+        parentKeyField: 'pid',
+        multiSelect: false,
+        showNumCol:true,
+        height: 200,
+        columns: colEqpt,
+        onDblClickFun:function(gridObjEqpt,rowObj,rowIndex){
+            //设置页面的输入框为不可修改
+            viewModel.editDataEqpt.enableState(false);
+            //得到点击行
+            var dbClickRow = gridObjEqpt.rowObj;
+            //赋值
+            ko.mapping.fromJS(dbClickRow.value, viewModel.editDataEqpt);
+            refManager.setRefArea(".rzPrjcontrInsEqptEditForm");
+            refManager.initAreaLoadData(".rzPrjcontrInsEqptEditForm", function(name){
+                var fun = viewModel.editDataEqpt[name];
+                if(typeof fun == 'function'){
+                    return fun();
+                }
+            });
+            //跳转到编辑页
+            $("#rzPrjcontrInsModule").layoutMDI("go", ".rzPrjcontrInsEqptEdit");
+        }
+    });
+
+    /**
+	 * 租赁物
+     * 初始化分页
+     */
+    var paginationObjEqpt = $("#rzPrjcontrInsModule #paginationEqpt").pagination({
+        pageSize:10,
+        styleMode:2,
+        onSelectPage:function(pageNumber, pageSize){
+            var queryData = $.extend(ko.mapping.toJS(viewModel.queryData),{pageNumber:pageNumber,pageSize:pageSize});
+            jQuery("#rzPrjcontrInsEqptModule .rzPrjcontrInsEqptList").gridPlugin("reLoad",queryData);
+        }
+    });
+
+    /**
+	 * 租赁物
+     * 初始化表格插件
+     */
+    var gridPluginObjEqpt = jQuery("#rzPrjcontrInsModule .rzPrjcontrInsEqptList").gridPlugin({
+        url: url_pageEqpt,
+        gridObj:gridObjEqpt,
+        queryParam:getParams(),
+        pagination:true,//是否分页默认为否
+        paginationObj:paginationObjEqpt,//分页控件对象
+        initData:false,//初始化时候是否加载数据(true时候加载，false时候不加载)
+        onDataSuccess:function(data){
+            //当列表加载成功之后调用
+            imfbpDataTableTranform(gridObjEqpt, data.rows,function(){
+                var d = {};
+                d.values = data.rows;
+                gridObjEqpt.setDataSource(d);
+            });
+        },
+        onDataError:function(data){
+            //当列表加载失败之后调用
+        },
+    })
+
+    /**
+	 * 租赁物
+     * form表单插件
+     */
+    jQuery("#rzPrjcontrInsModule .rzPrjcontrInsEqptEditForm").formPlugin({
+        url: url_addEqpt,//添加修改的地址
+        gridPlugin:gridPluginObj,//表格插件对象
+        onSaveSuccess:function(data){
+            //保存成功后退出编辑页面
+            $("#rzPrjcontrInsModule").layoutMDI("back");
+        },
+        onSaveError:function(data){
+            //保存失败回调事件
+        },
+        onSaveError:function(data){
+            //保存失败回调事件
+            jQuery("#rzPrjcontrInsModule .rzPrjcontrInsEqptList").gridPlugin("load", {});
+        },
+        onDeleteSuccess:function(data){
+
+        }
+    })
+
+    /**
+	 * 租赁物
+     * 新增功能
+     */
+    jQuery("#rzPrjcontrInsModule #toolsbarPanelEqpt #addDetail").click(function(){
+        getEqpttype();
+        refManager.initAreaLoadData(".rzPrjcontrInsEqptEditForm", function(name){
+            var fun = viewModel.editDataEqpt[name];
+            if(typeof fun == 'function'){
+                return fun();
+            }
+        });
+        refManager.setRefArea(".rzPrjcontrInsEqptEditForm");
+        //当前主表选中行
+        var selectRow = gridObj.getSelectRows();
+		if(selectRow == null || selectRow.length == 0){
+            layer.alert('请在指定的保险基本信息下新增租赁物信息！');
+			return;
+		}
+		var pkPrjcontrIns = selectRow[0].pkPrjcontrIns;
+        viewModel.editDataEqpt.pkPrjcontrIns(pkPrjcontrIns);
+        //设置页面的输入框可以输入
+        viewModel.editDataEqpt.enableState(true);
+        //设置页面为添加状态
+        viewModel.pageStateEqpt(pageState.add);
+        $("#rzPrjcontrInsModule").layoutMDI("go", ".rzPrjcontrInsEqptEdit");
+    });
+
+    /**
+	 * 租赁物
+     * 修改功能
+     */
+    jQuery("#rzPrjcontrInsModule #toolsbarPanelEqpt #updateDetail").click(function(){
+        getEqpttype();
+        //设置页面的输入框可以输入
+        viewModel.editDataEqpt.enableState(true);
+        //设置页面为修改状态
+        viewModel.pageStateEqpt(pageState.edit);
+        //当前选中行
+        var selectRow = gridObjEqpt.getSelectRows();
+        //将数据绑定到表单上面
+        ko.mapping.fromJS(selectRow[0], viewModel.editDataEqpt);
+        refManager.initAreaLoadData(".rzPrjcontrInsEqptEditForm", function(name){
+            var fun = viewModel.editDataEqpt[name];
+            if(typeof fun == 'function'){
+                return fun();
+            }
+        });
+        //跳转到编辑页面
+        $("#rzPrjcontrInsModule").layoutMDI("go", ".rzPrjcontrInsEqptEdit");
+    });
+
+    /**
+	 * 租赁物
+     * 删除功能
+     */
+    jQuery("#rzPrjcontrInsModule #toolsbarPanelEqpt #removeDetail").click(function(){
+        //要删除的id用","隔开
+        var batchId = "";
+        //当前选中行
+        var selectRow = gridObj.getSelectRows();
+        //判断是否选中要删除的数据
+        if(selectRow.length == 0) {
+            alert("请选择您要修改的数据");
+            return;
+        }
+
+        for(var i = 0; i < selectRow.length; i++) {
+            var row = selectRow[i];
+            if(i == 0) {
+                batchId = row["pkPrjcontrInsEqpt"] + batchId;
+            } else {
+                batchId = row["pkPrjcontrInsEqpt"] + "," + batchId;
+            }
+        }
+        //删除数据
+        jQuery("#rzPrjcontrInsModule .rzPrjcontrInsEqptEditForm").formPlugin("remove",{batchId:batchId,url:url_delEqpt});
+    });
+
+
+	/**
+	 * 租赁物
+	 * 保存功能
+	 */
+    jQuery("#rzPrjcontrInsModule .rzPrjcontrInsEqptEdit #saveDetail").click(function(){
+        if(viewModel.pageStateEqpt()=="add"){
+            ko.mapping.fromJS(emptyData,viewModel.queryDataEqpt);
+        }
+        var param = {
+            formData:ko.mapping.toJS(viewModel.editDataEqpt),//要提交的数据
+            queryData:{},//修改完毕刷新表格的参数
+            editType:viewModel.pageStateEqpt()//页面的状态(add：添加，edit:编辑)
+        }
+        jQuery("#rzPrjcontrInsModule .rzPrjcontrInsEqptEditForm").formPlugin("save",param);
+    });
+
+    //编辑页返回
+    jQuery("#rzPrjcontrInsModule .rzPrjcontrInsEqptEdit .back-btn").click(function(){
+        $("#rzPrjcontrInsModule").layoutMDI("back");
+    });
+
+
+    //选中主表一行
+    function onSelectOneRow(){
+        var focusRow = gridObj.getFocusRow();
+        viewModel.queryDataEqpt.pkPrjcontrIns(focusRow.pkPrjcontrIns);
+        jQuery("#rzPrjcontrInsModule .rzPrjcontrInsEqptList").gridPlugin("load",ko.mapping.toJS(viewModel.queryDataEqpt));
+    }
+
+    //计算设备总价
+    ko.computed(function(){
+        //设备单价
+        var eqptPrice = viewModel.editDataEqpt.eqptPrice();
+        //设备数量
+        var eqptNum = viewModel.editDataEqpt.eqptNum();
+        if((eqptPrice != null && eqptPrice != "") && (eqptNum != null && eqptNum != "")){
+            viewModel.editDataEqpt.eqptPriceTotal(parseFloat(eqptPrice) * parseFloat(eqptNum));
+        }
+    }, this);
+
+	/**
+	 * 新增功能
+	 */			
+    jQuery("#rzPrjcontrInsModule .toolsbarPanel #addMain").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为添加状态
+		viewModel.pageState(pageState.add);
+		//设置保险期限默认12个月
+		viewModel.editData.insPrd(12);
+        refManager.initAreaLoadData(".rzPrjcontrInsEditForm", function(name){
+            var fun = viewModel.editData[name];
+            if(typeof fun == 'function'){
+                return fun();
+            }
+        });
+        refManager.setRefArea(".rzPrjcontrInsEditForm");
+        $("#rzPrjcontrInsModule").layoutMDI("go", ".rzPrjcontrInsEdit");
+    });
+
+	/**
+	 * 修改功能
+	 */		    
+    jQuery("#rzPrjcontrInsModule .toolsbarPanel #updateMain").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为修改状态
+		viewModel.pageState(pageState.edit);
+    	//当前选中行
+    	var selectRow = gridObj.getSelectRows();
+    	//将数据绑定到表单上面
+    	ko.mapping.fromJS(selectRow[0], viewModel.editData);
+        //设置参照区域
+        refManager.setRefArea(".rzPrjcontrInsEditForm");
+    	//跳转到编辑页面
+        $("#rzPrjcontrInsModule").layoutMDI("go", ".rzPrjcontrInsEdit");
+    });
+
+	/**
+	 * 删除功能
+	 */	    
+    jQuery("#rzPrjcontrInsModule .toolsbarPanel #removeMain").click(function(){
+    	//要删除的id用","隔开
+		var batchId = "";
+		//当前选中行
+		var selectRow = gridObj.getSelectRows();
+		//判断是否选中要删除的数据
+		if(selectRow.length == 0) {
+			alert("请选择您要修改的数据");
+			return;
+		}
+	
+		for(var i = 0; i < selectRow.length; i++) {
+			var row = selectRow[i];
+			if(i == 0) {
+				batchId = row["pkPrjcontrIns"] + batchId;
+			} else {
+				batchId = row["pkPrjcontrIns"] + "," + batchId;
+			}
+		}
+		//删除数据
+		jQuery("#rzPrjcontrInsModule .rzPrjcontrInsEditForm").formPlugin("remove",{batchId:batchId,url:url_del});
+    });
+    
+    /**
+	 * 刷新功能(只是刷新当前页，如果要刷新所有页面使用 load 方法)
+	 */	 
+    jQuery("#rzPrjcontrInsModule .toolsbarPanel .refresh-btn").click(function(){
+		jQuery("#rzPrjcontrInsModule .rzPrjcontrInsList").gridPlugin("reLoad",viewModel.queryData);
+    });
+    
+    //保存功能
+	jQuery("#rzPrjcontrInsModule .rzPrjcontrInsEdit #saveMain").click(function(){
+		if(viewModel.pageState()=="add"){
+			ko.mapping.fromJS(emptyData,viewModel.queryData);
+		}
+		var param = {
+			formData:ko.mapping.toJS(viewModel.editData),//要提交的数据
+			queryData:ko.mapping.toJS(viewModel.queryData),//修改完毕刷新表格的参数
+			editType:viewModel.pageState()//页面的状态(add：添加，edit:编辑)
+		}
+		jQuery("#rzPrjcontrInsModule .rzPrjcontrInsEditForm").formPlugin("save",param);
+	});
+	
+	//查找功能
+	jQuery("#rzPrjcontrInsModule .searchToolsbar .search-btn").click(function(){
+		jQuery("#rzPrjcontrInsModule .rzPrjcontrInsList").gridPlugin("load",ko.mapping.toJS(viewModel.queryData));
+	});
+	
+	//重置查询条件功能
+	jQuery("#rzPrjcontrInsModule .searchToolsbar .reset-btn").click(function(){
+		ko.mapping.fromJS(emptyData,viewModel.queryData);
+	});
+	
+	//编辑页返回
+	jQuery("#rzPrjcontrInsModule .rzPrjcontrInsEdit .back-btn").click(function(){
+		$("#rzPrjcontrInsModule").layoutMDI("back");
+	});
+
+	ko.applyBindings(viewModel);
+	
+	{
+		buttonManager.addBtn({button:".add2-btn",permission:['0']});
+		buttonManager.addBtn({button:".delete-btn",permission:['0']});
+		buttonManager.permission(parent.approvestatus);
+	} 
+
+    $('.form_hhg_date').datetimepicker({
+        language: 'cn',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        autoclose: true,
+        todayHighlight: true
+    });
+});
+
+//参照回调函数
+function eqptRefCallFunction(eleObj, data, name, id) {
+//    var fun = viewModel.editDataEqpt[name];
+//    if(typeof fun == 'function'){
+//        fun(data[id]);
+//    }
+    ko.mapping.fromJS(data,viewModel.editDataEqpt);
+}
+//保险主表客户参照回调函数
+function insRefCallFunction(eleObj, data, name, id) {
+    var fun = viewModel.editData[name];
+    if(typeof fun == 'function'){
+        fun(data[id]);
+    }
+//    ko.mapping.fromJS(data,viewModel.editData);
+}
+
+//保险子表客户参照回调函数
+function insBRefCallFunction(eleObj, data, name, id) {
+    var fun = viewModel.editDataEqpt[name];
+    if(typeof fun == 'function'){
+        fun(data[id]);
+    }
+//    ko.mapping.fromJS(data,viewModel.editDataEqpt);
+}
+
+function RzPrjcontrInsView(){
+	//主键
+	this.pkPrjcontrIns="";
+	//合同主键
+	this.pkPrjcontr="${pkPrjcontr}";
+	//保单号
+	this.insNo="";
+	//合同类型：参照设备分类字典档案数据
+	this.insContrType="";
+	//保险公司
+	this.insCorp="";
+	//险种
+	this.insType="";
+	//支付方
+	this.pkCustomerPay="";
+	//支付金额(元)
+	this.payAmt="";
+	//保额(元)
+	this.insAmt="";
+	//受益人
+	this.pkUserBen="";
+	//合同开始日期
+	this.startDate="";
+	//保险期限(月)
+	this.insPrd="";
+	//保险结束日期
+	this.endDate="";
+	//备注
+	this.remark="";
+	//编辑页面状态
+	this.enableState=true;
+}
+
+function RzPrjcontrInsEqptView(){
+    //主键
+    this.pkPrjcontrInsEqpt="";
+    //项目合同保险信息主键
+    this.pkPrjcontrIns="";
+    //项目合同主键
+    this.pkPrjcontr="${pkPrjcontr}";
+    //客户主键
+    this.pkCustomer="";
+    //租赁设备外键
+    this.pkEqpt="";
+    //编辑页面状态
+    this.enableState=true;
+    //租赁物类型
+    this.eqptType="";
+    //设备价格
+    this.eqptPrice="";
+    //设备数量
+    this.eqptNum="";
+    //设备总价
+    this.eqptPriceTotal="";
+    //交货日期
+    this.deliveryDate="";
+    //设备类型列表
+    this.eqptTypeList="";
+}
+
+function getEqpttype(){
+    viewModel.editDataEqpt.eqptTypeList($(document).data("eqptTypeList"));
+};
+
+
+function getEqpttypeInit(){
+    $.getJSON("$homeModule.getTarget('/rzEqpt/getAllEqptType')").done(function(data){
+        $(document).data("eqptTypeList",data.map.eqptTypeList);
+        return viewModel.editDataEqpt.eqptTypeList(data.map.eqptTypeList);
+    }).fail(function(data){layer.alert("获取业务类型失败");});
+};
+function getParams(selector){
+	return {pkPrjcontr:"${pkPrjcontr}"};
+}
+
+function   DateAdd(interval,number,date)
+{
+    /*
+*   功能:实现VBScript的DateAdd功能.
+*   参数:interval,字符串表达式，表示要添加的时间间隔.
+*   参数:number,数值表达式，表示要添加的时间间隔的个数.
+*   参数:date,时间对象.
+*   返回:新的时间对象.
+*   var   now   =   new   Date();
+*   var   newDate   =   DateAdd( "d ",5,now);
+*---------------   DateAdd(interval,number,date)   -----------------
+*/
+    switch(interval)
+    {
+        case   "y "   :   {
+            date.setFullYear(date.getFullYear()+number);
+            return   date;
+            break;
+        }
+        case   "q "   :   {
+            date.setMonth(date.getMonth()+number*3);
+            return   date;
+            break;
+        }
+        case   "m "   :   {
+            date.setMonth(date.getMonth()+number);
+            return   date;
+            break;
+        }
+        case   "w "   :   {
+            date.setDate(date.getDate()+number*7);
+            return   date;
+            break;
+        }
+        case   "d "   :   {
+            date.setDate(date.getDate()+number);
+            return   date;
+            break;
+        }
+        case   "h "   :   {
+            date.setHours(date.getHours()+number);
+            return   date;
+            break;
+        }
+        case   "m "   :   {
+            date.setMinutes(date.getMinutes()+number);
+            return   date;
+            break;
+        }
+        case   "s "   :   {
+            date.setSeconds(date.getSeconds()+number);
+            return   date;
+            break;
+        }
+        default   :   {
+            date.setDate(date.getDate()+number);
+            return   date;
+            break;
+        }
+    }
+}
+</script>
+	
+</body>

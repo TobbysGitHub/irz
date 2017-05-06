@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:jdbc="http://www.springframework.org/schema/jdbc"  
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jee="http://www.springframework.org/schema/jee" 
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa" 
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+	    http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd" 
+	    default-autowire="byName"  >
+
+	<!-- 数据源配置, 使用Tomcat JDBC连接池 -->
+	<bean id="parentDataSource" class="org.apache.tomcat.jdbc.pool.DataSource">
+		<property name="maxActive" value="30" />
+        <property name="initialSize" value="2" />
+        <property name="maxWait" value="30000" />
+        <property name="maxIdle" value="30" />
+        <property name="minIdle" value="1" />
+        <property name="testOnBorrow" value="false"></property>
+        <property name="testWhileIdle" value="true"></property> 
+        <property name="timeBetweenEvictionRunsMillis"><value>300000</value></property>  
+        <property name="numTestsPerEvictionRun"><value>10</value></property>
+        <property name="minEvictableIdleTimeMillis" value="300000"></property> 
+	</bean>
+
+	<bean id="mybatisdDtaSource" parent="parentDataSource">
+		<!-- Connection Info -->
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="defaultCatalog" value="${jdbc.catalog}" />
+	</bean>
+	
+    
+    <!-- 当需要链接多数据库时可以配置多个SqlSessionFactoryBean 之后注入给 dao 假设 userDao 使用commonSqlSessionFactory 
+		userDao2 使用 adminSqlSessionFactory -->
+	<!-- commonSqlSessionFactory -->
+	<bean id="commonSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	  	<property name="dataSource" ref="multipleDataSource" />
+		<!-- <property name="dataSource" ref="mybatisdDtaSource" />  -->
+		<!-- 手动配置方式 -->
+		<property name="configLocation" value="classpath:sqlmap/sqlmap-config.xml" />
+		<!-- 实体所在的包，这样就不需要在配置文件中加载 -->
+		<property name="typeAliasesPackage" value="com.imfbp.rz.domain" />
+	</bean>
+	
+	<bean id="multipleDataSource" class="com.yonyou.data.datasource.MultipleDataSource">
+        <property name="targetDataSources">
+            <map>
+                <entry key="rz" value-ref="mybatisdDtaSource"/>
+            </map>
+        </property>
+       	<property name="defaultTargetDataSource" ref="mybatisdDtaSource" />
+    </bean>
+	
+	
+	<!-- 事务配置 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="mybatisdDtaSource"></property>
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager" />  
+
+</beans>

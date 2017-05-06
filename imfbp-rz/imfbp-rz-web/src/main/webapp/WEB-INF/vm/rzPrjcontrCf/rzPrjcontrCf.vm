@@ -1,0 +1,364 @@
+<title>rzPrjcontrCf</title>
+<body>
+<div id="rzPrjcontrCfModule" >
+	
+	<!-- list page start -->
+	<div class="listPage startPage">
+		#parse("/WEB-INF/vm/rzPrjcontrCf/rzPrjcontrCfList.vm")
+	</div>
+	<!-- list page end -->
+	
+	<!-- edit page end -->
+	<div class="rzPrjcontrCfEdit" style="display:none;">
+		#parse("/WEB-INF/vm/rzPrjcontrCf/rzPrjcontrCfEdit.vm")
+	</div>
+	<!-- edit page end -->
+	
+</div>
+
+
+<script>
+
+jQuery(function(){
+
+	
+	//列表后台访问地址
+	var url_page = '$homeModule.getTarget('/rzPrjcontrCf/getRzPrjcontrCfByPage')';
+	//添加修改后台访问地址
+	var url_add = '$homeModule.getTarget('/rzPrjcontrCf/insertOrUpdate')';
+	//删除后台访问地址
+	var url_del = '$homeModule.getTarget('/rzPrjcontrCf/deleteRzPrjcontrCfByBatchId')';
+	
+	//查询对象
+	var queryData = new RzPrjcontrCfView();
+	//编辑对象
+	var editData = new RzPrjcontrCfView();
+	//空对象用来清空编辑和查询对象
+	var emptyData = new RzPrjcontrCfView();
+	
+	var viewModel={
+		queryData:ko.mapping.fromJS(queryData),
+		editData:ko.mapping.fromJS(editData),
+		pageState:ko.observable("")
+	}
+	
+	/**
+	 * 表头
+	 */
+	var col = [{
+		field:"planpmtdate",
+		title:"计划收支日期"
+	},{
+		field:"prd",
+		title:"收付计划期次"
+	},{
+		field:"planpmttype",
+		title:"计划收付类型",
+        renderType: function (obj) {
+            var html = "<span>"
+            //计划收付类别：( 1、收款 0.付款)
+            var state = obj.row.value.planpmttype;
+            if (0 == state ) {
+                html += "付款";
+            } else if(1 == state){
+                html += "收款";
+            }
+            html += "</span>";
+            var innerDom = u.makeDOM(html);
+            obj.element.appendChild(innerDom);
+        }
+	},{
+		field:"planpmtcategory",
+		title:"计划收付类别",
+        renderType: function (obj) {
+            var html = "<span>"
+            //0、融资金额投放 1、服务费支出 2、收取保证金 3、手续费收取 4、首付款收取 5、租金收取 6、退还保证金
+            var state = obj.row.value.planpmtcategory;
+            if (0 == state ) {
+                html += "融资金额投放";
+            } else if(1 == state){
+                html += "服务费支出";
+            } else if(2 == state){
+                html += "收取保证金";
+            } else if(3 == state){
+                html += "手续费收取";
+            } else if(4 == state){
+                html += "首付款收取";
+            } else if(5 == state){
+                html += "租金收取";
+            } else if(6 == state){
+                html += "退还保证金";
+            }
+            html += "</span>";
+            var innerDom = u.makeDOM(html);
+            obj.element.appendChild(innerDom);
+        }
+	},{
+		field:"pmtdur",
+		title:"偿还期间"
+	},{
+		field:"durdays",
+		title:"期间天数"
+	},{
+		field:"leaseRate",
+		title:"租赁利率(%)"
+	},{
+		field:"receivableAmt",
+		title:"应收本金"
+	},{
+		field:"receivableInt",
+		title:"应收利息"
+	},{
+		field:"receivableRent",
+		title:"应收租金"
+	},{
+		field:"receivablDefInt",
+		title:"应收罚息"
+	},{
+		field:"receivableFee",
+		title:"应收手续费"
+	},{
+		field:"receivableTotal",
+		title:"应收款合计"
+	},{
+		field:"payableFa",
+		title:"应付融资金额"
+	},{
+		field:"payableSc",
+		title:"应付服务费"
+	},{
+		field:"payableAmt",
+		title:"应付款项金额"
+ 	}];
+    
+	
+	/**
+     * 初始化layoutMDI
+     */
+	$("#rzPrjcontrCfModule").layoutMDI({
+		//当页面后退时候触发的事件
+		onBackPage: function(target, options) {
+			ko.mapping.fromJS(emptyData,viewModel.editData);
+		} 
+	});
+	
+	/**
+     * 创建一个表格，但是没有赋值dataSource数据，这是表格将没有数据
+	 */
+	var gridObj = $("#rzPrjcontrCfModule .rzPrjcontrCfList").grid({
+		dataSource:'',
+    	id: 'case-g1',
+   		keyField: 'id',
+   		parentKeyField: 'pid',
+    	multiSelect: false,
+    	showNumCol:true,
+    	height: 350,
+    	columns: col,
+    	onDblClickFun:function(gridObj,rowObj,rowIndex){
+			//设置页面的输入框为不可修改
+			viewModel.editData.enableState(false);
+			//得到点击行
+    		var dbClickRow = gridObj.rowObj;
+    		//赋值
+    		ko.mapping.fromJS(dbClickRow.value, viewModel.editData);
+    		//跳转到编辑页
+        	$("#rzPrjcontrCfModule").layoutMDI("go", ".rzPrjcontrCfEdit");
+    	}
+    });
+	
+	/**
+	 * 初始化分页
+	 */
+	var paginationObj = $("#rzPrjcontrCfModule .pagination").pagination({
+		pageSize:10,
+		styleMode:2,
+		onSelectPage:function(pageNumber, pageSize){
+			debugger;
+			var queryData = $.extend(ko.mapping.toJS(viewModel.queryData),{pageNumber:pageNumber,pageSize:pageSize});
+			jQuery("#rzPrjcontrCfModule .rzPrjcontrCfList").gridPlugin("reLoad",queryData);
+		}
+	});
+	
+	/**
+	 * 初始化表格插件
+	 */
+	var gridPluginObj = jQuery("#rzPrjcontrCfModule .rzPrjcontrCfList").gridPlugin({
+		url: url_page,
+		gridObj:gridObj,
+		queryParam:getParams(),
+		pagination:true,//是否分页默认为否
+		paginationObj:paginationObj,//分页控件对象
+		initData:true,//初始化时候是否加载数据(true时候加载，false时候不加载)
+		onDataSuccess:function(data){
+			//当列表加载成功之后调用
+		},
+		onDataError:function(data){
+			//当列表加载失败之后调用
+		},
+	})
+	
+	/**
+	 * form表单插件
+	 */
+	jQuery("#rzPrjcontrCfModule .rzPrjcontrCfEditForm").formPlugin({
+		url: url_add,//添加修改的地址
+		gridPlugin:gridPluginObj,//表格插件对象
+		onSaveSuccess:function(data){
+			//保存成功后退出编辑页面
+			$("#rzPrjcontrCfModule").layoutMDI("back");
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+			jQuery("#rzPrjcontrCfModule .rzPrjcontrCfList").gridPlugin("load", {});
+		},
+		onDeleteSuccess:function(data){
+			
+		}
+	})
+	
+	/**
+	 * 新增功能
+	 */			
+    jQuery("#rzPrjcontrCfModule .toolsbarPanel .add-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为添加状态
+		viewModel.pageState(pageState.add);
+        $("#rzPrjcontrCfModule").layoutMDI("go", ".rzPrjcontrCfEdit");
+    });
+
+	/**
+	 * 修改功能
+	 */		    
+    jQuery("#rzPrjcontrCfModule .toolsbarPanel .update-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为修改状态
+		viewModel.pageState(pageState.edit);
+    	//当前选中行
+    	var selectRow = gridObj.getSelectRows();
+    	//将数据绑定到表单上面
+    	ko.mapping.fromJS(selectRow[0], viewModel.editData);
+    	//跳转到编辑页面
+        $("#rzPrjcontrCfModule").layoutMDI("go", ".rzPrjcontrCfEdit");
+    });
+
+	/**
+	 * 删除功能
+	 */	    
+    jQuery("#rzPrjcontrCfModule .toolsbarPanel .remove-btn").click(function(){
+    	//要删除的id用","隔开
+		var batchId = "";
+		//当前选中行
+		var selectRow = gridObj.getSelectRows();
+		//判断是否选中要删除的数据
+		if(selectRow.length == 0) {
+			alert("请选择您要修改的数据");
+			return;
+		}
+	
+		for(var i = 0; i < selectRow.length; i++) {
+			var row = selectRow[i];
+			if(i == 0) {
+				batchId = row["pkPrjcontrCf"] + batchId;
+			} else {
+				batchId = row["pkPrjcontrCf"] + "," + batchId;
+			}
+		}
+		//删除数据
+		jQuery("#rzPrjcontrCfModule .rzPrjcontrCfEditForm").formPlugin("remove",{batchId:batchId,url:url_del});
+    });
+    
+    /**
+	 * 刷新功能(只是刷新当前页，如果要刷新所有页面使用 load 方法)
+	 */	 
+    jQuery("#rzPrjcontrCfModule .toolsbarPanel .refresh-btn").click(function(){
+		jQuery("#rzPrjcontrCfModule .rzPrjcontrCfList").gridPlugin("reLoad",viewModel.queryData);
+    });
+    
+    //保存功能
+	jQuery("#rzPrjcontrCfModule .rzPrjcontrCfEdit .save-btn").click(function(){
+		if(viewModel.pageState()=="add"){
+			ko.mapping.fromJS(emptyData,viewModel.queryData);
+		}
+		var param = {
+			formData:ko.mapping.toJS(viewModel.editData),//要提交的数据
+			queryData:ko.mapping.toJS(viewModel.queryData),//修改完毕刷新表格的参数
+			editType:viewModel.pageState()//页面的状态(add：添加，edit:编辑)
+		}
+		jQuery("#rzPrjcontrCfModule .rzPrjcontrCfEditForm").formPlugin("save",param);
+	});
+	
+	//查找功能
+	jQuery("#rzPrjcontrCfModule .searchToolsbar .search-btn").click(function(){
+		jQuery("#rzPrjcontrCfModule .rzPrjcontrCfList").gridPlugin("load",ko.mapping.toJS(viewModel.queryData));
+	});
+	
+	//重置查询条件功能
+	jQuery("#rzPrjcontrCfModule .searchToolsbar .reset-btn").click(function(){
+		ko.mapping.fromJS(emptyData,viewModel.queryData);
+	});
+	
+	//编辑页返回
+	jQuery("#rzPrjcontrCfModule .rzPrjcontrCfEdit .back-btn").click(function(){
+		$("#rzPrjcontrCfModule").layoutMDI("back");
+	});
+
+	ko.applyBindings(viewModel);
+	{
+		buttonManager.permission(parent.approvestatus);
+	} 
+
+});
+
+function RzPrjcontrCfView(){
+	//主键
+	this.pkPrjcontrCf="";
+	//合同主键
+	this.pkPrjcontr="${pkPrjcontr}";
+	//计划收支日期
+	this.planpmtdate="";
+	//收付计划期次
+	this.prd="";
+	//计划收付类型
+	this.planpmttype="";
+	//计划收付类别
+	this.planpmtcategory="";
+	//偿还期间
+	this.pmtdur="";
+	//期间天数
+	this.durdays="";
+	//租赁利率(%)
+	this.leaseRate="";
+	//应收本金
+	this.receivableAmt="";
+	//应收利息
+	this.receivableInt="";
+	//应收租金
+	this.receivableRent="";
+	//应收罚息
+	this.receivablDefInt="";
+	//应收手续费
+	this.receivableFee="";
+	//应收款合计
+	this.receivableTotal="";
+	//应付融资金额
+	this.payableFa="";
+	//应付服务费
+	this.payableSc="";
+	//应付款项金额
+	this.payableAmt="";
+	//编辑页面状态
+	this.enableState=true;
+}
+
+function getParams(selector){
+	return {pkPrjcontr:"${pkPrjcontr}"};
+}
+
+</script>
+	
+</body>

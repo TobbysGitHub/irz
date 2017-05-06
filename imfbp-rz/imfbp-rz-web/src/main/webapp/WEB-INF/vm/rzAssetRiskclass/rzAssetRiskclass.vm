@@ -1,0 +1,755 @@
+<title>rzAssetRiskclass</title>
+<body>
+<div id="rzAssetRiskclassModule" >
+	
+	<!-- list page start -->
+	<div class="listPage startPage">
+		#parse("/WEB-INF/vm/rzAssetRiskclass/rzAssetRiskclassSearch.vm")
+		#parse("/WEB-INF/vm/rzAssetRiskclass/rzAssetRiskclassList.vm")
+	</div>
+	<!-- list page end -->
+	
+	<!-- edit page end -->
+	<div class="rzAssetRiskclassEdit" style="display:none;">
+		#parse("/WEB-INF/vm/rzAssetRiskclass/rzAssetRiskclassEdit.vm")
+	</div>
+	<!-- edit page end -->
+	
+</div>
+
+
+<script>
+
+jQuery(function(){
+
+	
+	//列表后台访问地址
+	var url_page = '$homeModule.getTarget('/rzAssetRiskclass/getRzAssetRiskclassByPage')';
+	//添加修改后台访问地址
+	var url_add = '$homeModule.getTarget('/rzAssetRiskclass/insertOrUpdate')';
+	//删除后台访问地址
+	var url_del = '$homeModule.getTarget('/rzAssetRiskclass/deleteRzAssetRiskclassByBatchId')';
+	
+	//查询对象
+	var queryData = new RzAssetRiskclassView();
+	//编辑对象
+	var editData = new RzAssetRiskclassView();
+	//空对象用来清空编辑和查询对象
+	var emptyData = new RzAssetRiskclassView();
+	
+	window.viewModel={
+		queryData:ko.mapping.fromJS(queryData),
+		editData:ko.mapping.fromJS(editData),
+		pageState:ko.observable("")
+	}
+	
+	setTraslateFunction();
+	
+	/**
+	 * 表头
+	 */
+	var col = [{
+		field:"billNo",
+		title:"单据号"
+	},{
+		field:"pkPrjapply",
+		title:"项目编码",
+		imfbpRefType:'rzprjapplyref',
+		renderType:"imfbpRefTransform"
+	},{
+		field:"contrName",
+		title:"合同名称"
+	},{
+		field:"pkCustomer",
+		title:"客户名称",
+		imfbpRefType:'customerref',
+		renderType:"imfbpRefTransform"
+	},{
+		field:"curRiskclass",
+		title:"当前风险分类"
+	},{
+		field:"changeRiskclass",
+		title:"变更后风险分类",
+		renderType:function(obj){
+			var changeRiskclass = obj.row.value.changeRiskclass;
+			var html = "";
+            if (changeRiskclass == 0|| changeRiskclass == "0") {
+                html += "<span><span >正常</span></span>";
+            }else if(changeRiskclass == 1|| changeRiskclass == "1"){
+            	html += "<span><span >关注</span></span>";
+            }else if(changeRiskclass == 2|| changeRiskclass == "2"){
+            	html += "<span><span >次级</span></span>";
+            }else if(changeRiskclass == 3|| changeRiskclass == "3"){
+            	html += "<span><span >可疑</span></span>";
+            }else if(changeRiskclass == 4|| changeRiskclass == "4"){
+            	html += "<span><span >损失</span></span>";
+            }
+            var innerDom = u.makeDOM(html);
+            obj.element.appendChild(innerDom);
+		}
+	},{
+		field:"changeDate",
+		title:"分类变更日期"
+	},{
+		field:"changeTimes",
+		title:"当前变更次数"
+	},{
+		field:"pkUserManager",
+		title:"项目经理",
+		imfbpRefType:'customerref',
+		renderType:"imfbpRefTransform"
+	},{
+		field:"isRiskwarin",
+		title:"是否列入风险预警",
+		renderType:function(obj){
+			debugger;
+			var isRiskwarin = obj.row.value.isRiskwarin;
+			var html = "";
+            if (isRiskwarin == "Y") {
+                html += "<span><span >是</span></span>";
+            }else if(isRiskwarin == "N"){
+            	html += "<span><span >否</span></span>";
+            }else{
+            	html +="";
+            }
+            var innerDom = u.makeDOM(html);
+            obj.element.appendChild(innerDom);
+		}
+	},{
+		field:"changePerson",
+		title:"风险分类变更人"
+	},{
+		field:"changeRemark",
+		title:"分类变更原因"
+	},{
+		field:"prjCode",
+		title:"项目编号"
+	},{
+		field:"prjName",
+		title:"项目名称"
+	},{
+		field:"prjapplyDate",
+		title:"立项日期"
+	},{
+		field:"startLeaseDate",
+		title:"合同启租日期"
+	},{
+		field:"endLeaseDate",
+		title:"合同结束日期"
+	},{
+		field:"receivableAmt",
+		title:"应收本金"
+	},{
+		field:"curPrinBal",
+		title:"合同本金余额"
+	},{
+		field:"receivableRent",
+		title:"应收租金"
+	},{
+		field:"curRentBal",
+		title:"合同租金余额"
+	},{
+		field:"itembal",
+		title:"项目余额(元)"
+	},{
+		field:"overdueTimes",
+		title:"逾期次数"
+	},{
+		field:"receivablDefIntTotal",
+		title:"累计应罚息金额"
+ 	},{
+		field:"accruedDefInt",
+		title:"应收未收罚息"
+	},{
+		field:"derateDefInt",
+		title:"减免罚息金额"
+	},{
+		field:"planReturndate",
+		title:"预计回款日期"
+	},{
+		field:"approvestatus",
+		title:"单据状态",
+		renderType:function(obj){
+			var approvestatus = obj.row.value.approvestatus;
+			var html = "";
+            if (approvestatus == 0|| approvestatus == "0") {
+                html += "<span><span >自由</span></span>";
+            }else if(approvestatus == 1|| approvestatus == "1"){
+            	html += "<span><span >提交</span></span>";
+            }else if(approvestatus == 2|| approvestatus == "2"){
+            	html += "<span><span >审批中</span></span>";
+            }else if(approvestatus == 3|| approvestatus == "3"){
+            	html += "<span><span >审批通过</span></span>";
+            }else{
+            	html += "<span><span >审批不通过</span></span>";
+            }
+            var innerDom = u.makeDOM(html);
+            obj.element.appendChild(innerDom);
+		}
+	},{
+		field:"pkOrg",
+		title:"组织机构",
+		imfbpRefType:'orgref',
+		renderType:"imfbpRefTransform"
+	},{
+		field:"pkDept",
+		title:"部门",
+		imfbpRefType:'deptref',
+		renderType:"imfbpRefTransform"
+	},{
+		field:"billmaker",
+		title:"制单人",
+		imfbpRefType:'userref',
+		renderType:"imfbpRefTransform"
+	},{
+		field:"billdate",
+		title:"制单日期"
+	},{
+		field:"modifor",
+		title:"审批人",
+		imfbpRefType:'customerref',
+		renderType:"imfbpRefTransform"
+	},{
+		field:"modifydatetime",
+		title:"审批时间"
+	}];
+    
+	
+	/**
+     * 初始化layoutMDI
+     */
+	$("#rzAssetRiskclassModule").layoutMDI({
+		//当页面后退时候触发的事件
+		onBackPage: function(target, options) {
+			ko.mapping.fromJS(emptyData,viewModel.editData);
+		} 
+	});
+	
+	/**
+     * 创建一个表格，但是没有赋值dataSource数据，这是表格将没有数据
+	 */
+	var gridObj = $("#rzAssetRiskclassModule .rzAssetRiskclassList").grid({
+		dataSource:'',
+    	id: 'case-g1',
+   		keyField: 'id',
+   		parentKeyField: 'pid',
+    	multiSelect: true,
+    	showNumCol:true,
+    	height: 350,
+    	columns: col,
+    	onDblClickFun:function(gridObj,rowObj,rowIndex){
+    		if ('approvestatus' in gridObj.rowObj.value){
+     			var approvestatus= gridObj.rowObj.value.approvestatus;
+         		buttonManager.permission(approvestatus);
+     		}
+           $("#rzAssetRiskclassModule .toolPanelAdd").hide();
+           $("#rzAssetRiskclassModule .toolPanelEdit").hide();
+           $("#rzAssetRiskclassModule .toolPanelQuery").show();
+			//设置页面的输入框为不可修改
+			viewModel.editData.enableState(false);
+			//得到点击行
+    		var dbClickRow = gridObj.rowObj;
+    		//赋值
+    		ko.mapping.fromJS(dbClickRow.value, viewModel.editData);
+    		//跳转到编辑页
+        	$("#rzAssetRiskclassModule").layoutMDI("go", ".rzAssetRiskclassEdit");
+    	},
+    	onRowSelected:function(obj){
+    		if ('approvestatus' in obj.rowObj.value){
+    			var approvestatus= obj.rowObj.value.approvestatus;
+        		buttonManager.permission(approvestatus);
+    		}
+    	}
+    });
+	
+	/**
+	 * 初始化分页
+	 */
+	var paginationObj = $("#rzAssetRiskclassModule .pagination").pagination({
+		pageSize:10,
+		styleMode:2,
+		onSelectPage:function(pageNumber, pageSize){
+			var queryData = $.extend(ko.mapping.toJS(viewModel.queryData),{pageNumber:pageNumber,pageSize:pageSize});
+			jQuery("#rzAssetRiskclassModule .rzAssetRiskclassList").gridPlugin("reLoad",queryData);
+		}
+	});
+	
+	/**
+	 * 初始化表格插件
+	 */
+	var gridPluginObj = jQuery("#rzAssetRiskclassModule .rzAssetRiskclassList").gridPlugin({
+		url: url_page,
+		gridObj:gridObj,
+		queryParam:getParams(),
+		pagination:true,//是否分页默认为否
+		paginationObj:paginationObj,//分页控件对象
+		initData:false,//初始化时候是否加载数据(true时候加载，false时候不加载)
+		onDataSuccess:function(data){
+			//当列表加载成功之后调用
+		},
+		onDataError:function(data){
+			//当列表加载失败之后调用
+		},
+	})
+	
+	/**
+	 * form表单插件
+	 */
+	jQuery("#rzAssetRiskclassModule .rzAssetRiskclassEditForm").formPlugin({
+		url: url_add,//添加修改的地址
+		gridPlugin:gridPluginObj,//表格插件对象
+		onSaveSuccess:function(data){
+			//保存成功后退出编辑页面
+			$("#rzAssetRiskclassModule").layoutMDI("back");
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+			jQuery("#rzAssetRiskclassModule .rzAssetRiskclassList").gridPlugin("load", {});
+		},
+		onDeleteSuccess:function(data){
+			$("#rzAssetRiskclassModule").layoutMDI("back");
+		},
+		onSubmitData:function(data){
+        	var rowIndex = gridObj.getRowIndexByValue('pkAssetRiskclass',data.map.value.pkAssetRiskclass);
+        	saveSubmit(data.map.value,'${moduleValue}',gridPluginObj,rowIndex,"rzAssetRiskclassEdit");
+        	//存在按键异步问题，取消保存时候刷界面，改到提交成功后刷，为了按键同步
+        	 $("#rzAssetRiskclassModule").layoutMDI("back");
+        	jQuery("#rzAssetRiskclassModule .rzAssetRiskclassList").gridPlugin("load",ko.mapping.toJS(viewModel.queryData));
+		} 	
+	})
+	
+	/**
+	 * 新增功能
+	 */			
+    jQuery("#rzAssetRiskclassModule .toolsbarPanel .add-btn").click(function(){
+    	$("#rzAssetRiskclassModule .toolPanelAdd").show();
+        $("#rzAssetRiskclassModule .toolPanelEdit").hide();
+        $("#rzAssetRiskclassModule .toolPanelQuery").hide();
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为添加状态
+		viewModel.pageState(pageState.add);
+        $("#rzAssetRiskclassModule").layoutMDI("go", ".rzAssetRiskclassEdit");
+        $.each(viewModel.editData,function(i, item){
+	        if(i == "billmaker"||i=="modifor"||i=="operator"){
+	            //制单人、修改人
+	            item(loginuser);
+	        }
+	        if(i == "billdate"||i=="changeDate"){
+	            //制单日期
+	            item(new Date().Format("yyyy-MM-dd"));
+	        }
+	        if(i == "modifydatetime"||i=="operatordatetime"){
+	            //修改时间
+	            item(new Date().Format("yyyy-MM-dd hh:mm:ss"));
+	        }
+	        if(i == "approvestatus"){
+	            //审批状态
+	            item("0");
+	        }
+	        if(i == "pkOrg"){
+	            //组织
+	            item(loginorg);
+	        }
+	        if(i == "pkDept"){
+	            //部门
+	            item(logindept);
+	        }
+	    });
+	    var defaultData = [];
+	    var dData = {
+	        billmaker : loginuser,
+	        operator : loginuser,
+	        pkOrg : loginorg,
+	        pkDept : logindept
+	    };
+	    defaultData.push(dData);
+	    
+	    imfbpDataTableTranform(gridObj, defaultData, function(){
+	    	
+	    	refManager.setRefArea(".rzAssetRiskclassEditForm");
+	        refManager.initAreaLoadData(".rzAssetRiskclassEditForm", function(name){
+	            var fun = viewModel.editData[name];
+	            if(typeof fun == 'function'){
+	                return fun();
+	            }
+	        });
+	    	
+	    	
+	    	
+        });
+	    viewModel.editData.enableState(true);
+        validatorForm();
+    });
+
+	/**
+	 * 修改功能
+	 */		    
+    jQuery("#rzAssetRiskclassModule .toolsbarPanel .edit-btn").click(function(){
+    	 $("#rzAssetRiskclassModule .toolPanelAdd").hide();
+         $("#rzAssetRiskclassModule .toolPanelEdit").show();
+         $("#rzAssetRiskclassModule .toolPanelQuery").hide();
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为修改状态
+		viewModel.pageState(pageState.edit);
+    	//当前选中行
+    	var selectRow = gridObj.getSelectRows();
+    	//将数据绑定到表单上面
+    	ko.mapping.fromJS(selectRow[0], viewModel.editData);
+    	//跳转到编辑页面
+        $("#rzAssetRiskclassModule").layoutMDI("go", ".rzAssetRiskclassEdit");
+        validatorForm();
+    });
+
+	/**
+	 * 编辑界面删除删除功能
+	 */	    
+    jQuery("#rzAssetRiskclassModule .toolPanelEdit .remove-btn,#rzAssetRiskclassModule .toolPanelQuery .remove-btn,#rzAssetRiskclassModule .toolsbarPanel .remove-btn").click(function(){
+    	debugger;
+    	//要删除的id用","隔开
+		var batchId = "";
+		//当前选中行
+		var selectRow = gridObj.getSelectRows();
+		//判断是否选中要删除的数据
+		if(selectRow.length == 0) {
+			alert("请选择您要修改的数据");
+			return;
+		}
+	
+		for(var i = 0; i < selectRow.length; i++) {
+			var row = selectRow[i];
+			if(i == 0) {
+				batchId = row["pkAssetRiskclass"] + batchId;
+			} else {
+				batchId = row["pkAssetRiskclass"] + "," + batchId;
+			}
+		}
+		//删除数据
+		jQuery("#rzAssetRiskclassModule .rzAssetRiskclassEditForm").formPlugin("remove",{batchId:batchId,url:url_del});
+    });
+	
+    /**
+	 * 刷新功能(只是刷新当前页，如果要刷新所有页面使用 load 方法)
+	 */	 
+    jQuery("#rzAssetRiskclassModule .toolsbarPanel .refresh-btn").click(function(){
+		jQuery("#rzAssetRiskclassModule .rzAssetRiskclassList").gridPlugin("reLoad",viewModel.queryData);
+    });
+    
+	//查找功能
+	jQuery("#rzAssetRiskclassModule .searchToolsbar .search-btn").click(function(){
+		jQuery("#rzAssetRiskclassModule .rzAssetRiskclassList").gridPlugin("load",ko.mapping.toJS(viewModel.queryData));
+	});
+	
+	//重置查询条件功能
+	jQuery("#rzAssetRiskclassModule .searchToolsbar .reset-btn").click(function(){
+		ko.mapping.fromJS(emptyData,viewModel.queryData);
+	});
+	
+	//编辑页返回
+	jQuery("#rzAssetRiskclassModule .rzAssetRiskclassEdit .back-btn").click(function(){
+		$("#rzAssetRiskclassModule").layoutMDI("back");
+	});
+
+	ko.applyBindings(viewModel);
+	
+	//审批功能
+	jQuery("#rzAssetRiskclassModule .approve-btn").click(function(){
+		var selectedRow = gridObj.getSelectRows();
+		//得到:存在查询界面问题 ，主键
+		var pkPrjcontr = viewModel.editData.pkPrjcontr()?viewModel.editData.pkPrjcontr():selectedRow[0].pkPrjcontr;
+		//得到数据
+		var datas = viewModel.editData.pkPrjcontr()?ko.mapping.toJS(viewModel.editData):selectedRow[0];
+		delete datas.busyTypeList;
+		var rowIndex = gridObj.getRowIndexByValue('pkPrjcontr',pkPrjcontr);
+		approve(datas,'${moduleValue}',gridObj,rowIndex,"rzAssetRiskclassEdit");
+	});
+	jQuery("#rzAssetRiskclassModule .unapprove-btn").click(function(){
+		var selectedRow = gridObj.getSelectRows();
+		//得到:存在查询界面问题 ，主键
+		//得到数据
+		var datas = viewModel.editData.pkPrjcontr()?ko.mapping.toJS(viewModel.editData):selectedRow[0];
+		delete datas.busyTypeList;
+		var rowIndex = gridObj.getRowIndexByValue('pkPrjcontr',datas.pkPrjcontr);
+		unApprove(datas,'${moduleValue}',gridObj,rowIndex,'rzAssetRiskclassEdit');
+	});
+	jQuery("#rzAssetRiskclassModule .cancel-btn").click(function(){
+	    $("#rzAssetRiskclassModule").layoutMDI("back");
+	});
+	jQuery("#rzAssetRiskclassModule .linkapprove-btn").click(function(){
+		var selectedRow = gridObj.getSelectRows();
+		var datas = viewModel.editData.pkPrjcontr()?ko.mapping.toJS(viewModel.editData):selectedRow[0];
+		linkApprove(datas.flowinstanceid);
+	});
+	jQuery("#rzAssetRiskclassModule .submit-btn").click(function(){
+		var selectedRow = gridObj.getSelectRows();
+		//得到数据
+		var datas = viewModel.editData.pkPrjcontr()?ko.mapping.toJS(viewModel.editData):selectedRow[0];
+		delete datas.busyTypeList;
+		var rowIndex = gridObj.getRowIndexByValue('pkPrjcontr',datas.pkPrjcontr);
+		submit(datas,'${moduleValue}',gridObj,rowIndex,"rzAssetRiskclassEdit");
+	});
+	jQuery("#rzAssetRiskclassModule .toolPanelAdd .save-btn,#rzAssetRiskclassModule .toolPanelEdit .save-btn,#rzAssetRiskclassModule .toolPanelQuery .save-btn").click(function(){
+	    saveFun();
+	});
+	jQuery("#rzAssetRiskclassModule .toolPanelQuery .edit-btn").click(function(){
+	    viewModel.editData.enableState(true);
+	    $("#rzAssetRiskclassModule .toolPanelAdd").hide();
+	    $("#rzAssetRiskclassModule .toolPanelEdit").show();
+	    $("#rzAssetRiskclassModule .toolPanelQuery").hide();
+	});
+
+	jQuery("#rzAssetRiskclassModule .toolPanelAdd .dele-btn,#rzAssetRiskclassModule .toolPanelEdit .dele-btn,#rzAssetRiskclassModule .toolPanelQuery .dele-btn").click(function(){
+	    if (viewModel.editData.pkPrjreview()){
+	        jQuery("#rzAssetRiskclassModule .rzAssetRiskclassEditForm").formPlugin("remove",{batchId:viewModel.editData.pkPrjreview(),url:url_del});
+	        $("#rzAssetRiskclassModule").layoutMDI("back");
+	    }
+	});
+	jQuery("#rzAssetRiskclassModule .callback-btn").click(function(){
+		debugger;
+    	var selectedRow = gridObj.getSelectRows();
+    	//得到:存在查询界面问题 ，主键
+    	var pkPrjcontr = viewModel.editData.pkPrjcontr()?viewModel.editData.pkPrjcontr():selectedRow[0].pkPrjcontr;
+    	//得到数据
+    	var datas = viewModel.editData.pkPrjcontr()?ko.mapping.toJS(viewModel.editData):selectedRow[0];
+    	delete datas.busyTypeList;
+    	var rowIndex = gridObj.getRowIndexByValue('pkPrjcontr',pkPrjcontr);
+    	callback(datas,'${moduleValue}',gridObj,rowIndex,"rzAssetRiskclassEdit");
+    });
+	
+	jQuery("#rzAssetRiskclassModule .sub_submit-btn").click(function(){
+	    saveFun("SUBMIT");
+	    $("#rzAssetRiskclassModule").layoutMDI("back");
+	});
+	
+	function saveFun(SUBMITFLAG){
+		$('.rzAssetRiskclassModule').bootstrapValidator('validate');
+		if(viewModel.pageState()=="add"){
+			ko.mapping.fromJS(emptyData,viewModel.queryData);
+		}
+		var param = {
+			formData:ko.mapping.toJS(viewModel.editData),//要提交的数据
+			queryData:ko.mapping.toJS(viewModel.queryData),//修改完毕刷新表格的参数
+			editType:viewModel.pageState()//页面的状态(add：添加，edit:编辑)
+		}
+		$('.rzAssetRiskclassEditForm').bootstrapValidator('validate');
+		 if(viewModel.editData.pkPrjcontr() != null && viewModel.editData.pkPrjcontr() != ""){
+           var validator1 = $('.rzAssetRiskclassEditForm').data('bootstrapValidator');
+           validator1.updateStatus("pkPrjcontr", 'VALID' , null);
+       } 
+		 debugger;
+		//赋值
+	    if($('.rzAssetRiskclassEditForm').data('bootstrapValidator').isValid()) { 
+	    	if(SUBMITFLAG === 'SUBMIT'){
+        		jQuery("#rzAssetRiskclassModule .rzAssetRiskclassEditForm").formPlugin("saveSubmit",param);
+        	}else{
+        		jQuery("#rzAssetRiskclassModule .rzAssetRiskclassEditForm").formPlugin("save",param);
+        	}
+		}
+		
+	}
+	
+});
+
+function RzAssetRiskclassView(){
+	//主键
+	this.pkAssetRiskclass="";
+	//
+	this.billNo="";
+	//项目合同主键
+	this.pkPrjcontr="";
+	//合同编号
+	this.contrCode="";
+	//合同名称
+	this.contrName="";
+	//客户名称外键
+	this.pkCustomer="";
+	//当前风险分类
+	this.curRiskclass="";
+	//变更后风险分类
+	this.changeRiskclass="";
+	//当前变更次数
+	this.changeTimes="";
+	//项目经理
+	this.pkUserManager="";
+	//是否列入风险预警(Y/N)
+	this.isRiskwarin="";
+	//分类变更人
+	this.changePerson="";
+	//分类变更日期
+	this.changeDate="";
+	//分类变更原因
+	this.changeRemark="";
+	//项目申请主键
+	this.pkPrjapply="";
+	//项目编号
+	this.prjCode="";
+	//项目名称
+	this.prjName="";
+	//立项日期
+	this.prjapplyDate="";
+	//合同启租日期
+	this.startLeaseDate="";
+	//合同结束日期
+	this.endLeaseDate="";
+	//应收本金
+	this.receivableAmt="";
+	//合同本金余额
+	this.curPrinBal="";
+	//应收租金
+	this.receivableRent="";
+	//合同租金余额
+	this.curRentBal="";
+	//项目余额(元)
+	this.itembal="";
+	//逾期次数
+	this.overdueTimes="";
+	//实际减免罚息
+	this.derateDefInt="";
+	//预计回款日期
+	this.planReturndate="";
+	//应收未收罚息
+	this.accruedDefInt="";
+	//备注
+	this.remark="";
+	//机构外键
+	this.pkOrg="";
+	//部门外键
+	this.pkDept="";
+	//制单人
+	this.billmaker="";
+	//制单日期
+	this.billdate="";
+	//录入人
+	this.operator="";
+	//录入时间
+	this.operatordatetime="";
+	//修改人
+	this.modifor="";
+	//修改时间
+	this.modifydatetime="";
+	//
+	this.ts="";
+	//0 未删除 1已删除
+	this.dr="";
+	//
+	this.def1="";
+	//
+	this.def2="";
+	//
+	this.def3="";
+	//
+	this.def4="";
+	//
+	this.def5="";
+	//累计应罚息金额
+	this.receivablDefIntTotal="";
+	//编辑页面状态
+	this.enableState=true;
+	
+	this.approvestatus="";
+	this.approvedate="";
+	this.approvenote="";
+	this.approveid="";
+}
+
+function getParams(selector){
+	return {};
+}
+
+$('.form_hhg_date').datetimepicker({
+    language: 'cn',
+    weekStart: 1,
+    todayBtn:  1,
+	autoclose: 1,
+	todayHighlight: 1,
+	startView: 2,
+	minView: 2,
+	forceParse: 0,
+	autoclose: true,
+	todayHighlight: true,
+});
+
+//合同参照回调函数
+function pkPrjcontrRefCallFunction(eleObj, data, name, id) {
+	debugger;
+   var fun = viewModel.editData[name];
+    if(typeof fun == 'function'){
+        fun(data[id]);
+    }
+    ko.mapping.fromJS(data,viewModel.editData);
+    var pkPrjcontr=  data.pkPrjcontr;
+/*     jQuery.ajax({
+		type : 'post',
+		dataType : "json",
+		url :'$homeModule.getTarget('/rzContrTally/getRzContrTallyLatest')',
+		data:{pkPrjcontr:pkPrjcontr},
+		success:function(data){
+			if(data!=null){
+				viewModel.editData.receivableAmt(data.receivableAmt);
+				viewModel.editData.itembal(data.itembal);
+				viewModel.editData.curPrinBal(data.curPrinBal);
+				viewModel.editData.curRentBal(data.curRentBal);
+				viewModel.editData.receivableRent(data.receivableRent); 
+				viewModel.editData.itembal(data.itembal); 
+				viewModel.editData.overdueTimes(data.overdueTimes); 
+				viewModel.editData.receivablDefIntTotal(data.receivablDefIntTotal); 
+				viewModel.editData.accruedDefInt(data.accruedDefInt); 
+				viewModel.editData.derateDefInt(data.derateDefInt); 
+				viewModel.editData.curRiskclass(data.curRiskclass);
+			}
+		}
+	}) */
+}
+
+function headerRefCallFunction(eleObj, data, name, id) {
+	debugger;
+       if(name=="pkPrjapply"){
+    	   viewModel.queryData.pkPrjapply(data[id]);
+       }
+       if(name=="pkCustomer"){
+    	   viewModel.queryData.pkCustomer(data[id]);
+       }
+       if(name=="pkPrjcontr"){
+    	   viewModel.queryData.pkPrjcontr(data[id]);
+       }
+   }   
+   
+function setTraslateFunction(){
+    refManager.setRefArea(".searchContent");
+    refManager.initAreaLoadData(".searchContent", function(name){
+        var fun = viewModel.queryData[name];
+        if(typeof fun == 'function'){
+            return fun();
+        }
+    });
+};   
+
+<!--校验输入框-->
+function validatorForm() {
+ if($('.rzAssetRiskclassEditForm').data('bootstrapValidator')!=null)  $(".rzAssetRiskclassEditForm").data('bootstrapValidator').destroy();
+    $('.rzAssetRiskclassEditForm').bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	pkPrjcontr : {
+                message: '不能为空',
+                validators: {
+                    notEmpty: {
+                        message: '不能为空'
+                    },
+                }
+            },  
+        }
+    });
+}
+</script>
+	
+</body>

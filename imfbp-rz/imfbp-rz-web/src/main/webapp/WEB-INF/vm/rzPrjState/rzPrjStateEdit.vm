@@ -1,0 +1,114 @@
+<div class="panel panel-default">
+	<div class="panel-heading ">
+		<button type="button" class="btn btn-default btn-sm save-btn">保存</button>
+		<button type="button" class="btn btn-default btn-sm back-btn">取消</button>
+	</div>
+	<div class="panel-body" data-bind="with:editData">
+		<form class="rzPrjStateEditForm form-horizontal">
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">项目合同主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkPrjState" class="form-control" data-bind="value:pkPrjState,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">0 报价单生成、1 立项中、2 项目评审中、3合同签订中、4 项目已起租、5 项目租后管理中、6 项目结清、7 项目合同作废</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="prjState" class="form-control" data-bind="value:prjState,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">报价测算主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkPricecal" class="form-control" data-bind="value:pkPricecal,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">项目评审主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkPrjreview" class="form-control" data-bind="value:pkPrjreview,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">立项申请主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkPrjapply" class="form-control" data-bind="value:pkPrjapply,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">合同主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkPrjcontr" class="form-control" data-bind="value:pkPrjcontr,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">原合同主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkPrjcontrori" class="form-control" data-bind="value:pkPrjcontrori,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">合同编号</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="contrCode" class="form-control" data-bind="value:contrCode,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">操作人员</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkUserOper" class="form-control" data-bind="value:pkUserOper,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">组织</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkOrg" class="form-control" data-bind="value:pkOrg,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">部门主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkDeptdoc" class="form-control" data-bind="value:pkDeptdoc,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">时间戳</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="ts" class="form-control" data-bind="value:ts,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+

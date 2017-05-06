@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="rzPrjreviewGuarB">
+
+	<!-- 結果集 -->
+	<resultMap id="rzPrjreviewGuarBResult" type="com.imfbp.rz.domain.rzprjreviewguarb.RzPrjreviewGuarB">
+		<result property="pkPrjreviewGuarB" column="pk_prjreview_guar_b" />
+		<result property="pkPrjreviewGuar" column="pk_prjreview_guar" />
+		<result property="pkPrjreview" column="pk_prjreview" />
+		<result property="mortgageNum" column="mortgage_num" />
+		<result property="mortgageQuality" column="mortgage_quality" />
+		<result property="mortgageState" column="mortgage_state" />
+		<result property="situation" column="situation" />
+		<result property="currVal" column="curr_val" />
+		<result property="address" column="address" />
+		<result property="mortgageName" column="mortgage_name" />
+		<result property="prodDate" column="prod_date" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="rzPrjreviewGuarBField">
+		pk_prjreview_guar_b,pk_prjreview_guar,pk_prjreview,mortgage_num,mortgage_quality,mortgage_state,situation,curr_val,address,mortgage_name,prod_date
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="condition">
+        <where>
+        	<if test="pkPrjreviewGuarB != null and pkPrjreviewGuarB != ''" >
+				and pk_prjreview_guar_b = #{pkPrjreviewGuarB}
+			</if>
+        	<if test="pkPrjreviewGuar != null and pkPrjreviewGuar != ''" >
+				and pk_prjreview_guar = #{pkPrjreviewGuar}
+			</if>
+        	<if test="pkPrjreview != null and pkPrjreview != ''" >
+				and pk_prjreview = #{pkPrjreview}
+			</if>
+        	<if test="mortgageNum != null" >
+				and mortgage_num = #{mortgageNum}
+			</if>
+        	<if test="mortgageQuality != null and mortgageQuality != ''" >
+				and mortgage_quality = #{mortgageQuality}
+			</if>
+        	<if test="mortgageState != null" >
+				and mortgage_state = #{mortgageState}
+			</if>
+        	<if test="situation != null and situation != ''" >
+				and situation = #{situation}
+			</if>
+        	<if test="currVal != null" >
+				and curr_val = #{currVal}
+			</if>
+        	<if test="address != null and address != ''" >
+				and address = #{address}
+			</if>
+        	<if test="mortgageName != null and mortgageName != ''" >
+				and mortgage_name = #{mortgageName}
+			</if>
+        	<if test="prodDate != null and prodDate != ''" >
+				and prod_date = #{prodDate}
+			</if>
+        </where>
+    </sql>
+    
+    <!-- 修改条件 -->
+	<sql id="updateByCondition">
+        <where>
+				<if test="parameter.pkPrjreviewGuarB != null and parameter.pkPrjreviewGuarB != ''" >
+					and pk_prjreview_guar_b = #{parameter.pkPrjreviewGuarB}
+				</if>
+				<if test="parameter.pkPrjreviewGuar != null and parameter.pkPrjreviewGuar != ''" >
+					and pk_prjreview_guar = #{parameter.pkPrjreviewGuar}
+				</if>
+				<if test="parameter.pkPrjreview != null and parameter.pkPrjreview != ''" >
+					and pk_prjreview = #{parameter.pkPrjreview}
+				</if>
+		    	<if test="parameter.mortgageNum != null" >
+					and mortgage_num = #{parameter.mortgageNum}
+				</if>
+				<if test="parameter.mortgageQuality != null and parameter.mortgageQuality != ''" >
+					and mortgage_quality = #{parameter.mortgageQuality}
+				</if>
+		    	<if test="parameter.mortgageState != null" >
+					and mortgage_state = #{parameter.mortgageState}
+				</if>
+				<if test="parameter.situation != null and parameter.situation != ''" >
+					and situation = #{parameter.situation}
+				</if>
+		    	<if test="parameter.currVal != null" >
+					and curr_val = #{parameter.currVal}
+				</if>
+				<if test="parameter.address != null and parameter.address != ''" >
+					and address = #{parameter.address}
+				</if>
+				<if test="parameter.mortgageName != null and parameter.mortgageName != ''" >
+					and mortgage_name = #{parameter.mortgageName}
+				</if>
+				<if test="parameter.prodDate != null and parameter.prodDate != ''" >
+					and prod_date = #{parameter.prodDate}
+				</if>
+        </where>
+    </sql>
+    
+    <!-- 新增 -->	
+	<insert id="insertRzPrjreviewGuarB" parameterType="rzPrjreviewGuarB">
+		insert into rz_prjreview_guar_b
+			(pk_prjreview_guar_b,pk_prjreview_guar,pk_prjreview,mortgage_num,mortgage_quality,mortgage_state,situation,curr_val,address,mortgage_name,prod_date ) 
+		values 
+			(#{pkPrjreviewGuarB,jdbcType=CHAR},#{pkPrjreviewGuar,jdbcType=CHAR},#{pkPrjreview,jdbcType=CHAR},#{mortgageNum,jdbcType=INTEGER},#{mortgageQuality,jdbcType=VARCHAR},#{mortgageState,jdbcType=SMALLINT},#{situation,jdbcType=VARCHAR},#{currVal,jdbcType=DECIMAL},#{address,jdbcType=VARCHAR},#{mortgageName,jdbcType=VARCHAR},#{prodDate,jdbcType=CHAR})
+    </insert>
+    
+    <!-- 批量新增 -->	
+	<insert id="insertBatchRzPrjreviewGuarB" parameterType="java.util.List">
+       insert into rz_prjreview_guar_b
+			(pk_prjreview_guar_b,pk_prjreview_guar,pk_prjreview,mortgage_num,mortgage_quality,mortgage_state,situation,curr_val,address,mortgage_name,prod_date ) 
+	   values
+	    <foreach collection="list" item="obj" index="index" separator="," >
+	    	(#{obj.pkPrjreviewGuarB},#{obj.pkPrjreviewGuar},#{obj.pkPrjreview},#{obj.mortgageNum},#{obj.mortgageQuality},#{obj.mortgageState},#{obj.situation},#{obj.currVal},#{obj.address},#{obj.mortgageName},#{obj.prodDate})
+	    </foreach>
+   </insert>
+    
+    
+    <!-- 根据id删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjreviewGuarBById" parameterType="rzPrjreviewGuarBQuery" >
+    	delete from rz_prjreview_guar_b  where pk_prjreview_guar_b = #{pkPrjreviewGuarB} 
+    </delete>
+    
+    <!-- 根据条件删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjreviewGuarBByCondition" parameterType="rzPrjreviewGuarBQuery" >
+    	delete from 
+    	rz_prjreview_guar_b<include refid="condition" /> 
+    </delete>
+    
+    <!-- 根据主键批量删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjreviewGuarBByBatchId" parameterType="rzPrjreviewGuarBQuery" >
+    	delete from rz_prjreview_guar_b 
+    	where
+    	pk_prjreview_guar_b in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据id修改 -->
+    <update id="updateRzPrjreviewGuarBById" parameterType="rzPrjreviewGuarBQuery">
+		update  rz_prjreview_guar_b 
+		<set>
+			<if test="pkPrjreviewGuar != null and pkPrjreviewGuar != '' " >
+				pk_prjreview_guar = #{pkPrjreviewGuar},
+			</if>
+			<if test="pkPrjreview != null and pkPrjreview != '' " >
+				pk_prjreview = #{pkPrjreview},
+			</if>
+			<if test="mortgageNum != null " >
+				mortgage_num = #{mortgageNum},
+			</if>
+			<if test="mortgageQuality != null and mortgageQuality != '' " >
+				mortgage_quality = #{mortgageQuality},
+			</if>
+			<if test="mortgageState != null " >
+				mortgage_state = #{mortgageState},
+			</if>
+			<if test="situation != null and situation != '' " >
+				situation = #{situation},
+			</if>
+			<if test="currVal != null " >
+				curr_val = #{currVal},
+			</if>
+			<if test="address != null and address != '' " >
+				address = #{address},
+			</if>
+			<if test="mortgageName != null and mortgageName != '' " >
+				mortgage_name = #{mortgageName},
+			</if>
+			<if test="prodDate != null and prodDate != '' " >
+				prod_date = #{prodDate},
+			</if>
+		</set>
+		where
+			pk_prjreview_guar_b = #{pkPrjreviewGuarB} 
+    </update>
+     <!-- 根据id批量修改 -->
+    <update id="updateByBatch" parameterType="java.util.List">
+	 <if test="list != null">
+     <foreach collection="list" item='item' separator=';'>
+		update  rz_prjreview_guar_b 
+		<set>
+			<if test="item.pkPrjreviewGuar != null and item.pkPrjreviewGuar != '' " >
+				pk_prjreview_guar = #{item.pkPrjreviewGuar},
+			</if>
+			<if test="item.pkPrjreview != null and item.pkPrjreview != '' " >
+				pk_prjreview = #{item.pkPrjreview},
+			</if>
+			<if test="item.mortgageNum != null " >
+				mortgage_num = #{item.mortgageNum},
+			</if>
+			<if test="item.mortgageQuality != null and item.mortgageQuality != '' " >
+				mortgage_quality = #{item.mortgageQuality},
+			</if>
+			<if test="item.mortgageState != null " >
+				mortgage_state = #{item.mortgageState},
+			</if>
+			<if test="item.situation != null and item.situation != '' " >
+				situation = #{item.situation},
+			</if>
+			<if test="item.currVal != null " >
+				curr_val = #{item.currVal},
+			</if>
+			<if test="item.address != null and item.address != '' " >
+				address = #{item.address},
+			</if>
+			<if test="item.mortgageName != null and item.mortgageName != '' " >
+				mortgage_name = #{item.mortgageName},
+			</if>
+			<if test="item.prodDate != null and item.prodDate != '' " >
+				prod_date = #{item.prodDate},
+			</if>
+		</set>
+		where
+			pk_prjreview_guar_b = #{item.pkPrjreviewGuarB} 
+     </foreach>
+	 </if>
+    </update>
+    
+     <!-- 根据条件修改 -->
+    <update id="updateRzPrjreviewGuarBByCondition" parameterType="map">
+		update  rz_prjreview_guar_b 
+		<set>
+				<if test="record.pkPrjreviewGuar != null and record.pkPrjreviewGuar != ''">
+					pk_prjreview_guar = #{record.pkPrjreviewGuar},
+				</if>
+				<if test="record.pkPrjreview != null and record.pkPrjreview != ''">
+					pk_prjreview = #{record.pkPrjreview},
+				</if>
+		 		<if test="record.mortgageNum != null">
+					mortgage_num = #{record.mortgageNum},
+				</if>
+				<if test="record.mortgageQuality != null and record.mortgageQuality != ''">
+					mortgage_quality = #{record.mortgageQuality},
+				</if>
+		 		<if test="record.mortgageState != null">
+					mortgage_state = #{record.mortgageState},
+				</if>
+				<if test="record.situation != null and record.situation != ''">
+					situation = #{record.situation},
+				</if>
+		 		<if test="record.currVal != null">
+					curr_val = #{record.currVal},
+				</if>
+				<if test="record.address != null and record.address != ''">
+					address = #{record.address},
+				</if>
+				<if test="record.mortgageName != null and record.mortgageName != ''">
+					mortgage_name = #{record.mortgageName},
+				</if>
+				<if test="record.prodDate != null and record.prodDate != ''">
+					prod_date = #{record.prodDate},
+				</if>
+		</set>
+		<include refid="updateByCondition" />
+    </update>
+    
+    <!-- 查询所有 -->
+    <select id="getRzPrjreviewGuarBAll" parameterType="rzPrjreviewGuarBQuery" resultMap="rzPrjreviewGuarBResult">
+		SELECT 
+		<include refid="rzPrjreviewGuarBField" />  
+		from  
+		rz_prjreview_guar_b<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询总数 -->
+	<select id="getRzPrjreviewGuarBByPageCount" parameterType="rzPrjreviewGuarBQuery" resultType="int">
+		SELECT count(*) from  rz_prjreview_guar_b
+		<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getRzPrjreviewGuarBByPage" parameterType="rzPrjreviewGuarBQuery" resultMap="rzPrjreviewGuarBResult">
+		SELECT <include refid="rzPrjreviewGuarBField" /> from rz_prjreview_guar_b
+		<include refid="condition" />
+		<if test="sort !=null">
+		    ORDER BY ${sort} ${order} 
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+	
+	<!-- 根据Id查询 -->
+	<select id="getRzPrjreviewGuarBById" parameterType="rzPrjreviewGuarBQuery" resultMap="rzPrjreviewGuarBResult">
+		SELECT <include refid="rzPrjreviewGuarBField" /> from  rz_prjreview_guar_b  where pk_prjreview_guar_b = #{pkPrjreviewGuarB} 
+		 
+	</select>
+    
+</mapper>

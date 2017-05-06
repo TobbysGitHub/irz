@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="templateInputDef">
+
+	<!-- 結果集 -->
+	<resultMap id="templateInputDefResult" type="com.imfbp.rz.domain.templateinputdef.TemplateInputDef">
+		<result property="id" column="id" />
+		<result property="itemCode" column="item_code" />
+		<result property="itemName" column="item_name" />
+		<result property="templateId" column="template_id" />
+		<result property="ts" column="ts" />
+		<result property="dr" column="dr" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="templateInputDefField">
+		id,item_code,item_name,template_id,ts,dr
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="condition">
+        <where>
+       	 ifnull(dr,0) = 0
+        	<if test="id != null and id != ''" >
+				and id = #{id}
+			</if>
+        	<if test="itemCode != null and itemCode != ''" >
+				and item_code = #{itemCode}
+			</if>
+        	<if test="itemName != null and itemName != ''" >
+				and item_name = #{itemName}
+			</if>
+        	<if test="templateId != null and templateId != ''" >
+				and template_id = #{templateId}
+			</if>
+        	<if test="ts != null and ts != ''" >
+				and ts = #{ts}
+			</if>
+        	<if test="dr != null and dr != ''" >
+				and dr = #{dr}
+			</if>
+        </where>
+    </sql>
+    
+    <!-- 修改条件 -->
+	<sql id="updateByCondition">
+        <where>
+       	 ifnull(dr,0) = 0
+				<if test="parameter.id != null and parameter.id != ''" >
+					and id = #{parameter.id}
+				</if>
+				<if test="parameter.itemCode != null and parameter.itemCode != ''" >
+					and item_code = #{parameter.itemCode}
+				</if>
+				<if test="parameter.itemName != null and parameter.itemName != ''" >
+					and item_name = #{parameter.itemName}
+				</if>
+				<if test="parameter.templateId != null and parameter.templateId != ''" >
+					and template_id = #{parameter.templateId}
+				</if>
+				<if test="parameter.ts != null and parameter.ts != ''" >
+					and ts = #{parameter.ts}
+				</if>
+				<if test="parameter.dr != null and parameter.dr != ''" >
+					and dr = #{parameter.dr}
+				</if>
+        </where>
+    </sql>
+    
+    <!-- 新增 -->	
+	<insert id="insertTemplateInputDef" parameterType="templateInputDef">
+		insert into template_input_def
+			(id,item_code,item_name,template_id,ts,dr ) 
+		values 
+			(#{id,jdbcType=CHAR},#{itemCode,jdbcType=VARCHAR},#{itemName,jdbcType=VARCHAR},#{templateId,jdbcType=CHAR},#{ts,jdbcType=CHAR},#{dr,jdbcType=BIT})
+    </insert>
+    
+    <!-- 批量新增 -->	
+	<insert id="insertBatchTemplateInputDef" parameterType="java.util.List">
+       insert into template_input_def
+			(id,item_code,item_name,template_id,ts,dr ) 
+	   values
+	    <foreach collection="list" item="obj" index="index" separator="," >
+	    	(#{obj.id},#{obj.itemCode},#{obj.itemName},#{obj.templateId},#{obj.ts},#{obj.dr})
+	    </foreach>
+   </insert>
+    
+	<!-- 根据id进行逻辑删除 (修改数据库数据为删除状态) -->
+    <update id="logicDeleteTemplateInputDefById" parameterType="templateInputDefQuery" >
+    	update template_input_def  set dr=1 where id = #{id} 
+    </update>
+    
+    <!-- 根据条件进行逻辑删除  (修改数据库数据为删除状态)-->
+    <update id="logicDeleteTemplateInputDefByCondition" parameterType="templateInputDefQuery" >
+    	update template_input_def set dr=1<include refid="condition" /> 
+    </update>
+    
+    <!-- 根据条件进行逻辑删除  (修改数据库数据为删除状态)-->
+    <update id="logicDeleteTemplateInputDefByBatchId" parameterType="map" >
+    	update template_input_def set dr=1 
+    	where 
+    	id in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </update>
+    
+    <!-- 根据id删除 (删除数据库数据)-->
+    <delete id="deleteTemplateInputDefById" parameterType="templateInputDefQuery" >
+    	delete from template_input_def  where id = #{id} 
+    </delete>
+    
+    <!-- 根据条件删除 (删除数据库数据)-->
+    <delete id="deleteTemplateInputDefByCondition" parameterType="templateInputDefQuery" >
+    	delete from 
+    	template_input_def<include refid="condition" /> 
+    </delete>
+    
+    <!-- 根据主键批量删除 (删除数据库数据)-->
+    <delete id="deleteTemplateInputDefByBatchId" parameterType="templateInputDefQuery" >
+    	delete from template_input_def 
+    	where
+    	id in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据模板主键批量删除 (删除数据库数据)-->
+    <delete id="deleteInputDefByTemplateBatchId" parameterType="templateInputDefQuery" >
+    	delete from template_input_def 
+    	where
+    	template_id in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据id修改 -->
+    <update id="updateTemplateInputDefById" parameterType="templateInputDefQuery">
+		update  template_input_def 
+		<set>
+			<if test="itemCode != null and itemCode != '' " >
+				item_code = #{itemCode},
+			</if>
+			<if test="itemName != null and itemName != '' " >
+				item_name = #{itemName},
+			</if>
+			<if test="templateId != null and templateId != '' " >
+				template_id = #{templateId},
+			</if>
+			<if test="ts != null and ts != '' " >
+				ts = #{ts},
+			</if>
+			<if test="dr != null and dr != '' " >
+				dr = #{dr},
+			</if>
+		</set>
+		where
+			id = #{id} 
+    </update>
+    
+     <!-- 根据条件修改 -->
+    <update id="updateTemplateInputDefByCondition" parameterType="map">
+		update  template_input_def 
+		<set>
+				<if test="record.itemCode != null and record.itemCode != ''">
+					item_code = #{record.itemCode},
+				</if>
+				<if test="record.itemName != null and record.itemName != ''">
+					item_name = #{record.itemName},
+				</if>
+				<if test="record.templateId != null and record.templateId != ''">
+					template_id = #{record.templateId},
+				</if>
+				<if test="record.ts != null and record.ts != ''">
+					ts = #{record.ts},
+				</if>
+				<if test="record.dr != null and record.dr != ''">
+					dr = #{record.dr},
+				</if>
+		</set>
+		<include refid="updateByCondition" />
+    </update>
+    
+    <!-- 根据主键进行批量修改 -->
+    <update id="updateTemplateInputDefByBatchId"  parameterType="java.util.List">
+    	<if test="list != null">
+	     <foreach collection="list" item='obj' separator=";" >
+	     update template_input_def
+	     <set>
+				<if test="obj.itemCode != null and obj.itemCode != ''">
+					item_code = #{obj.itemCode},
+				</if>
+				<if test="obj.itemName != null and obj.itemName != ''">
+					item_name = #{obj.itemName},
+				</if>
+				<if test="obj.templateId != null and obj.templateId != ''">
+					template_id = #{obj.templateId},
+				</if>
+				<if test="obj.ts != null and obj.ts != ''">
+					ts = #{obj.ts},
+				</if>
+				<if test="obj.dr != null and obj.dr != ''">
+					dr = #{obj.dr},
+				</if>
+			</set>
+			where
+				id = #{obj.id} 
+	     </foreach>
+     	</if>
+    </update>
+    
+    <!-- 查询所有 -->
+    <select id="getTemplateInputDefAll" parameterType="templateInputDefQuery" resultMap="templateInputDefResult">
+		SELECT 
+		<include refid="templateInputDefField" />  
+		from  
+		template_input_def<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询总数 -->
+	<select id="getTemplateInputDefByPageCount" parameterType="templateInputDefQuery" resultType="int">
+		SELECT count(*) from  template_input_def
+		<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getTemplateInputDefByPage" parameterType="templateInputDefQuery" resultMap="templateInputDefResult">
+		SELECT <include refid="templateInputDefField" /> from template_input_def
+		<include refid="condition" />
+		<if test="sort !=null">
+		    ORDER BY ${sort} ${order} 
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+	
+	<!-- 根据Id查询 -->
+	<select id="getTemplateInputDefById" parameterType="templateInputDefQuery" resultMap="templateInputDefResult">
+		SELECT <include refid="templateInputDefField" /> from  template_input_def  where id = #{id} and ifnull(dr,0) = 0
+		and ifnull(dr,0) = 0
+	</select>
+    
+    <!-- 批量新增 -->
+	<insert id="insertTemplateInputDefBatch" parameterType="java.util.List">
+		insert into
+		template_input_def
+		(id,item_code,item_name,template_id,ts,dr )
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.id,jdbcType=CHAR},#{item.itemCode,jdbcType=VARCHAR},#{item.itemName,jdbcType=VARCHAR},
+			#{item.templateId,jdbcType=CHAR},#{item.ts,jdbcType=CHAR},#{item.dr,jdbcType=BIT})
+		</foreach>
+	</insert>
+
+	<!-- 批量根据id修改 -->
+	<update id="updateBatchTemplateInputDefById" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open=""
+			close="" separator=";">
+			update template_input_def
+			<set>
+				<if test="item.itemCode != null and item.itemCode != '' ">
+					item_code =
+					#{item.itemCode},
+				</if>
+				<if test="item.itemName != null and item.itemName != '' ">
+					item_name =
+					#{item.itemName},
+				</if>
+				<if test="item.templateId != null and item.templateId != '' ">
+					template_id =
+					#{item.templateId},
+				</if>
+				<if test="item.ts != null and item.ts != '' ">
+					ts = #{item.ts},
+				</if>
+				<if test="item.dr != null and item.dr != '' ">
+					dr = #{item.dr},
+				</if>
+			</set>
+			where
+			id = #{item.id}
+		</foreach>
+	</update>
+    
+</mapper>

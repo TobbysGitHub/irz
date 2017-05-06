@@ -1,0 +1,432 @@
+<div class="panel panel-default">
+<div class="panel-heading footer-saveOrCancel" style="text-align:center">
+    	<button type="button" class="btn btn-action btn-py save-btn">保存</button>
+        <button type="button" class="btn btn-action btn-py sub-submit-btn">保存提交</button>
+        <button type="button" class="btn btn-action btn-py edit-btn">修改</button>
+        <button type="button" class="btn btn-action btn-py submit-btn" >提交</button>
+		<button type="button" class="btn  btn-py callback-btn">收回</button>
+		<button type="button" class="btn  btn-action btn-py approve-btn"> 审批</button>
+		<button type="button" class="btn  btn-py unapprove-btn">取消审批</button>
+		<button type="button" class="btn btn-action btn-py linkapprove-btn">联查审批流程</button>
+         <button type="button" class="btn  btn-py remove-btn">删除</button>
+        <button type="button" class="btn  btn-py back-btn">取消</button>
+    </div>
+    <div class="panel-body form-parent" data-bind="with:editData">
+        <form class="rzDefInterestEditForm form-horizontal">
+                 <div class="row panel slideParent">
+                <div class="col-xs-12 panel-heading" data-toggle="collapse" data-target="#baseInfo">
+                    <h5>罚息基本信息</h5><span class="glyphicon glyphicon-chevron-up"></span>
+                </div>
+                <div class="col-xs-12 panel-body collapse in" id="baseInfo">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6" style="display:none">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">主键</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="pkDefInterest" class="form-control content-w210-input" data-bind="value:pkDefInterest,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">罚息日期</label>
+                               <div class="input-group date form_datetime col-md-8 col-sm-8"  
+									data-date="" data-date-format="yyyy-MM-dd"
+									data-link-field="visitDate" data-link-format="yyyy-mm-dd">
+                                    <input type="text" name="defIntDate" class="form-control content-w210-input" data-bind="value:defIntDate,enable:enableState" style="width: 141px;">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group" id="pkPrjcontr">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">合同编号</label>
+                                <div class="col-md-9 col-sm-8">
+                                 <input type="text" name="pkPrjcontr"
+										class="form-control content-w210-input"
+										data-bind="enable:false" data-imfbp-ref-bind="pkPrjcontr"
+										data-imfbp-ref-bind-field="contrCode" data-imfbp-ref-value="" 
+										>
+							    
+									<div class="icon-wrap ">
+										<i class="glyphicon glyphicon-th-list icon" id="icon"
+											name="pkPrjcontr" data-imfbp-ref-name='definterprjcontrref'
+											data-imfbp-ref-use='true'
+											data-imfbp-ref-fun="headerRefCallContrFunction"
+											data-imfbp-ref="ref"
+											data-imfbp-ref-condition="add"
+											data-imfbp-ref-query="pkPrjcontr"
+											></i>
+									</div>
+									</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group" style="display:none">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">罚息单号</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="defIntNo" class="form-control content-w210-input" data-bind="value:defIntNo,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">合同名称</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="contrName" class="form-control content-w210-input" data-bind="value:contrName,enable:enableState" readonly>
+                                </div>
+                            </div>
+                        </div>
+                   
+
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">项目编码</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="prjCode" class="form-control content-w210-input" data-bind="value:prjCode,enable:enableState" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                            <label class="col-md-3 col-sm-4 control-label no-padding-right">客户名称</label>
+                             	<div class="col-md-9 col-sm-8">
+									<input type="text" name="pkCustomer"
+										class="form-control content-w210-input"
+										data-bind="enable:false" data-imfbp-ref-bind="pkCustomer"
+										data-imfbp-ref-bind-field="">
+									<div class="icon-wrap ">
+										<i class="glyphicon glyphicon-th-list icon" id="icon"
+											name="pkCustomer" data-imfbp-ref-bind="pkPrjcontr"
+											data-imfbp-ref-bind-field="pkCustomer"
+											data-imfbp-ref-name='customerref' name="pkCustomer"
+											data-imfbp-ref-fun=""
+											data-imfbp-ref-use='false'
+											data-imfbp-ref="ref"></i>
+									</div>
+								</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">项目金额(元)</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="itemamt" class="form-control content-w210-input" data-bind="value:itemamt,enable:enableState" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">项目余额(元)</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="itembal" class="form-control content-w210-input" data-bind="value:itembal,enable:enableState" readonly>
+                                </div>
+                            </div>
+                        </div>
+                  
+
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">合同余额(元)</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="contrBal" class="form-control content-w210-input" data-bind="value:contrBal,enable:enableState" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">合同剩余本金(元)</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="contrPrinBal" class="form-control content-w210-input" data-bind="value:contrPrinBal,enable:enableState" readonly>
+                                </div>
+                            </div>
+                        </div>
+                   
+
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">当前租赁利率(%)</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="curPricerate" class="form-control content-w210-input" data-bind="value:curPricerate,enable:enableState" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">合同利率(%)</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="pricerate" class="form-control content-w210-input" data-bind="value:pricerate,enable:enableState" readonly>
+                                </div>
+                            </div>
+                        </div>
+                       <!-- <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">当前租金余额</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="curRentBal" class="form-control content-w210-input" data-bind="value:curRentBal,enable:enableState">
+                                </div>
+                            </div>
+                        </div>-->
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">还款宽限期</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="rpmtGrace" class="form-control content-w210-input" data-bind="value:rpmtGrace,enable:enableState" readonly>
+                                </div>
+                            </div>
+                        </div>
+                  
+
+
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">逾期金额(元)</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="overdueAmt" class="form-control content-w210-input" data-bind="value:overdueAmt,enable:enableState" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">逾期天数</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="overdueDays" class="form-control content-w210-input" data-bind="value:overdueDays,enable:enableState" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">应收罚息金额((元)</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="receivableDefIntAmt" class="form-control content-w210-input" data-bind="value:receivableDefIntAmt,enable:enableState" readonly> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">罚息应还款日期</label>
+                                  <div class="input-group date form_datetime col-md-8 col-sm-8"  style="width:140px;"
+									data-date="" data-date-format="yyyy-MM-dd"
+									data-link-field="visitDate" data-link-format="yyyy-mm-dd">
+                                    <input type="text" name="defIntRmptDate" class="form-control content-w210-input" data-bind="value:defIntRmptDate,enable:enableState" style="width: 141px;">
+                                      <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                   
+
+
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">合同启租日期</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="startLeaseDate" class="form-control content-w210-input" data-bind="value:startLeaseDate,enable:enableState" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">合同结束日期</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="endLeaseDate" class="form-control content-w210-input" data-bind="value:endLeaseDate,enable:enableState" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               </div>
+                 <div class="row panel slideParent">
+                    <div class="col-xs-12 panel-heading" data-toggle="collapse" data-target="#baseInfo1">
+                        <h5>单据基本信息</h5><span class="glyphicon glyphicon-chevron-up"></span>
+                    </div>
+                    <div class="col-xs-12 panel-body collapse in" id="baseInfo1">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 col-sm-4 control-label no-padding-right">单据状态</label>
+                                    <div class="col-md-9 col-sm-8">
+                                        <select name="approvestatus" class="form-control content-w210-input" data-bind="value:approvestatus,enable:false" >
+                                        <option value="0">自由态</option>
+                                        <option value="1">已提交</option>
+                                         <option value="2"> 审批中 </option>
+                                         <option value="3">审批通过</option>
+                                         <option value="4">审批不通过</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 col-sm-4 control-label no-padding-right">组织机构</label>
+                                  <div class="col-md-9 col-sm-8">
+									<input type="text" name="pkOrg"
+										class="form-control content-w210-input"
+										data-bind="enable:false" data-imfbp-ref-bind="pkOrg"
+										data-imfbp-ref-bind-field="" data-imfbp-ref-value="">
+									<div class="icon-wrap ">
+										<i class="glyphicon glyphicon-th-list icon" id="icon"
+											data-imfbp-ref-name='orgref' name="pkOrg"
+											data-imfbp-ref-use=''
+											data-imfbp-ref-fun="outerRefCallFunction"
+											data-imfbp-ref="ref"></i>
+									</div>
+								</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 col-sm-4 control-label no-padding-right">部门</label>
+                                   <div class="col-md-9 col-sm-8">
+									<input type="text" name="pkDept"
+										class="form-control content-w210-input"
+										data-bind="enable:false" data-imfbp-ref-bind="pkDept"
+										data-imfbp-ref-bind-field="" data-imfbp-ref-value="">
+									<div class="icon-wrap ">
+										<i class="glyphicon glyphicon-th-list icon" id="icon"
+											data-imfbp-ref-name='deptref' name="pkDept"
+											data-imfbp-ref-use=''
+											data-imfbp-ref-fun="outerRefCallFunction"
+											data-imfbp-ref="ref"></i>
+									</div>
+								</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 col-sm-4 control-label no-padding-right">制单人</label>
+                                  <div class="col-md-9 col-sm-8">
+									<input type="text" name="billmaker"
+										class="form-control content-w210-input"
+										data-bind="enable:false" data-imfbp-ref-bind="billmaker"
+										data-imfbp-ref-bind-field="userRealName"
+										data-imfbp-ref-value="">
+									<div class="icon-wrap ">
+										<i class="glyphicon glyphicon-th-list icon" id="icon"
+											data-imfbp-ref-name='userref' name="billmaker"
+											data-imfbp-ref-use=''
+											data-imfbp-ref-fun=""
+											data-imfbp-ref="ref"></i>
+									</div>
+								</div>
+                                </div>
+                            </div>
+
+                      
+
+                            <div class="col-md-3 col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 col-sm-4 control-label no-padding-right">制单日期</label>
+                                    <div class="col-md-9 col-sm-8">
+                                        <input type="text" name="billdate" class="form-control content-w210-input" data-bind="value:billdate,enable:enableState" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 col-sm-4 control-label no-padding-right">审批人</label>
+                                   <div class="col-md-9 col-sm-8">
+									<input type="text" name="approveid"
+										class="form-control content-w210-input"
+										data-bind="enable:false" data-imfbp-ref-bind="approveid"
+										data-imfbp-ref-bind-field="userRealName"
+										data-imfbp-ref-value="">
+									<div class="icon-wrap ">
+										<i class="glyphicon glyphicon-th-list icon" id="icon"
+											data-imfbp-ref-name='userref' name="approveid"
+											data-imfbp-ref-use=''
+											data-imfbp-ref-fun=""
+											data-imfbp-ref="ref"></i>
+									</div>
+								</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 col-sm-4 control-label no-padding-right">审批时间</label>
+                                    <div class="col-md-9 col-sm-8">
+                                        <input type="text" name="approvedate" class="form-control content-w210-input" data-bind="value:approvedate,enable:enableState" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                       
+
+                            <div class="col-md-3 col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 col-sm-4 control-label no-padding-right">审批语</label>
+                                    <div class="col-md-9 col-sm-8">
+                                        <input type="text" name="approvenote" class="form-control content-w210-input" data-bind="value:approvenote,enable:enableState" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 col-sm-4 control-label no-padding-right">录入人</label>
+                                     <div class="col-md-9 col-sm-8">
+									<input type="text" name="operator"
+										class="form-control content-w210-input"
+										data-bind="enable:false" data-imfbp-ref-bind="operator"
+										data-imfbp-ref-bind-field="userRealName"
+										data-imfbp-ref-value="">
+									<div class="icon-wrap ">
+										<i class="glyphicon glyphicon-th-list icon" id="icon"
+											data-imfbp-ref-name='userref' name="operator"
+											data-imfbp-ref-use=''
+											data-imfbp-ref-fun=""
+											data-imfbp-ref="ref"></i>
+									</div>
+								</div>
+                                </div>
+                            </div>
+                      
+
+                            <div class="col-md-3 col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 col-sm-4 control-label no-padding-right">录入时间</label>
+                                    <div class="col-md-9 col-sm-8">
+                                        <input type="text" name="operatordatetime" class="form-control content-w210-input" data-bind="value:operatordatetime,enable:enableState" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6" style="display:none">
+                                <div class="form-group">
+                                    <label class="col-md-3 col-sm-4 control-label no-padding-right">修改人</label>
+									  <div class="col-md-9 col-sm-8">
+									<input type="text" name="modifor"
+										class="form-control content-w210-input"
+										data-bind="enable:false" data-imfbp-ref-bind="modifor"
+										data-imfbp-ref-bind-field="userRealName"
+										data-imfbp-ref-value="">
+									<div class="icon-wrap ">
+										<i class="glyphicon glyphicon-th-list icon" id="icon"
+											data-imfbp-ref-name='userref' name="modifor"
+											data-imfbp-ref-use=''
+											data-imfbp-ref-fun=""
+											data-imfbp-ref="ref"></i>
+									</div>
+								</div>
+                                </div>
+                            </div>
+                    
+
+                            <div class="col-md-3 col-sm-6" style="display:none">
+                                <div class="form-group">
+                                    <label class="col-md-3 col-sm-4 control-label no-padding-right">修改时间</label>
+                                    <div class="col-md-9 col-sm-8">
+                                        <input type="text" name="modifydatetime" class="form-control content-w210-input" data-bind="value:modifydatetime,enable:enableState" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+         <h4>罚息计划子表信息</h4>
+		<div class="grid rzDefInterestPlanEditList"></div>
+		<ul id="pagination" class="pagination" style="display:none"></ul>
+        </form>
+        
+        </div>
+    
+    </div>
+
+

@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="rzOverdueDeratePlan">
+
+	<!-- 結果集 -->
+	<resultMap id="rzOverdueDeratePlanResult" type="com.imfbp.rz.domain.rzoverduederateplan.RzOverdueDeratePlan">
+		<result property="pkOverdueDeratePlan" column="pk_overdue_derate_plan" />
+		<result property="pkOverdueDerate" column="pk_overdue_derate" />
+		<result property="num" column="num" />
+		<result property="seqno" column="seqno" />
+		<result property="receivableDate" column="receivable_date" />
+		<result property="receivableTotal" column="receivable_total" />
+		<result property="realTotal" column="real_total" />
+		<result property="receivableNrcyTotal" column="receivable_nrcy_total" />
+		<result property="overdueDays" column="overdue_days" />
+		<result property="overdueRate" column="overdue_rate" />
+		<result property="receivableDefInt" column="receivable_def_int" />
+		<result property="receivableNrcyDefInt" column="receivable_nrcy_def_int" />
+		<result property="actOverdur" column="act_overdur" />
+		<result property="curOverdurApply" column="cur_overdur_apply" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="rzOverdueDeratePlanField">
+		pk_overdue_derate_plan,pk_overdue_derate,num,seqno,receivable_date,receivable_total,real_total,receivable_nrcy_total,overdue_days,overdue_rate,receivable_def_int,receivable_nrcy_def_int,act_overdur,cur_overdur_apply
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="condition">
+        <where>
+        	<if test="pkOverdueDeratePlan != null and pkOverdueDeratePlan != ''" >
+				and pk_overdue_derate_plan = #{pkOverdueDeratePlan}
+			</if>
+        	<if test="pkOverdueDerate != null and pkOverdueDerate != ''" >
+				and pk_overdue_derate = #{pkOverdueDerate}
+			</if>
+        	<if test="num != null and num != ''" >
+				and num = #{num}
+			</if>
+        	<if test="seqno != null" >
+				and seqno = #{seqno}
+			</if>
+        	<if test="receivableDate != null and receivableDate != ''" >
+				and receivable_date = #{receivableDate}
+			</if>
+        	<if test="receivableTotal != null" >
+				and receivable_total = #{receivableTotal}
+			</if>
+        	<if test="realTotal != null" >
+				and real_total = #{realTotal}
+			</if>
+        	<if test="receivableNrcyTotal != null" >
+				and receivable_nrcy_total = #{receivableNrcyTotal}
+			</if>
+        	<if test="overdueDays != null" >
+				and overdue_days = #{overdueDays}
+			</if>
+        	<if test="overdueRate != null" >
+				and overdue_rate = #{overdueRate}
+			</if>
+        	<if test="receivableDefInt != null" >
+				and receivable_def_int = #{receivableDefInt}
+			</if>
+        	<if test="receivableNrcyDefInt != null" >
+				and receivable_nrcy_def_int = #{receivableNrcyDefInt}
+			</if>
+        	<if test="actOverdur != null" >
+				and act_overdur = #{actOverdur}
+			</if>
+        	<if test="curOverdurApply != null" >
+				and cur_overdur_apply = #{curOverdurApply}
+			</if>
+        </where>
+    </sql>
+    
+    <!-- 修改条件 -->
+	<sql id="updateByCondition">
+        <where>
+				<if test="parameter.pkOverdueDeratePlan != null and parameter.pkOverdueDeratePlan != ''" >
+					and pk_overdue_derate_plan = #{parameter.pkOverdueDeratePlan}
+				</if>
+				<if test="parameter.pkOverdueDerate != null and parameter.pkOverdueDerate != ''" >
+					and pk_overdue_derate = #{parameter.pkOverdueDerate}
+				</if>
+				<if test="parameter.num != null and parameter.num != ''" >
+					and num = #{parameter.num}
+				</if>
+		    	<if test="parameter.seqno != null" >
+					and seqno = #{parameter.seqno}
+				</if>
+				<if test="parameter.receivableDate != null and parameter.receivableDate != ''" >
+					and receivable_date = #{parameter.receivableDate}
+				</if>
+		    	<if test="parameter.receivableTotal != null" >
+					and receivable_total = #{parameter.receivableTotal}
+				</if>
+		    	<if test="parameter.realTotal != null" >
+					and real_total = #{parameter.realTotal}
+				</if>
+		    	<if test="parameter.receivableNrcyTotal != null" >
+					and receivable_nrcy_total = #{parameter.receivableNrcyTotal}
+				</if>
+		    	<if test="parameter.overdueDays != null" >
+					and overdue_days = #{parameter.overdueDays}
+				</if>
+		    	<if test="parameter.overdueRate != null" >
+					and overdue_rate = #{parameter.overdueRate}
+				</if>
+		    	<if test="parameter.receivableDefInt != null" >
+					and receivable_def_int = #{parameter.receivableDefInt}
+				</if>
+		    	<if test="parameter.receivableNrcyDefInt != null" >
+					and receivable_nrcy_def_int = #{parameter.receivableNrcyDefInt}
+				</if>
+		    	<if test="parameter.actOverdur != null" >
+					and act_overdur = #{parameter.actOverdur}
+				</if>
+		    	<if test="parameter.curOverdurApply != null" >
+					and cur_overdur_apply = #{parameter.curOverdurApply}
+				</if>
+        </where>
+    </sql>
+    
+    <!-- 新增 -->	
+	<insert id="insertRzOverdueDeratePlan" parameterType="rzOverdueDeratePlan">
+		insert into rz_overdue_derate_plan
+			(pk_overdue_derate_plan,pk_overdue_derate,num,seqno,receivable_date,receivable_total,real_total,receivable_nrcy_total,overdue_days,overdue_rate,receivable_def_int,receivable_nrcy_def_int,act_overdur,cur_overdur_apply ) 
+		values 
+			(#{pkOverdueDeratePlan,jdbcType=CHAR},#{pkOverdueDerate,jdbcType=CHAR},#{num,jdbcType=VARCHAR},#{seqno,jdbcType=INTEGER},#{receivableDate,jdbcType=CHAR},#{receivableTotal,jdbcType=DECIMAL},#{realTotal,jdbcType=DECIMAL},#{receivableNrcyTotal,jdbcType=DECIMAL},#{overdueDays,jdbcType=INTEGER},#{overdueRate,jdbcType=DECIMAL},#{receivableDefInt,jdbcType=DECIMAL},#{receivableNrcyDefInt,jdbcType=DECIMAL},#{actOverdur,jdbcType=DECIMAL},#{curOverdurApply,jdbcType=DECIMAL})
+    </insert>
+    
+    <!-- 批量新增 -->	
+	<insert id="insertBatchRzOverdueDeratePlan" parameterType="java.util.List">
+       insert into rz_overdue_derate_plan
+			(pk_overdue_derate_plan,pk_overdue_derate,num,seqno,receivable_date,receivable_total,real_total,receivable_nrcy_total,overdue_days,overdue_rate,receivable_def_int,receivable_nrcy_def_int,act_overdur,cur_overdur_apply ) 
+	   values
+	    <foreach collection="list" item="obj" index="index" separator="," >
+	    	(#{obj.pkOverdueDeratePlan},#{obj.pkOverdueDerate},#{obj.num},#{obj.seqno},#{obj.receivableDate},#{obj.receivableTotal},#{obj.realTotal},#{obj.receivableNrcyTotal},#{obj.overdueDays},#{obj.overdueRate},#{obj.receivableDefInt},#{obj.receivableNrcyDefInt},#{obj.actOverdur},#{obj.curOverdurApply})
+	    </foreach>
+   </insert>
+    
+    
+    <!-- 根据id删除 (删除数据库数据)-->
+    <delete id="deleteRzOverdueDeratePlanById" parameterType="rzOverdueDeratePlanQuery" >
+    	delete from rz_overdue_derate_plan  where pk_overdue_derate_plan = #{pkOverdueDeratePlan} 
+    </delete>
+    
+    <!-- 根据条件删除 (删除数据库数据)-->
+    <delete id="deleteRzOverdueDeratePlanByCondition" parameterType="rzOverdueDeratePlanQuery" >
+    	delete from 
+    	rz_overdue_derate_plan<include refid="condition" /> 
+    </delete>
+    
+    <!-- 根据主键批量删除 (删除数据库数据)-->
+    <delete id="deleteRzOverdueDeratePlanByBatchId" parameterType="rzOverdueDeratePlanQuery" >
+    	delete from rz_overdue_derate_plan 
+    	where
+    	pk_overdue_derate_plan in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据id修改 -->
+    <update id="updateRzOverdueDeratePlanById" parameterType="rzOverdueDeratePlanQuery">
+		update  rz_overdue_derate_plan 
+		<set>
+			<if test="pkOverdueDerate != null and pkOverdueDerate != '' " >
+				pk_overdue_derate = #{pkOverdueDerate},
+			</if>
+			<if test="num != null and num != '' " >
+				num = #{num},
+			</if>
+			<if test="seqno != null " >
+				seqno = #{seqno},
+			</if>
+			<if test="receivableDate != null and receivableDate != '' " >
+				receivable_date = #{receivableDate},
+			</if>
+			<if test="receivableTotal != null " >
+				receivable_total = #{receivableTotal},
+			</if>
+			<if test="realTotal != null " >
+				real_total = #{realTotal},
+			</if>
+			<if test="receivableNrcyTotal != null " >
+				receivable_nrcy_total = #{receivableNrcyTotal},
+			</if>
+			<if test="overdueDays != null " >
+				overdue_days = #{overdueDays},
+			</if>
+			<if test="overdueRate != null " >
+				overdue_rate = #{overdueRate},
+			</if>
+			<if test="receivableDefInt != null " >
+				receivable_def_int = #{receivableDefInt},
+			</if>
+			<if test="receivableNrcyDefInt != null " >
+				receivable_nrcy_def_int = #{receivableNrcyDefInt},
+			</if>
+			<if test="actOverdur != null " >
+				act_overdur = #{actOverdur},
+			</if>
+			<if test="curOverdurApply != null " >
+				cur_overdur_apply = #{curOverdurApply},
+			</if>
+		</set>
+		where
+			pk_overdue_derate_plan = #{pkOverdueDeratePlan} 
+    </update>
+    
+     <!-- 根据条件修改 -->
+    <update id="updateRzOverdueDeratePlanByCondition" parameterType="map">
+		update  rz_overdue_derate_plan 
+		<set>
+				<if test="record.pkOverdueDerate != null and record.pkOverdueDerate != ''">
+					pk_overdue_derate = #{record.pkOverdueDerate},
+				</if>
+				<if test="record.num != null and record.num != ''">
+					num = #{record.num},
+				</if>
+		 		<if test="record.seqno != null">
+					seqno = #{record.seqno},
+				</if>
+				<if test="record.receivableDate != null and record.receivableDate != ''">
+					receivable_date = #{record.receivableDate},
+				</if>
+		 		<if test="record.receivableTotal != null">
+					receivable_total = #{record.receivableTotal},
+				</if>
+		 		<if test="record.realTotal != null">
+					real_total = #{record.realTotal},
+				</if>
+		 		<if test="record.receivableNrcyTotal != null">
+					receivable_nrcy_total = #{record.receivableNrcyTotal},
+				</if>
+		 		<if test="record.overdueDays != null">
+					overdue_days = #{record.overdueDays},
+				</if>
+		 		<if test="record.overdueRate != null">
+					overdue_rate = #{record.overdueRate},
+				</if>
+		 		<if test="record.receivableDefInt != null">
+					receivable_def_int = #{record.receivableDefInt},
+				</if>
+		 		<if test="record.receivableNrcyDefInt != null">
+					receivable_nrcy_def_int = #{record.receivableNrcyDefInt},
+				</if>
+		 		<if test="record.actOverdur != null">
+					act_overdur = #{record.actOverdur},
+				</if>
+		 		<if test="record.curOverdurApply != null">
+					cur_overdur_apply = #{record.curOverdurApply},
+				</if>
+		</set>
+		<include refid="updateByCondition" />
+    </update>
+    
+    <!-- 根据主键进行批量修改 -->
+    <update id="updateRzOverdueDeratePlanByBatchId"  parameterType="java.util.List">
+    	<if test="list != null">
+	     <foreach collection="list" item='obj' separator=";" >
+	     update rz_overdue_derate_plan
+	     <set>
+				<if test="obj.pkOverdueDerate != null and obj.pkOverdueDerate != ''">
+					pk_overdue_derate = #{obj.pkOverdueDerate},
+				</if>
+				<if test="obj.num != null and obj.num != ''">
+					num = #{obj.num},
+				</if>
+		 		<if test="obj.seqno != null">
+					seqno = #{obj.seqno},
+				</if>
+				<if test="obj.receivableDate != null and obj.receivableDate != ''">
+					receivable_date = #{obj.receivableDate},
+				</if>
+		 		<if test="obj.receivableTotal != null">
+					receivable_total = #{obj.receivableTotal},
+				</if>
+		 		<if test="obj.realTotal != null">
+					real_total = #{obj.realTotal},
+				</if>
+		 		<if test="obj.receivableNrcyTotal != null">
+					receivable_nrcy_total = #{obj.receivableNrcyTotal},
+				</if>
+		 		<if test="obj.overdueDays != null">
+					overdue_days = #{obj.overdueDays},
+				</if>
+		 		<if test="obj.overdueRate != null">
+					overdue_rate = #{obj.overdueRate},
+				</if>
+		 		<if test="obj.receivableDefInt != null">
+					receivable_def_int = #{obj.receivableDefInt},
+				</if>
+		 		<if test="obj.receivableNrcyDefInt != null">
+					receivable_nrcy_def_int = #{obj.receivableNrcyDefInt},
+				</if>
+		 		<if test="obj.actOverdur != null">
+					act_overdur = #{obj.actOverdur},
+				</if>
+		 		<if test="obj.curOverdurApply != null">
+					cur_overdur_apply = #{obj.curOverdurApply},
+				</if>
+			</set>
+			where
+				pk_overdue_derate_plan = #{obj.pkOverdueDeratePlan} 
+	     </foreach>
+     	</if>
+    </update>
+    
+    <!-- 查询所有 -->
+    <select id="getRzOverdueDeratePlanAll" parameterType="rzOverdueDeratePlanQuery" resultMap="rzOverdueDeratePlanResult">
+		SELECT 
+		<include refid="rzOverdueDeratePlanField" />  
+		from  
+		rz_overdue_derate_plan<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询总数 -->
+	<select id="getRzOverdueDeratePlanByPageCount" parameterType="rzOverdueDeratePlanQuery" resultType="int">
+		SELECT count(*) from  rz_overdue_derate_plan
+		<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getRzOverdueDeratePlanByPage" parameterType="rzOverdueDeratePlanQuery" resultMap="rzOverdueDeratePlanResult">
+		SELECT <include refid="rzOverdueDeratePlanField" /> from rz_overdue_derate_plan
+		<include refid="condition" />
+		<if test="sort !=null">
+		    ORDER BY ${sort} ${order} 
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+	
+	<!-- 根据Id查询 -->
+	<select id="getRzOverdueDeratePlanById" parameterType="rzOverdueDeratePlanQuery" resultMap="rzOverdueDeratePlanResult">
+		SELECT <include refid="rzOverdueDeratePlanField" /> from  rz_overdue_derate_plan  where pk_overdue_derate_plan = #{pkOverdueDeratePlan} 
+		 
+	</select>
+    
+</mapper>

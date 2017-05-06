@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pubFilestore">
+
+	<!-- 結果集 -->
+	<resultMap id="pubFilestoreResult" type="com.imfbp.rz.domain.pubfilestore.PubFilestore">
+		<result property="pkFile" column="pk_file" />
+		<result property="filecontent" column="filecontent" />
+		<result property="filelength" column="filelength" />
+		<result property="filetime" column="filetime" />
+		<result property="filename" column="filename" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="pubFilestoreField">
+		pk_file,filecontent,filelength,filetime,filename
+	</sql>
+	
+    <!-- 新增 -->	
+	<insert id="insertPubFilestore" parameterType="pubFilestore">
+		insert into pub_filestore
+			(pk_file,filecontent,filelength,filetime,filename ) 
+		values 
+			(#{pkFile,jdbcType=CHAR},#{filecontent,jdbcType=LONGVARBINARY},#{filelength,jdbcType=DECIMAL},#{filetime,jdbcType=CHAR},#{filename,jdbcType=VARCHAR})
+    </insert>
+    
+    <!-- 根据id删除 -->
+    <delete id="deletePubFilestoreById" parameterType="pubFilestore" >
+    	delete from pub_filestore where pk_file = #{pkFile} 
+    </delete>
+
+	
+	<!-- 根据Id查询 -->
+	<select id="getPubFilestoreById" parameterType="pubFilestore" resultMap="pubFilestoreResult">
+		SELECT <include refid="pubFilestoreField" /> from  pub_filestore  where pk_file = #{pkFile} 
+	</select>
+    
+</mapper>

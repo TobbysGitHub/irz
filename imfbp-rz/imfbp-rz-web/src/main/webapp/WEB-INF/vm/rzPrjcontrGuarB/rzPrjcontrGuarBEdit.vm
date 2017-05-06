@@ -1,0 +1,106 @@
+<div class="panel panel-default">
+	<div class="panel-heading ">
+		<button type="button" class="btn btn-default btn-sm save-btn">保存</button>
+		<button type="button" class="btn btn-default btn-sm back-btn">取消</button>
+	</div>
+	<div class="panel-body" data-bind="with:editData">
+		<form class="rzPrjcontrGuarBEditForm form-horizontal">
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkPrjcontrGuarB" class="form-control" data-bind="value:pkPrjcontrGuarB,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">担保方信息主表主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkPrjcontrGuar" class="form-control" data-bind="value:pkPrjcontrGuar,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">项目合同主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkPrjcontr" class="form-control" data-bind="value:pkPrjcontr,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">抵质押物数量</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="mortgageNum" class="form-control" data-bind="value:mortgageNum,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">抵质押物质量</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="mortgageQuality" class="form-control" data-bind="value:mortgageQuality,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">抵质押物状态：0 未抵押、 1 已抵押</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="mortgageState" class="form-control" data-bind="value:mortgageState,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">situation</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="situation" class="form-control" data-bind="value:situation,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">当前估值</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="currVal" class="form-control" data-bind="value:currVal,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">所在地</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="address" class="form-control" data-bind="value:address,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">抵质押物名称</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="mortgageName" class="form-control" data-bind="value:mortgageName,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">出厂日期</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="prodDate" class="form-control" data-bind="value:prodDate,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+

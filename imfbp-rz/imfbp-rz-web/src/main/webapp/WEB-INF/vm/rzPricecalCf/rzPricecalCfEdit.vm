@@ -1,0 +1,150 @@
+<div class="panel panel-default">
+	<div class="panel-heading ">
+		<button type="button" class="btn btn-default btn-sm save-btn">保存</button>
+		<button type="button" class="btn btn-default btn-sm back-btn">取消</button>
+	</div>
+	<div class="panel-body" data-bind="with:editData">
+		<form class="rzPricecalCfEditForm form-horizontal">
+			<div class="row">
+				<div class="col-md-3 col-sm-6" style="display:none">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">主键</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pkPricecal" class="form-control" data-bind="value:pkPricecal,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">收付计划期次</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="prd" class="form-control" data-bind="value:prd,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">计划收支日期</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="planpmtdate" class="form-control" data-bind="value:planpmtdate,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">计划收付类型</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="planpmttype" class="form-control" data-bind="value:planpmttype,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">计划收付类别</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="planpmtcategory" class="form-control" data-bind="value:planpmtcategory,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">收付期间</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="pmtdur" class="form-control" data-bind="value:pmtdur,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">期间天数</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="durdays" class="form-control" data-bind="value:durdays,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">租赁利率(%)</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="leaseRate" class="form-control" data-bind="value:leaseRate,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">应收本金</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="receivableAmt" class="form-control" data-bind="value:receivableAmt,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">应收利息</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="receivableInt" class="form-control" data-bind="value:receivableInt,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">应收租金</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="receivableRent" class="form-control" data-bind="value:receivableRent,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">应收手续费</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="receivableFee" class="form-control" data-bind="value:receivableFee,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">应收款合计</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="receivableTotal" class="form-control" data-bind="value:receivableTotal,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">应付融资金额</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="payableFa" class="form-control" data-bind="value:payableFa,enable:enableState">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">应付服务费</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="payableSc" class="form-control" data-bind="value:payableSc,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">应付款项金额</label>
+						<div class="col-md-9 col-sm-8">
+							<input type="text" name="payableAmt" class="form-control" data-bind="value:payableAmt,enable:enableState">
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+

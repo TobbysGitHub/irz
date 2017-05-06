@@ -1,0 +1,27 @@
+<div id="templateAssignContent">
+           <div class="u-msg-title">
+                <span>
+               	   待分配模板
+                </span>
+            </div>
+            <div class="u-msg-content">
+               <div>
+               	 <label>智能搜索</label>
+            	 <input type="text" placeholder="根据模板编码、名称进行搜索" />
+            	
+            	 <input type="checkbox" /><span>是否包含已停用</span>
+               </div>	
+               <div id="templateAssignGrid">
+               	
+               </div>
+               <ul id="templateAssignPagination" class="pagination"></ul>
+            </div>
+            <div class="u-msg-footer">
+                  <button class="btn btn-out btn-py back-btn" type="button">
+                    	取消
+                  </button>
+                  <button class="btn btn-action btn-py save-btn" type="button">
+                   	 确定
+                  </button>
+            </div>
+</div>

@@ -1,0 +1,345 @@
+<title>rzPrjreviewGuarB</title>
+<body>
+<div id="rzPrjreviewGuarBModule" >
+	
+	<!-- list page start -->
+	<div class="listPage startPage">
+		#parse("/WEB-INF/vm/rzPrjreviewGuarB/rzPrjreviewGuarBList.vm")
+	</div>
+	<!-- list page end -->
+	
+	<!-- edit page end -->
+	<div class="rzPrjreviewGuarBEdit" style="display:none;">
+		#parse("/WEB-INF/vm/rzPrjreviewGuarB/rzPrjreviewGuarBEdit.vm")
+	</div>
+	<!-- edit page end -->
+	
+</div>
+
+
+<script>
+
+jQuery(function(){
+	//列表后台访问地址
+	var url_page = '$homeModule.getTarget('/rzPrjreviewGuarB/getRzPrjreviewGuarBByPage')';
+	//添加修改后台访问地址
+	var url_add = '$homeModule.getTarget('/rzPrjreviewGuarB/insertOrUpdate')';
+	//删除后台访问地址
+	var url_del = '$homeModule.getTarget('/rzPrjreviewGuarB/deleteRzPrjreviewGuarBByBatchId')';
+	
+	var update_batch= '$homeModule.getTarget('/rzPrjreviewGuarB/updateByBatch')';
+	//查询对象
+	var queryData = new RzPrjreviewGuarBView();
+	//编辑对象
+	var editData = new RzPrjreviewGuarBView();
+	//空对象用来清空编辑和查询对象
+	var emptyData = new RzPrjreviewGuarBView();
+	
+	var viewModel={
+		queryData:ko.mapping.fromJS(queryData),
+		editData:ko.mapping.fromJS(editData),
+		pageState:ko.observable("")
+	}
+	
+	var initData=true;
+	if('${addOrUpdate}'=="add"){
+		initData=false;
+	}
+	debugger;
+	if('${toEditList}'=='true'){
+		$("#listButton").css('display','block');
+	}
+	/**
+	 * 表头
+	 */
+	var col = [{  
+		field:"mortgageName",
+		title:"抵质押物名称"
+	},{
+		field:"mortgageNum",
+		title:"抵质押物数量"
+	},{
+		field:"mortgageQuality",
+		title:"抵质押物质量"
+	},{
+		field:"mortgageState",
+		title:"抵质押物状态"
+	},{
+		field:"currVal",
+		title:"当前估值"
+	},{
+		field:"address",
+		title:"所在地"
+	},{
+		field:"prodDate",
+		title:"出厂日期"
+ 	},{
+		field:"situation",
+		title:"抵押状态"
+	}];
+    
+	
+	/**
+     * 初始化layoutMDI
+     */
+	$("#rzPrjreviewGuarBModule").layoutMDI({
+		//当页面后退时候触发的事件
+		onBackPage: function(target, options) {
+			ko.mapping.fromJS(emptyData,viewModel.editData);
+		} 
+	});
+	
+	/**
+     * 创建一个表格，但是没有赋值dataSource数据，这是表格将没有数据
+	 */
+	var gridObj = $("#rzPrjreviewGuarBModule .rzPrjreviewGuarBList").grid({
+		dataSource:'',
+    	id: 'case-g1',
+   		keyField: 'id',
+   		parentKeyField: 'pid',
+    	multiSelect: false,
+    	showNumCol:true,
+    	height: 200,
+    	columns: col,
+    	onDblClickFun:function(gridObj,rowObj,rowIndex){
+			//设置页面的输入框为不可修改
+			viewModel.editData.enableState(false);
+			//得到点击行
+    		var dbClickRow = gridObj.rowObj;
+    		//赋值
+    		ko.mapping.fromJS(dbClickRow.value, viewModel.editData);
+    		//跳转到编辑页
+        	$("#rzPrjreviewGuarBModule").layoutMDI("go", ".rzPrjreviewGuarBEdit");
+    	},
+    	onRowSelected:onChangeSelect
+    });
+	/**
+	 * 初始化分页
+	 */
+	var paginationObj = $("#rzPrjreviewGuarBModule .pagination").pagination({
+		pageSize:5,
+		styleMode:2,
+		onSelectPage:function(pageNumber, pageSize){
+			var queryData = $.extend(ko.mapping.toJS(viewModel.queryData),{pageNumber:pageNumber,pageSize:pageSize});
+			jQuery("#rzPrjreviewGuarBModule .rzPrjreviewGuarBList").gridPlugin("reLoad",queryData);
+		}
+	});
+	
+	/**
+	 * 初始化表格插件
+	 */
+	var gridPluginObj = jQuery("#rzPrjreviewGuarBModule .rzPrjreviewGuarBList").gridPlugin({
+		url: url_page,
+		gridObj:gridObj,
+		queryParam:getParams(),
+		pagination:true,//是否分页默认为否
+		paginationObj:paginationObj,//分页控件对象
+		initData:initData,//初始化时候是否加载数据(true时候加载，false时候不加载)
+		onDataSuccess:function(data){
+			
+		},
+		onDataError:function(data){
+			//当列表加载失败之后调用
+		},
+	})
+	
+	/**
+	 * form表单插件
+	 */
+	jQuery("#rzPrjreviewGuarBModule .rzPrjreviewGuarBEditForm").formPlugin({
+		url: url_add,//添加修改的地址
+		gridPlugin:gridPluginObj,//表格插件对象
+		onSaveSuccess:function(data){
+			//保存成功后退出编辑页面
+			$("#rzPrjreviewGuarBModule").layoutMDI("back");
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+			jQuery("#rzPrjreviewGuarBModule .rzPrjreviewGuarBEditList").gridPlugin("load", {});
+		},
+		onDeleteSuccess:function(data){
+			
+		}
+	})
+	
+	/**
+	 * 新增功能
+	 */			
+    jQuery("#rzPrjreviewGuarBModule .toolsbarPanel .addguarb-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为添加状态
+		viewModel.pageState(pageState.add);
+		var addData={}
+		addData.mortgageName="";
+		addData.mortgageNum="";
+		addData.mortgageQuality="";
+		addData.mortgageState="";
+		addData.currVal="";
+		addData.address="";
+		addData.prodDate="";
+		addData.situation="";
+		gridObj.addOneRow(addData);
+		gridObj.setRowSelect(0);
+    });
+	
+	//改变选中行事件
+	 function onChangeSelect(){
+		 debugger;
+		 if(viewModel.pageState()=="add"){
+			 var selectRowIndex = gridObj.getSelectRowsIndex();
+			 debugger;
+			 if(selectRowIndex[0]==0){
+				 gridObj.setEditable(true);
+			 }else{
+				 gridObj.setEditable(false);
+			 }
+		 }
+	 }
+	
+	/**
+	 * 修改功能
+	 */		    
+    jQuery("#rzPrjreviewGuarBModule .toolsbarPanel .update-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为修改状态
+		viewModel.pageState(pageState.edit);
+		gridObj.setEditable(true);
+    });
+
+	/**
+	 * 删除功能
+	 */	    
+    jQuery("#rzPrjreviewGuarBModule .toolsbarPanel .remove-btn").click(function(){
+    	//要删除的id用","隔开
+		var batchId = "";
+		//当前选中行
+		var selectRow = gridObj.getSelectRows();
+		//判断是否选中要删除的数据
+		if(selectRow.length == 0) {
+			alert("请选择您要修改的数据");
+			return;
+		}
+	
+		for(var i = 0; i < selectRow.length; i++) {
+			var row = selectRow[i];
+			if(i == 0) {
+				batchId = row["pkPrjreviewGuarB"] + batchId;
+			} else {
+				batchId = row["pkPrjreviewGuarB"] + "," + batchId;
+			}
+		}
+		//删除数据
+		jQuery("#rzPrjreviewGuarBModule .rzPrjreviewGuarBEditForm").formPlugin("remove",{batchId:batchId,url:url_del});
+    });
+    
+    /**
+	 * 行编辑保存方法
+	 */	 
+    jQuery("#rzPrjreviewGuarBModule .toolsbarPanel .save-btn").click(function(){
+    	debugger;
+    	var editArray=gridObj.dataSourceObj.options.values;
+		jQuery.ajax({
+			 type: 'post',
+			 dataType: "json",
+			 contentType:'application/json;charset=utf-8',
+			 data:JSON.stringify(editArray),
+			 url:update_batch,
+			 success: function(data){
+				 if(data.success){
+					 alert("保存成功");
+					 $("#edit_msg_out").html("保存成功").show();
+					 setTimeout(function(){
+							$("#edit_msg_out").hide();
+					 },2000);
+				 }
+			 },
+			 error:function(data){
+			 }
+		 });
+    });
+		
+		/* .done(function(data){
+		$("#edit_msg_out").html("保存成功").show();
+		setTimeout(function(){
+		$("#edit_msg_out").hide();
+		},2000);
+		}).fail(function(){
+		layer.alert("保存失败!");
+		})  */
+    
+    //保存功能
+	jQuery("#rzPrjreviewGuarBModule .rzPrjreviewGuarBEdit .save-btn").click(function(){
+		if(viewModel.pageState()=="add"){
+			ko.mapping.fromJS(emptyData,viewModel.queryData);
+		}
+		var param = {
+			formData:ko.mapping.toJS(viewModel.editData),//要提交的数据
+			queryData:ko.mapping.toJS(viewModel.queryData),//修改完毕刷新表格的参数
+			editType:viewModel.pageState()//页面的状态(add：添加，edit:编辑)
+		}
+		jQuery("#rzPrjreviewGuarBModule .rzPrjreviewGuarBEditForm").formPlugin("save",param);
+	});
+	
+	//查找功能
+	jQuery("#rzPrjreviewGuarBModule .searchToolsbar .search-btn").click(function(){
+		jQuery("#rzPrjreviewGuarBModule .rzPrjreviewGuarBList").gridPlugin("load",ko.mapping.toJS(viewModel.queryData));
+	});
+	
+	//重置查询条件功能
+	jQuery("#rzPrjreviewGuarBModule .searchToolsbar .reset-btn").click(function(){
+		ko.mapping.fromJS(emptyData,viewModel.queryData);
+	});
+	
+	//编辑页返回
+	jQuery("#rzPrjreviewGuarBModule .rzPrjreviewGuarBEdit .back-btn").click(function(){
+		$("#rzPrjreviewGuarBModule").layoutMDI("back");
+	});
+
+	ko.applyBindings(viewModel);
+	
+	{
+		buttonManager.addBtn({button:".delete-btn",permission:['0']});
+		buttonManager.addBtn({button:".addguarb-btn",permission:['0']});
+		buttonManager.permission($(document).data("approvestatus"));
+	} 
+
+});
+function RzPrjreviewGuarBView(){
+	//主键
+	this.pkPrjreviewGuarB="";
+	//担保方信息主表主键
+	this.pkPrjreviewGuar= '${pkPrjreviewGuar}';
+	//项目评审主键  
+	this.pkPrjreview="";
+	//抵质押物数量
+	this.mortgageNum="";
+	//抵质押物质量
+	this.mortgageQuality="";
+	//抵质押物状态：0 未抵押、 1 已抵押
+	this.mortgageState="";
+	//
+	this.situation="";
+	//当前估值
+	this.currVal="";
+	//所在地
+	this.address="";
+	//抵质押物名称
+	this.mortgageName="";
+	//出厂日期
+	this.prodDate="";
+	//编辑页面状态
+	this.enableState=true;
+}
+
+function getParams(selector){
+	return {pkPrjreviewGuar:'${pkPrjreviewGuar}'};
+}
+
+</script>
+	
+</body>

@@ -1,0 +1,112 @@
+<!-- search start  -->
+<div class="searchPanel padding-10">
+	<form class="form-horizontal" id="searchForm">
+		<div class="searchContent col-xs-8" data-bind="with:queryData">
+			<div class="row">
+				<div class="col-md-3 col-sm-6 label-and-input-outdiv"
+					style="width: 196px;">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-4 control-label no-padding-right">客户名称</label>
+						<div class="col-md-8 col-sm-6" style="width: 140px;">
+							<input type="text" name="pkCustomer" class="form-control header-w130-input"
+								data-bind="enable:enableState" data-imfbp-ref-bind='pkCustomer'
+								data-imfbp-ref-bind-field='userName' />
+							<div class="icon-wrap" style="top:1px">
+								<i class="glyphicon glyphicon-th-list icon" id="icon"
+									data-imfbp-ref-name='customerref' ref-input-name="pkCustomer"
+									name="pkCustomer" data-imfbp-ref-fun="customerQueryRefCallFunction"
+									data-imfbp-ref="ref"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 label-and-input-outdiv"
+					style="width: 196px;">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">项目名称</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="prjName"
+								class="form-control header-w130-input" data-bind="value:prjName">
+								
+								
+								
+								
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 label-and-input-outdiv"
+					style="width: 196px;">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">申请日期</label>
+						<div class="input-group date form_hhg_date col-md-5" data-date=""
+							data-date-format="yyyy-MM-dd" data-link-field="visitDate"
+							data-link-format="yyyy-mm-dd" style="width: 140px;">
+							<input class="form-control header-w130-input" size="16"
+								name="applydate" type="text"
+								data-bind="value:applydate,enable:enableState" value="" readonly
+								style="border-right: none !important; border-radius: 4px 0 0 4px !important;width:91px !important;">
+							<span class="input-group-addon"><span
+								class="glyphicon glyphicon-calendar"></span></span>
+						</div>
+					</div>
+				</div>
+				<!-- <div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:196px;">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">结束日期</label>
+						<div class="col-md-8 col-sm-8">
+							<input type="text" name="applydate" class="form-control"
+								data-bind="value:applydate">
+						</div>
+					</div>
+				</div> -->
+				<div class="col-md-3 col-sm-6 label-and-input-outdiv"
+					style="width: 196px;">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">业务类型</label>
+						<div class="col-md-8 col-sm-8">
+							<select name="busitype" class="form-control header-w130-input"
+								data-bind="options:busyTypeList,optionsText:function(item){return item.text;},optionsValue:function(item){return item.value},value:busitype,enable:enableState,DepartmentSelected,optionsCaption:'请选择'">
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--******更多条件放这里********-->
+			<div class="hideRule">
+				<div class="row">
+
+					<div class="col-md-3 col-sm-6 label-and-input-outdiv"
+						style="width: 196px;">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">审批状态</label>
+							<div class="col-md-8 col-sm-8">
+								<select type="text" name="approvestatus"
+									class="form-control header-w130-input"
+									data-bind="value:approvestatus">
+									<option value="">请选择</option>
+									<option value="0">自由</option>
+									<option value="1">提交</option>
+									<option value="2">审批中</option>
+									<option value="3">审批通过</option>
+									<option value="4">审批不通过</option>
+
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 展开更多的一行-->
+		<div class="searchToolsbar">
+			<div data-target=".hideRule" data-toggle="collapse" class="moreRule">
+				<span>展开更多查询条件</span> <i class="glyphicon glyphicon-triangle-bottom"></i>
+			</div>
+			<div class="search-box">
+				<button type="reset" class="btn btn-default btn-sm reset-btn">重置</button>
+				<button type="button" class="btn btn-default btn-sm search-btn">查询</button>
+			</div>
+		</div>
+	</form>
+</div>
+<!-- search end -->

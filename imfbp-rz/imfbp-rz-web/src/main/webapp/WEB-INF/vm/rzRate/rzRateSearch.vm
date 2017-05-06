@@ -1,0 +1,221 @@
+<!-- search start  -->
+<div class="searchPanel padding-10" id="searchPanel">
+	<form class="form-horizontal">
+		<div class="searchContent" data-bind="with:queryData">
+			<div class="row">
+                <div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:202px;">
+                    <div class="form-group">
+                        <label class="col-md-4 col-sm-4 control-label no-padding-right" id="first-control-label">制单人</label>
+                        <div class="col-md-8 col-sm-8" style="width:160px;">
+                            <!--<input type="text" name="billmaker" class="form-control header-w150-input" data-bind="value:billmaker">-->
+                            <input type="text" name="billmaker" class="form-control header-w150-input"
+                                   data-bind="enable:false"
+                                   data-imfbp-ref-bind="billmaker"
+                                   data-imfbp-ref-bind-field="" data-imfbp-ref-value>
+                            <div class="icon-wrap " style="right: 1px;top: 1px;height: 34px;width: 39px;">
+                                <i class="glyphicon glyphicon-th-list icon" id="icon"
+                                   data-imfbp-ref-name='userref' name="billmaker"
+                                   data-imfbp-ref-use = 'true'
+                                   data-imfbp-ref-fun="queryRefCallFunction" data-imfbp-ref="ref" style="top: 5px;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:235px;">
+					<div class="form-group">
+						<label class="col-md-4 col-sm-4 control-label no-padding-right">生效日期</label>
+						<div class="" style="width:179px;">
+							<!--<input type="text" name="startdate" class="form-control" data-bind="value:startdate">-->
+                            <div class="input-group date form_hhg_date col-md-5"
+                                 data-date="" data-date-format="yyyy-MM-dd"
+                                 data-link-field="visitDate" data-link-format="yyyy-mm-dd">
+                                <input class="form-control header-w130-input" size="16" name="startdate"
+                                       type="text" data-bind="value:startdate"
+                                       value="" readonly style="border-right:none !important;border-radius:4px 0 0 4px !important;">
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar">
+									</span>
+								</span>
+                            </div>
+						</div>
+
+					</div>
+				</div>
+                <div class="col-md-3 col-sm-6 label-and-input-outdiv" style="width:216px;">
+                    <div class="form-group">
+                        <label class="col-md-4 col-sm-4 control-label no-padding-right">审批状态</label>
+                        <div class="col-md-8 col-sm-8" style="width:160px;">
+                            <!--<input type="text" name="approvestatus" class="form-control" data-bind="value:approvestatus">-->
+                            <select name="approvestatus" class="form-control  header-w150-input"
+                                    data-bind="value:approvestatus">
+                                <option value="">请选择</option>
+                                <option value = "0">自由</option>
+                                <option value = "1">提交</option>
+                                <option value = "2">审批中</option>
+                                <option value = "3">审批通过</option>
+                                <option value = "4">审批不通过</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+			</div>
+			<!--******更多条件放这里********-->
+			<!--
+			<div class="hideRule">
+				<div class="row">
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">组织机构</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="pkOrg" class="form-control" data-bind="value:pkOrg">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">部门</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="pkDept" class="form-control" data-bind="value:pkDept">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">审批人</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="approveid" class="form-control" data-bind="value:approveid">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">审批时间</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="approvedate" class="form-control" data-bind="value:approvedate">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">审批状态(0 自由 1提交 2 审批中 3 审批通过 4 审批不通过)</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="approvestatus" class="form-control" data-bind="value:approvestatus">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">审批语</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="approvenote" class="form-control" data-bind="value:approvenote">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">录入人</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="operator" class="form-control" data-bind="value:operator">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">录入时间</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="operatordatetime" class="form-control" data-bind="value:operatordatetime">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">修改人</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="modifor" class="form-control" data-bind="value:modifor">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">修改时间</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="modifydatetime" class="form-control" data-bind="value:modifydatetime">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">流程实例ID</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="flowinstanceid" class="form-control" data-bind="value:flowinstanceid">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">ts</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="ts" class="form-control" data-bind="value:ts">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">0 未删除 1已删除</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="dr" class="form-control" data-bind="value:dr">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">def1</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="def1" class="form-control" data-bind="value:def1">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">def2</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="def2" class="form-control" data-bind="value:def2">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<div class="form-group">
+							<label class="col-md-4 col-sm-4 control-label no-padding-right">def3</label>
+							<div class="col-md-8 col-sm-8">
+								<input type="text" name="def3" class="form-control" data-bind="value:def3">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			-->
+		</div>
+		<!-- 展开更多的一行-->
+		<div class="searchToolsbar">
+			<!--
+			<div data-target=".hideRule" data-toggle="collapse" class="moreRule">
+				<span>展开更多查询条件</span>
+				<i class="glyphicon glyphicon-triangle-bottom"></i>
+			</div>
+			-->
+			<div class="search-box">
+				<button type="reset" class="btn btn-default btn-sm reset-btn">重置</button>
+				<button type="button" class="btn btn-default btn-sm search-btn">查询</button>
+			</div>
+		</div>
+	</form>
+</div>
+<!-- search end -->

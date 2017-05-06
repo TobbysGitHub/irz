@@ -1,0 +1,779 @@
+<title>rzPrjcontrChg</title>
+<body>
+<div id="rzPrjcontrChgModule" >
+	
+	<!-- list page start -->
+	<div class="listPage startPage">
+		#parse("/WEB-INF/vm/rzPrjcontrChg/rzPrjcontrChgSearch.vm")
+		#parse("/WEB-INF/vm/rzPrjcontrChg/rzPrjcontrChgList.vm")
+	</div>
+	<!-- list page end -->
+	
+	<!-- edit page end -->
+	<div class="rzPrjcontrChgEditTotal" style="display:none;">
+		#parse("/WEB-INF/vm/rzPrjcontrChg/rzPrjcontrChgEditTotal.vm")
+	</div>
+	<!-- edit page end -->
+	
+</div>
+
+
+<script>
+
+jQuery(function(){
+
+    //设置查询区域参照
+    refManager.setRefArea("#searchPanel");
+	//列表后台访问地址
+	var url_page = '$homeModule.getTarget('/rzPrjcontrChg/getRzPrjcontrChgByPage')';
+	//添加修改后台访问地址
+	var url_add = '$homeModule.getTarget('/rzPrjcontrChg/insertOrUpdate')';
+	//删除后台访问地址
+	var url_del = '$homeModule.getTarget('/rzPrjcontrChg/deleteRzPrjcontrChgByBatchId')';
+	
+	//查询对象
+	var queryData = new RzPrjcontrChgView();
+	//编辑对象
+	var editData = new RzPrjcontrChgView();
+	//空对象用来清空编辑和查询对象
+	var emptyData = new RzPrjcontrChgView();
+	
+	window.viewModel={
+		queryData:ko.mapping.fromJS(queryData),
+		editData:ko.mapping.fromJS(editData),
+		pageState:ko.observable("")
+	}
+    getBusitypeForSearch();
+    getBusitypeAtLoad();
+    /**
+     * 表头
+     */
+    var col = [{
+        field:"pkPrjcontr",
+        title:"合同主键",
+        visible : false,
+        imfbpRefType:'rzprjcontrref',
+        renderType:"imfbpRefTransform"
+    },{
+        field:"contrCode",
+        title:"合同编号"
+    },{
+        field:"contrName",
+        title:"合同名称"
+    },{
+        field:"contrYear",
+        title:"合同年份"
+    },{
+        field:"pkCustomer",
+        title:"客户名称",
+        imfbpRefType:'customerref',
+        renderType:"imfbpRefTransform"
+    },{
+        field:"contrAmt",
+        title:"合同金额(元)"
+    },{
+        field:"pricerate",
+        title:"合同租赁利率(%)"
+    },{
+        field:"prjCode",
+        title:"项目编码"
+    },{
+        field:"prjName",
+        title:"项目名称"
+    },{
+        field:"pkPricecal",
+        title:"报价单名称",
+        imfbpRefType:'pricecalref',
+        renderType:"imfbpRefTransform"
+    },{
+        field:"itemamt",
+        title:"项目金额"
+    },{
+        field:"itembal",
+        title:"项目余额"
+    },{
+        field:"busitype",
+        title:"业务类型",
+        imfbpRefType: "busytyperef",
+        renderType:"imfbpRefTransform"
+    },{
+        field:"leasetype",
+        title:"租赁物类型",
+        renderType: function (obj) {
+            var html = "<span>"
+            //获取状态：通过状态判断更改相应代码0 有形动产、1 不动产
+            var state = obj.row.value.leasetype;
+            if (0 == state ) {
+                html += "有形动产";
+            } else{
+                html += "不动产";
+            }
+            html += "</span>";
+            var innerDom = u.makeDOM(html);
+            obj.element.appendChild(innerDom);
+        }
+    },{
+        field:"pkCurrency",
+        title:"币种",
+        imfbpRefType: "currencyref",
+        renderType:"imfbpRefTransform"
+    },{
+        field:"startLeaseDate",
+        title:"合同起租日期"
+    },{
+        field:"endLeaseDate",
+        title:"合同结束日期"
+    },{
+        field:"planSignedDate",
+        title:"合同预计签订日期"
+    },{
+        field:"contrStatus",
+        title:"合同状态",
+        renderType: function (obj) {
+            var html = "<span>"
+            //获取状态：通过状态判断更改相应代码0 已生成、1 已生效、2 起租、3 已结清、4 已作废
+            var state = obj.row.value.contrStatus;
+            if (0 == state ) {
+                html += "已生成";
+            } else if(1 == state){
+                html += "已生效";
+            }else if(2 == state){
+                html += "起租";
+            }else if(3 == state){
+                html += "已结清";
+            }else{
+                html += "已作废";
+            }
+            html += "</span>";
+            var innerDom = u.makeDOM(html);
+            obj.element.appendChild(innerDom);
+        }
+    },{
+        field:"approvestatus",
+        title:"单据状态",
+        renderType: function (obj) {
+            var html = "<span>"
+            //获取状态：通过状态判断更改相应代码0 自由、1 提交、2 审批中、3 审批通过、4 审批不通过
+            var state = obj.row.value.approvestatus;
+            if (0 == state ) {
+                html += "自由";
+            } else if(1 == state){
+                html += "提交";
+            }else if(2 == state){
+                html += "审批中";
+            }else if(3 == state){
+                html += "审批通过";
+            }else{
+                html += "审批不通过";
+            }
+            html += "</span>";
+            var innerDom = u.makeDOM(html);
+            obj.element.appendChild(innerDom);
+        }
+    },{
+        field:"prjSrc",
+        title:"项目来源",
+        renderType:function(obj){
+            var prjSrc = obj.row.value.prjSrc;
+            var html = "";
+            if (prjSrc == 0|| prjSrc == "0") {
+                html += "<span><span >自行开发</span></span>";
+            }else if(prjSrc == 1|| prjSrc == "1"){
+                html += "<span><span >渠道推荐</span></span>";
+            }else if(prjSrc == 2|| prjSrc == "2"){
+                html += "<span><span >内部推荐</span></span>";
+            }else if(prjSrc == 3|| prjSrc == "3"){
+                html += "<span><span >客户推荐</span></span>";
+            }else{
+                html += "<span><span >网络推广</span></span>";
+            }
+            var innerDom = u.makeDOM(html);
+            obj.element.appendChild(innerDom);
+        }
+    },{
+        field:"pkUserManager",
+        title:"项目经理",
+        imfbpRefType:'userref',
+        renderType:"imfbpRefTransform"
+    },{
+        field:"pkDeptApply",
+        title:"申请部门",
+        imfbpRefType: "deptref",
+        renderType:"imfbpRefTransform"
+    },{
+        field:"isInsure",
+        title:"是否投保",
+        renderType: function (obj) {
+            var html = "<span>"
+            //获取状态：通过状态判断更改相应代码Y 是、N 否
+            var state = obj.row.value.isInsure;
+            if ("Y" == state ) {
+                html += "是";
+            }else{
+                html += "否";
+            }
+            html += "</span>";
+            var innerDom = u.makeDOM(html);
+            obj.element.appendChild(innerDom);
+        }
+    },{
+        field:"isGuar",
+        title:"是否有担保",
+        renderType: function (obj) {
+            var html = "<span>"
+            //获取状态：通过状态判断更改相应代码Y 是、N 否
+            var state = obj.row.value.isGuar;
+            if ("Y" == state ) {
+                html += "是";
+            }else{
+                html += "否";
+            }
+            html += "</span>";
+            var innerDom = u.makeDOM(html);
+            obj.element.appendChild(innerDom);
+        }
+    },{
+        field:"billmaker",
+        title:"制单人",
+        visible : false,
+        imfbpRefType:'userref',
+        renderType:"imfbpRefTransform"
+    },{
+        field:"operator",
+        title:"录入人",
+        visible : false,
+        imfbpRefType:'userref',
+        renderType:"imfbpRefTransform"
+    },{
+        field:"nomPrice",
+        title:"名义货价",
+        visible : false
+    },{
+        field:"residValue",
+        title:"资产余值",
+        visible : false
+    }];
+    
+	
+	/**
+     * 初始化layoutMDI
+     */
+	$("#rzPrjcontrChgModule").layoutMDI({
+		//当页面后退时候触发的事件
+		onBackPage: function(target, options) {
+			ko.mapping.fromJS(emptyData,viewModel.editData);
+			
+			  jQuery(".tabb li").removeClass();
+		        $("#content>div").removeClass("div-active");
+		        jQuery(".tabb li").eq(0).addClass("tab-active");
+		        $("#content>div").eq(0).addClass("div-active");
+		} 
+	});
+	
+	/**
+     * 创建一个表格，但是没有赋值dataSource数据，这是表格将没有数据
+	 */
+	var gridObj = $("#rzPrjcontrChgModule .rzPrjcontrChgList").grid({
+		dataSource:'',
+    	id: 'case-g1',
+   		keyField: 'id',
+   		parentKeyField: 'pid',
+    	multiSelect: false,
+    	showNumCol:true,
+    	height: 350,
+    	columns: col,
+    	onDblClickFun:function(gridObj,rowObj,rowIndex){
+            //设置参照类型不可使用
+            $("#rzPrjcontrChgModule .rzPrjcontrChgEditForm i").attr("data-imfbp-ref-use", false);
+			//设置页面的输入框为不可修改
+			viewModel.editData.enableState(false);
+			//得到点击行
+    		var dbClickRow = gridObj.rowObj;
+    		//赋值
+    		ko.mapping.fromJS(dbClickRow.value, viewModel.editData);
+            refManager.setRefArea(".rzPrjcontrChgEditForm");
+            refManager.initAreaLoadData(".rzPrjcontrChgEditForm", function(name){
+                var fun = viewModel.editData[name];
+                if(typeof fun == 'function'){
+                    return fun();
+                }
+            });
+            getBusitype();
+    		//跳转到编辑页
+        	$("#rzPrjcontrChgModule").layoutMDI("go", ".rzPrjcontrChgEditTotal");
+    	},
+        onRowSelected:function(obj){
+            buttonManager.permission("0");
+        }
+    });
+	
+	/**
+	 * 初始化分页
+	 */
+	var paginationObj = $("#rzPrjcontrChgModule .pagination").pagination({
+		pageSize:10,
+		styleMode:2,
+		onSelectPage:function(pageNumber, pageSize){
+			var queryData = $.extend(ko.mapping.toJS(viewModel.queryData),{pageNumber:pageNumber,pageSize:pageSize});
+			jQuery("#rzPrjcontrChgModule .rzPrjcontrChgList").gridPlugin("reLoad",queryData);
+		}
+	});
+	
+	/**
+	 * 初始化表格插件
+	 */
+	var gridPluginObj = jQuery("#rzPrjcontrChgModule .rzPrjcontrChgList").gridPlugin({
+		url: url_page,
+		gridObj:gridObj,
+		queryParam:getParams(),
+		pagination:true,//是否分页默认为否
+		paginationObj:paginationObj,//分页控件对象
+		initData:false,//初始化时候是否加载数据(true时候加载，false时候不加载)
+		onDataSuccess:function(data){
+			//当列表加载成功之后调用
+            imfbpDataTableTranform(gridObj, data.rows,function(){
+                var d = {};
+                d.values = data.rows;
+                gridObj.setDataSource(d);
+            });
+		},
+		onDataError:function(data){
+			//当列表加载失败之后调用
+		},
+	})
+	
+	/**
+	 * form表单插件
+	 */
+	jQuery("#rzPrjcontrChgModule .rzPrjcontrChgEditForm").formPlugin({
+		url: url_add,//添加修改的地址
+		gridPlugin:gridPluginObj,//表格插件对象
+		onSaveSuccess:function(data){
+			//保存成功后退出编辑页面
+			$("#rzPrjcontrChgModule").layoutMDI("back");
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+			jQuery("#rzPrjcontrChgModule .rzPrjcontrChgList").gridPlugin("load", {});
+		},
+		onDeleteSuccess:function(data){
+			
+		}
+	})
+	
+	/**
+	 * 新增功能
+	 */			
+    jQuery("#rzPrjcontrChgModule .toolsbarPanel .add-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为添加状态
+		viewModel.pageState(pageState.add);
+        var defaultData = [];
+        imfbpDataTableTranform(gridObj, defaultData, function(){
+
+        });
+		//初始化input框
+        refManager.initAreaLoadData(".rzPrjcontrChgEditForm", function(name){
+            var fun = viewModel.editData[name];
+            if(typeof fun == 'function'){
+                return fun();
+            }
+        });
+        refManager.setRefArea(".rzPrjcontrChgEditForm");
+        getBusitype();
+        $("#rzPrjcontrChgModule").layoutMDI("go", ".rzPrjcontrChgEditTotal");
+    });
+
+	/**
+	 * 修改功能
+	 */		    
+    jQuery("#rzPrjcontrChgModule .toolsbarPanel .edit-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为修改状态
+		viewModel.pageState(pageState.edit);
+    	//当前选中行
+    	var selectRow = gridObj.getSelectRows();
+    	//将数据绑定到表单上面
+    	ko.mapping.fromJS(selectRow[0], viewModel.editData);
+        refManager.initAreaLoadData(".rzPrjcontrChgEditForm", function(name){
+            var fun = viewModel.editData[name];
+            if(typeof fun == 'function'){
+                return fun();
+            }
+        });
+        refManager.setRefArea(".rzPrjcontrChgEditForm");
+        getBusitype();
+    	//跳转到编辑页面
+        $("#rzPrjcontrChgModule").layoutMDI("go", ".rzPrjcontrChgEditTotal");
+    });
+
+	/**
+	 * 删除功能
+	 */	    
+    jQuery("#rzPrjcontrChgModule .toolsbarPanel .remove-btn").click(function(){
+    	//要删除的id用","隔开
+		var batchId = "";
+		//当前选中行
+		var selectRow = gridObj.getSelectRows();
+		//判断是否选中要删除的数据
+		if(selectRow.length == 0) {
+			alert("请选择您要修改的数据");
+			return;
+		}
+	
+		for(var i = 0; i < selectRow.length; i++) {
+			var row = selectRow[i];
+			if(i == 0) {
+				batchId = row["pkPrjcontrChg"] + batchId;
+			} else {
+				batchId = row["pkPrjcontrChg"] + "," + batchId;
+			}
+		}
+		//删除数据
+		jQuery("#rzPrjcontrChgModule .rzPrjcontrChgEditForm").formPlugin("remove",{batchId:batchId,url:url_del});
+    });
+    
+    /**
+	 * 刷新功能(只是刷新当前页，如果要刷新所有页面使用 load 方法)
+	 */	 
+    jQuery("#rzPrjcontrChgModule .toolsbarPanel .refresh-btn").click(function(){
+		jQuery("#rzPrjcontrChgModule .rzPrjcontrChgList").gridPlugin("reLoad",viewModel.queryData);
+    });
+    
+    //保存功能
+	jQuery("#rzPrjcontrChgModule .rzPrjcontrChgEditTotal .save-btn").click(function(){
+		if(viewModel.pageState()=="add"){
+			ko.mapping.fromJS(emptyData,viewModel.queryData);
+		}
+		var param = {
+			formData:ko.mapping.toJS(viewModel.editData),//要提交的数据
+			queryData:ko.mapping.toJS(viewModel.queryData),//修改完毕刷新表格的参数
+			editType:viewModel.pageState()//页面的状态(add：添加，edit:编辑)
+		}
+		jQuery("#rzPrjcontrChgModule .rzPrjcontrChgEditForm").formPlugin("save",param);
+	});
+	
+	//查找功能
+	jQuery("#rzPrjcontrChgModule .searchToolsbar .search-btn").click(function(){
+		jQuery("#rzPrjcontrChgModule .rzPrjcontrChgList").gridPlugin("load",ko.mapping.toJS(viewModel.queryData));
+	});
+	
+	//重置查询条件功能
+	jQuery("#rzPrjcontrChgModule .searchToolsbar .reset-btn").click(function(){
+		ko.mapping.fromJS(emptyData,viewModel.queryData);
+	});
+	
+	//编辑页返回
+	jQuery("#rzPrjcontrChgModule .rzPrjcontrChgEditTotal .back-btn").click(function(){
+		$("#rzPrjcontrChgModule").layoutMDI("back");
+	});
+
+	ko.applyBindings(viewModel);
+
+});
+
+$('.form_hhg_date').datetimepicker({
+    language: 'cn',
+    weekStart: 1,
+    todayBtn:  1,
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 2,
+    minView: 2,
+    forceParse: 0,
+    autoclose: true,
+    todayHighlight: true
+});
+
+
+function getBusitype(){
+    viewModel.editData.busyTypeList($(document).data("busyTypeList"));
+}
+//查询业务类型
+function getBusitypeAtLoad(){
+    $.getJSON("$homeModule.getTarget('/rzPricecal/getAllBusyType')").done(function(data){
+        //缓存币种信息
+        $(document).data("busyTypeList",data.map.busyTypeList);
+        return viewModel.editData.busyTypeList(data.map.busyTypeList);
+    }).fail(function(data){layer.alert("获取业务类型失败");});
+};
+
+//查询区域业务类型
+function getBusitypeForSearch(){
+    $.getJSON("$homeModule.getTarget('/rzPricecal/getAllBusyType')").done(function(data){
+        return viewModel.queryData.busyTypeList(data.map.busyTypeList);
+    }).fail(function(data){layer.alert("获取业务类型失败");});
+};
+//查询区域参照回调函数
+function queryRefCallFunction(eleObj, data, name, id) {
+    var fun = viewModel.queryData[name];
+    if(typeof fun == 'function'){
+        fun(data[id]);
+    }
+//    ko.mapping.fromJS(data,viewModel.editData);
+}
+//合同参照回调函数
+function pkPrjcontrRefCallFunction(eleObj, data, name, id) {
+//    var fun = viewModel.editData[name];
+//    if(typeof fun == 'function'){
+//        fun(data[id]);
+//    }
+    debugger;
+    ko.mapping.fromJS(data,viewModel.editData);
+}
+//项目经理参照回调函数
+function pkUserManagerRefCallFunction(eleObj, data, name, id) {
+    var fun = viewModel.editData[name];
+    if(typeof fun == 'function'){
+        fun(data[id]);
+    }
+    //设置申请部门
+    viewModel.editData.pkDeptApply(data.fkDeptId);
+//    ko.mapping.fromJS(data,viewModel.editData);
+}
+function outerRefCallFunction(eleObj, data, name, id) {
+    var fun = viewModel.editData[name];
+    if(typeof fun == 'function'){
+        fun(data[id]);
+    }
+//    ko.mapping.fromJS(data,viewModel.editData);
+}
+
+function rcmdRefCallFunction(eleObj, data, name, id) {
+//    var fun = viewModel.editData[name];
+//    if(typeof fun == 'function'){
+//        fun(data[id]);
+//    }
+//    ko.mapping.fromJS(data,viewModel.editData);
+    viewModel.editData.pkCustomerRcmd(data[id]);
+    viewModel.editData.rcmdName(data.enterpriseName)
+    viewModel.editData.rcmdOrgLawPerson(data.enterpriseLegalPerson);
+    viewModel.editData.rcmdOrgCodeCertificate(data.enterprisePersonIdentificationNo);
+    viewModel.editData.rcmdOrgAddress(data.enterpriseAddr);
+    viewModel.editData.rcmdOrgZipCode(data.enterprisePostcode);
+    viewModel.editData.rcmdOrgUrgencyName(data.enterpriseContacts);
+    viewModel.editData.rcmdOrgUrgencyTel(data.enterpriseTelphone);
+    viewModel.editData.rcmdOrgUrgencyFax(data.enterpriseFax);
+    viewModel.editData.rcmdOrgUrgencyPhone(data.enterpriseMobilephone);
+    viewModel.editData.rcmdOrgUrgencyEmail(data.enterpriseMail);
+}
+
+function RzPrjcontrChgView(){
+	//主键
+	this.pkPrjcontrChg="";
+	//项目合同主键
+	this.pkPrjcontr="";
+	//项目评审主键
+	this.pkPrjreview="";
+	//项目申请主键
+	this.pkPrjapply="";
+	//项目编号
+	this.prjCode="";
+	//项目名称
+	this.prjName="";
+	//客户名称外键
+	this.pkCustomer="";
+	//报价方案(报价测算主键)
+	this.pkPricecal="";
+	//参照数据字典
+	this.busitype="";
+	//租赁方式 0 直租、1 售后回租、2 其他
+	this.leaseway="";
+	//租赁物类型 ： 0 有形动产、1 不动产
+	this.leasetype="";
+	//项目来源，数据字典
+	this.prjSrc="";
+	//项目经理
+	this.pkUserManager="";
+	//申请部门
+	this.pkDeptApply="";
+	//项目金额(元)
+	this.itemamt="";
+	//项目余额(元)
+	this.itembal="";
+	//是否投保 ：Y 是 N否
+	this.isInsure="";
+	//是否有担保：Y 是 N否
+	this.isGuar="";
+	//合同编号
+	this.contrCode="";
+	//合同名称
+	this.contrName="";
+	//合同年份
+	this.contrYear="";
+	//合同金额(元)
+	this.contrAmt="";
+	//合同启租日期
+	this.startLeaseDate="";
+	//合同结束日期
+	this.endLeaseDate="";
+	//合同预计签订日期
+	this.planSignedDate="";
+	//起租方式：0 投放即起租、1 先起租后投放
+	this.startLeaseway="";
+	//币种主键
+	this.pkCurrency="";
+	//合同类型：0 融资租赁合同、1 担保合同、2 买卖合同、3 抵质押合同、4 转让合同、5 租赁合同
+	this.contrType="";
+	//租金付款方式：0 现金、1 网银支付、2汇款、3承兑汇票、4支付宝
+	this.paymentmethod="";
+	//调息类型：0 不调息、1 随基准调息、2 下一收租日调息
+	this.intType="";
+	//合同签订日期
+	this.signedDate="";
+	//合同签订人
+	this.pkUserSigned="";
+	//合同签订地址
+	this.signedAddress="";
+	//合同签订描述
+	this.signedRemark="";
+	//合同状态 :0 已生成、1 已生效、2 起租、3 已结清、4 已作废
+	this.contrStatus="";
+	//是否开票 ：Y 是 N否
+	this.isInvoice="";
+	//开票类型
+	this.invoiceType="";
+	//名义货价
+	this.nomPrice="";
+	//报价单号
+	this.priceno="";
+	//资产余值
+	this.residValue="";
+	//首付款金额
+	this.firstpmtamt="";
+	//融资金额
+	this.financeamt="";
+	//0浮动 1 固定
+	this.ratetype="";
+	//基准利率(%)
+	this.baserate="";
+	//上下浮比例(%)
+	this.floatpct="";
+	//报价利率(%)
+	this.pricerate="";
+	//租赁期限(月)
+	this.leaseprd="";
+	//计划收租日
+	this.planrentdate="";
+	//还款周期(月)
+	this.reptcycle="";
+	//还款方式：0 等额租金法、1等额本息法、2平息法、3自由还款法
+	this.reptway="";
+	//租金支付方式：0 期末支付、1 期初支付
+	this.paymentway="";
+	//年化天数 360/365
+	this.yeardays="";
+	//经营性每期租金
+	this.optamt="";
+	//客户保证金金额
+	this.depositamt="";
+	//手续费收入总额（元）
+	this.feeIntotalAmt="";
+	//服务费支出总额（元）
+	this.scOuttotalAmt="";
+	//总利息（元）
+	this.intTotalAmt="";
+	//总本金（元）
+	this.prinTotalAmt="";
+	//总租金（元）
+	this.rentTotalAmt="";
+	//合同收益收益IRR(%)
+	this.irr="";
+	//本金增值税率(%)：6%、11%、17%、零税率
+	this.prinVatrate="";
+	//利息增值税率(%)：6%、11%、17%、零税率
+	this.intVatrate="";
+	//手续费税率(%)：6%、11%、17%、零税率
+	this.feetaxrate="";
+	//服务费税率(%)：6%、11%、17%、零税率
+	this.sctaxrate="";
+	//出租人主键
+	this.pkOrgLessor="";
+    this.orgName="";
+    this.orgLawPerson="";
+    this.orgCodeCertificate="";
+    this.orgAddress="";
+    this.orgZipCode="";
+    this.orgUrgencyName="";
+    this.orgUrgencyTel="";
+    this.orgUrgencyFax="";
+    this.orgUrgencyPhone="";
+    this.orgUrgencyEmail="";
+	//备注
+	this.remark="";
+	//推荐人(客户主键)
+	this.pkCustomerRcmd="";
+    this.rcmdName="";
+    this.rcmdOrgLawPerson="";
+    this.rcmdOrgCodeCertificate="";
+    this.rcmdOrgAddress="";
+    this.rcmdOrgZipCode="";
+    this.rcmdOrgUrgencyName="";
+    this.rcmdOrgUrgencyTel="";
+    this.rcmdOrgUrgencyFax="";
+    this.rcmdOrgUrgencyPhone="";
+    this.rcmdOrgUrgencyEmail="";
+	//备注(推荐)
+	this.remarkRcmd="";
+	//合同版本
+	this.contrVer="";
+	//机构外键
+	this.pkOrg="";
+	//部门外键
+	this.pkDept="";
+	//制单人
+	this.billmaker="";
+	//制单日期
+	this.billdate="";
+	//审批人
+	this.approveid="";
+	//审批时间
+	this.approvedate="";
+	//审批状态(0 自由 1提交 2 审批中 3 审批通过 4 审批不通过)
+	this.approvestatus="";
+	//审批语
+	this.approvenote="";
+	//录入人
+	this.operator="";
+	//录入时间
+	this.operatordatetime="";
+	//修改人
+	this.modifor="";
+	//修改时间
+	this.modifydatetime="";
+	//流程实例ID
+	this.flowinstanceid="";
+	//
+	this.ts="";
+	//0 未删除 1已删除
+	this.dr="";
+	//
+	this.def1="";
+	//
+	this.def2="";
+	//
+	this.def3="";
+	//
+	this.def4="";
+	//
+	this.def5="";
+	//编辑页面状态
+	this.enableState=true;
+	//客户类型
+	this.custtype="";
+
+    this.busyTypeList="";
+}
+
+function getParams(selector){
+	return {};
+}
+
+</script>
+	
+</body>

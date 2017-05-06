@@ -1,0 +1,29 @@
+<div class="padding-5">
+	<div class="toolsbarPanel">
+		<div class="btn-group" role="group">
+			<button type="button" class="btn btn-default btn-sm add-btn" style="margin-right: 10px !important;border-radius: 4px !important;">新增</button>
+			<button type="button" class="btn btn-default btn-sm delete-btn" style="margin-right: 0 !important;border-radius: 4px 0 0 4px !important;">删除</button>			
+			<button type="button" class="btn btn-default btn-sm temp-update-btn" style="margin-right: 0 !important;border-radius: 0px !important;">修改</button>
+			<button type="button" class="btn btn-default btn-sm copy-btn" style="margin-right: 0 !important;border-radius: 0px !important;">复制</button>
+			<button type="button" class="btn btn-default btn-sm refresh-btn" style="border-radius: 0 4px 4px 0 !important;">刷新</button>
+		</div>
+		<!-- <div class="btn-group more-menu">
+			<button type="button" class="btn btn-out btn-small dropdown-toggle dropdown-more-btn" data-toggle="dropdown">更多   <span class="caret"></span></button>
+			<ul class="dropdown-menu dropdown-menu-right dropdown-menu-ul" role="menu">
+				<li style="text-align:center"><button class="able-btn">启用</button></li>
+			    <li style="text-align:center"><button class="disable-btn">停用</button></li>
+			</ul>
+		</div> -->
+		<div class="btn-group more-menu">
+			<button type="button" class="btn btn-out btn-small dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+				更多   <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu dropdown-menu-right" role="menu">
+				<li><button class="able-btn">启用</button></li>
+			    <li><button class="disable-btn">停用</button></li>
+			</ul>
+		</div>
+	</div>
+	<div class="grid templateDefList"></div>
+	<ul id="pagination" class="pagination"></ul>
+</div>

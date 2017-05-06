@@ -1,0 +1,225 @@
+<style>
+	textarea {
+		display: block;
+	}
+	.btn-im {/*****重要操作按钮***********/
+	    background: #72C11C;
+	    border: 1px solid #5CA012;
+	    border-radius: 3px;
+	    width: 80px;
+	    height: 44px;
+	    line-height: 44px;
+	    text-align: center;
+	    padding: 0;
+	    margin-right: 10px;
+	    font-family: PingFangSC-Regular;
+	    font-size: 16px;
+	    color: #FFFFFF;
+    }
+    .btn-im:hover {
+	    background: #5CA012;
+	}
+	.export-btn{
+		border-radius:4px !important;
+	}
+	#first-control-label{
+		width:42px;
+	}
+	#dynamicShow input,
+	#billBaseInfo input,
+	#billBaseInfo select{
+	    width: 180px;
+        height: 32px;
+        border: 1px solid #CED0DA;
+        border-radius: 3px;
+    }
+    #dynamicShow .col-md-9{
+    	width:370px;
+    	float:left;
+   }
+   #billBaseInfo .col-md-9{
+   		width:180px;
+   }
+   #dynamicShow  .row,
+   #billBaseInfo .row{
+   	    float:left;
+   }
+   #rzRateModule{
+   		height:100vh;
+   		overflow:hidden;
+   }
+   @media (max-width: 1248px){
+   		.searchPanel .form-horizontal .searchContent{
+   			width: 80%;
+   		}
+   }
+	.steps{
+	    background: #F5F8FA;
+		text-align: center;
+	}
+	.stepsContent{
+	    padding: 10px 0px 25px;
+		margin: 0px 30px;
+		border-bottom:1px solid #E6EAEE;
+	}
+	.circleImg{
+		width: 25px;
+    	height: 25px;
+    	background: transparent url(../img/Steps.png) no-repeat scroll 0px 0px;
+    	vertical-align: middle;
+	}
+	.circleImgActive{
+		background-position: 0px -25px;
+	}
+	.step2Img{
+		background-position: -25px 0px;
+	}
+	.step2ImgActive{
+		background-position: -25px -25px;
+	}
+	.step3Img{
+		background-position: -50px 0px;
+	}
+	.step3ImgActive{
+		background-position: -50px -25px;
+	}
+	.circleCorrect{
+		background-position: -75px -25px 
+	}
+	.lineImg{
+		width: 25px;
+		height: 25px;
+		background: transparent url(../img/Steps.png) no-repeat scroll 0px -54px;
+	}
+    .steps .step{
+    	display:inline-block;
+    	height:24px;
+    	line-height:24px;
+    	margin-left: 15px;
+    }
+    .steps .stepLine{
+    	display:inline-block;
+    	border-bottom: 1px solid #CED0DA;
+    	width: 25%;
+    	vertical-align: middle;
+    	margin:20px 10px;
+    }
+    .steps .stepActive{
+    	color:#72C11C
+    }
+    .stepLineActive{
+    	border-bottom-color: #72C11C !important;
+    }
+    #templateDefModule{
+    	height: 100vh !important;
+    }
+    #rowTable{
+	    background:#fff;
+	    margin-bottom: 20px;
+    }
+    .templateTable{
+    	width:100%;
+    }
+    .templateTable th:nth-child(2){
+    	width:40%;
+    }
+    .templateTable tr,.templateTable td,.templateTable th{
+    	border: 1px solid #E6EAEE;
+    	padding:10px 5px;
+    }
+    .templateTable tr:nth-child(odd){
+    	background: #EFF3F6;
+    }
+     .templateTable tr:nth-child(even){
+    	background: #fff;
+    }
+    .brower{
+    	margin-top:20px;
+    }
+    .btn-py{/*----------中框样式----------*/
+		height:32px;
+		line-height:32px;
+		padding:0 20px;
+	}
+	.btn-big{/*----------大框样式----------*/
+		height:44px;
+		line-height:40px;
+		padding:0 15px;
+		font-size:16px;
+		margin-right:10px;
+	}
+	.btn-small{/*----------小框样式----------*/
+		height:28px;
+		line-height:28px;
+		font-size:12px;
+		padding:0 15px;
+	}
+    .btn-action{/*----------重要框样式----------*/
+		color:#ffffff!important;
+		background: #00A0E8;
+	}
+	.btn-action:hover{/*----------重要框划过样式----------*/
+		background: #1D80D3;
+		color:#ffffff!important;
+	}
+	.btn-action[disabled]{/*------------禁用框样式----------*/
+		background: #F7F7F7;
+		border: 1px solid #CCCCCC;
+		color:#CCCCCC!important;
+	}
+	.btn-action[disabled]:hover{/*------------禁用框样式----------*/
+		background: #F7F7F7 !important;
+		border: 1px solid #CCCCCC;
+		color:#CCCCCC!important;
+	}
+	.btn-group.open .dropdown-more-btn{
+		z-index: 2;
+    	box-shadow: inset 0 0px 0px #fff;
+    	border-bottom:0px;
+	}
+	.dropdown-menu-ul{
+		border-radius: 3px;
+		z-index:1;
+	    margin-right: 10px;
+	    position: absolute;
+	    margin-top: -2px;
+	    min-width: 100px;
+	}
+	.more-menu .dropdown-toggle {
+	    box-shadow: none!important;
+	    z-index: 1100!important;
+	}
+	.btn-group.open .dropdown-toggle{
+		border-bottom:0px;
+	}
+	.open .dropdown-menu-right {
+	    border-top-right-radius: 0px;
+	}
+	.more-menu .dropdown-menu {
+	    margin-right: 10px;
+	    margin-top: -1px;
+	    top: 28px;
+	    width: 100px;
+	    min-width: 100px;
+	}
+	.more-menu .dropdown-menu li {
+	    width: 98px;
+	    text-align: center;
+	}
+	.more-menu .dropdown-menu li button[disabled] {
+	    color: #CCCCCC!important;
+	    cursor:not-allowed;
+	}
+	.more-menu .dropdown-menu li button {
+	    width: 100%;
+	    outline: none;
+	    border: 0;
+	    margin-left: 0 !important;
+	    display: inline-block;
+	    background: none;
+	    color: #666666;
+	    font-size: 12px;
+	    line-height: 28px;
+	    padding: 2px 0;
+	}
+</style>

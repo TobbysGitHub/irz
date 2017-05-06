@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="rzPrjcontrGuar">
+
+	<!-- 結果集 -->
+	<resultMap id="rzPrjcontrGuarResult" type="com.imfbp.rz.domain.rzprjcontrguar.RzPrjcontrGuar">
+		<result property="pkPrjcontrGuar" column="pk_prjcontr_guar" />
+		<result property="pkPrjcontr" column="pk_prjcontr" />
+		<result property="pkCustomer" column="pk_customer" />
+		<result property="guarType" column="guar_type" />
+		<result property="guarAmt" column="guar_amt" />
+		<result property="mortgageAmt" column="mortgage_amt" />
+		<result property="pledgeAmt" column="pledge_amt" />
+		<result property="guarReson" column="guar_reson" />
+		<result property="remark" column="remark" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="rzPrjcontrGuarField">
+		pk_prjcontr_guar,pk_prjcontr,pk_customer,guar_type,guar_amt,mortgage_amt,pledge_amt,guar_reson,remark
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="condition">
+        <where>
+        	<if test="pkPrjcontrGuar != null and pkPrjcontrGuar != ''" >
+				and pk_prjcontr_guar = #{pkPrjcontrGuar}
+			</if>
+        	<if test="pkPrjcontr != null and pkPrjcontr != ''" >
+				and pk_prjcontr = #{pkPrjcontr}
+			</if>
+        	<if test="pkCustomer != null and pkCustomer != ''" >
+				and pk_customer = #{pkCustomer}
+			</if>
+        	<if test="guarType != null" >
+				and guar_type = #{guarType}
+			</if>
+        	<if test="guarAmt != null" >
+				and guar_amt = #{guarAmt}
+			</if>
+        	<if test="mortgageAmt != null" >
+				and mortgage_amt = #{mortgageAmt}
+			</if>
+        	<if test="pledgeAmt != null" >
+				and pledge_amt = #{pledgeAmt}
+			</if>
+        	<if test="guarReson != null and guarReson != ''" >
+				and guar_reson = #{guarReson}
+			</if>
+        	<if test="remark != null and remark != ''" >
+				and remark = #{remark}
+			</if>
+        </where>
+    </sql>
+    
+    <!-- 修改条件 -->
+	<sql id="updateByCondition">
+        <where>
+				<if test="parameter.pkPrjcontrGuar != null and parameter.pkPrjcontrGuar != ''" >
+					and pk_prjcontr_guar = #{parameter.pkPrjcontrGuar}
+				</if>
+				<if test="parameter.pkPrjcontr != null and parameter.pkPrjcontr != ''" >
+					and pk_prjcontr = #{parameter.pkPrjcontr}
+				</if>
+				<if test="parameter.pkCustomer != null and parameter.pkCustomer != ''" >
+					and pk_customer = #{parameter.pkCustomer}
+				</if>
+		    	<if test="parameter.guarType != null" >
+					and guar_type = #{parameter.guarType}
+				</if>
+		    	<if test="parameter.guarAmt != null" >
+					and guar_amt = #{parameter.guarAmt}
+				</if>
+		    	<if test="parameter.mortgageAmt != null" >
+					and mortgage_amt = #{parameter.mortgageAmt}
+				</if>
+		    	<if test="parameter.pledgeAmt != null" >
+					and pledge_amt = #{parameter.pledgeAmt}
+				</if>
+				<if test="parameter.guarReson != null and parameter.guarReson != ''" >
+					and guar_reson = #{parameter.guarReson}
+				</if>
+				<if test="parameter.remark != null and parameter.remark != ''" >
+					and remark = #{parameter.remark}
+				</if>
+        </where>
+    </sql>
+    
+    <!-- 新增 -->	
+	<insert id="insertRzPrjcontrGuar" parameterType="rzPrjcontrGuar">
+		insert into rz_prjcontr_guar
+			(pk_prjcontr_guar,pk_prjcontr,pk_customer,guar_type,guar_amt,mortgage_amt,pledge_amt,guar_reson,remark ) 
+		values 
+			(#{pkPrjcontrGuar,jdbcType=CHAR},#{pkPrjcontr,jdbcType=CHAR},#{pkCustomer,jdbcType=CHAR},#{guarType,jdbcType=SMALLINT},#{guarAmt,jdbcType=DECIMAL},#{mortgageAmt,jdbcType=DECIMAL},#{pledgeAmt,jdbcType=DECIMAL},#{guarReson,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR})
+    </insert>
+    
+    <!-- 批量新增 -->	
+	<insert id="insertBatchRzPrjcontrGuar" parameterType="java.util.List">
+       insert into rz_prjcontr_guar
+			(pk_prjcontr_guar,pk_prjcontr,pk_customer,guar_type,guar_amt,mortgage_amt,pledge_amt,guar_reson,remark ) 
+	   values
+	    <foreach collection="list" item="obj" index="index" separator="," >
+	    	(#{obj.pkPrjcontrGuar},#{obj.pkPrjcontr},#{obj.pkCustomer},#{obj.guarType},#{obj.guarAmt},#{obj.mortgageAmt},#{obj.pledgeAmt},#{obj.guarReson},#{obj.remark})
+	    </foreach>
+   </insert>
+    
+    
+    <!-- 根据id删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjcontrGuarById" parameterType="rzPrjcontrGuarQuery" >
+    	delete from rz_prjcontr_guar  where pk_prjcontr_guar = #{pkPrjcontrGuar} 
+    </delete>
+    
+    <!-- 根据条件删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjcontrGuarByCondition" parameterType="rzPrjcontrGuarQuery" >
+    	delete from 
+    	rz_prjcontr_guar<include refid="condition" /> 
+    </delete>
+    
+    <!-- 根据主键批量删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjcontrGuarByBatchId" parameterType="rzPrjcontrGuarQuery" >
+    	delete from rz_prjcontr_guar 
+    	where
+    	pk_prjcontr_guar in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据id修改 -->
+    <update id="updateRzPrjcontrGuarById" parameterType="rzPrjcontrGuarQuery">
+		update  rz_prjcontr_guar 
+		<set>
+			<if test="pkPrjcontr != null and pkPrjcontr != '' " >
+				pk_prjcontr = #{pkPrjcontr},
+			</if>
+			<if test="pkCustomer != null and pkCustomer != '' " >
+				pk_customer = #{pkCustomer},
+			</if>
+			<if test="guarType != null " >
+				guar_type = #{guarType},
+			</if>
+			<if test="guarAmt != null " >
+				guar_amt = #{guarAmt},
+			</if>
+			<if test="mortgageAmt != null " >
+				mortgage_amt = #{mortgageAmt},
+			</if>
+			<if test="pledgeAmt != null " >
+				pledge_amt = #{pledgeAmt},
+			</if>
+			<if test="guarReson != null and guarReson != '' " >
+				guar_reson = #{guarReson},
+			</if>
+			<if test="remark != null and remark != '' " >
+				remark = #{remark},
+			</if>
+		</set>
+		where
+			pk_prjcontr_guar = #{pkPrjcontrGuar} 
+    </update>
+    
+     <!-- 根据条件修改 -->
+    <update id="updateRzPrjcontrGuarByCondition" parameterType="map">
+		update  rz_prjcontr_guar 
+		<set>
+				<if test="record.pkPrjcontr != null and record.pkPrjcontr != ''">
+					pk_prjcontr = #{record.pkPrjcontr},
+				</if>
+				<if test="record.pkCustomer != null and record.pkCustomer != ''">
+					pk_customer = #{record.pkCustomer},
+				</if>
+		 		<if test="record.guarType != null">
+					guar_type = #{record.guarType},
+				</if>
+		 		<if test="record.guarAmt != null">
+					guar_amt = #{record.guarAmt},
+				</if>
+		 		<if test="record.mortgageAmt != null">
+					mortgage_amt = #{record.mortgageAmt},
+				</if>
+		 		<if test="record.pledgeAmt != null">
+					pledge_amt = #{record.pledgeAmt},
+				</if>
+				<if test="record.guarReson != null and record.guarReson != ''">
+					guar_reson = #{record.guarReson},
+				</if>
+				<if test="record.remark != null and record.remark != ''">
+					remark = #{record.remark},
+				</if>
+		</set>
+		<include refid="updateByCondition" />
+    </update>
+    
+    <!-- 根据主键进行批量修改 -->
+    <update id="updateRzPrjcontrGuarByBatchId"  parameterType="java.util.List">
+    	<if test="list != null">
+	     <foreach collection="list" item='obj' separator=";" >
+	     update rz_prjcontr_guar
+	     <set>
+				<if test="obj.pkPrjcontr != null and obj.pkPrjcontr != ''">
+					pk_prjcontr = #{obj.pkPrjcontr},
+				</if>
+				<if test="obj.pkCustomer != null and obj.pkCustomer != ''">
+					pk_customer = #{obj.pkCustomer},
+				</if>
+		 		<if test="obj.guarType != null">
+					guar_type = #{obj.guarType},
+				</if>
+		 		<if test="obj.guarAmt != null">
+					guar_amt = #{obj.guarAmt},
+				</if>
+		 		<if test="obj.mortgageAmt != null">
+					mortgage_amt = #{obj.mortgageAmt},
+				</if>
+		 		<if test="obj.pledgeAmt != null">
+					pledge_amt = #{obj.pledgeAmt},
+				</if>
+				<if test="obj.guarReson != null and obj.guarReson != ''">
+					guar_reson = #{obj.guarReson},
+				</if>
+				<if test="obj.remark != null and obj.remark != ''">
+					remark = #{obj.remark},
+				</if>
+			</set>
+			where
+				pk_prjcontr_guar = #{obj.pkPrjcontrGuar} 
+	     </foreach>
+     	</if>
+    </update>
+    
+    <!-- 查询所有 -->
+    <select id="getRzPrjcontrGuarAll" parameterType="rzPrjcontrGuarQuery" resultMap="rzPrjcontrGuarResult">
+		SELECT 
+		<include refid="rzPrjcontrGuarField" />  
+		from  
+		rz_prjcontr_guar<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询总数 -->
+	<select id="getRzPrjcontrGuarByPageCount" parameterType="rzPrjcontrGuarQuery" resultType="int">
+		SELECT count(*) from  rz_prjcontr_guar
+		<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getRzPrjcontrGuarByPage" parameterType="rzPrjcontrGuarQuery" resultMap="rzPrjcontrGuarResult">
+		SELECT <include refid="rzPrjcontrGuarField" /> from rz_prjcontr_guar
+		<include refid="condition" />
+		<if test="sort !=null">
+		    ORDER BY ${sort} ${order} 
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+	
+	<!-- 根据Id查询 -->
+	<select id="getRzPrjcontrGuarById" parameterType="rzPrjcontrGuarQuery" resultMap="rzPrjcontrGuarResult">
+		SELECT <include refid="rzPrjcontrGuarField" /> from  rz_prjcontr_guar  where pk_prjcontr_guar = #{pkPrjcontrGuar} 
+		 
+	</select>
+    
+</mapper>

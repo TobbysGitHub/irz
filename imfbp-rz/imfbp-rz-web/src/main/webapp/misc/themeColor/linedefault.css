@@ -1,0 +1,11 @@
+
+#header{
+	border-bottom:2px solid #09ACF8;
+}
+
+#tabs-1   #uploadImgFrom>div:nth-of-type(1){
+ 	border-top-color:#09ACF8;
+ }
+ #aside .navi>.nav>li:hover ,.tuijieHead div{
+ border-left-color:##09ACF8;
+ }

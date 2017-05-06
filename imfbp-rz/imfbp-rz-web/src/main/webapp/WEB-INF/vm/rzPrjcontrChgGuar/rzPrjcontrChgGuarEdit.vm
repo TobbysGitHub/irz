@@ -1,0 +1,139 @@
+<div class="panel panel-default">
+	<div class="panel-heading footer-saveOrCancel">
+		<button type="button" class="btn btn-default btn-sm save-btn">保存</button>
+		<button type="button" class="btn btn-default btn-sm back-btn">取消</button>
+	</div>
+	<div class="panel-body form-parent" data-bind="with:editData">
+		<form class="rzPrjcontrChgGuarEditForm form-horizontal">
+            <div class="guarBaseInfo row panel slideParent">
+                <div class="col-xs-12 panel-heading" data-toggle="collapse" data-target="#guarBaseInfo">
+                    <h5>担保方基本信息</h5><span class="glyphicon glyphicon-chevron-up"></span>
+                </div>
+                <div class="col-xs-12 panel-body collapse in" id="guarBaseInfo">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6" style="display:none;">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">主键</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="pkPrjcontrChgGuar" class="form-control" data-bind="value:pkPrjcontrChgGuar,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6" style="display:none;">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">合同变更主键</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="pkPrjcontrChg" class="form-control" data-bind="value:pkPrjcontrChg,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">担保人</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <!--<input type="text" name="pkCustomer" class="form-control" data-bind="value:pkCustomer,enable:enableState">-->
+                                    <input type="text" name="pkCustomer" class="form-control"
+                                           data-bind="enable:false"
+                                           data-imfbp-ref-bind="pkCustomer"
+                                           data-imfbp-ref-bind-field="" data-imfbp-ref-value>
+                                    <div class="icon-wrap ">
+                                        <i class="glyphicon glyphicon-th-list icon" id="icon"
+                                           data-imfbp-ref-name='customerref' name="pkCustomer"
+                                           data-imfbp-ref-use = 'true'
+                                           data-imfbp-ref-fun="guarRefCallFunction" data-imfbp-ref="ref"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">担保方式</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <!--<input type="text" name="guarType" class="form-control" data-bind="value:guarType,enable:enableState">-->
+                                    <select type="text" name="guarType" class="form-control"
+                                            data-bind="value:guarType,enable:enableState">
+                                        <option value="0">信用</option>
+                                        <option value="1">质押</option>
+                                        <option value="2">抵押</option>
+                                        <option value="3">保证</option>
+                                        <option value="4">综合担保</option>
+                                        <option value="5">其他</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">担保金额</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="guarAmt" class="form-control" data-bind="value:guarAmt,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">抵押金额</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="mortgageAmt" class="form-control" data-bind="value:mortgageAmt,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                 
+
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">质押金额</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="pledgeAmt" class="form-control" data-bind="value:pledgeAmt,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">提供担保原因</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="guarReson" class="form-control" data-bind="value:guarReson,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">是否原值</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="isOri" class="form-control" data-bind="value:isOri,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label no-padding-right">备注</label>
+                                <div class="col-md-9 col-sm-8">
+                                    <input type="text" name="remark" class="form-control" data-bind="value:remark,enable:enableState">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+			</div>
+			<div class="toolsbarPanelB" id="listButton">
+        <div class="btn-group" role="group" id="btn_B">
+            <button type="button" class="btn btn-default btn-sm add-btn" >新增</button>
+            <button type="button" class="btn btn-default btn-sm delete-btn">删除</button>
+            <button type="button" class="btn btn-default btn-sm update-btn">修改</button>
+        </div>
+    </div>
+    <div class="guarBBaseInfo row panel slideParent">
+        <div class="col-xs-12 panel-heading" data-toggle="collapse" data-target="#guarBBaseInfo">
+            <h5>担保方抵押物信息</h5><span class="glyphicon glyphicon-chevron-up"></span>
+        </div>
+        <div class="col-xs-12 panel-body collapse in" id="guarBBaseInfo">
+            <div class="grid rzPrjcontrChgGuarBEditList"></div>
+            <ul id="pagination" class="pagination" style="display:none"></ul>
+        </div>
+    </div>
+		</form>
+	</div>
+    
+</div>
+
+

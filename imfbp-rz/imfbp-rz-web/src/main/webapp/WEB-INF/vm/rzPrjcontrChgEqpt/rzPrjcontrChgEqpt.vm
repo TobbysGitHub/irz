@@ -1,0 +1,398 @@
+<title>rzPrjcontrChgEqpt</title>
+<body>
+<div id="rzPrjcontrChgEqptModule" >
+	
+	<!-- list page start -->
+	<div class="listPage startPage">
+		#parse("/WEB-INF/vm/rzPrjcontrChgEqpt/rzPrjcontrChgEqptList.vm")
+	</div>
+	<!-- list page end -->
+	
+	<!-- edit page end -->
+	<div class="rzPrjcontrChgEqptEdit" style="display:none;">
+		#parse("/WEB-INF/vm/rzPrjcontrChgEqpt/rzPrjcontrChgEqptEdit.vm")
+	</div>
+	<!-- edit page end -->
+	
+</div>
+
+
+<script>
+
+jQuery(function(){
+
+	
+	//列表后台访问地址
+	var url_page = '$homeModule.getTarget('/rzPrjcontrChgEqpt/getRzPrjcontrChgEqptByPage')';
+	//添加修改后台访问地址
+	var url_add = '$homeModule.getTarget('/rzPrjcontrChgEqpt/insertOrUpdate')';
+	//删除后台访问地址
+	var url_del = '$homeModule.getTarget('/rzPrjcontrChgEqpt/deleteRzPrjcontrChgEqptByBatchId')';
+	
+	//查询对象
+	var queryData = new RzPrjcontrChgEqptView();
+	//编辑对象
+	var editData = new RzPrjcontrChgEqptView();
+	//空对象用来清空编辑和查询对象
+	var emptyData = new RzPrjcontrChgEqptView();
+	
+	window.viewModel={
+		queryData:ko.mapping.fromJS(queryData),
+		editData:ko.mapping.fromJS(editData),
+		pageState:ko.observable("")
+	}
+	
+	/**
+	 * 表头
+	 */
+	var col = [{  
+		field:"pkPrjcontrChgEqpt",
+		title:"主键",
+        visible : false
+	},{
+		field:"pkPrjcontrChg",
+		title:"立项申请主键",
+        visible : false
+	},{
+		field:"pkCustomer",
+		title:"供应商",
+        imfbpRefType:'customerref',
+        renderType:"imfbpRefTransform"
+	},{
+		field:"pkEqpt",
+		title:"租赁设备",
+        imfbpRefType:'eqptref',
+        renderType:"imfbpRefTransform"
+	},{
+		field:"eqptType",
+		title:"设备分类",
+        renderType: function (obj) {
+            var html = "<span>"
+            //获取状态：通过状态判断更改相应代码0 一般设备、1 中型设备、2 大型设备
+            var state = obj.row.value.eqptType;
+            if (0 == state ) {
+                html += "一般设备";
+            }else if(1 == state){
+                html += "中型设备";
+            }else{
+                html += "大型设备";
+            }
+            html += "</span>";
+            var innerDom = u.makeDOM(html);
+            obj.element.appendChild(innerDom);
+        }
+	},{
+		field:"eqptBrand",
+		title:"设备品牌"
+	},{
+		field:"eqptVer",
+		title:"设备型号"
+	},{
+		field:"mfgNo",
+		title:"出厂编码"
+	},{
+		field:"mfgDate",
+		title:"出厂日期"
+	},{
+		field:"eqptPrice",
+		title:"设备价格"
+	},{
+		field:"mfg",
+		title:"制造商"
+	},{
+		field:"eqptNum",
+		title:"数量"
+	},{
+		field:"eqptPriceTotal",
+		title:"设备总价(元)"
+	},{
+		field:"assessPrice",
+		title:"设备评估价值（元）"
+	},{
+		field:"deliveryDate",
+		title:"交货日期"
+	},{
+		field:"netVal",
+		title:"设备净值(元)"
+ 	}];
+    
+	
+	/**
+     * 初始化layoutMDI
+     */
+	$("#rzPrjcontrChgEqptModule").layoutMDI({
+		//当页面后退时候触发的事件
+		onBackPage: function(target, options) {
+			ko.mapping.fromJS(emptyData,viewModel.editData);
+		} 
+	});
+	
+	/**
+     * 创建一个表格，但是没有赋值dataSource数据，这是表格将没有数据
+	 */
+	var gridObj = $("#rzPrjcontrChgEqptModule .rzPrjcontrChgEqptList").grid({
+		dataSource:'',
+    	id: 'case-g1',
+   		keyField: 'id',
+   		parentKeyField: 'pid',
+    	multiSelect: true,
+    	showNumCol:true,
+    	height: 350,
+    	columns: col,
+    	onDblClickFun:function(gridObj,rowObj,rowIndex){
+			//设置页面的输入框为不可修改
+			viewModel.editData.enableState(false);
+			//得到点击行
+    		var dbClickRow = gridObj.rowObj;
+    		//赋值
+    		ko.mapping.fromJS(dbClickRow.value, viewModel.editData);
+            refManager.setRefArea(".rzPrjcontrChgEqptEditForm");
+            refManager.initAreaLoadData(".rzPrjcontrChgEqptEditForm", function(name){
+                var fun = viewModel.editData[name];
+                if(typeof fun == 'function'){
+                    return fun();
+                }
+            });
+    		//跳转到编辑页
+        	$("#rzPrjcontrChgEqptModule").layoutMDI("go", ".rzPrjcontrChgEqptEdit");
+    	}
+    });
+	
+	/**
+	 * 初始化分页
+	 */
+	var paginationObj = $("#rzPrjcontrChgEqptModule .pagination").pagination({
+		pageSize:10,
+		styleMode:2,
+		onSelectPage:function(pageNumber, pageSize){
+			var queryData = $.extend(ko.mapping.toJS(viewModel.queryData),{pageNumber:pageNumber,pageSize:pageSize});
+			jQuery("#rzPrjcontrChgEqptModule .rzPrjcontrChgEqptList").gridPlugin("reLoad",queryData);
+		}
+	});
+	
+	/**
+	 * 初始化表格插件
+	 */
+	var gridPluginObj = jQuery("#rzPrjcontrChgEqptModule .rzPrjcontrChgEqptList").gridPlugin({
+		url: url_page,
+		gridObj:gridObj,
+		queryParam:getParams(),
+		pagination:true,//是否分页默认为否
+		paginationObj:paginationObj,//分页控件对象
+		initData:true,//初始化时候是否加载数据(true时候加载，false时候不加载)
+		onDataSuccess:function(data){
+			//当列表加载成功之后调用
+            imfbpDataTableTranform(gridObj, data.rows,function(){
+                var d = {};
+                d.values = data.rows;
+                gridObj.setDataSource(d);
+            });
+		},
+		onDataError:function(data){
+			//当列表加载失败之后调用
+		},
+	})
+	
+	/**
+	 * form表单插件
+	 */
+	jQuery("#rzPrjcontrChgEqptModule .rzPrjcontrChgEqptEditForm").formPlugin({
+		url: url_add,//添加修改的地址
+		gridPlugin:gridPluginObj,//表格插件对象
+		onSaveSuccess:function(data){
+			//保存成功后退出编辑页面
+			$("#rzPrjcontrChgEqptModule").layoutMDI("back");
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+		},
+		onSaveError:function(data){
+			//保存失败回调事件
+			jQuery("#rzPrjcontrChgEqptModule .rzPrjcontrChgEqptList").gridPlugin("load", {});
+		},
+		onDeleteSuccess:function(data){
+			
+		}
+	})
+
+    //计算设备总价
+    ko.computed(function(){
+        //设备单价
+        var eqptPrice = viewModel.editData.eqptPrice();
+        //设备数量
+        var eqptNum = viewModel.editData.eqptNum();
+        if((eqptPrice != null && eqptPrice != "") && (eqptNum != null && eqptNum != "")){
+            viewModel.editData.eqptPriceTotal(parseFloat(eqptPrice) * parseFloat(eqptNum));
+        }
+    }, this);
+	
+	/**
+	 * 新增功能
+	 */			
+    jQuery("#rzPrjcontrChgEqptModule .toolsbarPanel .add-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为添加状态
+		viewModel.pageState(pageState.add);
+        refManager.initAreaLoadData(".rzPrjcontrChgEqptEditForm", function(name){
+            var fun = viewModel.editData[name];
+            if(typeof fun == 'function'){
+                return fun();
+            }
+        });
+        refManager.setRefArea(".rzPrjcontrChgEqptEditForm");
+        $("#rzPrjcontrChgEqptModule").layoutMDI("go", ".rzPrjcontrChgEqptEdit");
+    });
+
+	/**
+	 * 修改功能
+	 */		    
+    jQuery("#rzPrjcontrChgEqptModule .toolsbarPanel .update-btn").click(function(){
+    	//设置页面的输入框可以输入
+		viewModel.editData.enableState(true);
+		//设置页面为修改状态
+		viewModel.pageState(pageState.edit);
+    	//当前选中行
+    	var selectRow = gridObj.getSelectRows();
+    	//将数据绑定到表单上面
+    	ko.mapping.fromJS(selectRow[0], viewModel.editData);
+        refManager.initAreaLoadData(".rzPrjcontrChgEqptEditForm", function(name){
+            var fun = viewModel.editData[name];
+            if(typeof fun == 'function'){
+                return fun();
+            }
+        });
+        refManager.setRefArea(".rzPrjcontrChgEqptEditForm");
+    	//跳转到编辑页面
+        $("#rzPrjcontrChgEqptModule").layoutMDI("go", ".rzPrjcontrChgEqptEdit");
+    });
+
+	/**
+	 * 删除功能
+	 */	    
+    jQuery("#rzPrjcontrChgEqptModule .toolsbarPanel .remove-btn").click(function(){
+    	//要删除的id用","隔开
+		var batchId = "";
+		//当前选中行
+		var selectRow = gridObj.getSelectRows();
+		//判断是否选中要删除的数据
+		if(selectRow.length == 0) {
+			alert("请选择您要修改的数据");
+			return;
+		}
+	
+		for(var i = 0; i < selectRow.length; i++) {
+			var row = selectRow[i];
+			if(i == 0) {
+				batchId = row["pkPrjcontrChgEqpt"] + batchId;
+			} else {
+				batchId = row["pkPrjcontrChgEqpt"] + "," + batchId;
+			}
+		}
+		//删除数据
+		jQuery("#rzPrjcontrChgEqptModule .rzPrjcontrChgEqptEditForm").formPlugin("remove",{batchId:batchId,url:url_del});
+    });
+    
+    /**
+	 * 刷新功能(只是刷新当前页，如果要刷新所有页面使用 load 方法)
+	 */	 
+    jQuery("#rzPrjcontrChgEqptModule .toolsbarPanel .refresh-btn").click(function(){
+		jQuery("#rzPrjcontrChgEqptModule .rzPrjcontrChgEqptList").gridPlugin("reLoad",viewModel.queryData);
+    });
+    
+    //保存功能
+	jQuery("#rzPrjcontrChgEqptModule .rzPrjcontrChgEqptEdit .save-btn").click(function(){
+		if(viewModel.pageState()=="add"){
+			ko.mapping.fromJS(emptyData,viewModel.queryData);
+		}
+		var param = {
+			formData:ko.mapping.toJS(viewModel.editData),//要提交的数据
+			queryData:ko.mapping.toJS(viewModel.queryData),//修改完毕刷新表格的参数
+			editType:viewModel.pageState()//页面的状态(add：添加，edit:编辑)
+		}
+		jQuery("#rzPrjcontrChgEqptModule .rzPrjcontrChgEqptEditForm").formPlugin("save",param);
+	});
+	
+	//查找功能
+	jQuery("#rzPrjcontrChgEqptModule .searchToolsbar .search-btn").click(function(){
+		jQuery("#rzPrjcontrChgEqptModule .rzPrjcontrChgEqptList").gridPlugin("load",ko.mapping.toJS(viewModel.queryData));
+	});
+	
+	//重置查询条件功能
+	jQuery("#rzPrjcontrChgEqptModule .searchToolsbar .reset-btn").click(function(){
+		ko.mapping.fromJS(emptyData,viewModel.queryData);
+	});
+	
+	//编辑页返回
+	jQuery("#rzPrjcontrChgEqptModule .rzPrjcontrChgEqptEdit .back-btn").click(function(){
+		$("#rzPrjcontrChgEqptModule").layoutMDI("back");
+	});
+
+	ko.applyBindings(viewModel);
+
+});
+
+//设备参照回调函数
+function eqptRefCallFunction(eleObj, data, name, id) {
+    debugger;
+//    var fun = viewModel.editData[name];
+//    if(typeof fun == 'function'){
+//        fun(data[id]);
+//    }
+    ko.mapping.fromJS(data,viewModel.editData);
+}
+
+//供应商参照回调函数
+function customerRefCallFunction(eleObj, data, name, id) {
+    debugger;
+    var fun = viewModel.editData[name];
+    if(typeof fun == 'function'){
+        fun(data[id]);
+    }
+	$(eleObj).attr("data-imfbp-ref-condition", data[id]);
+//    ko.mapping.fromJS(data,viewModel.editData);
+}
+function RzPrjcontrChgEqptView(){
+	//主键
+	this.pkPrjcontrChgEqpt="";
+	//合同变更主键
+	this.pkPrjcontrChg="${pkPrjcontrChg}";
+	//客户主键
+	this.pkCustomer="";
+	//租赁设备外键
+	this.pkEqpt="";
+	//参照设备分类字典档案数据
+	this.eqptType="";
+	//设备品牌
+	this.eqptBrand="";
+	//设备型号
+	this.eqptVer="";
+	//出厂编码
+	this.mfgNo="";
+	//出厂日期
+	this.mfgDate="";
+	//设备价格
+	this.eqptPrice="";
+	//制造商
+	this.mfg="";
+	//数量
+	this.eqptNum="";
+	//设备总价(元)
+	this.eqptPriceTotal="";
+	//设备评估价值（元）
+	this.assessPrice="";
+	//交货日期
+	this.deliveryDate="";
+	//设备净值(元)
+	this.netVal="";
+	//编辑页面状态
+	this.enableState=true;
+}
+
+function getParams(selector){
+	return {pkPrjcontrChg:"${pkPrjcontrChg}"};
+}
+
+</script>
+	
+</body>

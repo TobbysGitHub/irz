@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="templateRulesDef">
+
+	<!-- 結果集 -->
+	<resultMap id="templateRulesDefResult"
+		type="com.imfbp.rz.domain.templaterulesdef.TemplateRulesDef">
+		<result property="id" column="id" />
+		<result property="templateNodeId" column="template_node_id" />
+		<result property="inputItemId" column="input_item_id" />
+		<result property="itemType" column="item_type" />
+		<result property="formula" column="formula" />
+		<result property="formulaDetail" column="formula_detail" />
+		<result property="tableName" column="table_name" />
+		<result property="voName" column="vo_name" />
+		<result property="itemName" column="item_name" />
+		<result property="ts" column="ts" />
+		<result property="dr" column="dr" />
+	</resultMap>
+
+	<!-- 查询字段 -->
+	<sql id="templateRulesDefField">
+		id,template_node_id,input_item_id,item_type,formula,formula_detail,table_name,vo_name,item_name,ts,dr
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="condition">
+		<where>
+			ifnull(dr,0) = 0
+			<if test="id != null and id != ''">
+				and id = #{id}
+			</if>
+			<if test="templateNodeId != null and templateNodeId != ''">
+				and
+				template_node_id = #{templateNodeId}
+			</if>
+			<if test="inputItemId != null and inputItemId != ''">
+				and
+				input_item_id = #{inputItemId}
+			</if>
+			<if test="itemType != null and itemType != ''">
+				and item_type =
+				#{itemType}
+			</if>
+			<if test="formula != null and formula != ''">
+				and formula =
+				#{formula}
+			</if>
+			<if test="formulaDetail != null and formulaDetail != ''">
+				and
+				formula_detail = #{formulaDetail}
+			</if>
+			<if test="tableName != null and tableName != ''">
+				and table_name =
+				#{tableName}
+			</if>
+			<if test="voName != null and voName != ''">
+				and vo_name = #{voName}
+			</if>
+			<if test="itemName != null and itemName != ''">
+				and item_name =
+				#{itemName}
+			</if>
+			<if test="ts != null and ts != ''">
+				and ts = #{ts}
+			</if>
+			<if test="dr != null and dr != ''">
+				and dr = #{dr}
+			</if>
+		</where>
+	</sql>
+
+	<!-- 修改条件 -->
+	<sql id="updateByCondition">
+		<where>
+			ifnull(dr,0) = 0
+			<if test="parameter.id != null and parameter.id != ''">
+				and id = #{parameter.id}
+			</if>
+			<if
+				test="parameter.templateNodeId != null and parameter.templateNodeId != ''">
+				and template_node_id = #{parameter.templateNodeId}
+			</if>
+			<if test="parameter.inputItemId != null and parameter.inputItemId != ''">
+				and input_item_id = #{parameter.inputItemId}
+			</if>
+			<if test="parameter.itemType != null and parameter.itemType != ''">
+				and item_type = #{parameter.itemType}
+			</if>
+			<if test="parameter.formula != null and parameter.formula != ''">
+				and formula = #{parameter.formula}
+			</if>
+			<if
+				test="parameter.formulaDetail != null and parameter.formulaDetail != ''">
+				and formula_detail = #{parameter.formulaDetail}
+			</if>
+			<if test="parameter.tableName != null and parameter.tableName != ''">
+				and table_name = #{parameter.tableName}
+			</if>
+			<if test="parameter.voName != null and parameter.voName != ''">
+				and vo_name = #{parameter.voName}
+			</if>
+			<if test="parameter.itemName != null and parameter.itemName != ''">
+				and item_name = #{parameter.itemName}
+			</if>
+			<if test="parameter.ts != null and parameter.ts != ''">
+				and ts = #{parameter.ts}
+			</if>
+			<if test="parameter.dr != null and parameter.dr != ''">
+				and dr = #{parameter.dr}
+			</if>
+		</where>
+	</sql>
+
+	<!-- 新增 -->
+	<insert id="insertTemplateRulesDef" parameterType="templateRulesDef">
+		insert into
+		template_rules_def
+		(id,template_node_id,input_item_id,item_type,formula,formula_detail,table_name,vo_name,item_name,ts,dr
+		)
+		values
+		(#{id,jdbcType=CHAR},#{templateNodeId,jdbcType=CHAR},#{inputItemId,jdbcType=CHAR},#{itemType,jdbcType=BIT},#{formula,jdbcType=VARCHAR},#{formulaDetail,jdbcType=VARCHAR},#{tableName,jdbcType=VARCHAR},#{voName,jdbcType=VARCHAR},#{itemName,jdbcType=VARCHAR},#{ts,jdbcType=CHAR},#{dr,jdbcType=BIT})
+	</insert>
+
+	<!-- 批量新增 -->
+	<insert id="insertBatchTemplateRulesDef" parameterType="java.util.List">
+		insert into template_rules_def
+		(id,template_node_id,input_item_id,item_type,formula,formula_detail,table_name,vo_name,item_name,ts,dr
+		)
+		values
+		<foreach collection="list" item="obj" index="index" separator=",">
+			(#{obj.id},#{obj.templateNodeId},#{obj.inputItemId},#{obj.itemType},#{obj.formula},#{obj.formulaDetail},#{obj.tableName},#{obj.voName},#{obj.itemName},#{obj.ts},#{obj.dr})
+		</foreach>
+	</insert>
+
+	<!-- 根据id进行逻辑删除 (修改数据库数据为删除状态) -->
+	<update id="logicDeleteTemplateRulesDefById" parameterType="templateRulesDefQuery">
+		update template_rules_def set dr=1 where id = #{id}
+	</update>
+
+	<!-- 根据条件进行逻辑删除 (修改数据库数据为删除状态) -->
+	<update id="logicDeleteTemplateRulesDefByCondition"
+		parameterType="templateRulesDefQuery">
+		update template_rules_def set dr=1
+		<include refid="condition" />
+	</update>
+
+	<!-- 根据条件进行逻辑删除 (修改数据库数据为删除状态) -->
+	<update id="logicDeleteTemplateRulesDefByBatchId" parameterType="map">
+		update template_rules_def set dr=1
+		where
+		id in
+		<foreach item="item" index="index" collection="batchId1" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+
+	</update>
+
+	<!-- 根据id删除 (删除数据库数据) -->
+	<delete id="deleteTemplateRulesDefById" parameterType="templateRulesDefQuery">
+		delete from template_rules_def where id = #{id}
+	</delete>
+
+	<!-- 根据条件删除 (删除数据库数据) -->
+	<delete id="deleteTemplateRulesDefByCondition" parameterType="templateRulesDefQuery">
+		delete from
+		template_rules_def
+		<include refid="condition" />
+	</delete>
+
+	<!-- 根据主键批量删除 (删除数据库数据) -->
+	<delete id="deleteTemplateRulesDefByBatchId" parameterType="templateRulesDefQuery">
+		delete from template_rules_def
+		where
+		id in
+		<foreach item="item" index="index" collection="batchId1" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+
+	</delete>
+
+	<!-- 根据id修改 -->
+	<update id="updateTemplateRulesDefById" parameterType="templateRulesDefQuery">
+		update template_rules_def
+		<set>
+			<if test="templateNodeId != null and templateNodeId != '' ">
+				template_node_id = #{templateNodeId},
+			</if>
+			<if test="inputItemId != null and inputItemId != '' ">
+				input_item_id = #{inputItemId},
+			</if>
+			<if test="itemType != null and itemType != '' ">
+				item_type =
+				#{itemType},
+			</if>
+			<if test="formula != null and formula != '' ">
+				formula =
+				#{formula},
+			</if>
+			<if test="formulaDetail != null and formulaDetail != '' ">
+				formula_detail = #{formulaDetail},
+			</if>
+			<if test="tableName != null and tableName != '' ">
+				table_name =
+				#{tableName},
+			</if>
+			<if test="voName != null and voName != '' ">
+				vo_name = #{voName},
+			</if>
+			<if test="itemName != null and itemName != '' ">
+				item_name =
+				#{itemName},
+			</if>
+			<if test="ts != null and ts != '' ">
+				ts = #{ts},
+			</if>
+			<if test="dr != null and dr != '' ">
+				dr = #{dr},
+			</if>
+		</set>
+		where
+		id = #{id}
+	</update>
+
+	<!-- 根据条件修改 -->
+	<update id="updateTemplateRulesDefByCondition" parameterType="map">
+		update template_rules_def
+		<set>
+			<if test="record.templateNodeId != null and record.templateNodeId != ''">
+				template_node_id = #{record.templateNodeId},
+			</if>
+			<if test="record.inputItemId != null and record.inputItemId != ''">
+				input_item_id = #{record.inputItemId},
+			</if>
+			<if test="record.itemType != null and record.itemType != ''">
+				item_type = #{record.itemType},
+			</if>
+			<if test="record.formula != null and record.formula != ''">
+				formula = #{record.formula},
+			</if>
+			<if test="record.formulaDetail != null and record.formulaDetail != ''">
+				formula_detail = #{record.formulaDetail},
+			</if>
+			<if test="record.tableName != null and record.tableName != ''">
+				table_name = #{record.tableName},
+			</if>
+			<if test="record.voName != null and record.voName != ''">
+				vo_name = #{record.voName},
+			</if>
+			<if test="record.itemName != null and record.itemName != ''">
+				item_name = #{record.itemName},
+			</if>
+			<if test="record.ts != null and record.ts != ''">
+				ts = #{record.ts},
+			</if>
+			<if test="record.dr != null and record.dr != ''">
+				dr = #{record.dr},
+			</if>
+		</set>
+		<include refid="updateByCondition" />
+	</update>
+
+	<!-- 根据主键进行批量修改 -->
+	<update id="updateTemplateRulesDefByBatchId" parameterType="java.util.List">
+		<if test="list != null">
+			<foreach collection="list" item='obj' separator=";">
+				update template_rules_def
+				<set>
+					<if test="obj.templateNodeId != null and obj.templateNodeId != ''">
+						template_node_id = #{obj.templateNodeId},
+					</if>
+					<if test="obj.inputItemId != null and obj.inputItemId != ''">
+						input_item_id = #{obj.inputItemId},
+					</if>
+					<if test="obj.itemType != null and obj.itemType != ''">
+						item_type = #{obj.itemType},
+					</if>
+					<if test="obj.formula != null and obj.formula != ''">
+						formula = #{obj.formula},
+					</if>
+					<if test="obj.formulaDetail != null and obj.formulaDetail != ''">
+						formula_detail = #{obj.formulaDetail},
+					</if>
+					<if test="obj.tableName != null and obj.tableName != ''">
+						table_name = #{obj.tableName},
+					</if>
+					<if test="obj.voName != null and obj.voName != ''">
+						vo_name = #{obj.voName},
+					</if>
+					<if test="obj.itemName != null and obj.itemName != ''">
+						item_name = #{obj.itemName},
+					</if>
+					<if test="obj.ts != null and obj.ts != ''">
+						ts = #{obj.ts},
+					</if>
+					<if test="obj.dr != null and obj.dr != ''">
+						dr = #{obj.dr},
+					</if>
+				</set>
+				where
+				id = #{obj.id}
+			</foreach>
+		</if>
+	</update>
+
+	<!-- 查询所有 -->
+	<select id="getTemplateRulesDefAll" parameterType="templateRulesDefQuery"
+		resultMap="templateRulesDefResult">
+		SELECT
+		<include refid="templateRulesDefField" />
+		from
+		template_rules_def
+		<include refid="condition" />
+	</select>
+
+	<!-- 分页查询总数 -->
+	<select id="getTemplateRulesDefByPageCount" parameterType="templateRulesDefQuery"
+		resultType="int">
+		SELECT count(*) from template_rules_def
+		<include refid="condition" />
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="getTemplateRulesDefByPage" parameterType="templateRulesDefQuery"
+		resultMap="templateRulesDefResult">
+		SELECT
+		<include refid="templateRulesDefField" />
+		from template_rules_def
+		<include refid="condition" />
+		<if test="sort !=null">
+			ORDER BY ${sort} ${order}
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+
+	<!-- 根据Id查询 -->
+	<select id="getTemplateRulesDefById" parameterType="templateRulesDefQuery"
+		resultMap="templateRulesDefResult">
+		SELECT
+		<include refid="templateRulesDefField" />
+		from template_rules_def where id = #{id}
+		and ifnull(dr,0) = 0
+
+	</select>
+	
+</mapper>

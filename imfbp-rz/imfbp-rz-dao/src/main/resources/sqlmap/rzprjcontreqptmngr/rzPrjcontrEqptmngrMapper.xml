@@ -1,0 +1,1037 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="rzPrjcontrEqptmngr">
+
+	<!-- 結果集 -->
+	<resultMap id="rzPrjcontrEqptmngrResult" type="com.imfbp.rz.domain.rzprjcontreqptmngr.RzPrjcontrEqptmngr">
+		<result property="pkPrjcontrEqptmngr" column="pk_prjcontr_eqptmngr" />
+		<result property="pkPrjcontr" column="pk_prjcontr" />
+		<result property="contrCode" column="contr_code" />
+		<result property="contrName" column="contr_name" />
+		<result property="pkPrjreview" column="pk_prjreview" />
+		<result property="pkPrjapply" column="pk_prjapply" />
+		<result property="prjCode" column="prj_code" />
+		<result property="prjName" column="prj_name" />
+		<result property="pkCustomer" column="pk_customer" />
+		<result property="pkCustomerSupp" column="pk_customer_supp" />
+		<result property="pkEqpt" column="pk_eqpt" />
+		<result property="mfg" column="mfg" />
+		<result property="eqptType" column="eqpt_type" />
+		<result property="eqptBrand" column="eqpt_brand" />
+		<result property="eqptVer" column="eqpt_ver" />
+		<result property="mfgNo" column="mfg_no" />
+		<result property="mfgDate" column="mfg_date" />
+		<result property="eqptPrice" column="eqpt_price" />
+		<result property="eqptNum" column="eqpt_num" />
+		<result property="eqptPriceTotal" column="eqpt_price_total" />
+		<result property="purcDate" column="purc_date" />
+		<result property="purcAddr" column="purc_addr" />
+		<result property="purcNo" column="purc_no" />
+		<result property="deliveryDate" column="delivery_date" />
+		<result property="deliveryAddr" column="delivery_addr" />
+		<result property="useAddr" column="use_addr" />
+		<result property="usedLife" column="used_life" />
+		<result property="prjapplyDate" column="prjapply_date" />
+		<result property="checker" column="checker" />
+		<result property="itembal" column="itembal" />
+		<result property="itemamt" column="itemamt" />
+		<result property="startLeaseDate" column="start_lease_date" />
+		<result property="endLeaseDate" column="end_lease_date" />
+		<result property="financeamt" column="financeamt" />
+		<result property="leaseprd" column="leaseprd" />
+		<result property="ismove" column="ismove" />
+		<result property="isliquidate" column="isliquidate" />
+		<result property="totallife" column="totallife" />
+		<result property="restlife" column="restlife" />
+		<result property="netVal" column="net_val" />
+		<result property="remark" column="remark" />
+		<result property="pkOrg" column="pk_org" />
+		<result property="pkDept" column="pk_dept" />
+		<result property="billmaker" column="billmaker" />
+		<result property="billdate" column="billdate" />
+		<result property="operator" column="operator" />
+		<result property="operatordatetime" column="operatordatetime" />
+		<result property="modifor" column="modifor" />
+		<result property="modifydatetime" column="modifydatetime" />
+		<result property="ts" column="ts" />
+		<result property="dr" column="dr" />
+		<result property="def1" column="def1" />
+		<result property="def2" column="def2" />
+		<result property="def3" column="def3" />
+		<result property="def4" column="def4" />
+		<result property="def5" column="def5" />
+	</resultMap>
+	
+	<!-- 查询字段-->
+	<sql id="rzPrjcontrEqptmngrField">
+		pk_prjcontr_eqptmngr,pk_prjcontr,contr_code,contr_name,pk_prjreview,pk_prjapply,prj_code,prj_name,pk_customer,pk_customer_supp,pk_eqpt,mfg,eqpt_type,eqpt_brand,eqpt_ver,mfg_no,mfg_date,eqpt_price,eqpt_num,eqpt_price_total,purc_date,purc_addr,purc_no,delivery_date,delivery_addr,use_addr,used_life,prjapply_date,checker,itembal,itemamt,start_lease_date,end_lease_date,financeamt,leaseprd,ismove,isliquidate,totallife,restlife,net_val,remark,pk_org,pk_dept,billmaker,billdate,operator,operatordatetime,modifor,modifydatetime,ts,dr,def1,def2,def3,def4,def5
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="condition">
+        <where>
+       	 ifnull(dr,0) = 0
+        	<if test="pkPrjcontrEqptmngr != null and pkPrjcontrEqptmngr != ''" >
+				and pk_prjcontr_eqptmngr = #{pkPrjcontrEqptmngr}
+			</if>
+        	<if test="pkPrjcontr != null and pkPrjcontr != ''" >
+				and pk_prjcontr = #{pkPrjcontr}
+			</if>
+        	<if test="contrCode != null and contrCode != ''" >
+				and contr_code = #{contrCode}
+			</if>
+        	<if test="contrName != null and contrName != ''" >
+				and contr_name = #{contrName}
+			</if>
+        	<if test="pkPrjreview != null and pkPrjreview != ''" >
+				and pk_prjreview = #{pkPrjreview}
+			</if>
+        	<if test="pkPrjapply != null and pkPrjapply != ''" >
+				and pk_prjapply = #{pkPrjapply}
+			</if>
+        	<if test="prjCode != null and prjCode != ''" >
+				and prj_code = #{prjCode}
+			</if>
+        	<if test="prjName != null and prjName != ''" >
+				and prj_name = #{prjName}
+			</if>
+        	<if test="pkCustomer != null and pkCustomer != ''" >
+				and pk_customer = #{pkCustomer}
+			</if>
+        	<if test="pkCustomerSupp != null and pkCustomerSupp != ''" >
+				and pk_customer_supp = #{pkCustomerSupp}
+			</if>
+        	<if test="pkEqpt != null and pkEqpt != ''" >
+				and pk_eqpt = #{pkEqpt}
+			</if>
+        	<if test="mfg != null and mfg != ''" >
+				and mfg = #{mfg}
+			</if>
+        	<if test="eqptType != null and eqptType != ''" >
+				and eqpt_type = #{eqptType}
+			</if>
+        	<if test="eqptBrand != null and eqptBrand != ''" >
+				and eqpt_brand = #{eqptBrand}
+			</if>
+        	<if test="eqptVer != null and eqptVer != ''" >
+				and eqpt_ver = #{eqptVer}
+			</if>
+        	<if test="mfgNo != null and mfgNo != ''" >
+				and mfg_no = #{mfgNo}
+			</if>
+        	<if test="mfgDate != null and mfgDate != ''" >
+				and mfg_date = #{mfgDate}
+			</if>
+        	<if test="eqptPrice != null" >
+				and eqpt_price = #{eqptPrice}
+			</if>
+        	<if test="eqptNum != null" >
+				and eqpt_num = #{eqptNum}
+			</if>
+        	<if test="eqptPriceTotal != null" >
+				and eqpt_price_total = #{eqptPriceTotal}
+			</if>
+        	<if test="purcDate != null and purcDate != ''" >
+				and purc_date = #{purcDate}
+			</if>
+        	<if test="purcAddr != null and purcAddr != ''" >
+				and purc_addr = #{purcAddr}
+			</if>
+        	<if test="purcNo != null and purcNo != ''" >
+				and purc_no = #{purcNo}
+			</if>
+        	<if test="deliveryDate != null and deliveryDate != ''" >
+				and delivery_date = #{deliveryDate}
+			</if>
+        	<if test="deliveryAddr != null and deliveryAddr != ''" >
+				and delivery_addr = #{deliveryAddr}
+			</if>
+        	<if test="useAddr != null and useAddr != ''" >
+				and use_addr = #{useAddr}
+			</if>
+        	<if test="usedLife != null" >
+				and used_life = #{usedLife}
+			</if>
+        	<if test="prjapplyDate != null and prjapplyDate != ''" >
+				and prjapply_date = #{prjapplyDate}
+			</if>
+        	<if test="checker != null and checker != ''" >
+				and checker = #{checker}
+			</if>
+        	<if test="itembal != null" >
+				and itembal = #{itembal}
+			</if>
+        	<if test="itemamt != null" >
+				and itemamt = #{itemamt}
+			</if>
+        	<if test="startLeaseDate != null and startLeaseDate != ''" >
+				and start_lease_date = #{startLeaseDate}
+			</if>
+        	<if test="endLeaseDate != null and endLeaseDate != ''" >
+				and end_lease_date = #{endLeaseDate}
+			</if>
+        	<if test="financeamt != null" >
+				and financeamt = #{financeamt}
+			</if>
+        	<if test="leaseprd != null" >
+				and leaseprd = #{leaseprd}
+			</if>
+        	<if test="ismove != null and ismove != ''" >
+				and ismove = #{ismove}
+			</if>
+        	<if test="isliquidate != null and isliquidate != ''" >
+				and isliquidate = #{isliquidate}
+			</if>
+        	<if test="totallife != null" >
+				and totallife = #{totallife}
+			</if>
+        	<if test="restlife != null" >
+				and restlife = #{restlife}
+			</if>
+        	<if test="netVal != null" >
+				and net_val = #{netVal}
+			</if>
+        	<if test="remark != null and remark != ''" >
+				and remark = #{remark}
+			</if>
+        	<if test="pkOrg != null and pkOrg != ''" >
+				and pk_org = #{pkOrg}
+			</if>
+        	<if test="pkDept != null and pkDept != ''" >
+				and pk_dept = #{pkDept}
+			</if>
+        	<if test="billmaker != null and billmaker != ''" >
+				and billmaker = #{billmaker}
+			</if>
+        	<if test="billdate != null and billdate != ''" >
+				and billdate = #{billdate}
+			</if>
+        	<if test="operator != null and operator != ''" >
+				and operator = #{operator}
+			</if>
+        	<if test="operatordatetime != null and operatordatetime != ''" >
+				and operatordatetime = #{operatordatetime}
+			</if>
+        	<if test="modifor != null and modifor != ''" >
+				and modifor = #{modifor}
+			</if>
+        	<if test="modifydatetime != null and modifydatetime != ''" >
+				and modifydatetime = #{modifydatetime}
+			</if>
+        	<if test="ts != null and ts != ''" >
+				and ts = #{ts}
+			</if>
+        	<if test="dr != null" >
+				and dr = #{dr}
+			</if>
+        	<if test="def1 != null and def1 != ''" >
+				and def1 = #{def1}
+			</if>
+        	<if test="def2 != null and def2 != ''" >
+				and def2 = #{def2}
+			</if>
+        	<if test="def3 != null and def3 != ''" >
+				and def3 = #{def3}
+			</if>
+        	<if test="def4 != null and def4 != ''" >
+				and def4 = #{def4}
+			</if>
+        	<if test="def5 != null and def5 != ''" >
+				and def5 = #{def5}
+			</if>
+        </where>
+    </sql>
+    
+    <!-- 修改条件 -->
+	<sql id="updateByCondition">
+        <where>
+       	 ifnull(dr,0) = 0
+				<if test="parameter.pkPrjcontrEqptmngr != null and parameter.pkPrjcontrEqptmngr != ''" >
+					and pk_prjcontr_eqptmngr = #{parameter.pkPrjcontrEqptmngr}
+				</if>
+				<if test="parameter.pkPrjcontr != null and parameter.pkPrjcontr != ''" >
+					and pk_prjcontr = #{parameter.pkPrjcontr}
+				</if>
+				<if test="parameter.contrCode != null and parameter.contrCode != ''" >
+					and contr_code = #{parameter.contrCode}
+				</if>
+				<if test="parameter.contrName != null and parameter.contrName != ''" >
+					and contr_name = #{parameter.contrName}
+				</if>
+				<if test="parameter.pkPrjreview != null and parameter.pkPrjreview != ''" >
+					and pk_prjreview = #{parameter.pkPrjreview}
+				</if>
+				<if test="parameter.pkPrjapply != null and parameter.pkPrjapply != ''" >
+					and pk_prjapply = #{parameter.pkPrjapply}
+				</if>
+				<if test="parameter.prjCode != null and parameter.prjCode != ''" >
+					and prj_code = #{parameter.prjCode}
+				</if>
+				<if test="parameter.prjName != null and parameter.prjName != ''" >
+					and prj_name = #{parameter.prjName}
+				</if>
+				<if test="parameter.pkCustomer != null and parameter.pkCustomer != ''" >
+					and pk_customer = #{parameter.pkCustomer}
+				</if>
+				<if test="parameter.pkCustomerSupp != null and parameter.pkCustomerSupp != ''" >
+					and pk_customer_supp = #{parameter.pkCustomerSupp}
+				</if>
+				<if test="parameter.pkEqpt != null and parameter.pkEqpt != ''" >
+					and pk_eqpt = #{parameter.pkEqpt}
+				</if>
+				<if test="parameter.mfg != null and parameter.mfg != ''" >
+					and mfg = #{parameter.mfg}
+				</if>
+				<if test="parameter.eqptType != null and parameter.eqptType != ''" >
+					and eqpt_type = #{parameter.eqptType}
+				</if>
+				<if test="parameter.eqptBrand != null and parameter.eqptBrand != ''" >
+					and eqpt_brand = #{parameter.eqptBrand}
+				</if>
+				<if test="parameter.eqptVer != null and parameter.eqptVer != ''" >
+					and eqpt_ver = #{parameter.eqptVer}
+				</if>
+				<if test="parameter.mfgNo != null and parameter.mfgNo != ''" >
+					and mfg_no = #{parameter.mfgNo}
+				</if>
+				<if test="parameter.mfgDate != null and parameter.mfgDate != ''" >
+					and mfg_date = #{parameter.mfgDate}
+				</if>
+		    	<if test="parameter.eqptPrice != null" >
+					and eqpt_price = #{parameter.eqptPrice}
+				</if>
+		    	<if test="parameter.eqptNum != null" >
+					and eqpt_num = #{parameter.eqptNum}
+				</if>
+		    	<if test="parameter.eqptPriceTotal != null" >
+					and eqpt_price_total = #{parameter.eqptPriceTotal}
+				</if>
+				<if test="parameter.purcDate != null and parameter.purcDate != ''" >
+					and purc_date = #{parameter.purcDate}
+				</if>
+				<if test="parameter.purcAddr != null and parameter.purcAddr != ''" >
+					and purc_addr = #{parameter.purcAddr}
+				</if>
+				<if test="parameter.purcNo != null and parameter.purcNo != ''" >
+					and purc_no = #{parameter.purcNo}
+				</if>
+				<if test="parameter.deliveryDate != null and parameter.deliveryDate != ''" >
+					and delivery_date = #{parameter.deliveryDate}
+				</if>
+				<if test="parameter.deliveryAddr != null and parameter.deliveryAddr != ''" >
+					and delivery_addr = #{parameter.deliveryAddr}
+				</if>
+				<if test="parameter.useAddr != null and parameter.useAddr != ''" >
+					and use_addr = #{parameter.useAddr}
+				</if>
+		    	<if test="parameter.usedLife != null" >
+					and used_life = #{parameter.usedLife}
+				</if>
+				<if test="parameter.prjapplyDate != null and parameter.prjapplyDate != ''" >
+					and prjapply_date = #{parameter.prjapplyDate}
+				</if>
+				<if test="parameter.checker != null and parameter.checker != ''" >
+					and checker = #{parameter.checker}
+				</if>
+		    	<if test="parameter.itembal != null" >
+					and itembal = #{parameter.itembal}
+				</if>
+		    	<if test="parameter.itemamt != null" >
+					and itemamt = #{parameter.itemamt}
+				</if>
+				<if test="parameter.startLeaseDate != null and parameter.startLeaseDate != ''" >
+					and start_lease_date = #{parameter.startLeaseDate}
+				</if>
+				<if test="parameter.endLeaseDate != null and parameter.endLeaseDate != ''" >
+					and end_lease_date = #{parameter.endLeaseDate}
+				</if>
+		    	<if test="parameter.financeamt != null" >
+					and financeamt = #{parameter.financeamt}
+				</if>
+		    	<if test="parameter.leaseprd != null" >
+					and leaseprd = #{parameter.leaseprd}
+				</if>
+				<if test="parameter.ismove != null and parameter.ismove != ''" >
+					and ismove = #{parameter.ismove}
+				</if>
+				<if test="parameter.isliquidate != null and parameter.isliquidate != ''" >
+					and isliquidate = #{parameter.isliquidate}
+				</if>
+		    	<if test="parameter.totallife != null" >
+					and totallife = #{parameter.totallife}
+				</if>
+		    	<if test="parameter.restlife != null" >
+					and restlife = #{parameter.restlife}
+				</if>
+		    	<if test="parameter.netVal != null" >
+					and net_val = #{parameter.netVal}
+				</if>
+				<if test="parameter.remark != null and parameter.remark != ''" >
+					and remark = #{parameter.remark}
+				</if>
+				<if test="parameter.pkOrg != null and parameter.pkOrg != ''" >
+					and pk_org = #{parameter.pkOrg}
+				</if>
+				<if test="parameter.pkDept != null and parameter.pkDept != ''" >
+					and pk_dept = #{parameter.pkDept}
+				</if>
+				<if test="parameter.billmaker != null and parameter.billmaker != ''" >
+					and billmaker = #{parameter.billmaker}
+				</if>
+				<if test="parameter.billdate != null and parameter.billdate != ''" >
+					and billdate = #{parameter.billdate}
+				</if>
+				<if test="parameter.operator != null and parameter.operator != ''" >
+					and operator = #{parameter.operator}
+				</if>
+				<if test="parameter.operatordatetime != null and parameter.operatordatetime != ''" >
+					and operatordatetime = #{parameter.operatordatetime}
+				</if>
+				<if test="parameter.modifor != null and parameter.modifor != ''" >
+					and modifor = #{parameter.modifor}
+				</if>
+				<if test="parameter.modifydatetime != null and parameter.modifydatetime != ''" >
+					and modifydatetime = #{parameter.modifydatetime}
+				</if>
+				<if test="parameter.ts != null and parameter.ts != ''" >
+					and ts = #{parameter.ts}
+				</if>
+		    	<if test="parameter.dr != null" >
+					and dr = #{parameter.dr}
+				</if>
+				<if test="parameter.def1 != null and parameter.def1 != ''" >
+					and def1 = #{parameter.def1}
+				</if>
+				<if test="parameter.def2 != null and parameter.def2 != ''" >
+					and def2 = #{parameter.def2}
+				</if>
+				<if test="parameter.def3 != null and parameter.def3 != ''" >
+					and def3 = #{parameter.def3}
+				</if>
+				<if test="parameter.def4 != null and parameter.def4 != ''" >
+					and def4 = #{parameter.def4}
+				</if>
+				<if test="parameter.def5 != null and parameter.def5 != ''" >
+					and def5 = #{parameter.def5}
+				</if>
+        </where>
+    </sql>
+    
+    <!-- 新增 -->	
+	<insert id="insertRzPrjcontrEqptmngr" parameterType="rzPrjcontrEqptmngr">
+		insert into rz_prjcontr_eqptmngr
+			(pk_prjcontr_eqptmngr,pk_prjcontr,contr_code,contr_name,pk_prjreview,pk_prjapply,prj_code,prj_name,pk_customer,pk_customer_supp,pk_eqpt,mfg,eqpt_type,eqpt_brand,eqpt_ver,mfg_no,mfg_date,eqpt_price,eqpt_num,eqpt_price_total,purc_date,purc_addr,purc_no,delivery_date,delivery_addr,use_addr,used_life,prjapply_date,checker,itembal,itemamt,start_lease_date,end_lease_date,financeamt,leaseprd,ismove,isliquidate,totallife,restlife,net_val,remark,pk_org,pk_dept,billmaker,billdate,operator,operatordatetime,modifor,modifydatetime,ts,dr,def1,def2,def3,def4,def5 ) 
+		values 
+			(#{pkPrjcontrEqptmngr,jdbcType=CHAR},#{pkPrjcontr,jdbcType=CHAR},#{contrCode,jdbcType=VARCHAR},#{contrName,jdbcType=VARCHAR},#{pkPrjreview,jdbcType=CHAR},#{pkPrjapply,jdbcType=CHAR},#{prjCode,jdbcType=VARCHAR},#{prjName,jdbcType=VARCHAR},#{pkCustomer,jdbcType=CHAR},#{pkCustomerSupp,jdbcType=CHAR},#{pkEqpt,jdbcType=CHAR},#{mfg,jdbcType=VARCHAR},#{eqptType,jdbcType=VARCHAR},#{eqptBrand,jdbcType=VARCHAR},#{eqptVer,jdbcType=VARCHAR},#{mfgNo,jdbcType=VARCHAR},#{mfgDate,jdbcType=CHAR},#{eqptPrice,jdbcType=DECIMAL},#{eqptNum,jdbcType=INTEGER},#{eqptPriceTotal,jdbcType=DECIMAL},#{purcDate,jdbcType=CHAR},#{purcAddr,jdbcType=VARCHAR},#{purcNo,jdbcType=VARCHAR},#{deliveryDate,jdbcType=CHAR},#{deliveryAddr,jdbcType=VARCHAR},#{useAddr,jdbcType=VARCHAR},#{usedLife,jdbcType=INTEGER},#{prjapplyDate,jdbcType=CHAR},#{checker,jdbcType=VARCHAR},#{itembal,jdbcType=DECIMAL},#{itemamt,jdbcType=DECIMAL},#{startLeaseDate,jdbcType=CHAR},#{endLeaseDate,jdbcType=CHAR},#{financeamt,jdbcType=DECIMAL},#{leaseprd,jdbcType=INTEGER},#{ismove,jdbcType=CHAR},#{isliquidate,jdbcType=CHAR},#{totallife,jdbcType=INTEGER},#{restlife,jdbcType=INTEGER},#{netVal,jdbcType=DECIMAL},#{remark,jdbcType=VARCHAR},#{pkOrg,jdbcType=CHAR},#{pkDept,jdbcType=CHAR},#{billmaker,jdbcType=CHAR},#{billdate,jdbcType=CHAR},#{operator,jdbcType=CHAR},#{operatordatetime,jdbcType=CHAR},#{modifor,jdbcType=CHAR},#{modifydatetime,jdbcType=CHAR},#{ts,jdbcType=CHAR},#{dr,jdbcType=INTEGER},#{def1,jdbcType=VARCHAR},#{def2,jdbcType=VARCHAR},#{def3,jdbcType=VARCHAR},#{def4,jdbcType=VARCHAR},#{def5,jdbcType=VARCHAR})
+    </insert>
+    
+    <!-- 批量新增 -->	
+	<insert id="insertBatchRzPrjcontrEqptmngr" parameterType="java.util.List">
+       insert into rz_prjcontr_eqptmngr
+			(pk_prjcontr_eqptmngr,pk_prjcontr,contr_code,contr_name,pk_prjreview,pk_prjapply,prj_code,prj_name,pk_customer,pk_customer_supp,pk_eqpt,mfg,eqpt_type,eqpt_brand,eqpt_ver,mfg_no,mfg_date,eqpt_price,eqpt_num,eqpt_price_total,purc_date,purc_addr,purc_no,delivery_date,delivery_addr,use_addr,used_life,prjapply_date,checker,itembal,itemamt,start_lease_date,end_lease_date,financeamt,leaseprd,ismove,isliquidate,totallife,restlife,net_val,remark,pk_org,pk_dept,billmaker,billdate,operator,operatordatetime,modifor,modifydatetime,ts,dr,def1,def2,def3,def4,def5 ) 
+	   values
+	    <foreach collection="list" item="obj" index="index" separator="," >
+	    	(#{obj.pkPrjcontrEqptmngr},#{obj.pkPrjcontr},#{obj.contrCode},#{obj.contrName},#{obj.pkPrjreview},#{obj.pkPrjapply},#{obj.prjCode},#{obj.prjName},#{obj.pkCustomer},#{obj.pkCustomerSupp},#{obj.pkEqpt},#{obj.mfg},#{obj.eqptType},#{obj.eqptBrand},#{obj.eqptVer},#{obj.mfgNo},#{obj.mfgDate},#{obj.eqptPrice},#{obj.eqptNum},#{obj.eqptPriceTotal},#{obj.purcDate},#{obj.purcAddr},#{obj.purcNo},#{obj.deliveryDate},#{obj.deliveryAddr},#{obj.useAddr},#{obj.usedLife},#{obj.prjapplyDate},#{obj.checker},#{obj.itembal},#{obj.itemamt},#{obj.startLeaseDate},#{obj.endLeaseDate},#{obj.financeamt},#{obj.leaseprd},#{obj.ismove},#{obj.isliquidate},#{obj.totallife},#{obj.restlife},#{obj.netVal},#{obj.remark},#{obj.pkOrg},#{obj.pkDept},#{obj.billmaker},#{obj.billdate},#{obj.operator},#{obj.operatordatetime},#{obj.modifor},#{obj.modifydatetime},#{obj.ts},#{obj.dr},#{obj.def1},#{obj.def2},#{obj.def3},#{obj.def4},#{obj.def5})
+	    </foreach>
+   </insert>
+    
+	<!-- 根据id进行逻辑删除 (修改数据库数据为删除状态) -->
+    <update id="logicDeleteRzPrjcontrEqptmngrById" parameterType="rzPrjcontrEqptmngrQuery" >
+    	update rz_prjcontr_eqptmngr  set dr=1 where pk_prjcontr_eqptmngr = #{pkPrjcontrEqptmngr} 
+    </update>
+    
+    <!-- 根据条件进行逻辑删除  (修改数据库数据为删除状态)-->
+    <update id="logicDeleteRzPrjcontrEqptmngrByCondition" parameterType="rzPrjcontrEqptmngrQuery" >
+    	update rz_prjcontr_eqptmngr set dr=1<include refid="condition" /> 
+    </update>
+    
+    <!-- 根据条件进行逻辑删除  (修改数据库数据为删除状态)-->
+    <update id="logicDeleteRzPrjcontrEqptmngrByBatchId" parameterType="map" >
+    	update rz_prjcontr_eqptmngr set dr=1 
+    	where 
+    	pk_prjcontr_eqptmngr in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </update>
+    
+    <!-- 根据id删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjcontrEqptmngrById" parameterType="rzPrjcontrEqptmngrQuery" >
+    	delete from rz_prjcontr_eqptmngr  where pk_prjcontr_eqptmngr = #{pkPrjcontrEqptmngr} 
+    </delete>
+    
+    <!-- 根据条件删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjcontrEqptmngrByCondition" parameterType="rzPrjcontrEqptmngrQuery" >
+    	delete from 
+    	rz_prjcontr_eqptmngr<include refid="condition" /> 
+    </delete>
+    
+    <!-- 根据主键批量删除 (删除数据库数据)-->
+    <delete id="deleteRzPrjcontrEqptmngrByBatchId" parameterType="map" >
+    	delete from rz_prjcontr_eqptmngr 
+    	where
+    	pk_prjcontr_eqptmngr in 
+    	<foreach item="item" index="index" collection="batchId1" open="(" separator="," close=")">
+    		#{item} 
+    	</foreach>
+    	
+    </delete>
+    
+    <!-- 根据id修改 -->
+    <update id="updateRzPrjcontrEqptmngrById" parameterType="rzPrjcontrEqptmngrQuery">
+		update  rz_prjcontr_eqptmngr 
+		<set>
+			<if test="pkPrjcontr != null and pkPrjcontr != '' " >
+				pk_prjcontr = #{pkPrjcontr},
+			</if>
+			<if test="contrCode != null and contrCode != '' " >
+				contr_code = #{contrCode},
+			</if>
+			<if test="contrName != null and contrName != '' " >
+				contr_name = #{contrName},
+			</if>
+			<if test="pkPrjreview != null and pkPrjreview != '' " >
+				pk_prjreview = #{pkPrjreview},
+			</if>
+			<if test="pkPrjapply != null and pkPrjapply != '' " >
+				pk_prjapply = #{pkPrjapply},
+			</if>
+			<if test="prjCode != null and prjCode != '' " >
+				prj_code = #{prjCode},
+			</if>
+			<if test="prjName != null and prjName != '' " >
+				prj_name = #{prjName},
+			</if>
+			<if test="pkCustomer != null and pkCustomer != '' " >
+				pk_customer = #{pkCustomer},
+			</if>
+			<if test="pkCustomerSupp != null and pkCustomerSupp != '' " >
+				pk_customer_supp = #{pkCustomerSupp},
+			</if>
+			<if test="pkEqpt != null and pkEqpt != '' " >
+				pk_eqpt = #{pkEqpt},
+			</if>
+			<if test="mfg != null and mfg != '' " >
+				mfg = #{mfg},
+			</if>
+			<if test="eqptType != null and eqptType != '' " >
+				eqpt_type = #{eqptType},
+			</if>
+			<if test="eqptBrand != null and eqptBrand != '' " >
+				eqpt_brand = #{eqptBrand},
+			</if>
+			<if test="eqptVer != null and eqptVer != '' " >
+				eqpt_ver = #{eqptVer},
+			</if>
+			<if test="mfgNo != null and mfgNo != '' " >
+				mfg_no = #{mfgNo},
+			</if>
+			<if test="mfgDate != null and mfgDate != '' " >
+				mfg_date = #{mfgDate},
+			</if>
+			<if test="eqptPrice != null " >
+				eqpt_price = #{eqptPrice},
+			</if>
+			<if test="eqptNum != null " >
+				eqpt_num = #{eqptNum},
+			</if>
+			<if test="eqptPriceTotal != null " >
+				eqpt_price_total = #{eqptPriceTotal},
+			</if>
+			<if test="purcDate != null and purcDate != '' " >
+				purc_date = #{purcDate},
+			</if>
+			<if test="purcAddr != null and purcAddr != '' " >
+				purc_addr = #{purcAddr},
+			</if>
+			<if test="purcNo != null and purcNo != '' " >
+				purc_no = #{purcNo},
+			</if>
+			<if test="deliveryDate != null and deliveryDate != '' " >
+				delivery_date = #{deliveryDate},
+			</if>
+			<if test="deliveryAddr != null and deliveryAddr != '' " >
+				delivery_addr = #{deliveryAddr},
+			</if>
+			<if test="useAddr != null and useAddr != '' " >
+				use_addr = #{useAddr},
+			</if>
+			<if test="usedLife != null " >
+				used_life = #{usedLife},
+			</if>
+			<if test="prjapplyDate != null and prjapplyDate != '' " >
+				prjapply_date = #{prjapplyDate},
+			</if>
+			<if test="checker != null and checker != '' " >
+				checker = #{checker},
+			</if>
+			<if test="itembal != null " >
+				itembal = #{itembal},
+			</if>
+			<if test="itemamt != null " >
+				itemamt = #{itemamt},
+			</if>
+			<if test="startLeaseDate != null and startLeaseDate != '' " >
+				start_lease_date = #{startLeaseDate},
+			</if>
+			<if test="endLeaseDate != null and endLeaseDate != '' " >
+				end_lease_date = #{endLeaseDate},
+			</if>
+			<if test="financeamt != null " >
+				financeamt = #{financeamt},
+			</if>
+			<if test="leaseprd != null " >
+				leaseprd = #{leaseprd},
+			</if>
+			<if test="ismove != null and ismove != '' " >
+				ismove = #{ismove},
+			</if>
+			<if test="isliquidate != null and isliquidate != '' " >
+				isliquidate = #{isliquidate},
+			</if>
+			<if test="totallife != null " >
+				totallife = #{totallife},
+			</if>
+			<if test="restlife != null " >
+				restlife = #{restlife},
+			</if>
+			<if test="netVal != null " >
+				net_val = #{netVal},
+			</if>
+			<if test="remark != null and remark != '' " >
+				remark = #{remark},
+			</if>
+			<if test="pkOrg != null and pkOrg != '' " >
+				pk_org = #{pkOrg},
+			</if>
+			<if test="pkDept != null and pkDept != '' " >
+				pk_dept = #{pkDept},
+			</if>
+			<if test="billmaker != null and billmaker != '' " >
+				billmaker = #{billmaker},
+			</if>
+			<if test="billdate != null and billdate != '' " >
+				billdate = #{billdate},
+			</if>
+			<if test="operator != null and operator != '' " >
+				operator = #{operator},
+			</if>
+			<if test="operatordatetime != null and operatordatetime != '' " >
+				operatordatetime = #{operatordatetime},
+			</if>
+			<if test="modifor != null and modifor != '' " >
+				modifor = #{modifor},
+			</if>
+			<if test="modifydatetime != null and modifydatetime != '' " >
+				modifydatetime = #{modifydatetime},
+			</if>
+			<if test="ts != null and ts != '' " >
+				ts = #{ts},
+			</if>
+			<if test="dr != null " >
+				dr = #{dr},
+			</if>
+			<if test="def1 != null and def1 != '' " >
+				def1 = #{def1},
+			</if>
+			<if test="def2 != null and def2 != '' " >
+				def2 = #{def2},
+			</if>
+			<if test="def3 != null and def3 != '' " >
+				def3 = #{def3},
+			</if>
+			<if test="def4 != null and def4 != '' " >
+				def4 = #{def4},
+			</if>
+			<if test="def5 != null and def5 != '' " >
+				def5 = #{def5},
+			</if>
+		</set>
+		where
+			pk_prjcontr_eqptmngr = #{pkPrjcontrEqptmngr} 
+    </update>
+    
+     <!-- 根据条件修改 -->
+    <update id="updateRzPrjcontrEqptmngrByCondition" parameterType="map">
+		update  rz_prjcontr_eqptmngr 
+		<set>
+				<if test="record.pkPrjcontr != null and record.pkPrjcontr != ''">
+					pk_prjcontr = #{record.pkPrjcontr},
+				</if>
+				<if test="record.contrCode != null and record.contrCode != ''">
+					contr_code = #{record.contrCode},
+				</if>
+				<if test="record.contrName != null and record.contrName != ''">
+					contr_name = #{record.contrName},
+				</if>
+				<if test="record.pkPrjreview != null and record.pkPrjreview != ''">
+					pk_prjreview = #{record.pkPrjreview},
+				</if>
+				<if test="record.pkPrjapply != null and record.pkPrjapply != ''">
+					pk_prjapply = #{record.pkPrjapply},
+				</if>
+				<if test="record.prjCode != null and record.prjCode != ''">
+					prj_code = #{record.prjCode},
+				</if>
+				<if test="record.prjName != null and record.prjName != ''">
+					prj_name = #{record.prjName},
+				</if>
+				<if test="record.pkCustomer != null and record.pkCustomer != ''">
+					pk_customer = #{record.pkCustomer},
+				</if>
+				<if test="record.pkCustomerSupp != null and record.pkCustomerSupp != ''">
+					pk_customer_supp = #{record.pkCustomerSupp},
+				</if>
+				<if test="record.pkEqpt != null and record.pkEqpt != ''">
+					pk_eqpt = #{record.pkEqpt},
+				</if>
+				<if test="record.mfg != null and record.mfg != ''">
+					mfg = #{record.mfg},
+				</if>
+				<if test="record.eqptType != null and record.eqptType != ''">
+					eqpt_type = #{record.eqptType},
+				</if>
+				<if test="record.eqptBrand != null and record.eqptBrand != ''">
+					eqpt_brand = #{record.eqptBrand},
+				</if>
+				<if test="record.eqptVer != null and record.eqptVer != ''">
+					eqpt_ver = #{record.eqptVer},
+				</if>
+				<if test="record.mfgNo != null and record.mfgNo != ''">
+					mfg_no = #{record.mfgNo},
+				</if>
+				<if test="record.mfgDate != null and record.mfgDate != ''">
+					mfg_date = #{record.mfgDate},
+				</if>
+		 		<if test="record.eqptPrice != null">
+					eqpt_price = #{record.eqptPrice},
+				</if>
+		 		<if test="record.eqptNum != null">
+					eqpt_num = #{record.eqptNum},
+				</if>
+		 		<if test="record.eqptPriceTotal != null">
+					eqpt_price_total = #{record.eqptPriceTotal},
+				</if>
+				<if test="record.purcDate != null and record.purcDate != ''">
+					purc_date = #{record.purcDate},
+				</if>
+				<if test="record.purcAddr != null and record.purcAddr != ''">
+					purc_addr = #{record.purcAddr},
+				</if>
+				<if test="record.purcNo != null and record.purcNo != ''">
+					purc_no = #{record.purcNo},
+				</if>
+				<if test="record.deliveryDate != null and record.deliveryDate != ''">
+					delivery_date = #{record.deliveryDate},
+				</if>
+				<if test="record.deliveryAddr != null and record.deliveryAddr != ''">
+					delivery_addr = #{record.deliveryAddr},
+				</if>
+				<if test="record.useAddr != null and record.useAddr != ''">
+					use_addr = #{record.useAddr},
+				</if>
+		 		<if test="record.usedLife != null">
+					used_life = #{record.usedLife},
+				</if>
+				<if test="record.prjapplyDate != null and record.prjapplyDate != ''">
+					prjapply_date = #{record.prjapplyDate},
+				</if>
+				<if test="record.checker != null and record.checker != ''">
+					checker = #{record.checker},
+				</if>
+		 		<if test="record.itembal != null">
+					itembal = #{record.itembal},
+				</if>
+		 		<if test="record.itemamt != null">
+					itemamt = #{record.itemamt},
+				</if>
+				<if test="record.startLeaseDate != null and record.startLeaseDate != ''">
+					start_lease_date = #{record.startLeaseDate},
+				</if>
+				<if test="record.endLeaseDate != null and record.endLeaseDate != ''">
+					end_lease_date = #{record.endLeaseDate},
+				</if>
+		 		<if test="record.financeamt != null">
+					financeamt = #{record.financeamt},
+				</if>
+		 		<if test="record.leaseprd != null">
+					leaseprd = #{record.leaseprd},
+				</if>
+				<if test="record.ismove != null and record.ismove != ''">
+					ismove = #{record.ismove},
+				</if>
+				<if test="record.isliquidate != null and record.isliquidate != ''">
+					isliquidate = #{record.isliquidate},
+				</if>
+		 		<if test="record.totallife != null">
+					totallife = #{record.totallife},
+				</if>
+		 		<if test="record.restlife != null">
+					restlife = #{record.restlife},
+				</if>
+		 		<if test="record.netVal != null">
+					net_val = #{record.netVal},
+				</if>
+				<if test="record.remark != null and record.remark != ''">
+					remark = #{record.remark},
+				</if>
+				<if test="record.pkOrg != null and record.pkOrg != ''">
+					pk_org = #{record.pkOrg},
+				</if>
+				<if test="record.pkDept != null and record.pkDept != ''">
+					pk_dept = #{record.pkDept},
+				</if>
+				<if test="record.billmaker != null and record.billmaker != ''">
+					billmaker = #{record.billmaker},
+				</if>
+				<if test="record.billdate != null and record.billdate != ''">
+					billdate = #{record.billdate},
+				</if>
+				<if test="record.operator != null and record.operator != ''">
+					operator = #{record.operator},
+				</if>
+				<if test="record.operatordatetime != null and record.operatordatetime != ''">
+					operatordatetime = #{record.operatordatetime},
+				</if>
+				<if test="record.modifor != null and record.modifor != ''">
+					modifor = #{record.modifor},
+				</if>
+				<if test="record.modifydatetime != null and record.modifydatetime != ''">
+					modifydatetime = #{record.modifydatetime},
+				</if>
+				<if test="record.ts != null and record.ts != ''">
+					ts = #{record.ts},
+				</if>
+		 		<if test="record.dr != null">
+					dr = #{record.dr},
+				</if>
+				<if test="record.def1 != null and record.def1 != ''">
+					def1 = #{record.def1},
+				</if>
+				<if test="record.def2 != null and record.def2 != ''">
+					def2 = #{record.def2},
+				</if>
+				<if test="record.def3 != null and record.def3 != ''">
+					def3 = #{record.def3},
+				</if>
+				<if test="record.def4 != null and record.def4 != ''">
+					def4 = #{record.def4},
+				</if>
+				<if test="record.def5 != null and record.def5 != ''">
+					def5 = #{record.def5},
+				</if>
+		</set>
+		<include refid="updateByCondition" />
+    </update>
+    
+    <!-- 根据主键进行批量修改 -->
+    <update id="updateRzPrjcontrEqptmngrByBatchId"  parameterType="java.util.List">
+    	<if test="list != null">
+	     <foreach collection="list" item='obj' separator=";" >
+	     update rz_prjcontr_eqptmngr
+	     <set>
+				<if test="obj.pkPrjcontr != null and obj.pkPrjcontr != ''">
+					pk_prjcontr = #{obj.pkPrjcontr},
+				</if>
+				<if test="obj.contrCode != null and obj.contrCode != ''">
+					contr_code = #{obj.contrCode},
+				</if>
+				<if test="obj.contrName != null and obj.contrName != ''">
+					contr_name = #{obj.contrName},
+				</if>
+				<if test="obj.pkPrjreview != null and obj.pkPrjreview != ''">
+					pk_prjreview = #{obj.pkPrjreview},
+				</if>
+				<if test="obj.pkPrjapply != null and obj.pkPrjapply != ''">
+					pk_prjapply = #{obj.pkPrjapply},
+				</if>
+				<if test="obj.prjCode != null and obj.prjCode != ''">
+					prj_code = #{obj.prjCode},
+				</if>
+				<if test="obj.prjName != null and obj.prjName != ''">
+					prj_name = #{obj.prjName},
+				</if>
+				<if test="obj.pkCustomer != null and obj.pkCustomer != ''">
+					pk_customer = #{obj.pkCustomer},
+				</if>
+				<if test="obj.pkCustomerSupp != null and obj.pkCustomerSupp != ''">
+					pk_customer_supp = #{obj.pkCustomerSupp},
+				</if>
+				<if test="obj.pkEqpt != null and obj.pkEqpt != ''">
+					pk_eqpt = #{obj.pkEqpt},
+				</if>
+				<if test="obj.mfg != null and obj.mfg != ''">
+					mfg = #{obj.mfg},
+				</if>
+				<if test="obj.eqptType != null and obj.eqptType != ''">
+					eqpt_type = #{obj.eqptType},
+				</if>
+				<if test="obj.eqptBrand != null and obj.eqptBrand != ''">
+					eqpt_brand = #{obj.eqptBrand},
+				</if>
+				<if test="obj.eqptVer != null and obj.eqptVer != ''">
+					eqpt_ver = #{obj.eqptVer},
+				</if>
+				<if test="obj.mfgNo != null and obj.mfgNo != ''">
+					mfg_no = #{obj.mfgNo},
+				</if>
+				<if test="obj.mfgDate != null and obj.mfgDate != ''">
+					mfg_date = #{obj.mfgDate},
+				</if>
+		 		<if test="obj.eqptPrice != null">
+					eqpt_price = #{obj.eqptPrice},
+				</if>
+		 		<if test="obj.eqptNum != null">
+					eqpt_num = #{obj.eqptNum},
+				</if>
+		 		<if test="obj.eqptPriceTotal != null">
+					eqpt_price_total = #{obj.eqptPriceTotal},
+				</if>
+				<if test="obj.purcDate != null and obj.purcDate != ''">
+					purc_date = #{obj.purcDate},
+				</if>
+				<if test="obj.purcAddr != null and obj.purcAddr != ''">
+					purc_addr = #{obj.purcAddr},
+				</if>
+				<if test="obj.purcNo != null and obj.purcNo != ''">
+					purc_no = #{obj.purcNo},
+				</if>
+				<if test="obj.deliveryDate != null and obj.deliveryDate != ''">
+					delivery_date = #{obj.deliveryDate},
+				</if>
+				<if test="obj.deliveryAddr != null and obj.deliveryAddr != ''">
+					delivery_addr = #{obj.deliveryAddr},
+				</if>
+				<if test="obj.useAddr != null and obj.useAddr != ''">
+					use_addr = #{obj.useAddr},
+				</if>
+		 		<if test="obj.usedLife != null">
+					used_life = #{obj.usedLife},
+				</if>
+				<if test="obj.prjapplyDate != null and obj.prjapplyDate != ''">
+					prjapply_date = #{obj.prjapplyDate},
+				</if>
+				<if test="obj.checker != null and obj.checker != ''">
+					checker = #{obj.checker},
+				</if>
+		 		<if test="obj.itembal != null">
+					itembal = #{obj.itembal},
+				</if>
+		 		<if test="obj.itemamt != null">
+					itemamt = #{obj.itemamt},
+				</if>
+				<if test="obj.startLeaseDate != null and obj.startLeaseDate != ''">
+					start_lease_date = #{obj.startLeaseDate},
+				</if>
+				<if test="obj.endLeaseDate != null and obj.endLeaseDate != ''">
+					end_lease_date = #{obj.endLeaseDate},
+				</if>
+		 		<if test="obj.financeamt != null">
+					financeamt = #{obj.financeamt},
+				</if>
+		 		<if test="obj.leaseprd != null">
+					leaseprd = #{obj.leaseprd},
+				</if>
+				<if test="obj.ismove != null and obj.ismove != ''">
+					ismove = #{obj.ismove},
+				</if>
+				<if test="obj.isliquidate != null and obj.isliquidate != ''">
+					isliquidate = #{obj.isliquidate},
+				</if>
+		 		<if test="obj.totallife != null">
+					totallife = #{obj.totallife},
+				</if>
+		 		<if test="obj.restlife != null">
+					restlife = #{obj.restlife},
+				</if>
+		 		<if test="obj.netVal != null">
+					net_val = #{obj.netVal},
+				</if>
+				<if test="obj.remark != null and obj.remark != ''">
+					remark = #{obj.remark},
+				</if>
+				<if test="obj.pkOrg != null and obj.pkOrg != ''">
+					pk_org = #{obj.pkOrg},
+				</if>
+				<if test="obj.pkDept != null and obj.pkDept != ''">
+					pk_dept = #{obj.pkDept},
+				</if>
+				<if test="obj.billmaker != null and obj.billmaker != ''">
+					billmaker = #{obj.billmaker},
+				</if>
+				<if test="obj.billdate != null and obj.billdate != ''">
+					billdate = #{obj.billdate},
+				</if>
+				<if test="obj.operator != null and obj.operator != ''">
+					operator = #{obj.operator},
+				</if>
+				<if test="obj.operatordatetime != null and obj.operatordatetime != ''">
+					operatordatetime = #{obj.operatordatetime},
+				</if>
+				<if test="obj.modifor != null and obj.modifor != ''">
+					modifor = #{obj.modifor},
+				</if>
+				<if test="obj.modifydatetime != null and obj.modifydatetime != ''">
+					modifydatetime = #{obj.modifydatetime},
+				</if>
+				<if test="obj.ts != null and obj.ts != ''">
+					ts = #{obj.ts},
+				</if>
+		 		<if test="obj.dr != null">
+					dr = #{obj.dr},
+				</if>
+				<if test="obj.def1 != null and obj.def1 != ''">
+					def1 = #{obj.def1},
+				</if>
+				<if test="obj.def2 != null and obj.def2 != ''">
+					def2 = #{obj.def2},
+				</if>
+				<if test="obj.def3 != null and obj.def3 != ''">
+					def3 = #{obj.def3},
+				</if>
+				<if test="obj.def4 != null and obj.def4 != ''">
+					def4 = #{obj.def4},
+				</if>
+				<if test="obj.def5 != null and obj.def5 != ''">
+					def5 = #{obj.def5},
+				</if>
+			</set>
+			where
+				pk_prjcontr_eqptmngr = #{obj.pkPrjcontrEqptmngr} 
+	     </foreach>
+     	</if>
+    </update>
+    
+    <!-- 查询所有 -->
+    <select id="getRzPrjcontrEqptmngrAll" parameterType="rzPrjcontrEqptmngrQuery" resultMap="rzPrjcontrEqptmngrResult">
+		SELECT 
+		<include refid="rzPrjcontrEqptmngrField" />  
+		from  
+		rz_prjcontr_eqptmngr<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询总数 -->
+	<select id="getRzPrjcontrEqptmngrByPageCount" parameterType="rzPrjcontrEqptmngrQuery" resultType="int">
+		SELECT count(*) from  rz_prjcontr_eqptmngr
+		<include refid="condition" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getRzPrjcontrEqptmngrByPage" parameterType="rzPrjcontrEqptmngrQuery" resultMap="rzPrjcontrEqptmngrResult">
+		SELECT <include refid="rzPrjcontrEqptmngrField" /> from rz_prjcontr_eqptmngr
+		<include refid="condition" />
+		<if test="sort !=null">
+		    ORDER BY ${sort} ${order} 
+		</if>
+		<![CDATA[LIMIT #{startRow}, #{endRow} ]]>
+	</select>
+	
+	<!-- 根据Id查询 -->
+	<select id="getRzPrjcontrEqptmngrById" parameterType="rzPrjcontrEqptmngrQuery" resultMap="rzPrjcontrEqptmngrResult">
+		SELECT <include refid="rzPrjcontrEqptmngrField" /> from  rz_prjcontr_eqptmngr  where pk_prjcontr_eqptmngr = #{pkPrjcontrEqptmngr} 
+		and ifnull(dr,0) = 0
+		 
+	</select>
+    
+</mapper>
